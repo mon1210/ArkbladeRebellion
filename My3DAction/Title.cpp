@@ -92,5 +92,9 @@ GameSceneResultCode Title::move()
 */
 void Title::draw()
 {
+	// Title
+	LoadGraphScreen(0, 0, "res\\test_title_background.png", TRUE);
+	// press space
+	LoadGraphScreen(20, 240, "res\\test_title_press_space.png", TRUE);
 
 }
