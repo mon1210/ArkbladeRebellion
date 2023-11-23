@@ -25,11 +25,16 @@ Model::~Model()
 
 
 // 
-void Model::ModelSet()
+void Model::PlayerLoadModel()
 {
-    // ‚R‚cƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-    enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel.mv1");
-    // 
-    playerHandle = MV1LoadModel("res\Player\PlayerModel.mv1");
+    // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
+    playerHandle = MV1LoadModel("res\\Player\\PlayerModel.mv1");
+}
 
+
+// 
+void Model::EnemyLoadModel()
+{
+    // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
+    enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel.mv1");
 }

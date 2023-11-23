@@ -3,9 +3,6 @@
 * @brief クラスCSelectorの宣言ファイル
 */
 #pragma once
-
-#include <d3d11.h>
-#include <DirectXMath.h>
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 // 
@@ -36,35 +33,19 @@ enum GameSceneResultCode {
 class IGameScene;	// シーン管理クラス
 class Player;
 class Model;
-struct ID3D11Device;
-struct ID3D11DeviceContext;
-//struct ID2D1RenderTarget;
-struct IDWriteTextFormat;
-//struct ID2D1SolidColorBrush;
 
 class Selector
 {
 public:
-	Selector(ID3D11RenderTargetView* pRenderTargetView);
+	Selector();
 	virtual ~Selector(void);
 	void doAnim();		//	ゲーム全体のアニメート
-	void doDraw(ID3D11RenderTargetView* pRenderTargetView, ID2D1RenderTarget* pRenderTarget);	//	ゲーム全体の描画
-	ID3D11RenderTargetView* GetRenderTarget();
-	ID2D1RenderTarget* GetRenderTarget2D();
-	IDWriteTextFormat* GetTextFormat();
+	void doDraw();	//	ゲーム全体の描画
 protected:
-	ID3D11Device* Device;
-	ID3D11DeviceContext* Context;
-	ID3D11RenderTargetView* RenderTargetView;
-	ID2D1RenderTarget* RenderTarge;
-	IDWriteTextFormat* TextFormat;
-	//ID2D1SolidColorBrush* WhiteBrush;
 
 	Player* pPlayer;
-
 	IGameScene* pScene;		//	シーン
 	eGamePhase eGamePhase;	//	状態変数
-
 	//INT m_iWait;
 	INT		count;	//	カウンター(デバッグ用)
 };

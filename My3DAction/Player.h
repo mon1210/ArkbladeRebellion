@@ -20,7 +20,7 @@ public:
 	Player(Stage* pParent);
 	~Player();
 	virtual bool move() override;
-	virtual void draw(ID3D11DeviceContext* pDeviceContext) override;
+	virtual void draw() override;
 	virtual void Init();
 	virtual void Update();
 	virtual void SetAnim();
@@ -35,9 +35,5 @@ protected:
 	VECTOR	position;
 
 private:
-	//void SetAnim();
-	// ä÷êîÉ|ÉCÉìÉ^
-	//typedef void (Player::* LPFN_PLAYER)(void);
-	//LPFN_PLAYER pSetAnim;
 
 };

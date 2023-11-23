@@ -17,16 +17,15 @@ Player::Player(Stage* pParent)
     anim_no = 0;
     anim_time = 0.f;
     anim_timer = 0.f;
-    hitPoint = 0.f;
+    hitPoint = 100.f;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_POS_Z);
-
-    Model modelObject;
-    modelObject.ModelSet();
-    anim_handle = modelObject.playerHandle;
     
-    // ここで処理しても -1 になる
-    //anim_handle = MV1LoadModel("res\\Player\\PlayerModel.mv1");
+    // インスタンス化生成
+    Model modelObject;
+    // モデルセット関数呼び出し
+    modelObject.PlayerLoadModel();
+    anim_handle = modelObject.playerHandle;
 
     // 
     MV1AttachAnim(anim_handle, ePlayer::Idle);
@@ -199,7 +198,7 @@ bool Player::move()
 /**
 * @brief 描画メソッド
 */
-void Player::draw(ID3D11DeviceContext* pDeviceContext)
+void Player::draw()
 {
 
 

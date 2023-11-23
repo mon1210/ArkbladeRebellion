@@ -6,18 +6,15 @@
 */
 #pragma once
 
-class Player;
 
 class Model
 {
 public:
 	Model();
 	~Model();
-	virtual void ModelSet();
+	virtual void PlayerLoadModel();
+	virtual void EnemyLoadModel();
 	int		enemyHandle;
 	int		playerHandle;
 protected:
-	Player* pPlayer;
-	//static int	enemyHandle;
-	//static int	playerHandle;
 };

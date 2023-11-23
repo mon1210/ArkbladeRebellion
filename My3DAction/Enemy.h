@@ -20,7 +20,7 @@ public:
 	Enemy(Stage* pParent);
 	~Enemy();
 	virtual bool move() override;
-	virtual void draw(ID3D11DeviceContext* pDeviceContext) override;
+	virtual void draw() override;
 	virtual void Init();
 	virtual void Update();
 	virtual void SetAnim();

@@ -17,12 +17,14 @@ Enemy::Enemy(Stage* pParent)
     anim_no = 0;
     anim_time = 0.f;
     anim_timer = 0.f;
-    hitPoint = 0.f;
+    hitPoint = 1.f;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_POS_X, ENEMY_POS_Y, ENEMY_POS_Z);
 
+    // インスタンス化生成
     Model modelObject;
-    modelObject.ModelSet();
+    // モデルセット関数呼び出し
+    modelObject.EnemyLoadModel();
     anim_handle = modelObject.enemyHandle;
 
     // 
@@ -142,7 +144,7 @@ bool Enemy::move()
 /**
 * @brief 描画メソッド
 */
-void Enemy::draw(ID3D11DeviceContext* pDeviceContext)
+void Enemy::draw()
 {
 
 

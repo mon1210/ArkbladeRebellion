@@ -4,7 +4,6 @@
 * @note 日本のゲーム業界ではタスクと呼ぶ場合がある
 */
 #pragma once
-#include <d3d11.h>
 #define __IGAMEOBJECT_H__
 
 typedef struct {
@@ -16,14 +15,13 @@ typedef struct {
 	float vz;	//	z成分
 }	STEP_VECTOR;
 
-struct ID3D11DeviceContext;
 
 class IGameObject
 {
 public:
 	virtual ~IGameObject() = 0;
 	virtual bool move() = 0;
-	virtual void draw(ID3D11DeviceContext* pDeviceContext) = 0;
+	virtual void draw() = 0;
 	//virtual int damage(float amount) = 0;
 
 	STEP_VECTOR step;

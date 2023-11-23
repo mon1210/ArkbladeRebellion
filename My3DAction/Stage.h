@@ -14,7 +14,6 @@
 class Player;
 class Enemy;
 class BG;
-struct ID3D11DeviceContext;
 
 enum StagePhase {
 	STAGE_INIT = 0,
@@ -30,10 +29,7 @@ public:
 	Stage(Selector* pSystem);
 	virtual ~Stage(void);
 	virtual GameSceneResultCode move() override;
-	virtual void draw(ID3D11RenderTargetView* pRenderTargetView, ID2D1RenderTarget* pRenderTarge) override;
-	ID3D11RenderTargetView* GetRenderTarget();
-	//virtual void clearGameObjects();
-	//virtual void setGameObjects();
+	virtual void draw() override;
 protected:
 	Selector*	System;
 	Player*		pPlayer;

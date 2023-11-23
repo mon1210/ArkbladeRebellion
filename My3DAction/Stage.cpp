@@ -1,15 +1,9 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
-// Direct2Dのヘッダファイルをインクルード
-#include <d2d1.h>
-//双方向リスト (Doubly Linked List) データ構造を提供
-#include <list>
 // ゲームの背景を管理するクラスと関連データを定義
 #include "BG.h"
 // ゲーム内のステージ関連クラスと列挙型の定義
 #include "Stage.h"
-// テクスチャとビットマップの読み込みと管理に関するクラスとインターフェースを定義
-#include "TextureLoader.h"
 // プレイヤーキャラクターとその関連情報を定義したクラスと定数/列挙型の定義
 #include "Player.h"
 // 敵キャラクターセットアップと管理に関するクラスとデータの定義
@@ -23,8 +17,6 @@
 */
 Stage::Stage(Selector* pSystem)
 {
-	ID3D11RenderTargetView* pTarget = NULL;
-	ID2D1RenderTarget* pTarget2D = NULL;
 	System = pSystem;
 	pPlayer = NULL;
 	pEnemy = NULL;
@@ -32,24 +24,9 @@ Stage::Stage(Selector* pSystem)
 	bPause = true;
 	Timer = 0;
 
-	pTarget = System->GetRenderTarget();
-	if (pTarget)
-	{
-		pPlayer = new Player(this);
-		pEnemy = new Enemy(this);
-
-	}
-	pTarget2D = System->GetRenderTarget2D();
-	if(pTarget2D)
-	{
-		pBG = new BG(pTarget2D);
-
-	}
-
-	SAFE_RELEASE(pTarget);
-	SAFE_RELEASE(pTarget2D);
-
-
+	pPlayer = new Player(this);
+	pEnemy = new Enemy(this);
+	pBG = new BG();
 }
 
 
@@ -146,18 +123,13 @@ GameSceneResultCode Stage::move()
 * @brief 描画処理
 * @note  現在のマップと次のマップを動かしながら描画することで移動しているように見せる
 */
-void Stage::draw(ID3D11RenderTargetView* pRenderTargetView, ID2D1RenderTarget* pRenderTarget)
+void Stage::draw()
 {
 	switch (Phase)
 	{
-	/* case STAGE_MAPCHANGE_X:
-			break;
-	   case STAGE_MAPCHANGE_Y:
-			break;
-	*/
 		default:
 			if (pBG)
-				pBG->draw(pRenderTarget);
+				pBG->draw();
 			if (pPlayer)
 				pPlayer->Update();
 			if (pEnemy)
@@ -172,18 +144,7 @@ void Stage::draw(ID3D11RenderTargetView* pRenderTargetView, ID2D1RenderTarget* p
 	case STAGE_FADE:
 	case STAGE_DONE:
 	{
-		//float opacity = (float)Timer / STAGE_DONE_TIMER;
-
-		//D2D1_SIZE_F size;
-		//size = pRenderTarget->GetSize();
-
-		//D2D1_RECT_F		rc;		// 描画領域(画面上での位置やサイズ)を指定する変数
-		//rc.left = 0;	// 描画領域の左上隅指定
-		//rc.top = 0;	//			〃
-		//rc.right = size.width;		// 描画領域の右下隅指定
-		//rc.bottom = size.height;		//			〃
-		//m_pBlackBrush->SetOpacity(opacity);
-		//pRenderTarget->FillRectangle(rc, m_pBlackBrush);
+		// フェードアウト処理
 	}
 		break;
 	default:
