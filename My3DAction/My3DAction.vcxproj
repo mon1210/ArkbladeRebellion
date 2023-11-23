@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BG.cpp" />
-    <ClCompile Include="ddsfunctions.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IGameScene.cpp" />
@@ -155,14 +154,11 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="TextureLoader.cpp" />
-    <ClCompile Include="tgafunctions.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BG.h" />
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="ddsfunctions.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="IGameObject.h" />
@@ -175,8 +171,6 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TextureLoader.h" />
-    <ClInclude Include="tgafunctions.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
