@@ -6,6 +6,7 @@
 */
 #pragma once
 #include "DxLib.h"
+#include "Enums.h"
 
 //--- ヘッダガードを使用して二度インクルードするのを防ぐ
 #ifndef __IGAMEOBJECT_H__
@@ -23,7 +24,8 @@ public:
 	virtual void draw() override;
 	virtual void Init();
 	virtual void Update();
-	virtual void SetAnim();
+	virtual void SetMove();
+	virtual void SetAnim(eEnemy::AnimationNum num);
 protected:
 	Stage*	Parent;
 	int		anim_handle;

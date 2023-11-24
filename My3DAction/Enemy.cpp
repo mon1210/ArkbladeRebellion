@@ -50,45 +50,67 @@ void Enemy::Init()
 
 }
 
+// 
+void Enemy::SetAnim(eEnemy::AnimationNum num)
+{
+    if (anim_no != num)
+    {
+        anim_no = num;
+        anim_timer = 0;
+        // アニメーションにかかる時間を取得
+        anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+        // アニメーションをデタッチ
+        MV1DetachAnim(anim_handle, 0);
+        // アニメーションをアタッチ
+        MV1AttachAnim(anim_handle, anim_no);
+    }
+
+}
+
 
 // 
-void Enemy::SetAnim(void)
+void Enemy::SetMove()
 {
     // I => Runモーション(2)
-    if (CheckHitKey(KEY_INPUT_I))
+    if (CheckHitKey(KEY_INPUT_K))
     {
-        if (anim_no != eEnemy::Run)
+        SetAnim(eEnemy::Run);
+        // 手前移動
+        if (anim_no == eEnemy::Run)
         {
-            anim_no = eEnemy::Run;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-            // 手前移動
-            if (anim_no == eEnemy::Run)
-            {
-                angle = 0.f;
-                position.z -= ENEMY_MOVE_SPEED;
-            }
+            angle = 0.f;
+            position.z -= ENEMY_MOVE_SPEED;
         }
+    }
+    // 
+    else if (CheckHitKey(KEY_INPUT_I))
+    {
+        SetAnim(eEnemy::Run);
+        // 手前移動
+        if (anim_no == eEnemy::Run)
+        {
+            angle = 180.f;
+            position.z += ENEMY_MOVE_SPEED;
+        }
+    }
+    // 
+    else if (CheckHitKey(KEY_INPUT_O))
+    {
+        SetAnim(eEnemy::Swiping);
+    }
+    // 
+    else if (CheckHitKey(KEY_INPUT_P))
+    {
+        SetAnim(eEnemy::Damage);
+    }
+    // 
+    else if (CheckHitKey(KEY_INPUT_M))
+    {
+        SetAnim(eEnemy::Dying);
     }
     else
     {
-        // アニメーションがないとき、Idleモーション(1)
-        if (anim_no != eEnemy::Idle)
-        {
-            anim_no = eEnemy::Idle;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-        }
+        SetAnim(eEnemy::Idle);
     }
 
 }
@@ -97,7 +119,7 @@ void Enemy::SetAnim(void)
 // 
 void Enemy::Update()
 {
-
+  
 }
 
 
@@ -124,7 +146,7 @@ bool Enemy::move()
 void Enemy::draw()
 {
     // 
-    SetAnim();
+    SetMove();
 
     anim_timer += ENEMY_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
