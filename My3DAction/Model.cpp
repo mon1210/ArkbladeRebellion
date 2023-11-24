@@ -36,5 +36,5 @@ void Model::PlayerLoadModel()
 void Model::EnemyLoadModel()
 {
     // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-    enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel.mv1");
+    enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel2.mv1");
 }
