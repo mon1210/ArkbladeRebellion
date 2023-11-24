@@ -28,7 +28,7 @@ Model::~Model()
 void Model::PlayerLoadModel()
 {
     // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-    playerHandle = MV1LoadModel("res\\Player\\PlayerModel.mv1");
+    playerHandle = MV1LoadModel("res\\Player\\PlayerModel2.mv1");
 }
 
 
