@@ -12,11 +12,11 @@ namespace ePlayer
 	enum AnimationNum
 	{
 		Default = -1,
-		Drinking = 0,
-		Dying,
-		Roll,
+		Idle = 1,
 		Run,
-		Idle
+		Roll,
+		Drinking,
+		Dying = 11
 
 	};
 }
