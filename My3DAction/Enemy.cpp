@@ -97,29 +97,6 @@ void Enemy::SetAnim(void)
 // 
 void Enemy::Update()
 {
-    // 
-    SetAnim();
-
-    anim_timer += ENEMY_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
-    {
-        anim_time = 0.0f;
-    }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
-
-
-    // 画面に映る位置に3Dモデルを移動
-    MV1SetPosition(anim_handle, position);
-
-    // モデルの大きさ変更
-    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
-
-    // モデルの回転
-    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
-
-    // ３Ｄモデルの描画
-    MV1DrawModel(anim_handle);
 
 }
 
@@ -146,6 +123,28 @@ bool Enemy::move()
 */
 void Enemy::draw()
 {
+    // 
+    SetAnim();
 
+    anim_timer += ENEMY_ANIM_F_INCREMENT;
+    // アニメーション時間を過ぎたらリセット
+    if (anim_timer >= anim_time)
+    {
+        anim_timer = 0.0f;
+    }
+    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+
+
+    // 画面に映る位置に3Dモデルを移動
+    MV1SetPosition(anim_handle, position);
+
+    // モデルの大きさ変更
+    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+
+    // モデルの回転
+    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
+
+    // ３Ｄモデルの描画
+    MV1DrawModel(anim_handle);
 
 }
