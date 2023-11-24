@@ -49,89 +49,92 @@ void Player::Init()
 }
 
 
+
 // アニメーションセット関数
-void Player::SetAnim()
+void Player::SetAnim(ePlayer::AnimationNum num)
+{
+    if (anim_no != num)
+    {
+        anim_no = num;
+        anim_timer = 0;
+        // アニメーションにかかる時間を取得
+        anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+        // アニメーションをデタッチ
+        MV1DetachAnim(anim_handle, 0);
+        // アニメーションをアタッチ
+        MV1AttachAnim(anim_handle, anim_no);
+
+    }
+}
+
+
+// 
+void Player::SetMove()
 {
     if (CheckHitKey(KEY_INPUT_W) && CheckHitKey(KEY_INPUT_D) || CheckHitKey(KEY_INPUT_E))
     {
-        if (anim_no != ePlayer::Run)
+        // 
+        SetAnim(ePlayer::Run);
+        // 
+        if (anim_no == ePlayer::Run)
         {
-            anim_no = ePlayer::Run;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-            // 
-            if (anim_no == ePlayer::Run)
-            {
-                angle = -135.f;
-                position.x += PLAYER_MOVE_SPEED * VECTOR_SCALING;
-                position.z += PLAYER_MOVE_SPEED * VECTOR_SCALING;
-            }
-
+            angle = -135.f;
+            position.x += PLAYER_MOVE_SPEED * VECTOR_SCALING;
+            position.z += PLAYER_MOVE_SPEED * VECTOR_SCALING;
         }
     }
     // W or UP => Runモーション(3)
     else if (CheckHitKey(KEY_INPUT_W) || CheckHitKey(KEY_INPUT_UP))
     {
-        if (anim_no != ePlayer::Run)
+        // 
+        SetAnim(ePlayer::Run);
+        // 前移動
+        if (anim_no == ePlayer::Run)
         {
-            anim_no = ePlayer::Run;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-            // 前移動
-            if (anim_no == ePlayer::Run)
-            {
-                angle = 180.f;
-                position.z += PLAYER_MOVE_SPEED;
-            }
-
+            angle = 180.f;
+            position.z += PLAYER_MOVE_SPEED;
         }
+
     }
     // D => Runモーション(3) 右移動
     else if (CheckHitKey(KEY_INPUT_D))
     {
-        if (anim_no != ePlayer::Run)
+        // 
+        SetAnim(ePlayer::Run);
+        // 右移動
+        if (anim_no == ePlayer::Run)
         {
-            anim_no = ePlayer::Run;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-            // 右移動
-            if (anim_no == ePlayer::Run)
-            {
-                angle = -90.f;
-                position.x += PLAYER_MOVE_SPEED;
-            }
+            angle = -90.f;
+            position.x += PLAYER_MOVE_SPEED;
         }
     }
+    // Space => Roll
+    else if (CheckHitKey(KEY_INPUT_SPACE))
+    {
+        // 
+        SetAnim(ePlayer::Roll);
+        // 右移動
+        if (anim_no == ePlayer::Roll)
+        {
+            position.z += 0.5f; // このままだと横向きでもZ方向に進んでしまう  Todo
+        }
+    }
+    // F => Drinking 回復時モーション
+    else if (CheckHitKey(KEY_INPUT_F))
+    {
+        // 
+        SetAnim(ePlayer::Drinking);
+    }
+    // G => Dying
+    else if (CheckHitKey(KEY_INPUT_G))
+    {
+        // 
+        SetAnim(ePlayer::Dying);
+    }
+    // Idle
     else
     {
-        // アニメーションがないとき、Idleモーション(4)
-        if (anim_no != ePlayer::Idle)
-        {
-            anim_no = ePlayer::Idle;
-            anim_timer = 0;
-            // アニメーションにかかる時間を取得
-            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
-            // アニメーションをデタッチ
-            MV1DetachAnim(anim_handle, 0);
-            // アニメーションをアタッチ
-            MV1AttachAnim(anim_handle, anim_no);
-        }
-
+        SetAnim(ePlayer::Idle);
     }
 
 
@@ -143,7 +146,6 @@ void Player::Update()
 {
  
 }
-
 
 
 /**
@@ -169,7 +171,7 @@ bool Player::move()
 void Player::draw()
 {
     // アニメーション呼び出し関数
-    SetAnim();
+    SetMove();
 
     anim_timer += PLAYER_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
