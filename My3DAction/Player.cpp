@@ -20,19 +20,17 @@ Player::Player(Stage* pParent)
     hitPoint = 100.f;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_POS_Z);
-    
+    anim_timer = 0.f;
+    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+
     // インスタンス化生成
     Model modelObject;
     // モデルセット関数呼び出し
     modelObject.PlayerLoadModel();
     anim_handle = modelObject.playerHandle;
 
-    // 
+    // モデルにIdleアニメーションをセット
     MV1AttachAnim(anim_handle, ePlayer::Idle);
-    //
-    anim_timer = 0.f;
-    //
-    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
 
 }
 
@@ -47,17 +45,11 @@ Player::~Player()
 // 
 void Player::Init()
 {
-    //anim_handle = 0;
-    //// 
-    //MV1AttachAnim(anim_handle, ePlayer::Idle);
-    ////
-    //anim_timer = 0.f;
-    ////
-    //anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+
 }
 
 
-// 
+// アニメーションセット関数
 void Player::SetAnim()
 {
     if (CheckHitKey(KEY_INPUT_W) && CheckHitKey(KEY_INPUT_D) || CheckHitKey(KEY_INPUT_E))
@@ -87,7 +79,6 @@ void Player::SetAnim()
     {
         if (anim_no != ePlayer::Run)
         {
-            //PlayerSetAnimation(player_handle, anim_player_time, player_anim_timer, player_anim_no, PlayerAnimationNum:: PRun);
             anim_no = ePlayer::Run;
             anim_timer = 0;
             // アニメーションにかかる時間を取得
@@ -150,30 +141,7 @@ void Player::SetAnim()
 // 
 void Player::Update()
 {
-    // 
-    SetAnim();
-
-    anim_timer += PLAYER_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
-    {
-        anim_time = 0.0f;
-    }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
-
-
-    // 画面に映る位置に3Dモデルを移動
-    MV1SetPosition(anim_handle, position);
-
-    // モデルの大きさ変更
-    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
-
-    // モデルの回転
-    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
-
-    // ３Ｄモデルの描画
-    MV1DrawModel(anim_handle);
-
+ 
 }
 
 
@@ -200,6 +168,29 @@ bool Player::move()
 */
 void Player::draw()
 {
+    // アニメーション呼び出し関数
+    SetAnim();
+
+    anim_timer += PLAYER_ANIM_F_INCREMENT;
+    // アニメーション時間を過ぎたらリセット
+    if (anim_timer >= anim_time)
+    {
+        anim_timer = 0.0f;
+    }
+    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+
+
+    // 画面に映る位置に3Dモデルを移動
+    MV1SetPosition(anim_handle, position);
+
+    // モデルの大きさ変更
+    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+
+    // モデルの回転
+    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
+
+    // ３Ｄモデルの描画
+    MV1DrawModel(anim_handle);
 
 
 }
