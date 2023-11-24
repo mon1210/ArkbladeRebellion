@@ -131,7 +131,7 @@ void Stage::draw()
 			if (pBG)
 				pBG->draw();
 			if (pPlayer)
-				pPlayer->Update();
+				pPlayer->draw();
 			if (pEnemy)
 				pEnemy->Update();
 			//if (m_pUI)
