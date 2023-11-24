@@ -19,7 +19,7 @@
 // TCHAR タイプやマクロを定義したヘッダファイルをインクルード
 #include <tchar.h>
 // 標準入出力関数を提供する C ライブラリヘッダファイルをインクルード
-#include <stdio.h>\
+#include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "Selector.h"
 // 定数値を定めたヘッダファイル
