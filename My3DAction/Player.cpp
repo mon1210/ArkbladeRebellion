@@ -71,44 +71,32 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 }
 
 
-// 
+// 行動管理関数
 void Player::SetMove()
 {
-    // 
+    // カメラ操作関数呼び出し
     pCamera->CameraController();
 
-    if (CheckHitKey(KEY_INPUT_W) && CheckHitKey(KEY_INPUT_D) || CheckHitKey(KEY_INPUT_E))
+    // 移動ベクトルを初期化
+    moveVec = VGet(0.f, 0.f, 0.f);
+
+    // Up => Runモーション(3) 前移動
+    if (CheckHitKey(KEY_INPUT_UP))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Run);
-        // 
-        if (anim_no == ePlayer::Run)
-        {
-            angle = -135.f;
-            position.x += PLAYER_MOVE_SPEED * VECTOR_SCALING;
-            position.z += PLAYER_MOVE_SPEED * VECTOR_SCALING;
-        }
-    }
-    // Up => Runモーション(3) 上
-    else if (CheckHitKey(KEY_INPUT_UP))
-    {
-        // 
-        SetAnim(ePlayer::Run);
-        // 前移動
         if (anim_no == ePlayer::Run)
         {
             angle = 180.f - pCamera->CameraHAngle;
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
-
     }
-    // Down => Runモーション(3) 下
+    // Down => Runモーション(3) 下移動
     else if (CheckHitKey(KEY_INPUT_DOWN))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Run);
-        // 右移動
         if (anim_no == ePlayer::Run)
         {
             angle = 0.f - pCamera->CameraHAngle;
@@ -119,9 +107,8 @@ void Player::SetMove()
     // Right => Runモーション(3) 右移動
     else if (CheckHitKey(KEY_INPUT_RIGHT))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Run);
-        // 右移動
         if (anim_no == ePlayer::Run)
         {
             angle = -90.f - pCamera->CameraHAngle;
@@ -132,9 +119,8 @@ void Player::SetMove()
     // Left => Runモーション(3) 左移動
     else if (CheckHitKey(KEY_INPUT_LEFT))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Run);
-        // 右移動
         if (anim_no == ePlayer::Run)
         {
             angle = 90.f - pCamera->CameraHAngle;
@@ -145,7 +131,7 @@ void Player::SetMove()
     // Space => Roll
     else if (CheckHitKey(KEY_INPUT_SPACE))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Roll);
         // 右移動
         if (anim_no == ePlayer::Roll)
@@ -156,13 +142,13 @@ void Player::SetMove()
     // F => Drinking 回復時モーション
     else if (CheckHitKey(KEY_INPUT_F))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Drinking);
     }
     // G => Dying
     else if (CheckHitKey(KEY_INPUT_G))
     {
-        // 
+        // アニメーションをセット
         SetAnim(ePlayer::Dying);
     }
     // Idle
@@ -202,24 +188,20 @@ bool Player::move()
 
 /**
 * @brief 描画メソッド
+* @note  プレイヤーを追従するためカメラ用関数はここで呼び出す
 */
 void Player::draw()
 {
-    // アニメーション呼び出し関数
+    // 行動管理関数呼び出し
     SetMove();
 
     anim_timer += PLAYER_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
     if (anim_timer >= anim_time)
     {
-        anim_timer = 0.0f;
+        anim_timer -= anim_time;
     }
     MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
-
-    // 
-    position = pCamera->MoveAlongHAngle(moveFlag, moveVec, position);
-    // 画面に映る位置に3Dモデルを移動
-    MV1SetPosition(anim_handle, position);
 
     // モデルの大きさ変更
     MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
@@ -227,7 +209,14 @@ void Player::draw()
     // モデルの回転
     MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
 
-    // 
+    // 移動した場合、座標取得
+    if (moveFlag)
+        position = pCamera->MoveAlongHAngle(moveVec, position);
+
+    // 3Dモデルに座標をセット
+    MV1SetPosition(anim_handle, position);
+
+    // カメラの位置と向きを設定
     pCamera->SetCameraPositionAndDirection(position);
 
     // ３Ｄモデルの描画
