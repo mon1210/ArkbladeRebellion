@@ -1,12 +1,13 @@
 /*
-*
-*
-*
+* @file Camera.cpp
+* @note プレイヤーを追従するようにしているので、Playerクラスでの呼び出し
+* 
 */
 #include "camera.h"
 
-/*
-*
+
+/**
+* @brief Cameraのコンストラクタ
 * 
 */
 Camera::Camera()
@@ -20,68 +21,68 @@ Camera::Camera()
 }
 
 
-//
+// デストラクタ
 Camera::~Camera()
 {
 
 }
 
 
-// 
-void Camera::FollowCamera(VECTOR pos)
-{
-	// 3Dオブジェクトの座標を取得
-	playerPos = pos;
-
-	// カメラの位置を3Dオブジェクトの後ろに設定
-	SetCameraPositionAndTarget_UpVecY(cameraPos, playerPos);
-
-}
-
-
-// 
+/**
+* @brief カメラ操作メソッド
+* @note  Playerクラスで呼び出す
+*/
 void Camera::CameraController()
 {
-	// ZCSXキーでカメラの操作
-	if (CheckHitKey(KEY_INPUT_C))
-	{
-		CameraHAngle += CAMERA_ANGLE_SPEED;
-		if (CameraHAngle >= 180.0f)
-		{
-			CameraHAngle -= 360.0f;
-		}
-	}
-
-	if (CheckHitKey(KEY_INPUT_Z))
-	{
-		CameraHAngle -= CAMERA_ANGLE_SPEED;
-		if (CameraHAngle <= -180.0f)
-		{
-			CameraHAngle += 360.0f;
-		}
-	}
-
+	// カメラの垂直角度を上に回転
 	if (CheckHitKey(KEY_INPUT_S))
 	{
 		CameraVAngle += CAMERA_ANGLE_SPEED;
-		if (CameraVAngle >= 80.0f)
+		// 上限を超えたらリセット
+		if (CameraVAngle >= MAX_VERTICAL_ANGLE)
 		{
-			CameraVAngle = 80.0f;
+			CameraVAngle = MAX_VERTICAL_ANGLE;
 		}
 	}
-
+	// カメラの垂直角度を下に回転
 	if (CheckHitKey(KEY_INPUT_X))
 	{
 		CameraVAngle -= CAMERA_ANGLE_SPEED;
-		if (CameraVAngle <= 0.0f)
+		// 下限を超えたらリセット
+		if (CameraVAngle <= MIN_VERTICAL_ANGLE)
 		{
-			CameraVAngle = 0.0f;
+			CameraVAngle = MIN_VERTICAL_ANGLE;
 		}
 	}
+	// カメラの水平角度を右に回転
+	if (CheckHitKey(KEY_INPUT_C))
+	{
+		CameraHAngle += CAMERA_ANGLE_SPEED;
+		// 360度を超えた場合でも正確な角度を保つように
+		if (CameraHAngle >= MAX_HORIZONTAL_ANGLE)
+		{
+			CameraHAngle -= FULL_CIRCLE_DEGREES;
+		}
+	}
+	// カメラの水平角度を左に回転
+	if (CheckHitKey(KEY_INPUT_Z))
+	{
+		CameraHAngle -= CAMERA_ANGLE_SPEED;
+		// 360度を超えた場合でも正確な角度を保つように
+		if (CameraHAngle <= MIN_HORIZONTAL_ANGLE)
+		{
+			CameraHAngle += FULL_CIRCLE_DEGREES;
+		}
+	}
+
 }
 
 
-// 
+/**
+* @brief プレイヤーの位置算出メソッド
+* @note  Playerクラスで呼び出す
+*		 カメラの角度に合わせるのでCameraクラスで定義
+*/
 VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
 {
 	VECTOR TempMoveVector;
@@ -99,12 +100,15 @@ VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
 }
 
 
-// 
+/**
+* @brief 位置算出メソッド
+* @note  Playerクラスで呼び出す
+*/
 void Camera::SetCameraPositionAndDirection(VECTOR pPlayerPos)
 {
-	VECTOR VerticalAnglePos;
-	VECTOR HorizontalAnglePos;
-	VECTOR CameraLookAtPos;
+	VECTOR VerticalAnglePos;	// 垂直角度を反映した位置
+	VECTOR HorizontalAnglePos;	// 水平角度を反映した位置
+	VECTOR CameraLookAtPos;		// 注視点の位置
 
 	// 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
 	CameraLookAtPos = pPlayerPos;
