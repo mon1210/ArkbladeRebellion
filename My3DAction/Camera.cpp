@@ -82,29 +82,20 @@ void Camera::CameraController()
 
 
 // 
-VECTOR Camera::MoveAlongHAngle(bool moveflag, VECTOR moveVec, VECTOR pPlayerPos)
+VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
 {
-	if (!moveflag)
-		return playerPos;
+	VECTOR TempMoveVector;
 
-	if(moveflag)
-	{
-		VECTOR TempMoveVector;
-		VECTOR playerPosition;
+	// カメラの角度に合わせて移動ベクトルを回転してから加算
+	SinParam = sin(CameraHAngle / 180.0f * DX_PI_F);
+	CosParam = cos(CameraHAngle / 180.0f * DX_PI_F);
+	TempMoveVector.x = moveVec.x * CosParam - moveVec.z * SinParam;
+	TempMoveVector.y = 0.0f;
+	TempMoveVector.z = moveVec.x * SinParam + moveVec.z * CosParam;
 
-		// カメラの角度に合わせて移動ベクトルを回転してから加算
-		SinParam = sin(CameraHAngle / 180.0f * DX_PI_F);
-		CosParam = cos(CameraHAngle / 180.0f * DX_PI_F);
-		TempMoveVector.x = moveVec.x * CosParam - moveVec.z * SinParam;
-		TempMoveVector.y = 0.0f;
-		TempMoveVector.z = moveVec.x * SinParam + moveVec.z * CosParam;
+	playerPos = VAdd(pPlayerPos, TempMoveVector);
 
-		playerPos = VAdd(pPlayerPos, TempMoveVector);
-
-		return playerPos;
-	}
-
-
+	return playerPos;
 }
 
 
