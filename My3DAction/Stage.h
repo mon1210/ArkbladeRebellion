@@ -14,6 +14,7 @@
 class Player;
 class Enemy;
 class BG;
+class Grid;
 
 enum StagePhase {
 	STAGE_INIT = 0,
@@ -35,6 +36,7 @@ protected:
 	Player*		pPlayer;
 	Enemy*		pEnemy;
 	BG*			pBG;
+	Grid*		pGrid;
 	StagePhase	Phase;
 	bool		bPause;		//	ポーズボタン連打防止フラグ
 	int		Timer;
