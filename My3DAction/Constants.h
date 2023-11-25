@@ -17,6 +17,14 @@ const float BG_SCALE_FACTOR = 1.0f;			// 背景描画の際の拡大率
 
 
 
+// 以下Camera用定数====================================================================================================== //
+const float CAMERA_ANGLE_SPEED = 3.f;
+const float CAMERA_LOOK_AT_HEIGHT = 400.f;
+const float CAMERA_LOOK_AT_DISTANCE = 2150.f;
+// 以上Camera用定数====================================================================================================== //
+
+
+
 // 以下My3DAction用定数=========================================================
 const int WINDOW_WIDTH = 640;				// ウィンドウ横幅	test
 const int WINDOW_HEIGHT = 480;				// ウィンドウ縦幅	test
@@ -37,7 +45,7 @@ const float PLAYER_POS_Y = -300.f;/*-300*/	// プレイヤーの初期Y座標
 const float PLAYER_POS_Z = 600.f;/*600*/	// プレイヤーの初期Z座標
 const float PLAYER_START_ROTATE_Y = 180.f;	// プレイヤーの初期回転Y
 const float PLAYER_ANIM_F_INCREMENT = 0.2f;	// プレイヤーの毎フレームごとのアニメーションの増加数
-const float PLAYER_MOVE_SPEED = 5.f;		// プレイヤーの移動距離
+const float PLAYER_MOVE_SPEED = 10.f;		// プレイヤーの移動距離
 const float MODEL_SCALE = 1.5f;				// 3Dモデルの拡大率
 // 以上Player用定数=============================================================
 

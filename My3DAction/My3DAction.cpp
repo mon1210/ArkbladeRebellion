@@ -19,7 +19,7 @@
 // TCHAR タイプやマクロを定義したヘッダファイルをインクルード
 #include <tchar.h>
 // 標準入出力関数を提供する C ライブラリヘッダファイルをインクルード
-#include <stdio.h>\
+#include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "Selector.h"
 // 定数値を定めたヘッダファイル
@@ -87,25 +87,16 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	while (!ProcessMessage() && !CheckHitKey(KEY_INPUT_ESCAPE))
 	{
 
-		//// カメラの描画位置と見る位置を指定
-		SetCameraPositionAndTargetAndUpVec(
-			VGet(0.f, 0.f, 0.f),    // カメラ座標
-			VGet(0.f, 0.f, 1.f),    // カメラの見る位置
-			VGet(0.f, 1.f, 0.f)     // 固定
-		);
-		// カメラの位置と向きを設定     遠くから
-		//SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 1200.0f, -2000.0f), VGet(0.0f, 400.0f, 0.0f));
-
 		// 背景の色変更　灰色
 		SetBackgroundColor(128, 128, 128);
 
+		// 
 		ClearDrawScreen();
 
+		//	この中に描画処理を書く
 
 		if (g_pSelector)
 			g_pSelector->doAnim();
-
-		//	この中に描画処理を書く
 
 		if (g_pSelector)
 			g_pSelector->doDraw();

@@ -8,6 +8,7 @@
 #include "Constants.h"
 #include "Model.h"
 #include "Enums.h"
+#include "camera.h"
 
 
 // コンストラクタ
@@ -20,8 +21,11 @@ Player::Player(Stage* pParent)
     hitPoint = 100.f;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_POS_Z);
+    moveVec = VGet(0.f, 0.f, 0.f);
     anim_timer = 0.f;
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+    pCamera = new Camera();
+    moveFlag = false;
 
     // インスタンス化生成
     Model modelObject;
@@ -31,7 +35,6 @@ Player::Player(Stage* pParent)
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(anim_handle, ePlayer::Idle);
-
 }
 
 
@@ -71,6 +74,9 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 // 
 void Player::SetMove()
 {
+    // 
+    pCamera->CameraController();
+
     if (CheckHitKey(KEY_INPUT_W) && CheckHitKey(KEY_INPUT_D) || CheckHitKey(KEY_INPUT_E))
     {
         // 
@@ -83,29 +89,57 @@ void Player::SetMove()
             position.z += PLAYER_MOVE_SPEED * VECTOR_SCALING;
         }
     }
-    // W or UP => Runモーション(3)
-    else if (CheckHitKey(KEY_INPUT_W) || CheckHitKey(KEY_INPUT_UP))
+    // Up => Runモーション(3) 上
+    else if (CheckHitKey(KEY_INPUT_UP))
     {
         // 
         SetAnim(ePlayer::Run);
         // 前移動
         if (anim_no == ePlayer::Run)
         {
-            angle = 180.f;
-            position.z += PLAYER_MOVE_SPEED;
+            angle = 180.f - pCamera->CameraHAngle;
+            moveFlag = true;
+            moveVec.z = PLAYER_MOVE_SPEED;
         }
 
     }
-    // D => Runモーション(3) 右移動
-    else if (CheckHitKey(KEY_INPUT_D))
+    // Down => Runモーション(3) 下
+    else if (CheckHitKey(KEY_INPUT_DOWN))
     {
         // 
         SetAnim(ePlayer::Run);
         // 右移動
         if (anim_no == ePlayer::Run)
         {
-            angle = -90.f;
-            position.x += PLAYER_MOVE_SPEED;
+            angle = 0.f - pCamera->CameraHAngle;
+            moveFlag = true;
+            moveVec.z = -PLAYER_MOVE_SPEED;
+        }
+    }
+    // Right => Runモーション(3) 右移動
+    else if (CheckHitKey(KEY_INPUT_RIGHT))
+    {
+        // 
+        SetAnim(ePlayer::Run);
+        // 右移動
+        if (anim_no == ePlayer::Run)
+        {
+            angle = -90.f - pCamera->CameraHAngle;
+            moveFlag = true;
+            moveVec.x = PLAYER_MOVE_SPEED;
+        }
+    }
+    // Left => Runモーション(3) 左移動
+    else if (CheckHitKey(KEY_INPUT_LEFT))
+    {
+        // 
+        SetAnim(ePlayer::Run);
+        // 右移動
+        if (anim_no == ePlayer::Run)
+        {
+            angle = 90.f - pCamera->CameraHAngle;
+            moveFlag = true;
+            moveVec.x = -PLAYER_MOVE_SPEED;
         }
     }
     // Space => Roll
@@ -134,6 +168,7 @@ void Player::SetMove()
     // Idle
     else
     {
+        moveFlag = false;
         SetAnim(ePlayer::Idle);
     }
 
@@ -181,7 +216,8 @@ void Player::draw()
     }
     MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
 
-
+    // 
+    position = pCamera->MoveAlongHAngle(moveFlag, moveVec, position);
     // 画面に映る位置に3Dモデルを移動
     MV1SetPosition(anim_handle, position);
 
@@ -191,9 +227,11 @@ void Player::draw()
     // モデルの回転
     MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
 
+    // 
+    pCamera->SetCameraPositionAndDirection(position);
+
     // ３Ｄモデルの描画
     MV1DrawModel(anim_handle);
-
 
 }
 

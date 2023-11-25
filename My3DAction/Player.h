@@ -14,6 +14,7 @@
 #endif
 
 class Stage;
+class Camera;
 
 class Player : public IGameObject
 {
@@ -28,13 +29,16 @@ public:
 	virtual void SetAnim(ePlayer::AnimationNum num);
 protected:
 	Stage* Parent;
+	Camera* pCamera;
+	VECTOR	position;
+	VECTOR  moveVec;
 	int		anim_handle;
 	int		anim_no;
 	float	anim_time;
 	float	anim_timer;
 	float	angle;
 	float	hitPoint;
-	VECTOR	position;
+	float	moveFlag;
 
 private:
 
