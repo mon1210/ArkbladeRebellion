@@ -1,6 +1,6 @@
 /**
-* @file Stage.h
-* @brief 
+* @file		Stage.h
+* @brief	ƒNƒ‰ƒX Stage ‚ÌéŒ¾
 */
 #pragma once
 #include "Selector.h"

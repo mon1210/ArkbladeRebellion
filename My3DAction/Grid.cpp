@@ -1,11 +1,11 @@
-/*
-*
-*
-*
-*/
+
 #include "Grid.h"
 
 
+/**
+* @brief Gridのコンストラクタ
+*
+*/
 Grid::Grid()
 {
     startHorizontal = VGet(0.f, 0.f, 0.f);
@@ -16,13 +16,16 @@ Grid::Grid()
 }
 
 
-// 
+// デストラクタ
 Grid::~Grid()
 {
 }
 
 
-// 
+/**
+* @brief 描画関数
+* @note  Stage::draw()で呼び出し
+*/
 void Grid::Draw()
 {
     // Zバッファを使用する

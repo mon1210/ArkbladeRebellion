@@ -1,8 +1,7 @@
-/*
-* @file	 Enemy.h
-* @brief
-*
-*
+/**
+* @file		Enemy.h
+* @brief	ƒNƒ‰ƒX Enemy ‚ÌéŒ¾
+* @note		“–‚½‚è”»’è () x ()
 */
 #pragma once
 #include "DxLib.h"
@@ -18,16 +17,13 @@ class Stage;
 class Enemy : public IGameObject
 {
 public:
-	Enemy(Stage* pParent);
+	Enemy();
 	~Enemy();
 	virtual bool move() override;
 	virtual void draw() override;
-	virtual void Init();
-	virtual void Update();
 	virtual void SetMove();
 	virtual void SetAnim(eEnemy::AnimationNum num);
 protected:
-	Stage*	Parent;
 	int		anim_handle;
 	int		anim_no;
 	float	anim_time;

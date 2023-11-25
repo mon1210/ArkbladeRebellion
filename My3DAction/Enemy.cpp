@@ -1,25 +1,23 @@
-/*
-* @file	 Enemy.cpp
-* @brief
-*
-*
-*/
 #include "Enemy.h"
 #include "Constants.h"
 #include "Model.h"
 #include "Enums.h"
 
 
-// コンストラクタ
-Enemy::Enemy(Stage* pParent)
+/**
+* @brief Enemyのコンストラクタ
+*
+*/
+Enemy::Enemy()
 {
-    Parent = pParent;
     anim_no = 0;
     anim_time = 0.f;
     anim_timer = 0.f;
     hitPoint = 1.f;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_POS_X, ENEMY_POS_Y, ENEMY_POS_Z);
+    anim_timer = 0.f;
+    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
 
     // インスタンス化生成
     Model modelObject;
@@ -27,12 +25,9 @@ Enemy::Enemy(Stage* pParent)
     modelObject.EnemyLoadModel();
     anim_handle = modelObject.enemyHandle;
 
-    // 
+    // モデルにIdleアニメーションをセット
     MV1AttachAnim(anim_handle, eEnemy::Idle);
-    //
-    anim_timer = 0.f;
-    //
-    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+
 
 }
 
@@ -44,13 +39,10 @@ Enemy::~Enemy()
 }
 
 
-// 
-void Enemy::Init()
-{
-
-}
-
-// 
+/**
+* @brief アニメーションセット関数
+*
+*/
 void Enemy::SetAnim(eEnemy::AnimationNum num)
 {
     if (anim_no != num)
@@ -68,7 +60,10 @@ void Enemy::SetAnim(eEnemy::AnimationNum num)
 }
 
 
-// 
+/**
+* @brief 行動管理関数
+* @Todo  行動をランダムにしたいので後で消す
+*/
 void Enemy::SetMove()
 {
     // I => Runモーション(2)
@@ -116,13 +111,6 @@ void Enemy::SetMove()
 }
 
 
-// 
-void Enemy::Update()
-{
-  
-}
-
-
 /**
 * @brief エネミーのアニメーションメソッド
 * @return true:生存 / false:死亡
@@ -145,7 +133,7 @@ bool Enemy::move()
 */
 void Enemy::draw()
 {
-    // 
+    // 行動管理関数呼び出し
     SetMove();
 
     anim_timer += ENEMY_ANIM_F_INCREMENT;

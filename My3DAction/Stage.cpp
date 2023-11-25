@@ -26,8 +26,8 @@ Stage::Stage(Selector* pSystem)
 	bPause = true;
 	Timer = 0;
 
-	pPlayer = new Player(this);
-	pEnemy = new Enemy(this);
+	pPlayer = new Player();
+	pEnemy = new Enemy();
 	pBG = new BG();
 	pGrid = new Grid();
 }

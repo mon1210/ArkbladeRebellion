@@ -1,8 +1,8 @@
 /*
-* @file	 model.h
-* @brief
-*
-*
+* @file		Model.h
+* @brief	ƒNƒ‰ƒX Model ‚ÌéŒ¾
+* @note		
+* 
 */
 #pragma once
 

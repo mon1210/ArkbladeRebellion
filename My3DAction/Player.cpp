@@ -1,9 +1,4 @@
-/*
-* @file	 Player.cpp
-* @brief
-*
-*
-*/
+
 #include "Player.h"
 #include "Constants.h"
 #include "Model.h"
@@ -11,10 +6,12 @@
 #include "camera.h"
 
 
-// コンストラクタ
-Player::Player(Stage* pParent)
+/**
+* @brief Playerのコンストラクタ
+*
+*/
+Player::Player()
 {
-    Parent = pParent;
     anim_no = 0;
     anim_time = 0.f;
     anim_timer = 0.f;
@@ -45,15 +42,10 @@ Player::~Player()
 }
 
 
-// 
-void Player::Init()
-{
-
-}
-
-
-
-// アニメーションセット関数
+/**
+* @brief アニメーションセット関数
+*
+*/
 void Player::SetAnim(ePlayer::AnimationNum num)
 {
     if (anim_no != num)
@@ -71,7 +63,10 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 }
 
 
-// 行動管理関数
+/**
+* @brief 行動管理関数
+*
+*/
 void Player::SetMove()
 {
     // カメラ操作関数呼び出し
@@ -159,13 +154,6 @@ void Player::SetMove()
     }
 
 
-}
-
-
-// 
-void Player::Update()
-{
- 
 }
 
 

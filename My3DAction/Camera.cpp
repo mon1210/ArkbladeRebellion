@@ -1,8 +1,4 @@
-/*
-* @file Camera.cpp
-* @note プレイヤーを追従するようにしているので、Playerクラスでの呼び出し
-* 
-*/
+// 
 #include "camera.h"
 
 

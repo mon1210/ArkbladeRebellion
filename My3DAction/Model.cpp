@@ -1,15 +1,13 @@
-/*
-* @file	 Model.h
-* @brief
-*
-*
-*/
+
 #include "DxLib.h"
 #include "Constants.h"
 #include "Model.h"
 
 
-// 
+/**
+* @brief Modelのコンストラクタ
+*
+*/
 Model::Model()
 {
     enemyHandle = 0;
@@ -18,13 +16,15 @@ Model::Model()
 }
 
 
-// 
+// デストラクタ
 Model::~Model()
 {
 }
 
 
-// 
+/**
+* @brief プレイヤーモデル読み込み関数
+*/
 void Model::PlayerLoadModel()
 {
     // 3Dモデルの読み込み
@@ -32,7 +32,9 @@ void Model::PlayerLoadModel()
 }
 
 
-// 
+/**
+* @brief  エネミーモデル読み込み関数
+*/
 void Model::EnemyLoadModel()
 {
     // 3Dモデルの読み込み

@@ -1,8 +1,7 @@
-/*
-* @file	 Constants.h
-* @brief
-*
-*
+/**
+* @file		Constants.h
+* @brief	定数を定めたヘッダファイル
+* @note		マジックナンバーの削除
 */
 #pragma once
 

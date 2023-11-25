@@ -1,7 +1,8 @@
 /**
-* @brief 全体のアニメートを行う関数
-*
+* @file Selector.cpp
+* @brief クラスSelectorの実装ファイル
 */
+
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル

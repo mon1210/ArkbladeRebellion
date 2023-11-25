@@ -1,8 +1,7 @@
 /*
-* @file	 Player.h
-* @brief
-*
-*
+* @file		Player.h
+* @brief	ƒNƒ‰ƒX Player ‚ÌéŒ¾
+* @note		“–‚½‚è”»’è () x ()
 */
 #pragma once
 #include "DxLib.h"
@@ -19,16 +18,13 @@ class Camera;
 class Player : public IGameObject
 {
 public:
-	Player(Stage* pParent);
+	Player();
 	~Player();
 	virtual bool move() override;
 	virtual void draw() override;
-	virtual void Init();
-	virtual void Update();
 	virtual void SetMove();
 	virtual void SetAnim(ePlayer::AnimationNum num);
 protected:
-	Stage* Parent;
 	Camera* pCamera;
 	VECTOR	position;
 	VECTOR  moveVec;

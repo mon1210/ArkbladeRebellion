@@ -1,12 +1,12 @@
 /*
-* @file	 Enums.h
-* @brief
-*
-*
+* @file		Enums.h
+* @brief	eunm変数宣言用ヘッダファイル
+* @note		クラス名と被るためnamespaceにはプレフィクス付与
+*			3Dモデルのアニメーション番号管理
 */
 #pragma once
 
-// クラス名と被るためプレフィクス付与
+
 namespace ePlayer
 {
 	enum AnimationNum
@@ -21,8 +21,6 @@ namespace ePlayer
 	};
 }
 
-
-// クラス名と被るためプレフィクス付与
 namespace eEnemy
 {
 	enum AnimationNum
