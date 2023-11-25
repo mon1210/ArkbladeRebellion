@@ -8,6 +8,8 @@
 #include "Player.h"
 // 敵キャラクターセットアップと管理に関するクラスとデータの定義
 #include "Enemy.h"
+// 
+#include "Grid.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -27,6 +29,7 @@ Stage::Stage(Selector* pSystem)
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
 	pBG = new BG();
+	pGrid = new Grid();
 }
 
 
@@ -37,6 +40,7 @@ Stage::~Stage()
 	SAFE_DELETE(pPlayer);
 	SAFE_DELETE(pEnemy);
 	SAFE_DELETE(pBG);
+	SAFE_DELETE(pGrid);
 
 }
 
@@ -130,6 +134,8 @@ void Stage::draw()
 		default:
 			if (pBG)
 				pBG->draw();
+			if (pGrid)
+				pGrid->Draw();
 			if (pPlayer)
 				pPlayer->draw();
 			if (pEnemy)
