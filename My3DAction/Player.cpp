@@ -67,6 +67,14 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 * @brief 行動管理関数
 *
 */
+// ****************************************** //
+// PAD入力　PAD_INPUT_1 = □, PAD_INPUT_2 = ×,
+//          PAD_INPUT_3 = 〇, PAD_INPUT_4 = △,
+//          PAD_INPUT_5 = L1, PAD_INPUT_6 = R1,
+//          PAD_INPUT_7 = L2, PAD_INPUT_8 = R2,
+//          PAD INPUT_9 = SHARE(-),
+//          PAD INPUT_10 = OPTIONS(+)
+// ****************************************** //
 void Player::SetMove()
 {
     // カメラ操作関数呼び出し
@@ -76,7 +84,7 @@ void Player::SetMove()
     moveVec = VGet(0.f, 0.f, 0.f);
 
     // Up => Runモーション(3) 前移動
-    if (CheckHitKey(KEY_INPUT_UP))
+    if (CheckHitKey(KEY_INPUT_UP) || PadInput & PAD_INPUT_UP)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -88,7 +96,7 @@ void Player::SetMove()
         }
     }
     // Down => Runモーション(3) 下移動
-    else if (CheckHitKey(KEY_INPUT_DOWN))
+    else if (CheckHitKey(KEY_INPUT_DOWN) || PadInput & PAD_INPUT_DOWN)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -100,7 +108,7 @@ void Player::SetMove()
         }
     }
     // Right => Runモーション(3) 右移動
-    else if (CheckHitKey(KEY_INPUT_RIGHT))
+    else if (CheckHitKey(KEY_INPUT_RIGHT) || PadInput & PAD_INPUT_RIGHT)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -112,7 +120,7 @@ void Player::SetMove()
         }
     }
     // Left => Runモーション(3) 左移動
-    else if (CheckHitKey(KEY_INPUT_LEFT))
+    else if (CheckHitKey(KEY_INPUT_LEFT) || PadInput & PAD_INPUT_LEFT)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -123,8 +131,8 @@ void Player::SetMove()
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
     }
-    // Space => Roll
-    else if (CheckHitKey(KEY_INPUT_SPACE))
+    // Space or PAD_× => Roll
+    else if (CheckHitKey(KEY_INPUT_SPACE) || PadInput & PAD_INPUT_2)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Roll);
@@ -135,7 +143,7 @@ void Player::SetMove()
         }
     }
     // F => Drinking 回復時モーション
-    else if (CheckHitKey(KEY_INPUT_F))
+    else if (CheckHitKey(KEY_INPUT_F) || PadInput & PAD_INPUT_1)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Drinking);
