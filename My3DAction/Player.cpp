@@ -23,6 +23,7 @@ Player::Player()
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
     pCamera = new Camera();
     moveFlag = false;
+    rollFlag = false;
 
     // インスタンス化生成
     Model modelObject;
@@ -60,6 +61,13 @@ void Player::SetAnim(ePlayer::AnimationNum num)
         MV1AttachAnim(anim_handle, anim_no);
 
     }
+        anim_timer += PLAYER_ANIM_F_INCREMENT;
+    // アニメーション時間を過ぎたらリセット
+    if (anim_timer >= anim_time)
+    {
+        anim_timer -= anim_time;
+    }
+    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
 }
 
 
@@ -135,11 +143,37 @@ void Player::SetMove()
     else if (CheckHitKey(KEY_INPUT_SPACE) || PadInput & PAD_INPUT_2)
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Roll);
-        // 右移動
+        if (anim_no != ePlayer::Roll)
+        {
+            anim_no = ePlayer::Roll;
+            anim_timer = 0;
+            // アニメーションにかかる時間を取得
+            anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+            // アニメーションをデタッチ
+            MV1DetachAnim(anim_handle, 0);
+            // アニメーションをアタッチ
+            MV1AttachAnim(anim_handle, anim_no);
+
+        }
+        anim_timer += PLAYER_ANIM_F_INCREMENT + 0.1f;
+        // アニメーション時間を過ぎたらリセット
+        if (anim_timer >= anim_time)
+        {
+            anim_timer -= anim_time;
+        }
+        MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+
         if (anim_no == ePlayer::Roll)
         {
-            position.z += 0.5f; // このままだと横向きでもZ方向に進んでしまう  Todo
+            moveFlag = true;
+            if (angle == 180.f)
+                moveVec.z = PLAYER_ROLL_DISTANCE;
+            else if (angle == 0.f)
+                moveVec.z = -PLAYER_ROLL_DISTANCE;
+            else if (angle == -90.f)
+                moveVec.x = PLAYER_ROLL_DISTANCE;
+            else if (angle == 90.f)
+                moveVec.x = -PLAYER_ROLL_DISTANCE;
         }
     }
     // F => Drinking 回復時モーション
@@ -190,14 +224,6 @@ void Player::draw()
 {
     // 行動管理関数呼び出し
     SetMove();
-
-    anim_timer += PLAYER_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
-    {
-        anim_timer -= anim_time;
-    }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
 
     // モデルの大きさ変更
     MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));

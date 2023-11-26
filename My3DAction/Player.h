@@ -30,11 +30,13 @@ protected:
 	VECTOR  moveVec;
 	int		anim_handle;
 	int		anim_no;
+	int		keyInput;
 	float	anim_time;
 	float	anim_timer;
 	float	angle;
 	float	hitPoint;
-	float	moveFlag;
+	bool	moveFlag;
+	bool	rollFlag;
 
 private:
 
