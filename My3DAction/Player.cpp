@@ -155,7 +155,7 @@ void Player::SetMove()
             MV1AttachAnim(anim_handle, anim_no);
 
         }
-        anim_timer += PLAYER_ANIM_F_INCREMENT + 0.1f;
+        anim_timer += PLAYER_ROLL_ANIM_F_INCREMENT;
         // アニメーション時間を過ぎたらリセット
         if (anim_timer >= anim_time)
         {
