@@ -4,10 +4,12 @@
 * @note		マジックナンバーの削除
 */
 #pragma once
+#include "DxLib.h"
 
 // 斜め入力用の各軸の倍率( sin( 45°) )
 #define VECTOR_SCALING	0.70710678118f
-
+// 
+#define PadInput GetJoypadInputState( DX_INPUT_KEY_PAD1 ) 
 
 // 以下BG用定数====================================================================================================== //
 const float BG_SCALE_FACTOR = 1.0f;				// 背景描画の際の拡大率
