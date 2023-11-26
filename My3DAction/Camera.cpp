@@ -76,7 +76,7 @@ void Camera::CameraController()
 
 /**
 * @brief プレイヤーの位置算出メソッド
-* @note  Playerクラスで呼び出す
+* @note  Player移動時、Playerクラスで呼び出す
 *		 カメラの角度に合わせるのでCameraクラスで定義
 */
 VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
