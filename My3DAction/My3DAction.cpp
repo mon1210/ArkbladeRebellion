@@ -88,7 +88,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	{
 
 		// 背景の色変更　灰色
-		SetBackgroundColor(128, 128, 128);
+		SetBackgroundColor(0, 0, 0);
 
 		// 
 		ClearDrawScreen();

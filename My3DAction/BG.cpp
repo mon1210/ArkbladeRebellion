@@ -20,6 +20,8 @@
 */
 BG::BG()
 {
+	tile_handle = MV1LoadModel("res\\test_Tile_model.mv1");
+	position = VGet(0.f, 0.f, 0.f);
 
 }
 
@@ -36,4 +38,9 @@ BG::~BG()
 */
 void BG::draw() 
 {
+	// 
+	MV1SetPosition(tile_handle, position);
+	// 
+	MV1DrawModel(tile_handle);
+
 }
