@@ -24,6 +24,7 @@ public:
 	virtual void draw() override;
 	virtual void SetMove();
 	virtual void SetAnim(ePlayer::AnimationNum num);
+	virtual void RollAnim();
 protected:
 	Camera* pCamera;
 	VECTOR	position;
