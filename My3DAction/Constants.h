@@ -41,9 +41,9 @@ const float ENEMY_MOVE_SPEED = 2.f;				// エネミーの移動距離
  
 
 // 以下Grid用定数==================================================================================================== //
-const int LINE_NUM = 50;
-const float LINE_AREA_SIZE = 10000.f;
-const float GRID_LINE_START_POSITION = 0.0f;
+const int LINE_NUM = 50;						// 線の本数
+const float LINE_AREA_SIZE = 10000.f;			// 線を描画するエリアサイズ
+const float GRID_LINE_START_POSITION = 0.0f;	// 線の描画開始位置
 // 以上Grid用定数==================================================================================================== //
 
 
