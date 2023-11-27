@@ -19,9 +19,9 @@ const float BG_SCALE_FACTOR = 1.0f;				// 背景描画の際の拡大率
 
 
 // 以下Camera用定数================================================================================================== //
-const float CAMERA_ANGLE_SPEED = 3.f;			// カメラのアングル変更速度
-const float CAMERA_LOOK_AT_HEIGHT = 400.f;		// カメラが注視する点からプレイヤーまでの高さ
-const float CAMERA_LOOK_AT_DISTANCE = 2150.f;	// カメラと注視点の距離
+const float CAMERA_ANGLE_SPEED = 1.f;			// カメラのアングル変更速度
+const float CAMERA_LOOK_AT_HEIGHT = 100.f;		// カメラが注視する点からプレイヤーまでの高さ
+const float CAMERA_LOOK_AT_DISTANCE = 800.f;	// カメラと注視点の距離
 const float MAX_VERTICAL_ANGLE = 80.f;			// 垂直方向に対するアングル変更の最大値
 const float MIN_VERTICAL_ANGLE = 0.f;			// 垂直方向に対するアングル変更の最小値
 const float MAX_HORIZONTAL_ANGLE = 180.f;		// 水平方向に対するアングル変更の最大値
