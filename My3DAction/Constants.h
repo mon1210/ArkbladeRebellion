@@ -32,7 +32,7 @@ const float FULL_CIRCLE_DEGREES = 360.f;		// 完全な円の角度
 
 // 以下Enemy用定数=================================================================================================== //
 const float ENEMY_POS_X = 300.f;				// エネミーの初期X座標
-const float ENEMY_POS_Y = 0.f;					// エネミーの初期Y座標
+const float ENEMY_POS_Y = 0.f;					// エネミーの初期Y座標 -280
 const float ENEMY_POS_Z = 900.f;				// エネミーの初期Z座標
 const float ENEMY_START_ROTATE_Y = 0.f;			// エネミーの初期回転Y
 const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメーションの増加数
@@ -63,7 +63,7 @@ const double DOUBLE_ONE = 1.0;					// 倍精度浮動小数点数リテラル
 
 // 以下Player用定数================================================================================================== //
 const float PLAYER_POS_X = 0.f;					// プレイヤーの初期X座標
-const float PLAYER_POS_Y = 0.f;					// プレイヤーの初期Y座標
+const float PLAYER_POS_Y = 0.f;					// プレイヤーの初期Y座標 -250
 const float PLAYER_POS_Z = 600.f;				// プレイヤーの初期Z座標
 const float PLAYER_START_ROTATE_Y = 180.f;		// プレイヤーの初期回転Y
 const float PLAYER_ANIM_F_INCREMENT = 0.2f;		// プレイヤーの毎フレームごとのアニメーションの増加数
