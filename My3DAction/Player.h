@@ -14,6 +14,7 @@
 
 class Stage;
 class Camera;
+class Collider;
 
 class Player : public IGameObject
 {
@@ -28,6 +29,7 @@ public:
 	VECTOR	position;
 protected:
 	Camera* pCamera;
+	Collider* pCollider;
 	//VECTOR	position;
 	VECTOR  moveVec;
 	int		anim_handle;

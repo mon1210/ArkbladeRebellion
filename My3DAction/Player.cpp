@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Enums.h"
 #include "camera.h"
-
+#include "Collider.h"
 
 /**
 * @brief Playerのコンストラクタ
@@ -22,6 +22,7 @@ Player::Player()
     anim_timer = 0.f;
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
     pCamera = new Camera();
+    pCollider = new Collider();
     moveFlag = false;
     rollFlag = false;
 
@@ -267,6 +268,10 @@ void Player::draw()
 
     // カメラの位置と向きを設定
     pCamera->SetCameraPositionAndDirection(position);
+
+    // 
+    pCollider->draw(position, VAdd(position, VGet(0.0f, CHARA_HIT_HEIGHT, 0.0f)),
+        CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
 
     // ３Ｄモデルの描画
     MV1DrawModel(anim_handle);
