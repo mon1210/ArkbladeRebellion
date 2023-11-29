@@ -2,7 +2,6 @@
 #pragma once
 #include "DxLib.h"
 
-class Player;
 class Enemy;
 
 class Collider
@@ -10,8 +9,8 @@ class Collider
 public:
 	Collider();
 	~Collider();
-	virtual void Chara_Collision(Player* player, Enemy* enemy);
-	virtual void draw();
+	virtual void Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec);
+	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag);
 private:
 
 };
