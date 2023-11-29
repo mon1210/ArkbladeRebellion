@@ -25,9 +25,10 @@ public:
 	virtual void SetMove();
 	virtual void SetAnim(ePlayer::AnimationNum num);
 	virtual void RollAnim();
+	VECTOR	position;
 protected:
 	Camera* pCamera;
-	VECTOR	position;
+	//VECTOR	position;
 	VECTOR  moveVec;
 	int		anim_handle;
 	int		anim_no;
