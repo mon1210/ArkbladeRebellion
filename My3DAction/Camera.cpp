@@ -139,3 +139,23 @@ void Camera::SetCameraPositionAndDirection(VECTOR pPlayerPos)
 	SetCameraPositionAndTarget_UpVecY(cameraPos, CameraLookAtPos);
 
 }
+
+
+/**
+* @brief カメラ水平角度取得関数
+* @note
+*/
+float Camera::GetCameraHorizontalAngle()
+{
+	return CameraHAngle;
+}
+
+
+/**
+* @brief カメラ垂直角度取得関数
+* @note
+*/
+float Camera::GetCameraVerticalAngle()
+{
+	return CameraVAngle;
+}

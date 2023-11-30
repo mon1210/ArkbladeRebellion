@@ -122,7 +122,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 180.f - pCamera->CameraHAngle;
+            angle = 180.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -134,7 +134,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 0.f - pCamera->CameraHAngle;
+            angle = 0.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.z = -PLAYER_MOVE_SPEED;
         }
@@ -146,7 +146,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = -90.f - pCamera->CameraHAngle;
+            angle = -90.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -158,7 +158,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 90.f - pCamera->CameraHAngle;
+            angle = 90.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
@@ -169,7 +169,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 180.f - pCamera->CameraHAngle;
+            angle = 180.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -180,7 +180,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = -90.f - pCamera->CameraHAngle;
+            angle = -90.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -191,7 +191,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 90.f - pCamera->CameraHAngle;
+            angle = 90.f - pCamera->GetCameraHorizontalAngle();
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
