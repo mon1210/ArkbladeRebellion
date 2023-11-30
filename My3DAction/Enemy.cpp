@@ -10,22 +10,22 @@
 */
 Enemy::Enemy()
 {
-    anim_no = 0;
-    anim_time = 0.f;
-    anim_timer = 0.f;
+    animNo = 0;
+    animTime = 0.f;
+    animTimer = 0.f;
     hitPoint = 1.f;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_POS_X, ENEMY_POS_Y, ENEMY_POS_Z);
-    anim_timer = 0.f;
-    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+    animTimer = 0.f;
+    animTime = MV1GetAnimTotalTime(animHandle, 0);
     pModel = new Model();
 
     // モデル取得
     pModel->LoadEnemyModel();
-    anim_handle = pModel->GetEnemyModel();
+    animHandle = pModel->GetEnemyModel();
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(anim_handle, eEnemy::Idle);
+    MV1AttachAnim(animHandle, eEnemy::Idle);
 
 
 }
@@ -44,16 +44,16 @@ Enemy::~Enemy()
 */
 void Enemy::SetAnim(eEnemy::AnimationNum num)
 {
-    if (anim_no != num)
+    if (animNo != num)
     {
-        anim_no = num;
-        anim_timer = 0;
+        animNo = num;
+        animTimer = 0;
         // アニメーションにかかる時間を取得
-        anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+        animTime = MV1GetAnimTotalTime(animHandle, animNo);
         // アニメーションをデタッチ
-        MV1DetachAnim(anim_handle, 0);
+        MV1DetachAnim(animHandle, 0);
         // アニメーションをアタッチ
-        MV1AttachAnim(anim_handle, anim_no);
+        MV1AttachAnim(animHandle, animNo);
     }
 
 }
@@ -70,7 +70,7 @@ void Enemy::SetMove()
     {
         SetAnim(eEnemy::Run);
         // 手前移動
-        if (anim_no == eEnemy::Run)
+        if (animNo == eEnemy::Run)
         {
             angle = 0.f;
             position.z -= ENEMY_MOVE_SPEED;
@@ -81,7 +81,7 @@ void Enemy::SetMove()
     {
         SetAnim(eEnemy::Run);
         // 手前移動
-        if (anim_no == eEnemy::Run)
+        if (animNo == eEnemy::Run)
         {
             angle = 180.f;
             position.z += ENEMY_MOVE_SPEED;
@@ -135,26 +135,26 @@ void Enemy::draw()
     // 行動管理関数呼び出し
     SetMove();
 
-    anim_timer += ENEMY_ANIM_F_INCREMENT;
+    animTimer += ENEMY_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
+    if (animTimer >= animTime)
     {
-        anim_timer = 0.0f;
+        animTimer = 0.0f;
     }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
 
     // 画面に映る位置に3Dモデルを移動
-    MV1SetPosition(anim_handle, position);
+    MV1SetPosition(animHandle, position);
 
     // モデルの大きさ変更
-    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+    MV1SetScale(animHandle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 
     // モデルの回転
-    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
+    MV1SetRotationXYZ(animHandle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
 
     // ３Ｄモデルの描画
-    MV1DrawModel(anim_handle);
+    MV1DrawModel(animHandle);
 
 }
 

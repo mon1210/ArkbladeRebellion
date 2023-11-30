@@ -14,9 +14,9 @@ public:
 	BG();
 	virtual ~BG();
 	virtual void draw();
-	virtual int GetModelHandle();
+	virtual int GetModelHandle();	// モデル取得関数
 protected:
 	Model*	pModel;
-	int		tile_handle;
-	VECTOR	position;
+	VECTOR	position;		// 座標
+	int		tile_handle;	// モデル保存用変数
 };

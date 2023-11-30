@@ -24,14 +24,14 @@ public:
 	virtual void draw() override;
 	virtual void SetMove();
 	virtual void SetAnim(eEnemy::AnimationNum num);
-	virtual VECTOR GetEnemyPos();
+	virtual VECTOR GetEnemyPos();	// À•Wæ“¾ŠÖ”
 protected:
 	Model*	pModel;
 	VECTOR	position;
-	int		anim_handle;
-	int		anim_no;
-	float	anim_time;
-	float	anim_timer;
+	int		animHandle;
+	int		animNo;
+	float	animTime;
+	float	animTimer;
 	float	angle;
 	float	hitPoint;
 

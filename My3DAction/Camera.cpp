@@ -83,18 +83,18 @@ void Camera::CameraController()
 * @note  Player移動時、Playerクラスで呼び出す
 *		 カメラの角度に合わせるのでCameraクラスで定義
 */
-VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
+VECTOR Camera::MoveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 {
 	VECTOR TempMoveVector;
 
 	// カメラの角度に合わせて移動ベクトルを回転してから加算
 	SinParam = sin(CameraHAngle / 180.0f * DX_PI_F);
 	CosParam = cos(CameraHAngle / 180.0f * DX_PI_F);
-	TempMoveVector.x = moveVec.x * CosParam - moveVec.z * SinParam;
+	TempMoveVector.x = move_vec.x * CosParam - move_vec.z * SinParam;
 	TempMoveVector.y = 0.0f;
-	TempMoveVector.z = moveVec.x * SinParam + moveVec.z * CosParam;
+	TempMoveVector.z = move_vec.x * SinParam + move_vec.z * CosParam;
 
-	playerPos = VAdd(pPlayerPos, TempMoveVector);
+	playerPos = VAdd(player_pos, TempMoveVector);
 
 	// pCollider->Chara_Collision(&playerPos, pEnemy, &TempMoveVector);
 

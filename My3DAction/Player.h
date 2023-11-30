@@ -27,22 +27,21 @@ public:
 	virtual void SetMove();
 	virtual void SetAnim(ePlayer::AnimationNum num);
 	virtual void RollAnim();
-	virtual VECTOR GetPlayerPos();
+	virtual VECTOR GetPlayerPos();	// 座標取得関数
 protected:
 	Camera*		pCamera;
 	Collider*	pCollider;
 	Model*		pModel;
-	VECTOR	position;
-	VECTOR	moveVec;
-	int		anim_handle;
-	int		anim_no;
-	float	anim_time;
-	float	anim_timer;
-	float	angle;
-	float	hitPoint;
-	bool	moveFlag;
-	bool	rollAble;
-
+	VECTOR	position;	// 座標
+	VECTOR	moveVec;	// 移動の向きベクトル
+	int		animHandle;	// モデルハンドル
+	int		animNo;		// アニメーション番号
+	float	animTime;	// アニメーションの総再生時間
+	float	animTimer;	// アニメーションの現在の再生時間
+	float	angle;		// プレイヤーの向き
+	float	hitPoint;	// HP
+	bool	moveFlag;	// 移動フラグ
+	bool	rollAble;	// Roll可能フラグ
 private:
 
 };

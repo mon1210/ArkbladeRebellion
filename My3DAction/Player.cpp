@@ -12,15 +12,15 @@
 */
 Player::Player()
 {
-    anim_no = 0;
-    anim_time = 0.f;
-    anim_timer = 0.f;
+    animNo = 0;
+    animTime = 0.f;
+    animTimer = 0.f;
     hitPoint = 100.f;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
-    anim_timer = 0.f;
-    anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+    animTimer = 0.f;
+    animTime = MV1GetAnimTotalTime(animHandle, 0);
     pCamera = new Camera();
     pCollider = new Collider();
     pModel = new Model();
@@ -28,10 +28,10 @@ Player::Player()
     rollAble = true;
 
     pModel->LoadPlayerModel();
-    anim_handle = pModel->GetPlayerModel();
+    animHandle = pModel->GetPlayerModel();
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(anim_handle, ePlayer::Idle);
+    MV1AttachAnim(animHandle, ePlayer::Idle);
 }
 
 
@@ -48,50 +48,50 @@ Player::~Player()
 */
 void Player::SetAnim(ePlayer::AnimationNum num)
 {
-    if (anim_no != num)
+    if (animNo != num)
     {
-        anim_no = num;
-        anim_timer = 0;
+        animNo = num;
+        animTimer = 0;
         // アニメーションにかかる時間を取得
-        anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+        animTime = MV1GetAnimTotalTime(animHandle, animNo);
         // アニメーションをデタッチ
-        MV1DetachAnim(anim_handle, 0);
+        MV1DetachAnim(animHandle, 0);
         // アニメーションをアタッチ
-        MV1AttachAnim(anim_handle, anim_no);
+        MV1AttachAnim(animHandle, animNo);
 
     }
-        anim_timer += PLAYER_ANIM_F_INCREMENT;
+        animTimer += PLAYER_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
+    if (animTimer >= animTime)
     {
-        anim_timer -= anim_time;
+        animTimer -= animTime;
     }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
 }
 
 
 void Player::RollAnim()
 {
     // アニメーションをセット
-    if (anim_no != ePlayer::Roll)
+    if (animNo != ePlayer::Roll)
     {
-        anim_no = ePlayer::Roll;
-        anim_timer = 0;
+        animNo = ePlayer::Roll;
+        animTimer = 0;
         // アニメーションにかかる時間を取得
-        anim_time = MV1GetAnimTotalTime(anim_handle, anim_no);
+        animTime = MV1GetAnimTotalTime(animHandle, animNo);
         // アニメーションをデタッチ
-        MV1DetachAnim(anim_handle, 0);
+        MV1DetachAnim(animHandle, 0);
         // アニメーションをアタッチ
-        MV1AttachAnim(anim_handle, anim_no);
+        MV1AttachAnim(animHandle, animNo);
 
     }
-    anim_timer += PLAYER_ROLL_ANIM_F_INCREMENT;
+    animTimer += PLAYER_ROLL_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
-    if (anim_timer >= anim_time)
+    if (animTimer >= animTime)
     {
-        anim_timer -= anim_time;
+        animTimer -= animTime;
     }
-    MV1SetAttachAnimTime(anim_handle, 0, anim_timer);
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
 }
 
 
@@ -120,7 +120,7 @@ void Player::SetMove()
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
-        if (anim_no == ePlayer::Run)
+        if (animNo == ePlayer::Run)
         {
             angle = 180.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -132,7 +132,7 @@ void Player::SetMove()
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
-        if (anim_no == ePlayer::Run)
+        if (animNo == ePlayer::Run)
         {
             angle = 0.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -144,7 +144,7 @@ void Player::SetMove()
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
-        if (anim_no == ePlayer::Run)
+        if (animNo == ePlayer::Run)
         {
             angle = -90.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -156,7 +156,7 @@ void Player::SetMove()
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
-        if (anim_no == ePlayer::Run)
+        if (animNo == ePlayer::Run)
         {
             angle = 90.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -167,7 +167,7 @@ void Player::SetMove()
     else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
         RollAnim();
-        if (anim_no == ePlayer::Roll)
+        if (animNo == ePlayer::Roll)
         {
             angle = 180.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -178,7 +178,7 @@ void Player::SetMove()
     else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
         RollAnim();
-        if (anim_no == ePlayer::Roll)
+        if (animNo == ePlayer::Roll)
         {
             angle = -90.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -189,7 +189,7 @@ void Player::SetMove()
     else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
         RollAnim();
-        if (anim_no == ePlayer::Roll)
+        if (animNo == ePlayer::Roll)
         {
             angle = 90.f - pCamera->CameraHAngle;
             moveFlag = true;
@@ -256,13 +256,13 @@ void Player::draw()
     SetMove();
 
     // モデルの大きさ変更
-    MV1SetScale(anim_handle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+    MV1SetScale(animHandle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 
     // モデルの回転
-    MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
+    MV1SetRotationXYZ(animHandle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
 
     // 3Dモデルに座標をセット
-    MV1SetPosition(anim_handle, position);
+    MV1SetPosition(animHandle, position);
 
 
     //VECTOR rotate = MV1GetRotationXYZ(anim_handle);
@@ -278,7 +278,7 @@ void Player::draw()
     //    CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
 
     // ３Ｄモデルの描画
-    MV1DrawModel(anim_handle);
+    MV1DrawModel(animHandle);
 
 }
 
