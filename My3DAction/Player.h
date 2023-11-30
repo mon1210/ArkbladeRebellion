@@ -16,6 +16,7 @@ class Stage;
 class Camera;
 class Collider;
 
+
 class Player : public IGameObject
 {
 public:
