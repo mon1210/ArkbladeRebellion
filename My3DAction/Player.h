@@ -15,7 +15,7 @@
 class Stage;
 class Camera;
 class Collider;
-
+class Model;
 
 class Player : public IGameObject
 {
@@ -27,15 +27,15 @@ public:
 	virtual void SetMove();
 	virtual void SetAnim(ePlayer::AnimationNum num);
 	virtual void RollAnim();
-	VECTOR	position;
+	virtual VECTOR GetPlayerPos();
 protected:
-	Camera* pCamera;
-	Collider* pCollider;
-	//VECTOR	position;
-	VECTOR  moveVec;
+	Camera*		pCamera;
+	Collider*	pCollider;
+	Model*		pModel;
+	VECTOR	position;
+	VECTOR	moveVec;
 	int		anim_handle;
 	int		anim_no;
-	int		keyInput;
 	float	anim_time;
 	float	anim_timer;
 	float	angle;

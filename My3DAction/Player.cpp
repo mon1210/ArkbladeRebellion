@@ -23,14 +23,12 @@ Player::Player()
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
     pCamera = new Camera();
     pCollider = new Collider();
+    pModel = new Model();
     moveFlag = false;
     rollFlag = false;
 
-    // インスタンス化生成
-    Model modelObject;
-    // モデルセット関数呼び出し
-    modelObject.PlayerLoadModel();
-    anim_handle = modelObject.playerHandle;
+    pModel->LoadPlayerModel();
+    anim_handle = pModel->GetPlayerModel();
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(anim_handle, ePlayer::Idle);
@@ -283,3 +281,12 @@ void Player::draw()
 
 }
 
+
+/**
+* @brief プレイヤー座標取得用関数
+* @note  
+*/
+VECTOR Player::GetPlayerPos()
+{
+    return position;
+}
