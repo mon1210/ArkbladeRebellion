@@ -41,7 +41,7 @@ protected:
 	float	angle;
 	float	hitPoint;
 	bool	moveFlag;
-	bool	rollFlag;
+	bool	rollAble;
 
 private:
 

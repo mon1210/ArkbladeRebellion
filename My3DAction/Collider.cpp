@@ -82,7 +82,7 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 * @note  Playerクラスで呼び出し
 *		 プレイヤーの移動範囲を制限している
 */
-void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos)
+void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 
@@ -99,12 +99,14 @@ void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos)
 		// HitPosition => 交点の座標
 		new_pos.y = result.HitPosition.y;
 		player_pos = new_pos;
-
+		roll_able = true;
 		// 当たったときにその旨を描画
 		DrawString(0, 0, "HIT", GetColor(255, 0, 0));
 	}
 	else
 	{
+		// ステージ端っこでRollできないように
+		roll_able = false;
 		// 当たらなかった場合は衝突しなかった旨を描画
 		DrawString(0, 0, "NO HIT", GetColor(0, 0, 255));
 	}

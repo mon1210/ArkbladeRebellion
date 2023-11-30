@@ -24,7 +24,7 @@ Player::Player()
     pCamera = new Camera();
     pCollider = new Collider();
     moveFlag = false;
-    rollFlag = false;
+    rollAble = true;
 
     // インスタンス化生成
     Model modelObject;
@@ -166,7 +166,7 @@ void Player::SetMove()
         }
     }
     // Space or PAD_× => Roll
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_W))
+    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
         RollAnim();
         if (anim_no == ePlayer::Roll)
@@ -177,7 +177,7 @@ void Player::SetMove()
         }
     }
     // 右ロール
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_D))
+    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
         RollAnim();
         if (anim_no == ePlayer::Roll)
@@ -188,7 +188,7 @@ void Player::SetMove()
         }
     }
     // 左ロール
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_A))
+    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
         RollAnim();
         if (anim_no == ePlayer::Roll)
@@ -223,8 +223,9 @@ void Player::SetMove()
         VECTOR new_pos = position;
         // 移動後の座標取得
         new_pos = pCamera->MoveAlongHAngle(moveVec, position);
-        // 
-        pCollider->ClampToStageBounds(new_pos, position);
+        // ステージとの当たり判定を確認する関数
+        pCollider->ClampToStageBounds(new_pos, position, rollAble);
+
     }
 
 }
