@@ -3,14 +3,12 @@
 #include "Enemy.h"
 #include "BG.h"
 
-
 /**
 * @brief Cameraのコンストラクタ
 *
 */
 Collider::Collider()
 {
-
 	pBG = new BG();
 }
 
@@ -36,12 +34,12 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 	// 
 	if (HitCheck_Capsule_Capsule(
 		ChPosition, VAdd(ChPosition, VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH,
-		enemy->position, VAdd(enemy->position, VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
+		enemy->GetEnemyPos(), VAdd(enemy->GetEnemyPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
 	{
 		// 当たっていたらプレイヤー押し戻し
 
 		// chk_ch から ch へのベクトルを算出
-		ChkChToChVec = VSub(ChPosition, enemy->position);
+		ChkChToChVec = VSub(ChPosition, enemy->GetEnemyPos());
 
 		// Ｙ軸は見ない
 		ChkChToChVec.y = 0.f;
@@ -85,7 +83,6 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos)
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
-
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
 	MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
 		pBG->GetModelHandle(),				    // 判定対象となるモデルのフレーム

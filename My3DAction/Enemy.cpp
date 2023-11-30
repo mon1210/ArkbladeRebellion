@@ -18,12 +18,11 @@ Enemy::Enemy()
     position = VGet(ENEMY_POS_X, ENEMY_POS_Y, ENEMY_POS_Z);
     anim_timer = 0.f;
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
+    pModel = new Model();
 
-    // インスタンス化生成
-    Model modelObject;
-    // モデルセット関数呼び出し
-    modelObject.EnemyLoadModel();
-    anim_handle = modelObject.enemyHandle;
+    // モデル取得
+    pModel->LoadEnemyModel();
+    anim_handle = pModel->GetEnemyModel();
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(anim_handle, eEnemy::Idle);
@@ -157,4 +156,14 @@ void Enemy::draw()
     // ３Ｄモデルの描画
     MV1DrawModel(anim_handle);
 
+}
+
+
+/**
+* @brief エネミー座標取得用関数
+* @note
+*/
+VECTOR Enemy::GetEnemyPos()
+{
+    return  position;
 }

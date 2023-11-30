@@ -13,6 +13,7 @@
 #endif
 
 class Stage;
+class Model;
 
 class Enemy : public IGameObject
 {
@@ -23,15 +24,16 @@ public:
 	virtual void draw() override;
 	virtual void SetMove();
 	virtual void SetAnim(eEnemy::AnimationNum num);
-	VECTOR	position;
+	virtual VECTOR GetEnemyPos();
 protected:
+	Model*	pModel;
+	VECTOR	position;
 	int		anim_handle;
 	int		anim_no;
 	float	anim_time;
 	float	anim_timer;
 	float	angle;
 	float	hitPoint;
-	//VECTOR	position;
 
 private:
 

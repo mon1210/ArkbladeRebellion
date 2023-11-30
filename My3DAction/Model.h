@@ -12,9 +12,14 @@ class Model
 public:
 	Model();
 	~Model();
-	virtual void PlayerLoadModel();
-	virtual void EnemyLoadModel();
+	virtual void LoadPlayerModel();
+	virtual void LoadEnemyModel();
+	virtual void LoadTileModel();
+	virtual int GetPlayerModel();
+	virtual int GetEnemyModel();
+	virtual int GetTileModel();
+protected:
 	int		enemyHandle;
 	int		playerHandle;
-protected:
+	int		tileHandle;
 };

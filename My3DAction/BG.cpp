@@ -2,6 +2,8 @@
 #include "stdafx.h"
 // ゲームの背景を管理するクラスと関連データを定義
 #include "BG.h"
+// 
+#include "Model.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -20,8 +22,13 @@
 */
 BG::BG()
 {
-	tile_handle = MV1LoadModel("res\\test_Tile_model.mv1");
+	tile_handle = 0;
 	position = VGet(0.f, 0.f, 0.f);
+
+	pModel = new Model();
+	// モデル取得
+	pModel->LoadTileModel();
+	tile_handle = pModel->GetTileModel();
 
 }
 
@@ -31,10 +38,16 @@ BG::~BG()
 {
 }
 
+
+/**
+* @brief タイトルモデル取得用関数
+* @note
+*/
 int BG::GetModelHandle()
 {
 	return tile_handle;
 }
+
 
 /**
 * @brief 描画メソッド
