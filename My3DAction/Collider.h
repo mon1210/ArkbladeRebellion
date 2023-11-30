@@ -11,7 +11,7 @@ public:
 	Collider();
 	~Collider();
 	virtual void Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec);
-	virtual void ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos);
+	virtual void ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);
 	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag);
 private:
 	BG* pBG;
