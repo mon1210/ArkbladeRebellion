@@ -6,6 +6,8 @@
 #include "IGameObject.h"
 #endif
 
+class Model;
+
 class BG
 {
 public:
@@ -14,6 +16,7 @@ public:
 	virtual void draw();
 	virtual int GetModelHandle();
 protected:
+	Model*	pModel;
 	int		tile_handle;
 	VECTOR	position;
 };
