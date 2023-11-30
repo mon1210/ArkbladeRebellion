@@ -19,13 +19,15 @@ public:
 	virtual void CameraController();
 	virtual VECTOR MoveAlongHAngle(VECTOR move_vec,VECTOR player_pos);
 	virtual void SetCameraPositionAndDirection(VECTOR pPlayerPos);
-	float  CameraHAngle;	// …•½•ûŒü‚ÌŠp“x
-	float  CameraVAngle;	// ‚’¼•ûŒü‚ÌŠp“x
+	virtual float GetCameraHorizontalAngle();
+	virtual float GetCameraVerticalAngle();
 private:
 	Collider*	pCollider;
 	Enemy*		pEnemy;
 	VECTOR	cameraPos;
 	VECTOR	playerPos;
+	float	CameraHAngle;	// …•½•ûŒü‚ÌŠp“x
+	float	CameraVAngle;	// ‚’¼•ûŒü‚ÌŠp“x
 	float	SinParam;
 	float	CosParam;
 };
