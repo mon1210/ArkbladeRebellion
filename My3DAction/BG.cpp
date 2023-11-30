@@ -31,6 +31,10 @@ BG::~BG()
 {
 }
 
+int BG::GetModelHandle()
+{
+	return tile_handle;
+}
 
 /**
 * @brief •`‰æƒƒ\ƒbƒh
