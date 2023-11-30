@@ -1,6 +1,7 @@
 #include "Collider.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "BG.h"
 
 
 /**
@@ -10,6 +11,7 @@
 Collider::Collider()
 {
 
+	pBG = new BG();
 }
 
 
@@ -75,6 +77,39 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 }
 
 
+/**
+* @brief プレイヤー移動時のステージとの当たり判定メソッド
+* @note  Playerクラスで呼び出し
+*		 プレイヤーの移動範囲を制限している
+*/
+void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos)
+{
+	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
+
+	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
+	MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
+		pBG->GetModelHandle(),				    // 判定対象となるモデルのフレーム
+		-1,												// 対象となるフレーム番号
+		new_pos,										// Rayの始点   モデルの足元
+		VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
+	);
+
+	if (result.HitFlag == 1) // 当たりチェック
+	{
+		// HitPosition => 交点の座標
+		new_pos.y = result.HitPosition.y;
+		player_pos = new_pos;
+
+		// 当たったときにその旨を描画
+		DrawString(0, 0, "HIT", GetColor(255, 0, 0));
+	}
+	else
+	{
+		// 当たらなかった場合は衝突しなかった旨を描画
+		DrawString(0, 0, "NO HIT", GetColor(0, 0, 255));
+	}
+
+}
 
 // 
 void Collider::draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag)
