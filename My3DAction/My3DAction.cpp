@@ -22,6 +22,8 @@
 #include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "Selector.h"
+// 
+#include "BG.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -39,6 +41,7 @@
 #define INTERVAL (1.0/FPS)
 
 Selector* g_pSelector = NULL;	//	ゲームシステムオブジェクト
+BG* g_BG = NULL;
 
 /**
 * @fn
@@ -72,14 +75,20 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// カメラの描画距離   SetCameraNearFar(最短距離,最長距離)
 	SetCameraNearFar(0.f, 1000.f);
 
-	//// インスタンス作成
-	//Model modelObject;
-	//// モデルセットメソッド呼び出し
-	//modelObject.ModelSet();
-
 	//	ゲームシステム初期化
 	g_pSelector = new Selector();
 
+	g_BG = new BG();
+
+	// Tileに当たり判定付与
+	int tile_handle = g_BG->GetModelHandle();
+	MV1SetupCollInfo(
+		tile_handle,		// 当たり判定を設定するモデルのハンドル
+		-1,					// 対象となるモデルのフレーム番号(-1は全て)	
+		32,					// X軸の空間分割数
+		32,					// Y軸の空間分割数
+		32					// Z軸の空間分割数
+	);
 
 	/**************************
 		2.メッセージループ
@@ -87,10 +96,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	while (!ProcessMessage() && !CheckHitKey(KEY_INPUT_ESCAPE))
 	{
 
-		// 背景の色変更　灰色
+		// 背景の色変更　黒色
 		SetBackgroundColor(0, 0, 0);
 
-		// 
+		// クリア関数
 		ClearDrawScreen();
 
 		//	この中に描画処理を書く
@@ -102,8 +111,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			g_pSelector->doDraw();
 
 		//	この中に描画処理を書く
-		
-		//ClearDrawScreen();
 
 		// フリップ関数
 		ScreenFlip();
@@ -115,6 +122,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	**************************/
 
 	SAFE_DELETE(g_pSelector);
+	SAFE_DELETE(g_BG);
 
 	// DXライブラリの後始末
 	DxLib_End();
