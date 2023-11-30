@@ -1,6 +1,7 @@
 // 
 #include "camera.h"
-
+#include "Collider.h"
+#include "Enemy.h"
 
 /**
 * @brief Cameraのコンストラクタ
@@ -14,6 +15,9 @@ Camera::Camera()
 	CameraVAngle = 40.0f;
 	SinParam = 0.f;
 	CosParam = 0.f;
+
+	pCollider = new Collider();
+	pEnemy = new Enemy();
 }
 
 
@@ -91,6 +95,8 @@ VECTOR Camera::MoveAlongHAngle(VECTOR moveVec, VECTOR pPlayerPos)
 	TempMoveVector.z = moveVec.x * SinParam + moveVec.z * CosParam;
 
 	playerPos = VAdd(pPlayerPos, TempMoveVector);
+
+	// pCollider->Chara_Collision(&playerPos, pEnemy, &TempMoveVector);
 
 	return playerPos;
 }

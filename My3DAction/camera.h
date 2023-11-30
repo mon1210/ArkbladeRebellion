@@ -8,6 +8,9 @@
 #include "Constants.h"
 #include <math.h>
 
+class Collider;
+class Enemy;
+
 class Camera
 {
 public:
@@ -23,5 +26,7 @@ private:
 	float  CosParam;
 	VECTOR	cameraPos;
 	VECTOR	playerPos;
+	Collider* pCollider;
+	Enemy* pEnemy;
 };
 

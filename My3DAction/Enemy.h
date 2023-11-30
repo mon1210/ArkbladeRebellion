@@ -23,6 +23,7 @@ public:
 	virtual void draw() override;
 	virtual void SetMove();
 	virtual void SetAnim(eEnemy::AnimationNum num);
+	VECTOR	position;
 protected:
 	int		anim_handle;
 	int		anim_no;
@@ -30,7 +31,7 @@ protected:
 	float	anim_timer;
 	float	angle;
 	float	hitPoint;
-	VECTOR	position;
+	//VECTOR	position;
 
 private:
 

@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Enums.h"
 #include "camera.h"
-
+#include "Collider.h"
 
 /**
 * @brief Playerのコンストラクタ
@@ -22,6 +22,7 @@ Player::Player()
     anim_timer = 0.f;
     anim_time = MV1GetAnimTotalTime(anim_handle, 0);
     pCamera = new Camera();
+    pCollider = new Collider();
     moveFlag = false;
     rollFlag = false;
 
@@ -216,6 +217,15 @@ void Player::SetMove()
         SetAnim(ePlayer::Idle);
     }
 
+    // 移動した場合の当たり判定更新と座標セット
+    if (moveFlag)
+    {
+        VECTOR new_pos = position;
+        // 移動後の座標取得
+        new_pos = pCamera->MoveAlongHAngle(moveVec, position);
+        // 
+        pCollider->ClampToStageBounds(new_pos, position);
+    }
 
 }
 
@@ -252,10 +262,6 @@ void Player::draw()
     // モデルの回転
     MV1SetRotationXYZ(anim_handle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
 
-    // 移動した場合、座標取得
-    if (moveFlag)
-        position = pCamera->MoveAlongHAngle(moveVec, position);
-
     // 3Dモデルに座標をセット
     MV1SetPosition(anim_handle, position);
 
@@ -267,6 +273,10 @@ void Player::draw()
 
     // カメラの位置と向きを設定
     pCamera->SetCameraPositionAndDirection(position);
+
+    // 
+    //pCollider->draw(position, VAdd(position, VGet(0.0f, CHARA_HIT_HEIGHT, 0.0f)),
+    //    CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
 
     // ３Ｄモデルの描画
     MV1DrawModel(anim_handle);

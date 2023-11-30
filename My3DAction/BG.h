@@ -12,6 +12,7 @@ public:
 	BG();
 	virtual ~BG();
 	virtual void draw();
+	virtual int GetModelHandle();
 protected:
 	int		tile_handle;
 	VECTOR	position;
