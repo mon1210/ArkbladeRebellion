@@ -13,7 +13,7 @@ class Grid
 public:
 	Grid();
 	~Grid();
-	virtual void Draw();
+	virtual void Draw();	// •`‰æƒƒ\ƒbƒh
 protected:
 	VECTOR startHorizontal;
 	VECTOR endHorizontal;

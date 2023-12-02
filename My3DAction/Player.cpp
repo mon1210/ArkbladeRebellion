@@ -16,17 +16,23 @@ Player::Player()
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 100.f;
-    angle = PLAYER_START_ROTATE_Y;
-    position = VGet(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_POS_Z);
-    moveVec = VGet(0.f, 0.f, 0.f);
     animTimer = 0.f;
+
+    angle = PLAYER_START_ROTATE_Y;
+
+    position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
+    moveVec = VGet(0.f, 0.f, 0.f);
+
     animTime = MV1GetAnimTotalTime(animHandle, 0);
+
     pCamera = new Camera();
     pCollider = new Collider();
     pModel = new Model();
+
     moveFlag = false;
     rollAble = true;
 
+    // ƒ‚ƒfƒ‹Žæ“¾
     pModel->LoadPlayerModel();
     animHandle = pModel->GetPlayerModel();
 
@@ -38,7 +44,9 @@ Player::Player()
 // ƒfƒXƒgƒ‰ƒNƒ^
 Player::~Player()
 {
-
+    SAFE_DELETE(pCamera);
+    SAFE_DELETE(pCollider);
+    SAFE_DELETE(pModel);
 }
 
 
@@ -277,7 +285,7 @@ void Player::draw()
     //pCollider->draw(position, VAdd(position, VGet(0.0f, CHARA_HIT_HEIGHT, 0.0f)),
     //    CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
 
-    // ‚R‚cƒ‚ƒfƒ‹‚Ì•`‰æ
+    // 3Dƒ‚ƒfƒ‹‚Ì•`‰æ
     MV1DrawModel(animHandle);
 
 }

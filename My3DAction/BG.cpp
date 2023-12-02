@@ -23,6 +23,7 @@
 BG::BG()
 {
 	tile_handle = 0;
+	pModel = NULL;
 	position = VGet(0.f, 0.f, 0.f);
 
 	pModel = new Model();
@@ -55,9 +56,10 @@ int BG::GetModelHandle()
 */
 void BG::draw() 
 {
-	// 
+	// 3Dモデルに座標をセット
 	MV1SetPosition(tile_handle, position);
-	// 
+
+	// 3Dモデルの描画
 	MV1DrawModel(tile_handle);
 
 }

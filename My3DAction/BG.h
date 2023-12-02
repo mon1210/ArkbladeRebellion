@@ -13,7 +13,7 @@ class BG
 public:
 	BG();
 	virtual ~BG();
-	virtual void draw();
+	virtual void draw();	// 描画メソッド
 	virtual int GetModelHandle();	// モデル取得関数
 protected:
 	Model*	pModel;

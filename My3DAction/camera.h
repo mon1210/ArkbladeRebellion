@@ -16,11 +16,11 @@ class Camera
 public:
 	Camera();
 	~Camera();
-	virtual void CameraController();
-	virtual VECTOR MoveAlongHAngle(VECTOR move_vec,VECTOR player_pos);
-	virtual void SetCameraPositionAndDirection(VECTOR pPlayerPos);
-	virtual float GetCameraHorizontalAngle();
-	virtual float GetCameraVerticalAngle();
+	virtual void CameraController();	// カメラ操作メソッド
+	virtual VECTOR MoveAlongHAngle(VECTOR move_vec,VECTOR player_pos);	// プレイヤーの位置算出メソッド(return playerPos)
+	virtual void SetCameraPositionAndDirection(VECTOR pPlayerPos);		// カメラの位置算出メソッド
+	virtual float GetCameraHorizontalAngle();	// カメラ水平角度取得関数
+	virtual float GetCameraVerticalAngle();		// カメラ垂直角度取得関数
 private:
 	Collider*	pCollider;
 	Enemy*		pEnemy;

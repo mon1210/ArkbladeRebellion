@@ -20,6 +20,9 @@ Model::Model()
 // デストラクタ
 Model::~Model()
 {
+    MV1DeleteModel(playerHandle);
+    MV1DeleteModel(enemyHandle);
+    MV1DeleteModel(tileHandle);
 }
 
 

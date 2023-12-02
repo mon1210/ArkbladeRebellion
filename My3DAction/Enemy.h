@@ -20,10 +20,10 @@ class Enemy : public IGameObject
 public:
 	Enemy();
 	~Enemy();
-	virtual bool move() override;
-	virtual void draw() override;
-	virtual void SetMove();
-	virtual void SetAnim(eEnemy::AnimationNum num);
+	virtual bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
+	virtual void draw() override;	// 描画メソッド
+	virtual void SetMove();		// 行動管理関数
+	virtual void SetAnim(eEnemy::AnimationNum num);		// アニメーションセット関数
 	virtual VECTOR GetEnemyPos();	// 座標取得関数
 protected:
 	Model*	pModel;

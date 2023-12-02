@@ -29,8 +29,8 @@ class Stage : public IGameScene
 public:
 	Stage(Selector* pSystem);
 	virtual ~Stage(void);
-	virtual GameSceneResultCode move() override;
-	virtual void draw() override;
+	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
+	virtual void draw() override;	// 描画メソッド
 protected:
 	Selector*	System;
 	Player*		pPlayer;
