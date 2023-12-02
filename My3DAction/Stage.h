@@ -4,12 +4,7 @@
 */
 #pragma once
 #include "Selector.h"
-#include <list>
-
-//--- ヘッダガードで同じファイルが二度インクルードされることを防いでいる
-#ifndef __IGAMEOBJECT_H__
 #include "IGameObject.h"
-#endif
 
 class Player;
 class Enemy;

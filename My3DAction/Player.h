@@ -6,11 +6,7 @@
 #pragma once
 #include "DxLib.h"
 #include "Enums.h"
-
-//--- ヘッダガードを使用して二度インクルードするのを防ぐ
-#ifndef __IGAMEOBJECT_H__
 #include "IGameObject.h"
-#endif
 
 class Stage;
 class Camera;
