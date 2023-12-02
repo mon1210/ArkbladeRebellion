@@ -10,8 +10,8 @@ class Collider
 public:
 	Collider();
 	~Collider();
-	virtual void Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* move_vec);
-	virtual void ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);
+	virtual void Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* move_vec);	// キャラ同士の当たり判定
+	virtual void ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);	// プレイヤー移動時のステージとの当たり判定メソッド
 	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int dif_color, int spc_color, int flag);
 private:
 	BG* pBG;

@@ -11,10 +11,13 @@ Camera::Camera()
 {
 	cameraPos = VGet(0.f, 0.f, 0.f);
 	playerPos = VGet(0.f, 0.f, 0.f);
-	CameraHAngle = 0.0f;
-	CameraVAngle = 40.0f;
+
+	CameraHAngle = 0.f;
+	CameraVAngle = 40.f;
 	SinParam = 0.f;
 	CosParam = 0.f;
+	pCollider = NULL;
+	pEnemy = NULL;
 
 	pCollider = new Collider();
 	pEnemy = new Enemy();
@@ -24,7 +27,8 @@ Camera::Camera()
 // デストラクタ
 Camera::~Camera()
 {
-
+	SAFE_DELETE(pCollider);
+	SAFE_DELETE(pEnemy);
 }
 
 

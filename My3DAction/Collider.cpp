@@ -3,12 +3,14 @@
 #include "Enemy.h"
 #include "BG.h"
 
+
 /**
 * @brief Cameraのコンストラクタ
 *
 */
 Collider::Collider()
 {
+	pBG = NULL;
 	pBG = new BG();
 }
 
@@ -16,7 +18,7 @@ Collider::Collider()
 // デストラクタが
 Collider::~Collider()
 {
-
+	SAFE_DELETE(pBG);
 }
 
 
@@ -109,6 +111,7 @@ void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& rol
 	}
 
 }
+
 
 // 
 void Collider::draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag)

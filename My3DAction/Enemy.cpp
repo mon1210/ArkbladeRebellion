@@ -14,10 +14,14 @@ Enemy::Enemy()
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 1.f;
-    angle = ENEMY_START_ROTATE_Y;
-    position = VGet(ENEMY_POS_X, ENEMY_POS_Y, ENEMY_POS_Z);
     animTimer = 0.f;
+    pModel = NULL;
+    angle = ENEMY_START_ROTATE_Y;
+
+    position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
+
     animTime = MV1GetAnimTotalTime(animHandle, 0);
+
     pModel = new Model();
 
     // モデル取得
@@ -34,7 +38,7 @@ Enemy::Enemy()
 // デストラクタ
 Enemy::~Enemy()
 {
-
+    SAFE_DELETE(pModel);
 }
 
 

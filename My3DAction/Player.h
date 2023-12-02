@@ -22,11 +22,11 @@ class Player : public IGameObject
 public:
 	Player();
 	~Player();
-	virtual bool move() override;
-	virtual void draw() override;
-	virtual void SetMove();
-	virtual void SetAnim(ePlayer::AnimationNum num);
-	virtual void RollAnim();
+	virtual bool move() override;	// アニメーションメソッド
+	virtual void draw() override;	// 描画メソッド
+	virtual void SetMove();			// 行動管理関数
+	virtual void SetAnim(ePlayer::AnimationNum num);	// アニメーションセット関数
+	virtual void RollAnim();		// Rollのアニメーションメソッド
 	virtual VECTOR GetPlayerPos();	// 座標取得関数
 protected:
 	Camera*		pCamera;

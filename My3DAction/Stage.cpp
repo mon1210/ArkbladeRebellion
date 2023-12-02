@@ -15,13 +15,15 @@
 
 
 /**
-* @brief Shotのコンストラクタ
+* @brief Stageのコンストラクタ
 */
 Stage::Stage(Selector* pSystem)
 {
 	System = pSystem;
 	pPlayer = NULL;
 	pEnemy = NULL;
+	pBG = NULL;
+	pGrid = NULL;
 	Phase = STAGE_INIT;
 	bPause = true;
 	Timer = 0;
