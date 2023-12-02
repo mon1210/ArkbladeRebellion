@@ -34,3 +34,15 @@ namespace eEnemy
 	};
 }
 
+
+enum EnemyState
+{
+	Default = -1,
+	Wait,
+	Move, 
+	Chase,
+	Attack,
+	Damage,
+	Death,
+
+};
