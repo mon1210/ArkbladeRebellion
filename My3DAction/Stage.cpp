@@ -141,7 +141,7 @@ void Stage::draw()
 			if (pPlayer)
 				pPlayer->draw();
 			if (pEnemy)
-				pEnemy->draw();
+				pEnemy->Update();
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);
 			break;

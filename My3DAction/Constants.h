@@ -31,6 +31,7 @@ const float FULL_CIRCLE_DEGREES = 360.f;		// 完全な円の角度
 
 
 // 以下Enemy用定数=================================================================================================== //
+const int TIME_TO_TRANSITION = 240;				// エネミーの行動遷移タイマー
 const float ENEMY_START_POS_X = 300.f;			// エネミーの初期X座標
 const float ENEMY_START_POS_Y = 0.f;			// エネミーの初期Y座標 -280
 const float ENEMY_START_POS_Z = 900.f;			// エネミーの初期Z座標

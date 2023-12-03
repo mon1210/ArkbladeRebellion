@@ -24,6 +24,10 @@
 #include "Selector.h"
 // 
 #include "BG.h"
+// 
+#include "Enemy.h"
+// 
+//#include "Player.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -42,6 +46,8 @@
 
 Selector* g_pSelector = NULL;	//	ゲームシステムオブジェクト
 BG* g_BG = NULL;
+Enemy* g_Enemy = NULL;
+//Player* g_Player = NULL;
 
 /**
 * @fn
@@ -79,6 +85,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	g_pSelector = new Selector();
 
 	g_BG = new BG();
+	g_Enemy = new Enemy();
+	//g_Player = new Player();
+
+	g_Enemy->InitAnimation();
 
 	// Tileに当たり判定付与
 	int tile_handle = g_BG->GetModelHandle();
