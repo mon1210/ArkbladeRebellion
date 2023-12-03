@@ -201,6 +201,25 @@ void Enemy::Chase()
 // 
 bool Enemy::IsTargetVisible()
 {
+    /*
+        ・Enemyの座標(x,z)を円の中心として考える
+        ・Playerの座標を点として考える
+        ・円の半径は10
+
+        点と円の当たり判定を使い、点が円の中にあったらtrue
+    
+    */
+
+    VECTOR vec = VSub(/*player*/position, position);
+    float length = sqrt(vec.x * vec.x * +vec.z * vec.z);
+
+    float radius = 10.f;
+    if (length <= radius)
+    {
+        return true;
+    }
+    
+
     return false;
 }
 
