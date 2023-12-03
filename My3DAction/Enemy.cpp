@@ -262,7 +262,7 @@ bool Enemy::IsTargetVisible()
     VECTOR vec = VSub(*pPlayer->GetPlayerPos(), position);   // エネミーからプレイヤーの距離ベクトル
     float length = sqrtf(vec.x * vec.x + vec.z * vec.z);    // 距離ベクトルの長さ
 
-    float radius = 500.f;    // 円の半径
+    float radius = 50.f;    // 円の半径
 
     // 半径よりベクトルが短くなったらtrueを返す
     if (length <= radius)
