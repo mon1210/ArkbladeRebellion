@@ -295,7 +295,9 @@ void Player::draw()
 * @brief プレイヤー座標取得用関数
 * @note  
 */
-VECTOR Player::GetPlayerPos()
-{
-    return position;
+VECTOR* Player::GetPlayerPos()
+{   
+    pPlayerPos = &position;
+
+    return pPlayerPos;
 }

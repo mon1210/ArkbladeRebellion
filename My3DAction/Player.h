@@ -23,12 +23,13 @@ public:
 	virtual void SetMove();			// 行動管理関数
 	virtual void SetAnim(ePlayer::AnimationNum num);	// アニメーションセット関数
 	virtual void RollAnim();		// Rollのアニメーションメソッド
-	virtual VECTOR GetPlayerPos();	// 座標取得関数
+	VECTOR*	GetPlayerPos();			// 座標取得関数
 protected:
 	Camera*		pCamera;
 	Collider*	pCollider;
 	Model*		pModel;
 	VECTOR	position;	// 座標
+	VECTOR* pPlayerPos;	// 
 	VECTOR	moveVec;	// 移動の向きベクトル
 	int		animHandle;	// モデルハンドル
 	int		animNo;		// アニメーション番号
