@@ -10,6 +10,7 @@
 
 class Model;
 class BG;
+class Player;
 
 class Enemy : public IGameObject
 {
@@ -31,6 +32,7 @@ private:
 protected:
 	Model*	pModel;
 	BG*		pBG;
+	Player* pPlayer;
 	VECTOR	position;
 	int		animHandle;
 	int		animNo;

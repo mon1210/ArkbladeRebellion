@@ -1,7 +1,5 @@
 // 
 #include "camera.h"
-#include "Collider.h"
-#include "Enemy.h"
 
 /**
 * @brief Cameraのコンストラクタ
@@ -16,19 +14,13 @@ Camera::Camera()
 	CameraVAngle = 40.f;
 	SinParam = 0.f;
 	CosParam = 0.f;
-	pCollider = NULL;
-	pEnemy = NULL;
 
-	pCollider = new Collider();
-	pEnemy = new Enemy();
 }
 
 
 // デストラクタ
 Camera::~Camera()
 {
-	SAFE_DELETE(pCollider);
-	SAFE_DELETE(pEnemy);
 }
 
 
