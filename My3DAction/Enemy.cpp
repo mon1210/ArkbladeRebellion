@@ -20,6 +20,7 @@ Enemy::Enemy()
     animTimer = 0.f;
     pModel = NULL;
     pBG = NULL;
+    pPlayer = NULL;
     angle = ENEMY_START_ROTATE_Y;
 
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
@@ -29,9 +30,8 @@ Enemy::Enemy()
     currentState = EnemyState::Wait;
 
     pBG = new BG();
-    pPlayer = new Player();
     pModel = new Model();
-
+    pPlayer = new Player();
     // モデル取得
     pModel->LoadEnemyModel();
     animHandle = pModel->GetEnemyModel();
@@ -47,6 +47,7 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {
     SAFE_DELETE(pBG);
+    SAFE_DELETE(pPlayer);
     SAFE_DELETE(pModel);
 }
 
@@ -198,12 +199,13 @@ void Enemy::Chase()
 {
     // 行動：視野内のプレイヤーを追いかける
     // エネミーからプレイヤーのベクトル(x,zのみ)を算出
-    VECTOR enemy_to_player = VSub(pPlayer->GetPlayerPos(), position);
+    // VECTOR player_pos = *pPlayer->GetPlayerPos();
+    VECTOR enemy_to_player = VSub(/*player_pos*/*pPlayer->GetPlayerPos(), position);
 
     // ベクトルの長さを算出
     float length = sqrt(enemy_to_player.x * enemy_to_player.x + enemy_to_player.z * enemy_to_player.z);
     // 距離が0以下の時は何もしない
-    if (length <= 0) { return; }
+    if (length <= 0.f) { return; }
 
     // ベクトルを単位ベクトルに
     VECTOR direction = VGet(enemy_to_player.x / length, 0.f, enemy_to_player.z / length);
@@ -238,8 +240,8 @@ void Enemy::Chase()
     */
     if (IsTargetVisible() == false)
     {
-        count = 0;
         currentState = EnemyState::Wait;
+        count = 0;
         SetAnim(eEnemy::Idle);
     }
 }
@@ -257,10 +259,10 @@ bool Enemy::IsTargetVisible()
     
     */
 
-    VECTOR vec = VSub(pPlayer->GetPlayerPos(), position);   // エネミーからプレイヤーの距離ベクトル
-    float length = sqrt(vec.x * vec.x * +vec.z * vec.z);    // 距離ベクトルの長さ
+    VECTOR vec = VSub(*pPlayer->GetPlayerPos(), position);   // エネミーからプレイヤーの距離ベクトル
+    float length = sqrtf(vec.x * vec.x + vec.z * vec.z);    // 距離ベクトルの長さ
 
-    float radius = 10.f;    // 円の半径
+    float radius = 500.f;    // 円の半径
 
     // 半径よりベクトルが短くなったらtrueを返す
     if (length <= radius)
