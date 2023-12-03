@@ -8,8 +8,6 @@
 #include "Constants.h"
 #include <math.h>
 
-class Collider;
-class Enemy;
 
 class Camera
 {
@@ -22,8 +20,6 @@ public:
 	virtual float GetCameraHorizontalAngle();	// カメラ水平角度取得関数
 	virtual float GetCameraVerticalAngle();		// カメラ垂直角度取得関数
 private:
-	Collider*	pCollider;
-	Enemy*		pEnemy;
 	VECTOR	cameraPos;
 	VECTOR	playerPos;
 	float	CameraHAngle;	// 水平方向の角度
