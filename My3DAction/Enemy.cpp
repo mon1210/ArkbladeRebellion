@@ -14,6 +14,7 @@
 Enemy::Enemy()
 {
     animNo = 0;
+    count = 0;
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 1.f;
