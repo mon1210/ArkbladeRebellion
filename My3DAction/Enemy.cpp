@@ -14,6 +14,7 @@
 Enemy::Enemy()
 {
     animNo = 0;
+    count = 0;
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 1.f;
@@ -227,6 +228,7 @@ void Enemy::Chase()
     {
         // HitPosition => Œð“_‚ÌÀ•W
         new_pos.y = result.HitPosition.y;
+        // if(length >= ENEMY_SPEED)
         position = new_pos;
     }
 
