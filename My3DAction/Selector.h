@@ -3,17 +3,7 @@
 * @brief	クラスSelectorの宣言ファイル
 */
 #pragma once
-// 定数値を定めたヘッダファイル
-#include "Constants.h"
-// 
-#include "Player.h"
-// 
-#include "Model.h"
-
-//--- ヘッダガードで、同じヘッダファイルが複数回インクルードされることによる問題を防いでいる
-#ifndef __IGAMESCENE_H__
 #include "IGameScene.h"
-#endif
 
 enum eGamePhase {
 	GAMEPHASE_INIT = 0,
@@ -43,8 +33,8 @@ public:
 	void doDraw();	//	ゲーム全体の描画
 protected:
 
-	Player* pPlayer;
-	IGameScene* pScene;		//	シーン
+	Player *pPlayer;
+	IGameScene *pScene;		//	シーン
 	eGamePhase eGamePhase;	//	状態変数
 	//INT m_iWait;
 	INT		count;	//	カウンター(デバッグ用)
