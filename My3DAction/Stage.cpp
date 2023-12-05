@@ -39,7 +39,7 @@ Stage::Stage(Selector *pSystem)
 	pEnemy->setEnemyModel(pModel->GetEnemyModel());
 	pEnemy->setTileModel(pBG->GetModelHandle());
 	pCollider->setTileModel(pBG->GetModelHandle());
-
+	tileHandle = pBG->GetModelHandle();
 }
 
 
@@ -66,15 +66,7 @@ GameSceneResultCode Stage::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
-		// Tileに当たり判定付与
-		tileHandle = pBG->GetModelHandle();
-		MV1SetupCollInfo(
-			tileHandle = 0,		// 当たり判定を設定するモデルのハンドル
-			-1,					// 対象となるモデルのフレーム番号(-1は全て)	
-			32,					// X軸の空間分割数
-			32,					// Y軸の空間分割数
-			32					// Z軸の空間分割数
-		);
+		pCollider->InitCollision(tileHandle);
 		pEnemy->InitAnimation();
 		Phase = STAGE_RUN;
 		break;
@@ -146,7 +138,7 @@ GameSceneResultCode Stage::move()
 
 /**
 * @brief 描画処理
-* @note  現在のマップと次のマップを動かしながら描画することで移動しているように見せる
+* @note  
 */
 void Stage::draw()
 {
