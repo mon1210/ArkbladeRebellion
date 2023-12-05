@@ -144,7 +144,7 @@ void Player::SetMove()
     moveVec = VGet(0.f, 0.f, 0.f);
 
     // Up => Runモーション(3) 前移動
-    if (CheckHitKey(KEY_INPUT_UP) || PadInput & PAD_INPUT_UP)
+    if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -156,7 +156,7 @@ void Player::SetMove()
         }
     }
     // Down => Runモーション(3) 下移動
-    else if (CheckHitKey(KEY_INPUT_DOWN) || PadInput & PAD_INPUT_DOWN)
+    else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -168,7 +168,7 @@ void Player::SetMove()
         }
     }
     // Right => Runモーション(3) 右移動
-    else if (CheckHitKey(KEY_INPUT_RIGHT) || PadInput & PAD_INPUT_RIGHT)
+    else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -180,7 +180,7 @@ void Player::SetMove()
         }
     }
     // Left => Runモーション(3) 左移動
-    else if (CheckHitKey(KEY_INPUT_LEFT) || PadInput & PAD_INPUT_LEFT)
+    else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
         // アニメーションをセット
         SetAnim(ePlayer::Run);
@@ -192,7 +192,7 @@ void Player::SetMove()
         }
     }
     // Space or PAD_× => Roll
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_W) && rollAble)
+    else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
         RollAnim();
         if (animNo == ePlayer::Roll)
@@ -203,7 +203,7 @@ void Player::SetMove()
         }
     }
     // 右ロール
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_D) && rollAble)
+    else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
         RollAnim();
         if (animNo == ePlayer::Roll)
@@ -214,7 +214,7 @@ void Player::SetMove()
         }
     }
     // 左ロール
-    else if (CheckHitKey(KEY_INPUT_SPACE) && CheckHitKey(KEY_INPUT_A) && rollAble)
+    else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
         RollAnim();
         if (animNo == ePlayer::Roll)

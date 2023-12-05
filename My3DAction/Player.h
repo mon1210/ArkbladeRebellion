@@ -50,3 +50,8 @@ protected:
 // マクロ定義
 #define VECTOR_SCALING	0.70710678118f	// 斜め入力用の各軸の倍率( sin( 45°) )
 #define PadInput GetJoypadInputState( DX_INPUT_KEY_PAD1 ) 
+#define Key_ForwardMove		CheckHitKey(KEY_INPUT_UP)
+#define Key_BackMove		CheckHitKey(KEY_INPUT_DOWN)
+#define Key_RightMove		CheckHitKey(KEY_INPUT_RIGHT)
+#define Key_Left_Move		CheckHitKey(KEY_INPUT_LEFT)
+#define Key_Roll			CheckHitKey(KEY_INPUT_SPACE)
