@@ -9,7 +9,13 @@
 // 敵キャラクターセットアップと管理に関するクラスとデータの定義
 #include "Enemy.h"
 // 
+#include "camera.h"
+// 
+#include "Model.h"
+// 
 #include "Grid.h"
+// 
+#include "Collider.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -17,33 +23,51 @@
 /**
 * @brief Stageのコンストラクタ
 */
-Stage::Stage(Selector* pSystem)
+Stage::Stage(Selector *pSystem)
 {
 	System = pSystem;
+	pModel = NULL;
+	pCamera = NULL;
 	pPlayer = NULL;
 	pEnemy = NULL;
 	pBG = NULL;
 	pGrid = NULL;
+	pCollider = NULL;
+
 	Phase = STAGE_INIT;
 	bPause = true;
 	Timer = 0;
+	tileHandle = 0;
 
-	pPlayer = new Player();
-	pEnemy = new Enemy();
+	pModel = new Model();
+	pCamera = new Camera();
+	pCollider = new Collider();
+	pPlayer = new Player(this);
+	pEnemy = new Enemy(this);
 	pBG = new BG();
 	pGrid = new Grid();
+
+	pModel->LoadModel();
+	pBG->setTileModel(pModel->GetTileModel());
+	pPlayer->setPlayerModel(pModel->GetPlayerModel());
+	pEnemy->setEnemyModel(pModel->GetEnemyModel());
+	pEnemy->setTileModel(pBG->GetModelHandle());
+	pCollider->setTileModel(pBG->GetModelHandle());
+
+
 }
 
 
 // デストラクタ
 Stage::~Stage()
 {
-
-	SAFE_DELETE(pPlayer);
-	SAFE_DELETE(pEnemy);
-	SAFE_DELETE(pBG);
+	SAFE_DELETE(pCollider);
 	SAFE_DELETE(pGrid);
-
+	SAFE_DELETE(pBG);
+	SAFE_DELETE(pEnemy);
+	SAFE_DELETE(pPlayer);
+	SAFE_DELETE(pCamera);
+	SAFE_DELETE(pModel);
 }
 
 
@@ -57,6 +81,16 @@ GameSceneResultCode Stage::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
+		// Tileに当たり判定付与
+		tileHandle = pBG->GetModelHandle();
+		MV1SetupCollInfo(
+			tileHandle = 0,		// 当たり判定を設定するモデルのハンドル
+			-1,					// 対象となるモデルのフレーム番号(-1は全て)	
+			32,					// X軸の空間分割数
+			32,					// Y軸の空間分割数
+			32					// Z軸の空間分割数
+		);
+		pEnemy->InitAnimation();
 		Phase = STAGE_RUN;
 		break;
 
@@ -140,8 +174,16 @@ void Stage::draw()
 				pGrid->Draw();
 			if (pPlayer)
 				pPlayer->draw();
-			if (pEnemy)
+			if (pCamera) {
+				pCamera->CameraController();
+				pCamera->SetCameraPositionAndDirection(pPlayer->GetPlayerPos());
+				pPlayer->setPlayerNewPos(pCamera->MoveAlongHAngle(pPlayer->GetPlayerMoveVec(), pPlayer->GetPlayerPos()));
+			}			
+			if (pEnemy) {
 				pEnemy->Update();
+				pEnemy->setPlayerPos(pPlayer->GetPlayerPos());
+			}
+				
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);
 			break;
@@ -159,4 +201,9 @@ void Stage::draw()
 		break;
 	}
 
+}
+
+Collider *Stage::GetCollider()
+{
+	return pCollider;
 }
