@@ -4,7 +4,6 @@
 * @note 日本のゲーム業界ではタスクと呼ぶ場合がある
 */
 #pragma once
-#define __IGAMEOBJECT_H__
 
 typedef struct {
 	float x;	//	起点
