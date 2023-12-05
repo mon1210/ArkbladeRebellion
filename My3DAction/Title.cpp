@@ -2,7 +2,6 @@
 * @file Title.cpp
 * @brief クラス Title の実装
 */
-
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
@@ -16,7 +15,7 @@
 /**
 * @brief Titleのコンストラクタ
 */
-Title::Title(Selector* pSystem)
+Title::Title(Selector *pSystem)
 {
 	System = pSystem;	//---Select
 	Phase = TITLE_INIT;	//---TitlePhase
