@@ -20,7 +20,7 @@ void Collider::InitCollision(int handle)
 {
 	// Tileに当たり判定付与
 	MV1SetupCollInfo(
-		handle = 0,		// 当たり判定を設定するモデルのハンドル
+		handle = 0,			// 当たり判定を設定するモデルのハンドル
 		-1,					// 対象となるモデルのフレーム番号(-1は全て)	
 		32,					// X軸の空間分割数
 		32,					// Y軸の空間分割数
