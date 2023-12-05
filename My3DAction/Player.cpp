@@ -1,40 +1,35 @@
-
 #include "Player.h"
 #include "Constants.h"
-#include "Model.h"
-#include "Enums.h"
-#include "camera.h"
 #include "Collider.h"
+#include "Stage.h"
 
 /**
 * @brief Playerのコンストラクタ
 *
 */
-Player::Player()
+Player::Player(Stage *parent)
 {
     animNo = 0;
+    animHandle = 0;
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 100.f;
     animTimer = 0.f;
+    cameraHA = 0.f;
+    pCollider = NULL;
 
     angle = PLAYER_START_ROTATE_Y;
 
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
+    newPos = position;
     moveVec = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
-    pCamera = new Camera();
-    pCollider = new Collider();
-    pModel = new Model();
+    pCollider = parent->GetCollider();
 
     moveFlag = false;
     rollAble = true;
-
-    // モデル取得
-    pModel->LoadPlayerModel();
-    animHandle = pModel->GetPlayerModel();
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, ePlayer::Idle);
@@ -44,9 +39,16 @@ Player::Player()
 // デストラクタ
 Player::~Player()
 {
-    SAFE_DELETE(pCamera);
-    SAFE_DELETE(pCollider);
-    SAFE_DELETE(pModel);
+}
+
+
+/**
+* @brief プレイヤーモデルセット関数
+*
+*/
+void Player::setPlayerModel(int model)
+{
+    animHandle = model;
 }
 
 
@@ -104,6 +106,27 @@ void Player::RollAnim()
 
 
 /**
+* @brief カメラの水平角度取得関数
+*
+*/
+void Player::setCameraHAngle(float camera_H_A)
+{
+    cameraHA = camera_H_A;
+}
+
+
+/**
+* @brief 新座標セットメソッド
+* @note  移動後、新しい座標をセットするため
+*/
+void Player::setPlayerNewPos(VECTOR new_pos)
+{
+    newPos = position;  // 現在の位置を取得してから
+    newPos = new_pos;
+}
+
+
+/**
 * @brief 行動管理関数
 *
 */
@@ -117,9 +140,6 @@ void Player::RollAnim()
 // ****************************************** //
 void Player::SetMove()
 {
-    // カメラ操作関数呼び出し
-    pCamera->CameraController();
-
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
 
@@ -130,7 +150,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 180.f - pCamera->GetCameraHorizontalAngle();
+            angle = 180.f - cameraHA;
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -142,7 +162,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 0.f - pCamera->GetCameraHorizontalAngle();
+            angle = 0.f - cameraHA;
             moveFlag = true;
             moveVec.z = -PLAYER_MOVE_SPEED;
         }
@@ -154,7 +174,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = -90.f - pCamera->GetCameraHorizontalAngle();
+            angle = -90.f - cameraHA;
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -166,7 +186,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 90.f - pCamera->GetCameraHorizontalAngle();
+            angle = 90.f - cameraHA;
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
@@ -177,7 +197,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 180.f - pCamera->GetCameraHorizontalAngle();
+            angle = 180.f - cameraHA;
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -188,7 +208,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = -90.f - pCamera->GetCameraHorizontalAngle();
+            angle = -90.f - cameraHA;
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -199,7 +219,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 90.f - pCamera->GetCameraHorizontalAngle();
+            angle = 90.f - cameraHA;
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
@@ -226,11 +246,11 @@ void Player::SetMove()
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
     {
-        VECTOR new_pos = position;
+        //VECTOR new_pos = position;
         // 移動後の座標取得
-        new_pos = pCamera->MoveAlongHAngle(moveVec, position);
+        //new_pos = cameraObject.MoveAlongHAngle(moveVec, position);
         // ステージとの当たり判定を確認する関数
-        pCollider->ClampToStageBounds(new_pos, position, rollAble);
+        pCollider->ClampToStageBounds(newPos, position, rollAble);
 
     }
 
@@ -278,9 +298,6 @@ void Player::draw()
     //DrawFormatString(0, 0, GetColor(0, 0, 0), "nRotateY:%d",nRotateY);
 
 
-    // カメラの位置と向きを設定
-    pCamera->SetCameraPositionAndDirection(position);
-
     // 
     //pCollider->draw(position, VAdd(position, VGet(0.0f, CHARA_HIT_HEIGHT, 0.0f)),
     //    CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
@@ -292,12 +309,20 @@ void Player::draw()
 
 
 /**
-* @brief プレイヤー座標取得用関数
+* @brief プレイヤー座標取得メソッド
 * @note  
 */
-VECTOR* Player::GetPlayerPos()
+VECTOR Player::GetPlayerPos()
 {   
-    pPlayerPos = &position;
+    return position;
+}
 
-    return pPlayerPos;
+
+/**
+* @brief プレイヤー移動ベクトル取得メソッド
+* @note
+*/
+VECTOR Player::GetPlayerMoveVec()
+{
+    return moveVec;
 }
