@@ -1,11 +1,11 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
-// ゲームの背景を管理するクラスと関連データを定義
-#include "BG.h"
 // 
 #include "Model.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
+// ゲームの背景を管理するクラスと関連データを定義
+#include "BG.h"
 
 
 //  マクロ定義
@@ -23,14 +23,7 @@
 BG::BG()
 {
 	tile_handle = 0;
-	pModel = NULL;
 	position = VGet(0.f, 0.f, 0.f);
-
-	pModel = new Model();
-	// モデル取得
-	pModel->LoadTileModel();
-	tile_handle = pModel->GetTileModel();
-
 }
 
 
@@ -41,7 +34,17 @@ BG::~BG()
 
 
 /**
-* @brief タイトルモデル取得用関数
+* @brief タイルモデルセットメソッド
+* @note
+*/
+void BG::setTileModel(int model)
+{
+	tile_handle = model;
+}
+
+
+/**
+* @brief タイルモデル取得メソッド
 * @note
 */
 int BG::GetModelHandle()
