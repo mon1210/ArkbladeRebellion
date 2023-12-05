@@ -1,41 +1,35 @@
 #include <math.h>
 #include "Enemy.h"
-#include "Constants.h"
-#include "Model.h"
-#include "Enums.h"
+#include "Stage.h"
 #include "BG.h"
 #include "Player.h"
-
+#include "Constants.h"
 
 /**
 * @brief Enemyのコンストラクタ
 *
 */
-Enemy::Enemy()
+Enemy::Enemy(Stage *parent)
 {
     animNo = 0;
     count = 0;
+    animHandle = 0;
+    tileHandle = 0;
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 1.f;
     animTimer = 0.f;
-    pModel = NULL;
-    pBG = NULL;
-    pPlayer = NULL;
+    vecLength = 0.f;
+
+    enemyToPlayer = VGet(0.f, 0.f, 0.f);
     angle = ENEMY_START_ROTATE_Y;
 
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
+    playerPos = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
     currentState = EnemyState::Wait;
-
-    pBG = new BG();
-    pModel = new Model();
-    pPlayer = new Player();
-    // モデル取得
-    pModel->LoadEnemyModel();
-    animHandle = pModel->GetEnemyModel();
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, eEnemy::Idle);
@@ -47,9 +41,6 @@ Enemy::Enemy()
 // デストラクタ
 Enemy::~Enemy()
 {
-    SAFE_DELETE(pBG);
-    SAFE_DELETE(pPlayer);
-    SAFE_DELETE(pModel);
 }
 
 
@@ -103,7 +94,7 @@ void Enemy::Update()
 void Enemy::Wait()
 {
     // 行動 => 何もしない
-    SetAnim(eEnemy::Idle);  // これがないとanimTimerが増加せず、最初固まる
+    //SetAnim(eEnemy::Idle);  // これがないとanimTimerが増加せず、最初固まる
 
     // 遷移
     /*
@@ -132,7 +123,20 @@ void Enemy::Wait()
 }
 
 
-// 
+/**
+* @brief 床モデルセットメソッド
+*
+*/
+void Enemy::setTileModel(int model)
+{
+    tileHandle = model;
+}
+
+
+/**
+* @brief Move状態の管理メソッド
+*
+*/
 void Enemy::Move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
@@ -153,7 +157,7 @@ void Enemy::Move()
     new_pos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
     MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-        pBG->GetModelHandle(),				    // 判定対象となるモデルのフレーム
+        tileHandle,				                         // 判定対象となるモデルのフレーム
         -1,												// 対象となるフレーム番号
         new_pos,										// Rayの始点   モデルの足元
         VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
@@ -195,21 +199,19 @@ void Enemy::Move()
 }
 
 
-// 
+/**
+* @brief Chase状態の管理メソッド
+*
+*/
 void Enemy::Chase()
 {
     // 行動：視野内のプレイヤーを追いかける
-    // エネミーからプレイヤーのベクトル(x,zのみ)を算出
-    // VECTOR player_pos = *pPlayer->GetPlayerPos();
-    VECTOR enemy_to_player = VSub(/*player_pos*/*pPlayer->GetPlayerPos(), position);
-
-    // ベクトルの長さを算出
-    float length = sqrt(enemy_to_player.x * enemy_to_player.x + enemy_to_player.z * enemy_to_player.z);
-    // 距離が0以下の時は何もしない
-    if (length <= 0.f) { return; }
+    
+    // 距離が0以下の時は何もしない   // ほぼ通らない
+    if (vecLength <= 0.f) { return; }
 
     // ベクトルを単位ベクトルに
-    VECTOR direction = VGet(enemy_to_player.x / length, 0.f, enemy_to_player.z / length);
+    VECTOR direction = VGet(enemyToPlayer.x / vecLength, 0.f, enemyToPlayer.z / vecLength);
 
     // 単位ベクトルをスカラー倍、移動速度に
     VECTOR velocity = VScale(direction, ENEMY_MOVE_SPEED);
@@ -218,7 +220,7 @@ void Enemy::Chase()
     new_pos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
     MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-        pBG->GetModelHandle(),				    // 判定対象となるモデルのフレーム
+        tileHandle,				                       // 判定対象となるモデルのフレーム
         -1,												// 対象となるフレーム番号
         new_pos,										// Rayの始点   モデルの足元
         VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
@@ -249,7 +251,20 @@ void Enemy::Chase()
 }
 
 
-// 
+/**
+* @brief プレイヤーの座標セットメソッド
+*
+*/
+void Enemy::setPlayerPos(VECTOR player_pos)
+{
+    playerPos = player_pos;
+}
+
+
+/**
+* @brief   エネミーの視野メソッド
+* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
+*/
 bool Enemy::IsTargetVisible()
 {
     /*
@@ -261,18 +276,28 @@ bool Enemy::IsTargetVisible()
     
     */
 
-    VECTOR vec = VSub(*pPlayer->GetPlayerPos(), position);   // エネミーからプレイヤーの距離ベクトル
-    float length = sqrtf(vec.x * vec.x + vec.z * vec.z);    // 距離ベクトルの長さ
+    enemyToPlayer = VSub(playerPos, position);   // エネミーからプレイヤーの距離ベクトル
+    vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z);    // 距離ベクトルの長さ
 
     float radius = 50.f;    // 円の半径
 
     // 半径よりベクトルが短くなったらtrueを返す
-    if (length <= radius)
+    if (vecLength <= radius)
     {
         return true;
     }
     
     return false;
+}
+
+
+/**
+* @brief エネミーモデルセット関数
+*
+*/
+void Enemy::setEnemyModel(int model)
+{
+    animHandle = model;
 }
 
 

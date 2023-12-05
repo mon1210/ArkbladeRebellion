@@ -22,12 +22,6 @@
 #include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "Selector.h"
-// 
-#include "BG.h"
-// 
-#include "Enemy.h"
-// 
-//#include "Player.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -45,9 +39,6 @@
 #define INTERVAL (1.0/FPS)
 
 Selector* g_pSelector = NULL;	//	ゲームシステムオブジェクト
-BG* g_BG = NULL;
-Enemy* g_Enemy = NULL;
-//Player* g_Player = NULL;
 
 /**
 * @fn
@@ -84,22 +75,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	//	ゲームシステム初期化
 	g_pSelector = new Selector();
 
-	g_BG = new BG();
-	g_Enemy = new Enemy();
-	//g_Player = new Player();
-
-	g_Enemy->InitAnimation();
-
-	// Tileに当たり判定付与
-	int tile_handle = g_BG->GetModelHandle();
-	MV1SetupCollInfo(
-		tile_handle,		// 当たり判定を設定するモデルのハンドル
-		-1,					// 対象となるモデルのフレーム番号(-1は全て)	
-		32,					// X軸の空間分割数
-		32,					// Y軸の空間分割数
-		32					// Z軸の空間分割数
-	);
-
 	/**************************
 		2.メッセージループ
 	**************************/
@@ -132,7 +107,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	**************************/
 
 	SAFE_DELETE(g_pSelector);
-	SAFE_DELETE(g_BG);
 
 	// DXライブラリの後始末
 	DxLib_End();

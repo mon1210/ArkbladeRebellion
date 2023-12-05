@@ -9,27 +9,27 @@
 #include "IGameObject.h"
 
 class Stage;
-class Camera;
 class Collider;
-class Model;
 
 class Player : public IGameObject
 {
 public:
-	Player();
+	Player(Stage *parent);
 	~Player();
 	virtual bool move() override;	// アニメーションメソッド
 	virtual void draw() override;	// 描画メソッド
 	virtual void SetMove();			// 行動管理関数
 	virtual void SetAnim(ePlayer::AnimationNum num);	// アニメーションセット関数
 	virtual void RollAnim();		// Rollのアニメーションメソッド
-	VECTOR*	GetPlayerPos();			// 座標取得関数
+	VECTOR  GetPlayerPos();			// 座標取得関数
+	VECTOR  GetPlayerMoveVec();		// 
+	virtual void setPlayerModel(int model);
+	virtual void setCameraHAngle(float camera_H_A);
+	virtual void setPlayerNewPos(VECTOR new_pos);
 protected:
-	Camera*		pCamera;
-	Collider*	pCollider;
-	Model*		pModel;
+	Collider	*pCollider;
 	VECTOR	position;	// 座標
-	VECTOR* pPlayerPos;	// 
+	VECTOR  newPos;		// 
 	VECTOR	moveVec;	// 移動の向きベクトル
 	int		animHandle;	// モデルハンドル
 	int		animNo;		// アニメーション番号
@@ -37,6 +37,7 @@ protected:
 	float	animTimer;	// アニメーションの現在の再生時間
 	float	angle;		// プレイヤーの向き
 	float	hitPoint;	// HP
+	float   cameraHA;	// カメラの水平角度  CameraHorizontalAngle
 	bool	moveFlag;	// 移動フラグ
 	bool	rollAble;	// Roll可能フラグ
 private:

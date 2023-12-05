@@ -1,6 +1,4 @@
 
-#include "DxLib.h"
-#include "Constants.h"
 #include "Model.h"
 
 
@@ -29,31 +27,13 @@ Model::~Model()
 /**
 * @brief プレイヤーモデル読み込み関数
 */
-void Model::LoadPlayerModel()
+void Model::LoadModel()
 {
     // 3Dモデルの読み込み
     playerHandle = MV1LoadModel("res\\Player\\PlayerModel2.mv1");
-}
-
-
-/**
-* @brief エネミーモデル読み込み関数
-*/
-void Model::LoadEnemyModel()
-{
-    // 3Dモデルの読み込み
     enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel2.mv1");
-}
-
-
-/**
-* @brief タイルモデル読み込み関数
-*/
-void Model::LoadTileModel()
-{
-    // 3Dモデルの読み込み
     tileHandle = MV1LoadModel("res\\test_Tile_model.mv1");
- }
+}
 
 
 /**

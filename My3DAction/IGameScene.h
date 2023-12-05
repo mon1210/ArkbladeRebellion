@@ -6,7 +6,6 @@
 /*
 *同じヘッダファイルが複数回インクルードされることによる問題を防ぐためのプリプロセッサテクニック
 */
-#define __IGAMESCENE_H__
 
 enum GameSceneResultCode;
 

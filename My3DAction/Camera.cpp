@@ -26,7 +26,7 @@ Camera::~Camera()
 
 /**
 * @brief カメラ操作メソッド
-* @note  Playerクラスで呼び出す
+* @note  
 */
 void Camera::CameraController()
 {
@@ -76,7 +76,7 @@ void Camera::CameraController()
 
 /**
 * @brief プレイヤーの位置算出メソッド
-* @note  Player移動時、Playerクラスで呼び出す
+* @note  Player移動時
 *		 カメラの角度に合わせるのでCameraクラスで定義
 */
 VECTOR Camera::MoveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
@@ -100,7 +100,7 @@ VECTOR Camera::MoveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 
 /**
 * @brief 位置算出メソッド
-* @note  Playerクラスで呼び出す
+* @note  
 */
 void Camera::SetCameraPositionAndDirection(VECTOR pPlayerPos)
 {

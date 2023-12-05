@@ -20,13 +20,13 @@ class Selector;
 class Title : public IGameScene
 {
 public:
-	Title(Selector* pSystem);
+	Title(Selector *pSystem);
 	virtual ~Title();
 	virtual GameSceneResultCode move() override;	// アニメーションメソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
 	virtual void draw() override;	// 描画メソッド
 
 protected:
-	Selector* System;
+	Selector *System;
 	TitlePhase	Phase;
 	bool	Flag;
 	INT		Timer;
