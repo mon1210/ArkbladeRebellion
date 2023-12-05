@@ -19,7 +19,7 @@ public:
 	virtual void SetCameraPositionAndDirection(VECTOR pPlayerPos);		// カメラの位置算出メソッド
 	virtual float GetCameraHorizontalAngle();	// カメラ水平角度取得関数
 	virtual float GetCameraVerticalAngle();		// カメラ垂直角度取得関数
-private:
+protected:
 	VECTOR	cameraPos;
 	VECTOR	playerPos;
 	float	CameraHAngle;	// 水平方向の角度
