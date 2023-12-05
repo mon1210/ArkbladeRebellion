@@ -1,8 +1,6 @@
 #include "Collider.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "BG.h"
-
 
 /**
 * @brief Cameraのコンストラクタ
@@ -10,15 +8,13 @@
 */
 Collider::Collider()
 {
-	pBG = NULL;
-	pBG = new BG();
+	tileHandle = 0;
 }
 
 
 // デストラクタが
 Collider::~Collider()
 {
-	SAFE_DELETE(pBG);
 }
 
 
@@ -78,6 +74,15 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 
 
 /**
+* @brief タイルモデルセットメソッド
+*/
+void Collider::setTileModel(int model)
+{
+	tileHandle = model;
+}
+
+
+/**
 * @brief プレイヤー移動時のステージとの当たり判定メソッド
 * @note  Playerクラスで呼び出し
 *		 プレイヤーの移動範囲を制限している
@@ -87,7 +92,7 @@ void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& rol
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
 	MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-		pBG->GetModelHandle(),				    // 判定対象となるモデルのフレーム
+		tileHandle,									    // 判定対象となるモデルのフレーム
 		-1,												// 対象となるフレーム番号
 		new_pos,										// Rayの始点   モデルの足元
 		VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
