@@ -21,8 +21,6 @@ enum GameSceneResultCode {
 };
 
 class IGameScene;	// シーン管理クラス
-class Player;
-class Model;
 
 class Selector
 {
@@ -32,8 +30,6 @@ public:
 	void doAnim();		//	ゲーム全体のアニメート
 	void doDraw();	//	ゲーム全体の描画
 protected:
-
-	Player *pPlayer;
 	IGameScene *pScene;		//	シーン
 	eGamePhase eGamePhase;	//	状態変数
 	//INT m_iWait;

@@ -15,8 +15,8 @@ public:
 	~Grid();
 	virtual void Draw();	// 描画メソッド
 protected:
-	VECTOR startHorizontal;
-	VECTOR endHorizontal;
-	VECTOR startVertical;
-	VECTOR endVertical;
+	VECTOR startHorizontal;		// 水平方向の開始地点
+	VECTOR endHorizontal;		// 水平方向の最終地点 
+	VECTOR startVertical;		// 垂直方向の開始地点
+	VECTOR endVertical;			// 垂直方向の最終地点
 };

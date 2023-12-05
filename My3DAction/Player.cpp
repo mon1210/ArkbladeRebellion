@@ -1,7 +1,4 @@
 #include "Player.h"
-#include "Constants.h"
-#include "Collider.h"
-#include "Stage.h"
 
 /**
 * @brief Playerのコンストラクタ
@@ -43,7 +40,7 @@ Player::~Player()
 
 
 /**
-* @brief プレイヤーモデルセット関数
+* @brief プレイヤーモデルをセットする
 *
 */
 void Player::setPlayerModel(int model)
@@ -80,6 +77,9 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 }
 
 
+// Rollだけ、PLAYER_ANIM_F_INCREMENT(== 0.2f)だと違和感があるので、作っている
+// また、長押しで回転し続けられるのを直すようにもしたい
+// 未完成
 void Player::RollAnim()
 {
     // アニメーションをセット
@@ -106,7 +106,7 @@ void Player::RollAnim()
 
 
 /**
-* @brief カメラの水平角度取得関数
+* @brief カメラの水平角度をセットする
 *
 */
 void Player::setCameraHAngle(float camera_H_A)
@@ -116,8 +116,8 @@ void Player::setCameraHAngle(float camera_H_A)
 
 
 /**
-* @brief 新座標セットメソッド
-* @note  移動後、新しい座標をセットするため
+* @brief 新座標をセットする
+* @note  移動後、新しい座標を取得するため
 */
 void Player::setPlayerNewPos(VECTOR new_pos)
 {
@@ -245,14 +245,7 @@ void Player::SetMove()
 
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
-    {
-        //VECTOR new_pos = position;
-        // 移動後の座標取得
-        //new_pos = cameraObject.MoveAlongHAngle(moveVec, position);
-        // ステージとの当たり判定を確認する関数
         pCollider->ClampToStageBounds(newPos, position, rollAble);
-
-    }
 
 }
 
@@ -260,7 +253,6 @@ void Player::SetMove()
 /**
 * @brief プレイヤーのアニメーションメソッド
 * @return true:生存 / false:死亡
-* @note ここでは加速度の設定だけ行い、(x, y)座標の更新はcollide() で行う
 */
 bool Player::move()
 {
@@ -309,7 +301,7 @@ void Player::draw()
 
 
 /**
-* @brief プレイヤー座標取得メソッド
+* @brief プレイヤー座標を取得して返す
 * @note  
 */
 VECTOR Player::GetPlayerPos()
@@ -319,7 +311,7 @@ VECTOR Player::GetPlayerPos()
 
 
 /**
-* @brief プレイヤー移動ベクトル取得メソッド
+* @brief プレイヤー移動ベクトルを取得して返す
 * @note
 */
 VECTOR Player::GetPlayerMoveVec()

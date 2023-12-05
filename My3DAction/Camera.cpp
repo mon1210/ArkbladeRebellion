@@ -1,4 +1,3 @@
-// 
 #include "camera.h"
 
 /**
@@ -76,8 +75,7 @@ void Camera::CameraController()
 
 /**
 * @brief プレイヤーの位置算出メソッド
-* @note  Player移動時
-*		 カメラの角度に合わせるのでCameraクラスで定義
+* @note  カメラの角度に合わせるのでCameraクラスで定義
 */
 VECTOR Camera::MoveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 {
@@ -138,7 +136,7 @@ void Camera::SetCameraPositionAndDirection(VECTOR pPlayerPos)
 
 
 /**
-* @brief カメラ水平角度取得関数
+* @brief カメラ水平角度を取得して返す
 * @note
 */
 float Camera::GetCameraHorizontalAngle()
@@ -148,7 +146,7 @@ float Camera::GetCameraHorizontalAngle()
 
 
 /**
-* @brief カメラ垂直角度取得関数
+* @brief カメラ垂直角度を取得して返す
 * @note
 */
 float Camera::GetCameraVerticalAngle()

@@ -1,15 +1,11 @@
 #include <math.h>
 #include "Enemy.h"
-#include "Stage.h"
-#include "BG.h"
-#include "Player.h"
-#include "Constants.h"
 
 /**
 * @brief Enemyのコンストラクタ
 *
 */
-Enemy::Enemy(Stage *parent)
+Enemy::Enemy()
 {
     animNo = 0;
     count = 0;
@@ -46,7 +42,7 @@ Enemy::~Enemy()
 
 /**
 * @brief アニメーション状態初期化関数
-* @note  My3DAction.cppで一回だけ呼び出す
+* @note  Stageで初期化時一度だけ呼び出す
 */
 void Enemy::InitAnimation()
 {
@@ -124,7 +120,7 @@ void Enemy::Wait()
 
 
 /**
-* @brief 床モデルセットメソッド
+* @brief 床モデルをセットする
 *
 */
 void Enemy::setTileModel(int model)
@@ -148,7 +144,6 @@ void Enemy::Move()
     vec = VScale(vec, -1.f);
 
     // 座標変更
-    //float move_speed = 0.1f;
     // ベクトルの大きさを乗算、移動速度に
     vec = VScale(vec, ENEMY_MOVE_SPEED);
     // 移動先までのベクトル取得
@@ -252,7 +247,7 @@ void Enemy::Chase()
 
 
 /**
-* @brief プレイヤーの座標セットメソッド
+* @brief プレイヤーの座標をセットする
 *
 */
 void Enemy::setPlayerPos(VECTOR player_pos)
@@ -292,7 +287,7 @@ bool Enemy::IsTargetVisible()
 
 
 /**
-* @brief エネミーモデルセット関数
+* @brief エネミーモデルをセットする
 *
 */
 void Enemy::setEnemyModel(int model)
@@ -395,9 +390,6 @@ bool Enemy::move()
 */
 void Enemy::draw()
 {
-    // 行動管理関数呼び出し
-    //SetMove();
-
     animTimer += ENEMY_ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
     if (animTimer >= animTime)
@@ -405,7 +397,6 @@ void Enemy::draw()
         animTimer = 0.0f;
     }
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
-
 
     // 画面に映る位置に3Dモデルを移動
     MV1SetPosition(animHandle, position);
@@ -423,7 +414,7 @@ void Enemy::draw()
 
 
 /**
-* @brief エネミー座標取得用関数
+* @brief エネミー座標を取得して返す
 * @note
 */
 VECTOR Enemy::GetEnemyPos()

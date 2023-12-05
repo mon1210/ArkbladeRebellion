@@ -8,8 +8,6 @@
 #include "Selector.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
-// 定数値を定めたヘッダファイル
-#include "Constants.h"
 
 
 /**

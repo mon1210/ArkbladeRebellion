@@ -1,12 +1,4 @@
-// Windowsアプリケーション開発用の共通ヘッダファイル
-#include "stdafx.h"
-// 
-#include "Model.h"
-// 定数値を定めたヘッダファイル
-#include "Constants.h"
-// ゲームの背景を管理するクラスと関連データを定義
 #include "BG.h"
-
 
 //  マクロ定義
 #undef SAFE_RELEASE
@@ -34,7 +26,7 @@ BG::~BG()
 
 
 /**
-* @brief タイルモデルセットメソッド
+* @brief タイルモデルセット
 * @note
 */
 void BG::setTileModel(int model)
@@ -44,7 +36,7 @@ void BG::setTileModel(int model)
 
 
 /**
-* @brief タイルモデル取得メソッド
+* @brief タイルモデルを取得して返す
 * @note
 */
 int BG::GetModelHandle()

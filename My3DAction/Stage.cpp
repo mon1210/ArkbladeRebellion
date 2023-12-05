@@ -1,23 +1,7 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
-// ゲームの背景を管理するクラスと関連データを定義
-#include "BG.h"
 // ゲーム内のステージ関連クラスと列挙型の定義
 #include "Stage.h"
-// プレイヤーキャラクターとその関連情報を定義したクラスと定数/列挙型の定義
-#include "Player.h"
-// 敵キャラクターセットアップと管理に関するクラスとデータの定義
-#include "Enemy.h"
-// 
-#include "camera.h"
-// 
-#include "Model.h"
-// 
-#include "Grid.h"
-// 
-#include "Collider.h"
-// 定数値を定めたヘッダファイル
-#include "Constants.h"
 
 
 /**
@@ -28,32 +12,33 @@ Stage::Stage(Selector *pSystem)
 	System = pSystem;
 	pModel = NULL;
 	pCamera = NULL;
+	pCollider = NULL;
 	pPlayer = NULL;
 	pEnemy = NULL;
 	pBG = NULL;
 	pGrid = NULL;
-	pCollider = NULL;
 
 	Phase = STAGE_INIT;
 	bPause = true;
 	Timer = 0;
 	tileHandle = 0;
 
+	// インスタンス化
 	pModel = new Model();
 	pCamera = new Camera();
-	pCollider = new Collider();
+	pCollider = new Collider();	// 必ずPlayerより上に書く
 	pPlayer = new Player(this);
-	pEnemy = new Enemy(this);
+	pEnemy = new Enemy();
 	pBG = new BG();
 	pGrid = new Grid();
 
+	// モデルセット
 	pModel->LoadModel();
 	pBG->setTileModel(pModel->GetTileModel());
 	pPlayer->setPlayerModel(pModel->GetPlayerModel());
 	pEnemy->setEnemyModel(pModel->GetEnemyModel());
 	pEnemy->setTileModel(pBG->GetModelHandle());
 	pCollider->setTileModel(pBG->GetModelHandle());
-
 
 }
 
@@ -203,6 +188,10 @@ void Stage::draw()
 
 }
 
+
+/**
+* @brief Colliderを取得して返す
+*/
 Collider *Stage::GetCollider()
 {
 	return pCollider;

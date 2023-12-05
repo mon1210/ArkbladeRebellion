@@ -1,4 +1,3 @@
-
 #include "Model.h"
 
 
@@ -25,7 +24,7 @@ Model::~Model()
 
 
 /**
-* @brief プレイヤーモデル読み込み関数
+* @brief モデル読み込みメソッド
 */
 void Model::LoadModel()
 {
@@ -37,7 +36,7 @@ void Model::LoadModel()
 
 
 /**
-* @brief プレイヤーモデル取得用関数
+* @brief プレイヤーモデルを取得して返す
 */
 int Model::GetPlayerModel()
 {
@@ -46,7 +45,7 @@ int Model::GetPlayerModel()
 
 
 /**
-* @brief エネミーモデル取得用関数
+* @brief エネミーモデルを取得して返す
 */
 int Model::GetEnemyModel()
 {
@@ -55,7 +54,7 @@ int Model::GetEnemyModel()
 
 
 /**
-* @brief タイルモデル取得用関数
+* @brief タイルモデルを取得して返す
 */
 int Model::GetTileModel()
 {

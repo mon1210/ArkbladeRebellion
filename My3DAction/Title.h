@@ -3,10 +3,8 @@
 * @brief	クラス Title の宣言
 */
 #pragma once
-
-#ifndef __IGAMESCENE_H__
+#include "Constants.h"
 #include "IGameScene.h"
-#endif // !__IGAMEOBJECT_H__
 
 enum TitlePhase {
 	TITLE_INIT = 0,
@@ -15,6 +13,7 @@ enum TitlePhase {
 	TITLE_DONE = 3
 };
 
+// クラスの前方宣言
 class Selector;
 
 class Title : public IGameScene

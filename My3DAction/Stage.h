@@ -4,8 +4,17 @@
 */
 #pragma once
 #include "Selector.h"
+#include "BG.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "camera.h"
+#include "Model.h"
+#include "Grid.h"
+#include "Collider.h"
+#include "Constants.h"
 #include "IGameObject.h"
 
+// クラスの前方宣言
 class Selector;
 class Player;
 class Enemy;
@@ -29,8 +38,8 @@ public:
 	Stage(Selector *pSystem);
 	virtual ~Stage(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
-	virtual void draw() override;	// 描画メソッド
-	virtual Collider *GetCollider();
+	virtual void draw() override;		// 描画メソッド
+	virtual Collider *GetCollider();	// 当たり判定用のColliderを返す
 protected:
 	Selector	*System;
 	Player		*pPlayer;

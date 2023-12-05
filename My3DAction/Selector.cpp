@@ -8,10 +8,6 @@
 #include "Selector.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
-// 
-#include "Player.h"
-// 
-#include "Model.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
 // ゲーム内のステージ関連クラスと列挙型の定義

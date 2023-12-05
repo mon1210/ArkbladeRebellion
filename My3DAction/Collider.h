@@ -1,7 +1,14 @@
-
+/**
+* @file		Collider.h
+* @brief	当たり判定に関することを定めたヘッダファイル
+* @note		
+*/
 #pragma once
 #include "DxLib.h"
+#include "Player.h"
+#include "Enemy.h"
 
+// クラスの前方宣言
 class Enemy;
 
 class Collider
@@ -9,11 +16,12 @@ class Collider
 public:
 	Collider();
 	~Collider();
+	// 以下3つ未完成
 	virtual void Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* move_vec);	// キャラ同士の当たり判定
 	virtual void ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);	// プレイヤー移動時のステージとの当たり判定メソッド
 	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int dif_color, int spc_color, int flag);
-	virtual void setTileModel(int model);
-private:;
+
+	virtual void setTileModel(int model);	// タイルモデルをセットする　Stageで呼び出し
 protected:
 	int tileHandle;
 

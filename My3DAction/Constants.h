@@ -6,10 +6,7 @@
 #pragma once
 #include "DxLib.h"
 
-// Î‚ß“ü—Í—p‚ÌŠe²‚Ì”{—¦( sin( 45‹) )
-#define VECTOR_SCALING	0.70710678118f
-// 
-#define PadInput GetJoypadInputState( DX_INPUT_KEY_PAD1 ) 
+
 
 // ˆÈ‰ºBG—p’è”====================================================================================================== //
 const float BG_SCALE_FACTOR = 1.0f;				// ”wŒi•`‰æ‚ÌÛ‚ÌŠg‘å—¦

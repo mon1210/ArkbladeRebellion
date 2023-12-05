@@ -1,6 +1,4 @@
 #include "Collider.h"
-#include "Player.h"
-#include "Enemy.h"
 
 /**
 * @brief Cameraのコンストラクタ
@@ -12,7 +10,7 @@ Collider::Collider()
 }
 
 
-// デストラクタが
+// デストラクタ
 Collider::~Collider()
 {
 }
@@ -74,7 +72,7 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 
 
 /**
-* @brief タイルモデルセットメソッド
+* @brief タイルモデルをセットする
 */
 void Collider::setTileModel(int model)
 {
