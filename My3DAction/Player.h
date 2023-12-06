@@ -33,7 +33,7 @@ public:
 protected:
 	Collider *pCollider;
 	VECTOR	position;	// 座標
-	VECTOR  newPos;		// 移動後の新規座標
+	VECTOR  newPos;		// 移動後の座標保存用
 	VECTOR	moveVec;	// 移動の向きベクトル
 	int		animHandle;	// モデルハンドル
 	int		animNo;		// アニメーション番号

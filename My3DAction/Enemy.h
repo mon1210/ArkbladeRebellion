@@ -26,7 +26,7 @@ public:
 	virtual void SetAnim(eEnemy::AnimationNum num);	// アニメーションセットメソッド
 	virtual VECTOR GetEnemyPos();	// 座標取得メソッド
 	virtual void setEnemyModel(int model);			// エネミーのモデルをセットする
-	virtual void setTileModel(int model);			// タイルのモデルをセットする　 タイル => 当たり判定で使用
+	virtual void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
 	virtual void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
 private:
 	// 状態ごとのメソッド

@@ -205,7 +205,7 @@ void Player::SetMove()
             moveVec.z = PLAYER_MOVE_SPEED;
         }
     }
-    // 右ロール
+    // 右Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
         RollAnim();
@@ -216,7 +216,7 @@ void Player::SetMove()
             moveVec.x = PLAYER_MOVE_SPEED;
         }
     }
-    // 左ロール
+    // 左Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
         RollAnim();

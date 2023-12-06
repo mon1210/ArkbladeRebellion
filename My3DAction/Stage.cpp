@@ -70,7 +70,7 @@ GameSceneResultCode Stage::move()
 	{
 	case STAGE_INIT:
 		pCollider->InitCollision(tileHandle);
-		pEnemy->InitAnimation();
+		pEnemy->InitAnimation();	// phase•ª‚¯‚ÍEnemy‚Ì‚Ý‚È‚Ì‚Å
 		Phase = STAGE_RUN;
 		break;
 

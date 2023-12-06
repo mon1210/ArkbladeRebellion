@@ -16,6 +16,10 @@ Collider::~Collider()
 }
 
 
+/**
+* @brief 当たり判定初期化
+* @note  床に当たり判定付与
+*/
 void Collider::InitCollision(int handle)
 {
 	// Tileに当たり判定付与
@@ -27,7 +31,6 @@ void Collider::InitCollision(int handle)
 		32					// Z軸の空間分割数
 	);
 }
-
 
 
 // キャラ同士の当たり判定
@@ -86,7 +89,7 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 
 
 /**
-* @brief タイルモデルをセットする
+* @brief 床モデルをセットする
 */
 void Collider::setTileModel(int model)
 {
