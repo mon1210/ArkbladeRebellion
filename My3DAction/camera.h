@@ -1,7 +1,7 @@
 /*
 * @file		Camera.h
 * @brief	クラス Camera の宣言
-* @note		プレイヤーを追従するため、ほとんどのメソッドをPlayerクラスで呼び出す
+* @note		プレイヤーを追従する
 */
 #pragma once
 #include "DxLib.h"

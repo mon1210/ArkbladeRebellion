@@ -43,7 +43,10 @@ Stage::Stage(Selector *pSystem)
 }
 
 
-// デストラクタ
+/**
+* @brief デストラクタ
+* @note	 すべてのポインタをここでDelete
+*/
 Stage::~Stage()
 {
 	SAFE_DELETE(pCollider);
@@ -58,7 +61,7 @@ Stage::~Stage()
 
 /**
 * @brief アニメーション(1フレーム)の実行
-* @note 処理の順番は オブジェクトを move してから各々 collide を取って、必要なら各座標を調整する
+* @note 
 * @return GAMESCENE_DEFAULT: 継続 / GAMESCENE_END_FAILURE: ゲームオーバー
 */
 GameSceneResultCode Stage::move()
@@ -138,7 +141,7 @@ GameSceneResultCode Stage::move()
 
 /**
 * @brief 描画処理
-* @note  
+* @note  毎フレーム実行される
 */
 void Stage::draw()
 {
