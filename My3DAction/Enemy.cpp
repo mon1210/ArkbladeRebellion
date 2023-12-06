@@ -318,57 +318,6 @@ void Enemy::SetAnim(eEnemy::AnimationNum num)
 
 
 /**
-* @brief 行動管理関数
-* @Todo  行動をランダムにしたいので後で消す
-*/
-void Enemy::SetMove()
-{
-    // I => Runモーション(2)
-    if (CheckHitKey(KEY_INPUT_K))
-    {
-        SetAnim(eEnemy::Run);
-        // 手前移動
-        if (animNo == eEnemy::Run)
-        {
-            angle = 0.f;
-            position.z -= ENEMY_MOVE_SPEED;
-        }
-    }
-    // 
-    else if (CheckHitKey(KEY_INPUT_I))
-    {
-        SetAnim(eEnemy::Run);
-        // 手前移動
-        if (animNo == eEnemy::Run)
-        {
-            angle = 180.f;
-            position.z += ENEMY_MOVE_SPEED;
-        }
-    }
-    // 
-    else if (CheckHitKey(KEY_INPUT_O))
-    {
-        SetAnim(eEnemy::Swiping);
-    }
-    // 
-    else if (CheckHitKey(KEY_INPUT_P))
-    {
-        SetAnim(eEnemy::Damage);
-    }
-    // 
-    else if (CheckHitKey(KEY_INPUT_M))
-    {
-        SetAnim(eEnemy::Dying);
-    }
-    else
-    {
-        SetAnim(eEnemy::Idle);
-    }
-
-}
-
-
-/**
 * @brief エネミーのアニメーションメソッド
 * @return true:生存 / false:死亡
 * @note ここでは加速度の設定だけ行い、(x, y)座標の更新はcollide() で行う

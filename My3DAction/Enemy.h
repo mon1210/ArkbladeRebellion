@@ -22,7 +22,6 @@ public:
 	virtual bool IsTargetVisible();	// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	virtual bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
 	virtual void draw() override;	// 描画メソッド
-	virtual void SetMove();			// 行動管理メソッド　デバッグ用　削除予定 Todo
 	virtual void SetAnim(eEnemy::AnimationNum num);	// アニメーションセットメソッド
 	virtual VECTOR GetEnemyPos();	// 座標取得メソッド
 	virtual void setEnemyModel(int model);			// エネミーのモデルをセットする
