@@ -107,7 +107,7 @@
     <ClInclude Include="BG.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
+    <ClInclude Include="Camera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
