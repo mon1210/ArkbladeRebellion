@@ -153,7 +153,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 180.f - cameraHA;
+            angle = FORWARD_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -165,7 +165,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 0.f - cameraHA;
+            angle = BACKWARD_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.z = -PLAYER_MOVE_SPEED;
         }
@@ -177,7 +177,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = -90.f - cameraHA;
+            angle = RIGHT_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -189,7 +189,7 @@ void Player::SetMove()
         SetAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
-            angle = 90.f - cameraHA;
+            angle = LEFT_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }
@@ -200,7 +200,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 180.f - cameraHA;
+            angle = FORWARD_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.z = PLAYER_MOVE_SPEED;
         }
@@ -211,7 +211,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = -90.f - cameraHA;
+            angle = -RIGHT_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
@@ -222,7 +222,7 @@ void Player::SetMove()
         RollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = 90.f - cameraHA;
+            angle = LEFT_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.x = -PLAYER_MOVE_SPEED;
         }

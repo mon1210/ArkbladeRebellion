@@ -9,10 +9,7 @@
 
 
 // 以下BG用定数====================================================================================================== //
-const float BG_SCALE_FACTOR = 1.0f;				// 背景描画の際の拡大率
-
 // 以上BG用定数====================================================================================================== //
-
 
 
 // 以下Camera用定数================================================================================================== //
@@ -23,12 +20,18 @@ const float MAX_VERTICAL_ANGLE = 80.f;			// 垂直方向に対するアングル変更の最大値
 const float MIN_VERTICAL_ANGLE = 0.f;			// 垂直方向に対するアングル変更の最小値
 const float MAX_HORIZONTAL_ANGLE = 180.f;		// 水平方向に対するアングル変更の最大値
 const float MIN_HORIZONTAL_ANGLE = -180.f;		// 垂直方向に対するアングル変更の最小値
-const float FULL_CIRCLE_DEGREES = 360.f;		// 完全な円の角度
+const float CAMERA_FULL_CIRCLE_DEGREES = 360.f;	// 完全な円の角度
 // 以上Camera用定数================================================================================================== //
+
+
+// 以上Collider用定数================================================================================================== //
+const int SPATIAL_PARTITION = 32;				// 空間分割数
+// 以上Collider用定数================================================================================================== //
 
 
 // 以下Enemy用定数=================================================================================================== //
 const int TIME_TO_TRANSITION = 240;				// エネミーの行動遷移タイマー
+const int FULL_CIRCLE_DEGREES = 360;			// 完全な円の角度 rand() % のあとにはint型しかダメなのでCameraと分ける
 const float ENEMY_START_POS_X = 300.f;			// エネミーの初期X座標
 const float ENEMY_START_POS_Y = 0.f;			// エネミーの初期Y座標 -280
 const float ENEMY_START_POS_Z = 900.f;			// エネミーの初期Z座標
@@ -54,8 +57,7 @@ const int WINDOW_POS_Y = 0;						// 生成時Y座標
 const int WINDOW_WIDTH_SIZE = 640;				// ウィンドウの横幅
 const int WINDOW_HEIGHT_SIZE = 480;				// ウィンドウの縦幅
 const double DOUBLE_ONE = 1.0;					// 倍精度浮動小数点数リテラル
-//const float DEG_TO_RAD = DX_PI_F / 180.f;		// 度数からラジアンへの変更用定数
-//const float FLAME_TIME = 1.f / 60.f;			// 
+const float CAMERA_FAR_DISTANCE = 1000.f;		// カメラの可視最長距離
 // 以上My3DAction用定数============================================================================================== //
 
 
@@ -68,6 +70,10 @@ const float PLAYER_ANIM_F_INCREMENT = 0.2f;		// プレイヤーの毎フレームごとのアニ
 const float PLAYER_MOVE_SPEED = 10.f;			// プレイヤーの移動距離
 const float PLAYER_ROLL_DISTANCE = 5.f;			// プレイヤーの前転時の移動距離
 const float PLAYER_ROLL_ANIM_F_INCREMENT = 0.3f;// プレイヤーの前転時の移動距離
+const float FORWARD_ROTATION_ANGLE = 180.f;		// プレイヤー前進時の回転角度
+const float RIGHT_ROTATION_ANGLE = -90.f;		// プレイヤー右移動時の回転角度
+const float LEFT_ROTATION_ANGLE = 90.f;			// プレイヤー左移動時の回転角度
+const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
 // 以上Player用定数================================================================================================== //
 
@@ -93,6 +99,5 @@ const float MAX_OPACITY = 1.0f;					// 透明度の最大値
 const float PER_FLOAT = 60.f;					// フレーム値に
 const float DARK_THRESHOLD_FLAME = 30;			// 透明と鮮明値の差
 const float TITLE_MARGIN_ABOVE = 120.f;			// タイトルを上に余白を開ける
-const float TITLE_SCALE_FACTOR = 1.0f;			// タイトル描画の拡大率
 const float TITLE_BLACKOUT_TIME = 30.0f;		// タイトルのフェードアウト時画面が暗い時間
 // 以上Title用定数=================================================================================================== //

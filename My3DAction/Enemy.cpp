@@ -105,7 +105,7 @@ void Enemy::Wait()
     {
         count = 0;
         currentState = EnemyState::Move;
-        angle = (rand() % 360);  // ランダムな角度を取得
+        angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
         SetAnim(eEnemy::Run);
 
     }

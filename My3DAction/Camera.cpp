@@ -56,7 +56,7 @@ void Camera::CameraController()
 		// 360度を超えた場合でも正確な角度を保つように
 		if (CameraHAngle >= MAX_HORIZONTAL_ANGLE)
 		{
-			CameraHAngle -= FULL_CIRCLE_DEGREES;
+			CameraHAngle -= CAMERA_FULL_CIRCLE_DEGREES;
 		}
 	}
 	// カメラの水平角度を左に回転
@@ -66,7 +66,7 @@ void Camera::CameraController()
 		// 360度を超えた場合でも正確な角度を保つように
 		if (CameraHAngle <= MIN_HORIZONTAL_ANGLE)
 		{
-			CameraHAngle += FULL_CIRCLE_DEGREES;
+			CameraHAngle += CAMERA_FULL_CIRCLE_DEGREES;
 		}
 	}
 
