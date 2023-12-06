@@ -1,7 +1,7 @@
 /**
 * @file		Collider.h
-* @brief	当たり判定に関することを定めたヘッダファイル
-* @note		
+* @brief	クラス Collider の宣言
+* @note		プレイヤー・床に対して影響するのでStageで関数使用
 */
 #pragma once
 #include "DxLib.h"

@@ -7,7 +7,7 @@
 #include "BG.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Model.h"
 #include "Grid.h"
 #include "Collider.h"

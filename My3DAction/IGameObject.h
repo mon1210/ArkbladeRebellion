@@ -5,16 +5,6 @@
 */
 #pragma once
 
-typedef struct {
-	float x;	//	起点
-	float y;	//	起点
-	float z;	//	起点
-	float vx;	//	x成分
-	float vy;	//	y成分
-	float vz;	//	z成分
-}	STEP_VECTOR;
-
-
 class IGameObject
 {
 public:
@@ -22,8 +12,6 @@ public:
 	virtual bool move() = 0;
 	virtual void draw() = 0;
 	//virtual int damage(float amount) = 0;
-
-	STEP_VECTOR step;
 	float	Damage;
 };
 
