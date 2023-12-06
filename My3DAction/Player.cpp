@@ -33,7 +33,10 @@ Player::Player(Stage *parent)
 }
 
 
-// デストラクタ
+/**
+* @brief デストラクタ
+* @note  ポインタのDeleteはStageでしているので、記述の必要なし
+*/
 Player::~Player()
 {
 }

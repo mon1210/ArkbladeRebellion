@@ -153,8 +153,12 @@ void Stage::draw()
 				pPlayer->draw();
 			if (pCamera) {
 				pCamera->CameraController();
-				pCamera->SetCameraPositionAndDirection(pPlayer->GetPlayerPos());
-				pPlayer->setPlayerNewPos(pCamera->MoveAlongHAngle(pPlayer->GetPlayerMoveVec(), pPlayer->GetPlayerPos()));
+				pCamera->SetCameraPositionAndDirection(pPlayer->GetPlayerPos());	//カメラの位置・角度設定 
+				if (pPlayer) {
+					pPlayer->setCameraHAngle(pCamera->GetCameraHorizontalAngle());	// カメラの水平角度取得
+					pPlayer->setPlayerNewPos(pCamera->MoveAlongHAngle
+						(pPlayer->GetPlayerMoveVec(), pPlayer->GetPlayerPos()));	// プレイヤーの座標設定
+				}
 			}			
 			if (pEnemy) {
 				pEnemy->Update();

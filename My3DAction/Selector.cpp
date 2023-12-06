@@ -31,7 +31,6 @@ Selector::Selector()
 Selector::~Selector()
 {
 	SAFE_DELETE(pScene);
-
 }
 
 

@@ -100,14 +100,14 @@ VECTOR Camera::MoveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 * @brief 位置算出メソッド
 * @note  
 */
-void Camera::SetCameraPositionAndDirection(VECTOR pPlayerPos)
+void Camera::SetCameraPositionAndDirection(VECTOR player_pos)
 {
 	VECTOR VerticalAnglePos;	// 垂直角度を反映した位置
 	VECTOR HorizontalAnglePos;	// 水平角度を反映した位置
 	VECTOR CameraLookAtPos;		// 注視点の位置
 
 	// 注視点はキャラクターモデルの座標から CAMERA_LOOK_AT_HEIGHT 分だけ高い位置
-	CameraLookAtPos = pPlayerPos;
+	CameraLookAtPos = player_pos;
 	CameraLookAtPos.y += CAMERA_LOOK_AT_HEIGHT;
 
 	// カメラの位置はカメラの水平角度と垂直角度から算出

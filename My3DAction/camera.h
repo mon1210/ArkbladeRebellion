@@ -16,7 +16,7 @@ public:
 	~Camera();
 	virtual void CameraController();	// カメラ操作メソッド
 	virtual VECTOR MoveAlongHAngle(VECTOR move_vec,VECTOR player_pos);	// プレイヤーの位置算出メソッド(return playerPos)
-	virtual void SetCameraPositionAndDirection(VECTOR pPlayerPos);		// カメラの位置算出メソッド
+	virtual void SetCameraPositionAndDirection(VECTOR player_pos);		// カメラの位置算出メソッド
 	virtual float GetCameraHorizontalAngle();	// カメラ水平角度取得関数
 	virtual float GetCameraVerticalAngle();		// カメラ垂直角度取得関数
 protected:
