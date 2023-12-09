@@ -20,7 +20,9 @@ Stage::Stage(Selector *pSystem)
 	pRadar = NULL;
 
 	Phase = STAGE_INIT;
+
 	bPause = true;
+
 	Timer = 0;
 	tileHandle = 0;
 
@@ -28,7 +30,7 @@ Stage::Stage(Selector *pSystem)
 	pModel = new Model();
 	pCamera = new Camera();
 	pCollider = new Collider();	// •K‚¸Player‚æ‚èã‚É‘‚­
-	pRadar = new Radar();
+	pRadar = new Radar();		// •K‚¸Player‚æ‚èã‚É‘‚­
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
 	pBG = new BG();
