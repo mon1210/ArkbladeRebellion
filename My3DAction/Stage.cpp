@@ -17,6 +17,7 @@ Stage::Stage(Selector *pSystem)
 	pEnemy = NULL;
 	pBG = NULL;
 	pGrid = NULL;
+	pRadar = NULL;
 
 	Phase = STAGE_INIT;
 	bPause = true;
@@ -27,8 +28,9 @@ Stage::Stage(Selector *pSystem)
 	pModel = new Model();
 	pCamera = new Camera();
 	pCollider = new Collider();	// •K‚¸Player‚æ‚èã‚É‘‚­
+	pRadar = new Radar();
 	pPlayer = new Player(this);
-	pEnemy = new Enemy();
+	pEnemy = new Enemy(this);
 	pBG = new BG();
 	pGrid = new Grid();
 
@@ -56,6 +58,7 @@ Stage::~Stage()
 	SAFE_DELETE(pPlayer);
 	SAFE_DELETE(pCamera);
 	SAFE_DELETE(pModel);
+	SAFE_DELETE(pRadar);
 }
 
 
@@ -148,6 +151,8 @@ void Stage::draw()
 	switch (Phase)
 	{
 		default:
+			if (pRadar)
+				pRadar->ListReset();	// PointƒŠƒXƒg‰Šú‰»
 			if (pBG)
 				pBG->draw();
 			if (pGrid)
@@ -167,6 +172,8 @@ void Stage::draw()
 				pEnemy->Update();
 				pEnemy->setPlayerPos(pPlayer->GetPlayerPos());
 			}
+			if (pRadar)
+				pRadar->Draw();
 				
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);
@@ -194,4 +201,13 @@ void Stage::draw()
 Collider *Stage::GetCollider()
 {
 	return pCollider;
+}
+
+
+/**
+* @brief Radar‚ğæ“¾‚µ‚Ä•Ô‚·
+*/
+Radar* Stage::GetRadar()
+{
+	return pRadar;
 }
