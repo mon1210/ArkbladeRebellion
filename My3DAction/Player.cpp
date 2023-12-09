@@ -14,6 +14,7 @@ Player::Player(Stage *parent)
     animTimer = 0.f;
     cameraHA = 0.f;
     pCollider = NULL;
+    pRadar = NULL;
 
     angle = PLAYER_START_ROTATE_Y;
 
@@ -24,6 +25,7 @@ Player::Player(Stage *parent)
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
     pCollider = parent->GetCollider();
+    pRadar = parent->GetRadar();
 
     moveFlag = false;
     rollAble = true;
@@ -250,6 +252,13 @@ void Player::SetMove()
     if (moveFlag)
         pCollider->ClampToStageBounds(newPos, position, rollAble);
 
+    // Todo プレイヤーの向きに対する動きがいまいち
+    // レーダーの中心を今の座標と正面の向きに設定
+    float rad = angle * (DX_PI / 180.0f);
+    float front_vec_x = -sinf(rad);
+    float front_vec_z = -cosf(rad);
+    VECTOR frontVector = VGet(front_vec_x, 0.0f, front_vec_z);
+    pRadar->AddCenter(position.x, position.z, frontVector.x, frontVector.z);
 }
 
 

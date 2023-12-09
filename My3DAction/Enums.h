@@ -46,3 +46,13 @@ enum EnemyState
 	Death,
 
 };
+
+
+namespace eRadar
+{
+	enum PointType
+	{
+		Default = -1,	// -1‘ã“ü—p
+		Enemy,
+	};
+}

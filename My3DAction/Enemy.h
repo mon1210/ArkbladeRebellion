@@ -8,14 +8,19 @@
 #include "Enums.h"
 #include "BG.h"
 #include "Player.h"
+#include "Stage.h"
+#include "Radar.h"
 #include "Constants.h"
 #include "IGameObject.h"
 
+// クラスの前方宣言
+class Stage;
+class Radar;
 
 class Enemy : public IGameObject
 {
 public:
-	Enemy();
+	Enemy(Stage *parent);
 	~Enemy();
 	virtual void InitAnimation();	// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
 	virtual void Update();			// 状態管理とdraw呼び出し　毎フレーム呼び出される
@@ -33,6 +38,7 @@ private:
 	virtual void Move();
 	virtual void Chase();
 protected:
+	Radar	*pRadar;
 	VECTOR	position;
 	VECTOR  playerPos;		// enemyToPlayerを求めるのに使用
 	VECTOR  enemyToPlayer;	// エネミーからプレイヤーまでの距離

@@ -5,7 +5,7 @@
 * @brief Enemyのコンストラクタ
 *
 */
-Enemy::Enemy()
+Enemy::Enemy(Stage *parent)
 {
     animNo = 0;
     count = 0;
@@ -16,6 +16,7 @@ Enemy::Enemy()
     hitPoint = 1.f;
     animTimer = 0.f;
     vecLength = 0.f;
+    pRadar = NULL;
 
     enemyToPlayer = VGet(0.f, 0.f, 0.f);
     angle = ENEMY_START_ROTATE_Y;
@@ -24,6 +25,8 @@ Enemy::Enemy()
     playerPos = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
+
+    pRadar = parent->GetRadar();
 
     currentState = EnemyState::Wait;
 
@@ -76,7 +79,7 @@ void Enemy::Update()
     }
 
     // Rader
-
+    pRadar->AddPoint(position.x, position.z, eRadar::Enemy);
 
     // 描画メソッド呼び出し
     draw();

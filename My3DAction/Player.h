@@ -9,11 +9,13 @@
 #include "Constants.h"
 #include "Collider.h"
 #include "Stage.h"
+#include "Radar.h"
 #include "IGameObject.h"
 
 // クラスの前方宣言
 class Stage;
 class Collider;
+class Radar;
 
 class Player : public IGameObject
 {
@@ -32,6 +34,7 @@ public:
 	virtual void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
 protected:
 	Collider *pCollider;
+	Radar	 *pRadar;
 	VECTOR	position;	// 座標
 	VECTOR  newPos;		// 移動後の座標保存用
 	VECTOR	moveVec;	// 移動の向きベクトル

@@ -11,6 +11,7 @@
 #include "Model.h"
 #include "Grid.h"
 #include "Collider.h"
+#include "Radar.h"
 #include "Constants.h"
 #include "IGameObject.h"
 
@@ -23,6 +24,7 @@ class Camera;
 class BG;
 class Grid;
 class Collider;
+class Radar;
 
 enum StagePhase {
 	STAGE_INIT = 0,
@@ -40,6 +42,7 @@ public:
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	virtual void draw() override;		// 描画メソッド
 	virtual Collider *GetCollider();	// 当たり判定用のColliderを返す
+	virtual Radar *GetRadar();			// 当たり判定用のRadarを返す
 protected:
 	Selector	*System;
 	Player		*pPlayer;
@@ -49,6 +52,7 @@ protected:
 	BG			*pBG;
 	Grid		*pGrid;
 	Collider	*pCollider;
+	Radar		*pRadar;
 	StagePhase	Phase;
 	bool		bPause;		//	ポーズボタン連打防止フラグ
 	int			Timer;

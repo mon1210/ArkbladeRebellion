@@ -153,6 +153,8 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="My3DAction.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Radar.cpp" />
+    <ClCompile Include="RadarPoint.cpp" />
     <ClCompile Include="Selector.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="My3DAction.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RadarPoint.h" />
+    <ClInclude Include="Radar.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Selector.h" />
     <ClInclude Include="Stage.h" />
