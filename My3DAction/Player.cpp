@@ -13,7 +13,7 @@ Player::Player(Stage *parent)
     hitPoint = 100.f;
     animTimer = 0.f;
     cameraHA = 0.f;
-    pCollider = NULL;
+    pCollision = NULL;
     pRadar = NULL;
 
     angle = PLAYER_START_ROTATE_Y;
@@ -24,7 +24,7 @@ Player::Player(Stage *parent)
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
-    pCollider = parent->GetCollider();
+    pCollision = parent->GetCollision();
     pRadar = parent->GetRadar();
 
     moveFlag = false;
@@ -250,7 +250,7 @@ void Player::setMove()
 
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
-        pCollider->clampToStageBounds(newPos, position, rollAble);
+        pCollision->clampToStageBounds(newPos, position, rollAble);
 
     // Todo プレイヤーの向きに対する動きがいまいち
     // レーダーの中心を今の座標と正面の向きに設定

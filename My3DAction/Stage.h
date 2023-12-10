@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Grid.h"
-#include "Collider.h"
+#include "Collision.h"
 #include "Radar.h"
 #include "Constants.h"
 #include "IGameObject.h"
@@ -23,7 +23,7 @@ class Model;
 class Camera;
 class BG;
 class Grid;
-class Collider;
+class Collision;
 class Radar;
 
 enum StagePhase {
@@ -41,7 +41,7 @@ public:
 	virtual ~Stage(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	virtual void draw() override;		// 描画メソッド
-	virtual Collider *GetCollider();	// 当たり判定用のColliderを返す
+	virtual Collision *GetCollision();	// 当たり判定用のCollisionを返す
 	virtual Radar *GetRadar();			// 当たり判定用のRadarを返す
 protected:
 	Selector	*System;
@@ -51,7 +51,7 @@ protected:
 	Camera		*pCamera;
 	BG			*pBG;
 	Grid		*pGrid;
-	Collider	*pCollider;
+	Collision	*pCollision;
 	Radar		*pRadar;
 	StagePhase	Phase;
 	bool		bPause;		//	ポーズボタン連打防止フラグ

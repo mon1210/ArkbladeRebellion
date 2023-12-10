@@ -12,7 +12,7 @@ Stage::Stage(Selector *pSystem)
 	System = pSystem;
 	pModel = NULL;
 	pCamera = NULL;
-	pCollider = NULL;
+	pCollision = NULL;
 	pPlayer = NULL;
 	pEnemy = NULL;
 	pBG = NULL;
@@ -29,7 +29,7 @@ Stage::Stage(Selector *pSystem)
 	// インスタンス化
 	pModel = new Model();
 	pCamera = new Camera();
-	pCollider = new Collider();	// 必ずPlayerより上に書く
+	pCollision = new Collision();	// 必ずPlayerより上に書く
 	pRadar = new Radar();		// 必ずPlayerより上に書く
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
@@ -42,7 +42,7 @@ Stage::Stage(Selector *pSystem)
 	pPlayer->setPlayerModel(pModel->getPlayerModel());
 	pEnemy->setEnemyModel(pModel->getEnemyModel());
 	pEnemy->setTileModel(pBG->getModelHandle());
-	pCollider->setTileModel(pBG->getModelHandle());
+	pCollision->setTileModel(pBG->getModelHandle());
 	tileHandle = pBG->getModelHandle();
 }
 
@@ -53,7 +53,7 @@ Stage::Stage(Selector *pSystem)
 */
 Stage::~Stage()
 {
-	SAFE_DELETE(pCollider);
+	SAFE_DELETE(pCollision);
 	SAFE_DELETE(pGrid);
 	SAFE_DELETE(pBG);
 	SAFE_DELETE(pEnemy);
@@ -74,7 +74,7 @@ GameSceneResultCode Stage::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
-		pCollider->initCollision(tileHandle);
+		pCollision->initCollision(tileHandle);
 		pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		Phase = STAGE_RUN;
 		break;
@@ -198,11 +198,11 @@ void Stage::draw()
 
 
 /**
-* @brief Colliderを取得して返す
+* @brief Collisionを取得して返す
 */
-Collider *Stage::GetCollider()
+Collision *Stage::GetCollision()
 {
-	return pCollider;
+	return pCollision;
 }
 
 

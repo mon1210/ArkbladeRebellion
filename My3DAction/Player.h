@@ -7,7 +7,7 @@
 #include "DxLib.h"
 #include "Enums.h"
 #include "Constants.h"
-#include "Collider.h"
+#include "Collision.h"
 #include "Stage.h"
 #include "Radar.h"
 #include "IGameObject.h"
@@ -33,8 +33,8 @@ public:
 	void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
 	void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
 protected:
-	Collider *pCollider;
-	Radar	 *pRadar;
+	Collision *pCollision;
+	Radar	  *pRadar;
 	VECTOR	position;	// 座標
 	VECTOR  newPos;		// 移動後の座標保存用
 	VECTOR	moveVec;	// 移動の向きベクトル

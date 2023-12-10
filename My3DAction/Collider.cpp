@@ -1,17 +1,17 @@
-#include "Collider.h"
+#include "Collision.h"
 
 /**
 * @brief Cameraのコンストラクタ
 *
 */
-Collider::Collider()
+Collision::Collision()
 {
 	tileHandle = 0;
 }
 
 
 // デストラクタ
-Collider::~Collider()
+Collision::~Collision()
 {
 }
 
@@ -20,7 +20,7 @@ Collider::~Collider()
 * @brief 当たり判定初期化
 * @note  床に当たり判定付与
 */
-void Collider::initCollision(int handle)
+void Collision::initCollision(int handle)
 {
 	// Tileに当たり判定付与
 	MV1SetupCollInfo(
@@ -34,7 +34,7 @@ void Collider::initCollision(int handle)
 
 
 // キャラ同士の当たり判定
-void Collider::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
+void Collision::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 {
 	VECTOR ChkChToChVec;
 	VECTOR PushVec;
@@ -91,7 +91,7 @@ void Collider::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 /**
 * @brief 床モデルをセットする
 */
-void Collider::setTileModel(int model)
+void Collision::setTileModel(int model)
 {
 	tileHandle = model;
 }
@@ -102,7 +102,7 @@ void Collider::setTileModel(int model)
 * @note  Playerクラスで呼び出し
 *		 プレイヤーの移動範囲を制限している
 */
-void Collider::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
+void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
@@ -134,7 +134,7 @@ void Collider::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& rol
 
 
 // 
-void Collider::draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag)
+void Collision::draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag)
 {
 
 	VECTOR dir = VSub(end, start);
