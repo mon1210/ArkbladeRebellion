@@ -58,7 +58,7 @@ void Player::setPlayerModel(int model)
 * @brief アニメーションセット関数
 *
 */
-void Player::SetAnim(ePlayer::AnimationNum num)
+void Player::setAnim(ePlayer::AnimationNum num)
 {
     if (animNo != num)
     {
@@ -85,7 +85,7 @@ void Player::SetAnim(ePlayer::AnimationNum num)
 // Rollだけ、PLAYER_ANIM_F_INCREMENT(== 0.2f)だと違和感があるので、作っている
 // また、長押しで回転し続けられるのを直すようにもしたい
 // 未完成
-void Player::RollAnim()
+void Player::rollAnim()
 {
     // アニメーションをセット
     if (animNo != ePlayer::Roll)
@@ -143,7 +143,7 @@ void Player::setPlayerNewPos(VECTOR new_pos)
 //          PAD INPUT_9 = SHARE(-),
 //          PAD INPUT_10 = OPTIONS(+)
 // ****************************************** //
-void Player::SetMove()
+void Player::setMove()
 {
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
@@ -152,7 +152,7 @@ void Player::SetMove()
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Run);
+        setAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
             angle = FORWARD_ROTATION_ANGLE - cameraHA;
@@ -164,7 +164,7 @@ void Player::SetMove()
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Run);
+        setAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
             angle = BACKWARD_ROTATION_ANGLE - cameraHA;
@@ -176,7 +176,7 @@ void Player::SetMove()
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Run);
+        setAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
             angle = RIGHT_ROTATION_ANGLE - cameraHA;
@@ -188,7 +188,7 @@ void Player::SetMove()
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Run);
+        setAnim(ePlayer::Run);
         if (animNo == ePlayer::Run)
         {
             angle = LEFT_ROTATION_ANGLE - cameraHA;
@@ -199,7 +199,7 @@ void Player::SetMove()
     // Space or PAD_× => Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
-        RollAnim();
+        rollAnim();
         if (animNo == ePlayer::Roll)
         {
             angle = FORWARD_ROTATION_ANGLE - cameraHA;
@@ -210,7 +210,7 @@ void Player::SetMove()
     // 右Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
-        RollAnim();
+        rollAnim();
         if (animNo == ePlayer::Roll)
         {
             angle = -RIGHT_ROTATION_ANGLE - cameraHA;
@@ -221,7 +221,7 @@ void Player::SetMove()
     // 左Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
-        RollAnim();
+        rollAnim();
         if (animNo == ePlayer::Roll)
         {
             angle = LEFT_ROTATION_ANGLE - cameraHA;
@@ -233,24 +233,24 @@ void Player::SetMove()
     else if (CheckHitKey(KEY_INPUT_F))
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Drinking);
+        setAnim(ePlayer::Drinking);
     }
     // G => Dying
     else if (CheckHitKey(KEY_INPUT_G))
     {
         // アニメーションをセット
-        SetAnim(ePlayer::Dying);
+        setAnim(ePlayer::Dying);
     }
     // Idle
     else
     {
         moveFlag = false;
-        SetAnim(ePlayer::Idle);
+        setAnim(ePlayer::Idle);
     }
 
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
-        pCollider->ClampToStageBounds(newPos, position, rollAble);
+        pCollider->clampToStageBounds(newPos, position, rollAble);
 
     // Todo プレイヤーの向きに対する動きがいまいち
     // レーダーの中心を今の座標と正面の向きに設定
@@ -258,7 +258,7 @@ void Player::SetMove()
     float front_vec_x = -sinf(rad);
     float front_vec_z = -cosf(rad);
     VECTOR frontVector = VGet(front_vec_x, 0.0f, front_vec_z);
-    pRadar->AddCenter(position.x, position.z, frontVector.x, frontVector.z);
+    pRadar->addCenter(position.x, position.z, frontVector.x, frontVector.z);
 }
 
 
@@ -285,7 +285,7 @@ bool Player::move()
 void Player::draw()
 {
     // 行動管理関数呼び出し
-    SetMove();
+    setMove();
 
     // モデルの大きさ変更
     MV1SetScale(animHandle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
@@ -316,7 +316,7 @@ void Player::draw()
 * @brief プレイヤー座標を取得して返す
 * @note  
 */
-VECTOR Player::GetPlayerPos()
+VECTOR Player::getPlayerPos()
 {   
     return position;
 }
@@ -326,7 +326,7 @@ VECTOR Player::GetPlayerPos()
 * @brief プレイヤー移動ベクトルを取得して返す
 * @note
 */
-VECTOR Player::GetPlayerMoveVec()
+VECTOR Player::getPlayerMoveVec()
 {
     return moveVec;
 }

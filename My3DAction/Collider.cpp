@@ -20,7 +20,7 @@ Collider::~Collider()
 * @brief 当たり判定初期化
 * @note  床に当たり判定付与
 */
-void Collider::InitCollision(int handle)
+void Collider::initCollision(int handle)
 {
 	// Tileに当たり判定付与
 	MV1SetupCollInfo(
@@ -34,7 +34,7 @@ void Collider::InitCollision(int handle)
 
 
 // キャラ同士の当たり判定
-void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
+void Collider::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 {
 	VECTOR ChkChToChVec;
 	VECTOR PushVec;
@@ -47,12 +47,12 @@ void Collider::Chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 	// 
 	if (HitCheck_Capsule_Capsule(
 		ChPosition, VAdd(ChPosition, VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH,
-		enemy->GetEnemyPos(), VAdd(enemy->GetEnemyPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
+		enemy->getEnemyPos(), VAdd(enemy->getEnemyPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
 	{
 		// 当たっていたらプレイヤー押し戻し
 
 		// chk_ch から ch へのベクトルを算出
-		ChkChToChVec = VSub(ChPosition, enemy->GetEnemyPos());
+		ChkChToChVec = VSub(ChPosition, enemy->getEnemyPos());
 
 		// Ｙ軸は見ない
 		ChkChToChVec.y = 0.f;
@@ -102,7 +102,7 @@ void Collider::setTileModel(int model)
 * @note  Playerクラスで呼び出し
 *		 プレイヤーの移動範囲を制限している
 */
-void Collider::ClampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
+void Collider::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体

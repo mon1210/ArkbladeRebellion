@@ -22,16 +22,16 @@ class Enemy : public IGameObject
 public:
 	Enemy(Stage *parent);
 	~Enemy();
-	virtual void InitAnimation();	// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
-	virtual void Update();			// 状態管理とdraw呼び出し　毎フレーム呼び出される
-	virtual bool IsTargetVisible();	// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
-	virtual bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
-	virtual void draw() override;	// 描画メソッド
-	virtual void SetAnim(eEnemy::AnimationNum num);	// アニメーションセットメソッド
-	virtual VECTOR GetEnemyPos();	// 座標取得メソッド
-	virtual void setEnemyModel(int model);			// エネミーのモデルをセットする
-	virtual void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
-	virtual void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
+	void initAnimation();	// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
+	void update();			// 状態管理とdraw呼び出し　毎フレーム呼び出される
+	bool isTargetVisible();	// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
+	bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
+	void draw() override;	// 描画メソッド
+	void setAnim(eEnemy::AnimationNum num);	// アニメーションセットメソッド
+	void setEnemyModel(int model);			// エネミーのモデルをセットする
+	void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
+	void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
+	VECTOR getEnemyPos();	// 座標取得メソッド
 private:
 	// 状態ごとのメソッド
 	virtual void Wait();

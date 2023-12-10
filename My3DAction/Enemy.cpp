@@ -47,9 +47,9 @@ Enemy::~Enemy()
 * @brief アニメーション状態初期化関数
 * @note  Stageで初期化時一度だけ呼び出す
 */
-void Enemy::InitAnimation()
+void Enemy::initAnimation()
 {
-    SetAnim(eEnemy::Idle);
+    setAnim(eEnemy::Idle);
 }
 
 
@@ -57,7 +57,7 @@ void Enemy::InitAnimation()
 * @brief 行動状態の管理メソッド
 * @note  毎フレームの処理
 */
-void Enemy::Update()
+void Enemy::update()
 {
     switch (currentState)
     {
@@ -79,7 +79,7 @@ void Enemy::Update()
     }
 
     // Rader
-    pRadar->AddPoint(position.x, position.z, eRadar::Enemy);
+    pRadar->addPoint(position.x, position.z, eRadar::Enemy);
 
     // 描画メソッド呼び出し
     draw();
@@ -109,14 +109,14 @@ void Enemy::Wait()
         count = 0;
         currentState = EnemyState::Move;
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
-        SetAnim(eEnemy::Run);
+        setAnim(eEnemy::Run);
 
     }
     // 視野に入っていたら追跡
-    else if (IsTargetVisible() == true)
+    else if (isTargetVisible() == true)
     {
         currentState = EnemyState::Chase;
-        SetAnim(eEnemy::Run);
+        setAnim(eEnemy::Run);
     }
 
 }
@@ -166,7 +166,7 @@ void Enemy::Move()
         // HitPosition => 交点の座標
         new_pos.y = result.HitPosition.y;
         position = new_pos;
-        if (IsTargetVisible() == true)
+        if (isTargetVisible() == true)
         {
             currentState = EnemyState::Chase;
         }
@@ -185,10 +185,10 @@ void Enemy::Move()
     {
         count = 0;
         currentState = EnemyState::Wait;
-        SetAnim(eEnemy::Idle);
+        setAnim(eEnemy::Idle);
     }
     // 視野に入っていたら追跡
-    else if (IsTargetVisible() == true)
+    else if (isTargetVisible() == true)
     {
         currentState = EnemyState::Chase;
         // アニメーションはすでにRunなので変更なし
@@ -240,11 +240,11 @@ void Enemy::Chase()
         待機：
             条件：プレイヤーが視野から出る
     */
-    if (IsTargetVisible() == false)
+    if (isTargetVisible() == false)
     {
         currentState = EnemyState::Wait;
         count = 0;
-        SetAnim(eEnemy::Idle);
+        setAnim(eEnemy::Idle);
     }
 }
 
@@ -263,7 +263,7 @@ void Enemy::setPlayerPos(VECTOR player_pos)
 * @brief   エネミーの視野メソッド
 * @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 */
-bool Enemy::IsTargetVisible()
+bool Enemy::isTargetVisible()
 {
     /*
         ・Enemyの座標(x,z)を円の中心として考える
@@ -303,7 +303,7 @@ void Enemy::setEnemyModel(int model)
 * @brief アニメーションセット関数
 *
 */
-void Enemy::SetAnim(eEnemy::AnimationNum num)
+void Enemy::setAnim(eEnemy::AnimationNum num)
 {
     if (animNo != num)
     {
@@ -369,7 +369,7 @@ void Enemy::draw()
 * @brief エネミー座標を取得して返す
 * @note
 */
-VECTOR Enemy::GetEnemyPos()
+VECTOR Enemy::getEnemyPos()
 {
     return  position;
 }

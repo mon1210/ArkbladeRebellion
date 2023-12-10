@@ -22,16 +22,16 @@ class Player : public IGameObject
 public:
 	Player(Stage *parent);
 	~Player();
-	virtual bool move() override;	// アニメーションメソッド
-	virtual void draw() override;	// 描画メソッド
-	virtual void SetMove();			// 行動管理メソッド
-	virtual void SetAnim(ePlayer::AnimationNum num);  // アニメーションセットメソッド
-	virtual void RollAnim();		// Rollのアニメーションメソッド
-	VECTOR  GetPlayerPos();			// 座標を取得して返すメソッド
-	VECTOR  GetPlayerMoveVec();		// Playerの移動方向を取得して返すメソッド
-	virtual void setPlayerModel(int model);				// プレイヤーのモデルをセットするメソッド
-	virtual void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
-	virtual void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
+	bool move() override;	// アニメーションメソッド
+	void draw() override;	// 描画メソッド
+	void setMove();			// 行動管理メソッド
+	void setAnim(ePlayer::AnimationNum num);  // アニメーションセットメソッド
+	void rollAnim();		// Rollのアニメーションメソッド
+	VECTOR  getPlayerPos();			// 座標を取得して返すメソッド
+	VECTOR  getPlayerMoveVec();		// Playerの移動方向を取得して返すメソッド
+	void setPlayerModel(int model);				// プレイヤーのモデルをセットするメソッド
+	void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
+	void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
 protected:
 	Collider *pCollider;
 	Radar	 *pRadar;

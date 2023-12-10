@@ -14,10 +14,10 @@ class Model
 public:
 	Model();
 	~Model();
-	virtual void LoadModel();		// モデル読み込みメソッド　Stageで呼び出す
-	virtual int GetPlayerModel();	// Playerモデルを取得して返すメソッド
-	virtual int GetEnemyModel();	// Enemyモデルを取得して返すメソッド
-	virtual int GetTileModel();		// Tileモデルを取得して返すメソッド
+	void loadModel();		// モデル読み込みメソッド　Stageで呼び出す
+	int getPlayerModel();	// Playerモデルを取得して返すメソッド
+	int getEnemyModel();	// Enemyモデルを取得して返すメソッド
+	int getTileModel();		// Tileモデルを取得して返すメソッド
 protected:
 	int		playerHandle;
 	int		enemyHandle;

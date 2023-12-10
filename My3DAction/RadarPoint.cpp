@@ -36,7 +36,7 @@ RadarPoint::~RadarPoint()
 * @note  Radarで呼び出し
 * @param[in] param　Radarのパラメータを保存した構造体
 */
-void RadarPoint::Draw(RadarData& param)
+void RadarPoint::draw(RadarData& param)
 {
 	// center => Pointの座標でのベクトル
 	centerToPointVecX = posX - param.centerX;

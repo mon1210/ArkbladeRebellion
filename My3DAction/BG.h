@@ -12,10 +12,10 @@ class BG
 {
 public:
 	BG();
-	virtual ~BG();
-	virtual void draw();			// 描画メソッド
-	virtual int GetModelHandle();	// モデル取得関数
-	virtual void setTileModel(int model);	// タイルモデルをセットする
+	~BG();
+	void draw();					// 描画メソッド
+	void setTileModel(int model);	// タイルモデルをセットする
+	int  getModelHandle();			// モデル取得関数
 protected:
 	VECTOR	position;		// 座標
 	int		tile_handle;	// モデル保存用変数

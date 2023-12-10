@@ -26,7 +26,7 @@ Grid::~Grid()
 * @brief 描画関数
 * @note  Stage::draw()で呼び出し
 */
-void Grid::Draw()
+void Grid::draw()
 {
     // Zバッファを使用する
     SetUseZBufferFlag(TRUE);

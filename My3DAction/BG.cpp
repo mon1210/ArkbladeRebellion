@@ -39,7 +39,7 @@ void BG::setTileModel(int model)
 * @brief °ƒ‚ƒfƒ‹‚ğæ“¾‚µ‚Ä•Ô‚·
 * @note
 */
-int BG::GetModelHandle()
+int BG::getModelHandle()
 {
 	return tile_handle;
 }

@@ -37,13 +37,13 @@ Stage::Stage(Selector *pSystem)
 	pGrid = new Grid();
 
 	// モデルセット
-	pModel->LoadModel();
-	pBG->setTileModel(pModel->GetTileModel());
-	pPlayer->setPlayerModel(pModel->GetPlayerModel());
-	pEnemy->setEnemyModel(pModel->GetEnemyModel());
-	pEnemy->setTileModel(pBG->GetModelHandle());
-	pCollider->setTileModel(pBG->GetModelHandle());
-	tileHandle = pBG->GetModelHandle();
+	pModel->loadModel();
+	pBG->setTileModel(pModel->getTileModel());
+	pPlayer->setPlayerModel(pModel->getPlayerModel());
+	pEnemy->setEnemyModel(pModel->getEnemyModel());
+	pEnemy->setTileModel(pBG->getModelHandle());
+	pCollider->setTileModel(pBG->getModelHandle());
+	tileHandle = pBG->getModelHandle();
 }
 
 
@@ -74,8 +74,8 @@ GameSceneResultCode Stage::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
-		pCollider->InitCollision(tileHandle);
-		pEnemy->InitAnimation();	// phase分けはEnemyのみなので
+		pCollider->initCollision(tileHandle);
+		pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		Phase = STAGE_RUN;
 		break;
 
@@ -154,28 +154,28 @@ void Stage::draw()
 	{
 		default:
 			if (pRadar)
-				pRadar->ListReset();	// Pointリスト初期化
+				pRadar->listReset();	// Pointリスト初期化
 			if (pBG)
 				pBG->draw();
 			if (pGrid)
-				pGrid->Draw();
+				pGrid->draw();
 			if (pPlayer)
 				pPlayer->draw();
 			if (pCamera) {
-				pCamera->CameraController();
-				pCamera->SetCameraPositionAndDirection(pPlayer->GetPlayerPos());	//カメラの位置・角度設定 
+				pCamera->controller();
+				pCamera->setPositionAndDirection(pPlayer->getPlayerPos());			//カメラの位置・角度設定 
 				if (pPlayer) {
-					pPlayer->setCameraHAngle(pCamera->GetCameraHorizontalAngle());	// カメラの水平角度取得
-					pPlayer->setPlayerNewPos(pCamera->MoveAlongHAngle
-						(pPlayer->GetPlayerMoveVec(), pPlayer->GetPlayerPos()));	// プレイヤーの座標設定
+					pPlayer->setCameraHAngle(pCamera->getHorizontalAngle());		// カメラの水平角度取得
+					pPlayer->setPlayerNewPos(pCamera->moveAlongHAngle
+						(pPlayer->getPlayerMoveVec(), pPlayer->getPlayerPos()));	// プレイヤーの座標設定
 				}
 			}			
 			if (pEnemy) {
-				pEnemy->Update();
-				pEnemy->setPlayerPos(pPlayer->GetPlayerPos());
+				pEnemy->update();
+				pEnemy->setPlayerPos(pPlayer->getPlayerPos());
 			}
 			if (pRadar)
-				pRadar->Draw();
+				pRadar->draw();
 				
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);

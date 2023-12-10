@@ -26,7 +26,7 @@ Model::~Model()
 /**
 * @brief モデル読み込みメソッド
 */
-void Model::LoadModel()
+void Model::loadModel()
 {
     // 3Dモデルの読み込み
     playerHandle = MV1LoadModel("res\\Player\\PlayerModel2.mv1");
@@ -38,7 +38,7 @@ void Model::LoadModel()
 /**
 * @brief プレイヤーモデルを取得して返す
 */
-int Model::GetPlayerModel()
+int Model::getPlayerModel()
 {
     return playerHandle;
 }
@@ -47,7 +47,7 @@ int Model::GetPlayerModel()
 /**
 * @brief エネミーモデルを取得して返す
 */
-int Model::GetEnemyModel()
+int Model::getEnemyModel()
 {
     return enemyHandle;
 }
@@ -56,7 +56,7 @@ int Model::GetEnemyModel()
 /**
 * @brief タイルモデルを取得して返す
 */
-int Model::GetTileModel()
+int Model::getTileModel()
 {
     return tileHandle;
 }
