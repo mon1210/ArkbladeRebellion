@@ -2,7 +2,7 @@
 * @file		My3DAction.cpp
 * @author	R.Monda
 * @date		..2023
-* @brief	シーン管理クラス		: Selector	(Selector.h)
+* @brief	シーン管理クラス		: SceneManager	(SceneManager.h)
 *			ゲームシーンクラス		: Stage		(Stage.h)
 *			プレイヤークラス		: Player	(Player.h)
 *			背景・マップクラス		: BG		(BG.h)
@@ -21,7 +21,7 @@
 // 標準入出力関数を提供する C ライブラリヘッダファイルをインクルード
 #include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "Selector.h"
+#include "SceneManager.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 
@@ -38,7 +38,7 @@
 #define FPS 60.0
 #define INTERVAL (1.0/FPS)
 
-Selector* g_pSelector = NULL;	//	ゲームシステムオブジェクト
+SceneManager *g_pSceneManager = NULL;	//	ゲームシステムオブジェクト
 
 /**
 * @fn
@@ -73,7 +73,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	SetCameraNearFar(0.f, CAMERA_FAR_DISTANCE);
 
 	//	ゲームシステム初期化
-	g_pSelector = new Selector();
+	g_pSceneManager = new SceneManager();
 
 	/**************************
 		2.メッセージループ
@@ -89,11 +89,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 		//	この中に描画処理を書く
 
-		if (g_pSelector)
-			g_pSelector->doAnim();
+		if (g_pSceneManager)
+			g_pSceneManager->doAnim();
 
-		if (g_pSelector)
-			g_pSelector->doDraw();
+		if (g_pSceneManager)
+			g_pSceneManager->doDraw();
 
 		//	この中に描画処理を書く
 
@@ -106,7 +106,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			3.終了処理
 	**************************/
 
-	SAFE_DELETE(g_pSelector);
+	SAFE_DELETE(g_pSceneManager);
 
 	// DXライブラリの後始末
 	DxLib_End();

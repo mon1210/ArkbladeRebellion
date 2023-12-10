@@ -7,9 +7,8 @@
 /**
 * @brief Stageのコンストラクタ
 */
-Stage::Stage(Selector *pSystem)
+Stage::Stage()
 {
-	System = pSystem;
 	pModel = NULL;
 	pCamera = NULL;
 	pCollision = NULL;

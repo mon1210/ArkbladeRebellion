@@ -22,11 +22,11 @@ enum GameSceneResultCode {
 
 class IGameScene;	// シーン管理クラス
 
-class Selector
+class SceneManager
 {
 public:
-	Selector();
-	virtual ~Selector(void);
+	SceneManager();
+	virtual ~SceneManager(void);
 	void doAnim();		//	ゲーム全体のアニメート
 	void doDraw();	//	ゲーム全体の描画
 protected:
