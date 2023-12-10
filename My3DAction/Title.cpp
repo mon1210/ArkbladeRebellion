@@ -5,7 +5,7 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "Selector.h"
+#include "SceneManager.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
 
@@ -13,7 +13,7 @@
 /**
 * @brief Titleのコンストラクタ
 */
-Title::Title(Selector *pSystem)
+Title::Title(SceneManager *pSystem)
 {
 	System = pSystem;	//---Select
 	Phase = TITLE_INIT;	//---TitlePhase

@@ -3,7 +3,7 @@
 * @brief	クラス Stage の宣言
 */
 #pragma once
-#include "Selector.h"
+#include "SceneManager.h"
 #include "BG.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -16,7 +16,7 @@
 #include "IGameObject.h"
 
 // クラスの前方宣言
-class Selector;
+class SceneManager;
 class Player;
 class Enemy;
 class Model;
@@ -37,14 +37,13 @@ enum StagePhase {
 class Stage : public IGameScene
 {
 public:
-	Stage(Selector *pSystem);
+	Stage();
 	virtual ~Stage(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	virtual void draw() override;		// 描画メソッド
 	virtual Collision *GetCollision();	// 当たり判定用のCollisionを返す
 	virtual Radar *GetRadar();			// 当たり判定用のRadarを返す
 protected:
-	Selector	*System;
 	Player		*pPlayer;
 	Enemy		*pEnemy;
 	Model		*pModel;
