@@ -11,11 +11,11 @@
 // クラスの前方宣言
 class Enemy;
 
-class Collider
+class Collision
 {
 public:
-	Collider();
-	~Collider();
+	Collision();
+	~Collision();
 	virtual void initCollision(int handle);	// 当たり判定を付与する　一度だけStageで呼び出す　今はタイルのみ
 	virtual void setTileModel(int model);	// タイルモデルをセットする　Stageで呼び出し
 
