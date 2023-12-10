@@ -5,7 +5,7 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "Selector.h"
+#include "SceneManager.h"
 // 定数値を定めたヘッダファイル
 #include "Constants.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
@@ -15,9 +15,9 @@
 
 
 /**
-* @brief Selectorのコンストラクタ
+* @brief SceneManagerのコンストラクタ
 */
-Selector::Selector()
+SceneManager::SceneManager()
 {
 	// メンバ初期化
 	count = 0;
@@ -28,7 +28,7 @@ Selector::Selector()
 
 
 // デストラクタ
-Selector::~Selector()
+SceneManager::~SceneManager()
 {
 	SAFE_DELETE(pScene);
 }
@@ -38,7 +38,7 @@ Selector::~Selector()
 * @brief 全体のアニメートを行う関数
 *
 */
-void Selector::doAnim() {
+void SceneManager::doAnim() {
 	GameSceneResultCode rc = GAMESCENE_DEFAULT;
 
 	switch (eGamePhase) {
@@ -58,7 +58,7 @@ void Selector::doAnim() {
 		if (rc == GAMESCENE_DEFAULT)
 			break;
 		SAFE_DELETE(pScene);
-		pScene = new Stage(this);
+		pScene = new Stage();
 		eGamePhase = GAMEPHASE_GAME;
 		
 		// ゲームシーン
@@ -82,7 +82,7 @@ void Selector::doAnim() {
 /**
 * @brief 全体の描画を行う関数
 */
-void Selector::doDraw() {
+void SceneManager::doDraw() {
 
 	// 1バイトのビット数(2^8)
 	TCHAR	str[256];
