@@ -155,7 +155,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="RadarPoint.cpp" />
-    <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test.cpp" />
