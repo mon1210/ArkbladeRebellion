@@ -6,6 +6,7 @@
 #pragma once
 #include "DxLib.h"
 #include "Enums.h"
+#include "Animation.h"
 #include "BG.h"
 #include "Player.h"
 #include "Game.h"
@@ -27,7 +28,6 @@ public:
 	bool isTargetVisible();	// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
 	void draw() override;	// 描画メソッド
-	void setAnim(eEnemy::AnimationNum num);	// アニメーションセットメソッド
 	void setEnemyModel(int model);			// エネミーのモデルをセットする
 	void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
 	void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
