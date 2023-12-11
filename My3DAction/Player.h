@@ -8,19 +8,19 @@
 #include "Enums.h"
 #include "Constants.h"
 #include "Collision.h"
-#include "Stage.h"
+#include "Game.h"
 #include "Radar.h"
 #include "IGameObject.h"
 
 // クラスの前方宣言
-class Stage;
+class Game;
 class Collider;
 class Radar;
 
 class Player : public IGameObject
 {
 public:
-	Player(Stage *parent);
+	Player(Game *parent);
 	~Player();
 	bool move() override;	// アニメーションメソッド
 	void draw() override;	// 描画メソッド

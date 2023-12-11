@@ -4,7 +4,7 @@
 * @brief Playerのコンストラクタ
 *
 */
-Player::Player(Stage *parent)
+Player::Player(Game *parent)
 {
     animNo = 0;
     animHandle = 0;

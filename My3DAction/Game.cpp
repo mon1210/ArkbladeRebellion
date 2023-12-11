@@ -1,13 +1,13 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
 // ゲーム内のステージ関連クラスと列挙型の定義
-#include "Stage.h"
+#include "Game.h"
 
 
 /**
 * @brief Stageのコンストラクタ
 */
-Stage::Stage(SceneManager* pSystem)
+Game::Game(SceneManager* pSystem)
 {
 	System = pSystem;
 	pModel = NULL;
@@ -51,7 +51,7 @@ Stage::Stage(SceneManager* pSystem)
 * @brief デストラクタ
 * @note	 すべてのポインタをここでDelete
 */
-Stage::~Stage()
+Game::~Game()
 {
 	SAFE_DELETE(pCollision);
 	SAFE_DELETE(pGrid);
@@ -69,7 +69,7 @@ Stage::~Stage()
 * @note 
 * @return GAMESCENE_DEFAULT: 継続 / GAMESCENE_END_FAILURE: ゲームオーバー
 */
-GameSceneResultCode Stage::move()
+GameSceneResultCode Game::move()
 {
 	switch (Phase)
 	{
@@ -160,7 +160,7 @@ GameSceneResultCode Stage::move()
 * @brief 描画処理
 * @note  毎フレーム実行される
 */
-void Stage::draw()
+void Game::draw()
 {
 	switch (Phase)
 	{
@@ -200,7 +200,7 @@ void Stage::draw()
 /**
 * @brief Collisionを取得して返す
 */
-Collision *Stage::GetCollision()
+Collision *Game::GetCollision()
 {
 	return pCollision;
 }
@@ -209,7 +209,7 @@ Collision *Stage::GetCollision()
 /**
 * @brief Radarを取得して返す
 */
-Radar* Stage::GetRadar()
+Radar *Game::GetRadar()
 {
 	return pRadar;
 }
