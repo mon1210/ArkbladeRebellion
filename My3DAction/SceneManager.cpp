@@ -24,6 +24,10 @@ SceneManager::SceneManager()
 	//wait = 0;
 	eGamePhase = GAMEPHASE_INIT;
 	pScene = NULL;
+
+	fadeTimer = 0;
+	fadeTime = 60;
+	startTime = GetNowCount();
 }
 
 
@@ -58,7 +62,7 @@ void SceneManager::doAnim() {
 		if (rc == GAMESCENE_DEFAULT)
 			break;
 		SAFE_DELETE(pScene);
-		pScene = new Stage();
+		pScene = new Stage(this);
 		eGamePhase = GAMEPHASE_GAME;
 		
 		// ゲームシーン
@@ -96,3 +100,20 @@ void SceneManager::doDraw() {
 	}
 }
 
+void SceneManager::FadeOut()
+{
+	int elapsedFrames = (GetNowCount() - startTime) * 60 / 1000;  // 経過フレーム数
+	fadeTimer = Clamp(elapsedFrames, 0, fadeTime);
+
+	// フェードアウト処理
+	if (fadeTimer < fadeTime)
+	{
+		int opacity = 255 * (fadeTimer / fadeTime);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, opacity);
+		DrawBox(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	}
+	return;
+
+}

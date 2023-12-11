@@ -27,13 +27,25 @@ class SceneManager
 public:
 	SceneManager();
 	virtual ~SceneManager(void);
-	void doAnim();		//	ゲーム全体のアニメート
-	void doDraw();	//	ゲーム全体の描画
+	void doAnim();			// ゲーム全体のアニメート
+	void doDraw();			// ゲーム全体の描画
+	void FadeOut();	//  
+	int Clamp(int value, int min, int max){	// 値を指定された範囲内に収めるメソッド
+		if (value < min)
+			return min;
+		else if (value > max)
+			return max;
+		else
+			return value;
+	}
 protected:
 	IGameScene *pScene;		//	シーン
 	eGamePhase eGamePhase;	//	状態変数
 	//INT m_iWait;
-	INT		count;	//	カウンター(デバッグ用)
+	INT		count;	// カウンター(デバッグ用)
+	int fadeTimer;  // フェードタイマー
+	int fadeTime;   // フェード時間（フレーム）
+	int startTime;	// 開始時間
 };
 
 //	マクロ定義

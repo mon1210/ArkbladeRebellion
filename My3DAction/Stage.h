@@ -37,13 +37,14 @@ enum StagePhase {
 class Stage : public IGameScene
 {
 public:
-	Stage();
+	Stage(SceneManager* pSystem);
 	virtual ~Stage(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	virtual void draw() override;		// 描画メソッド
 	virtual Collision *GetCollision();	// 当たり判定用のCollisionを返す
 	virtual Radar *GetRadar();			// 当たり判定用のRadarを返す
 protected:
+	SceneManager*System;
 	Player		*pPlayer;
 	Enemy		*pEnemy;
 	Model		*pModel;

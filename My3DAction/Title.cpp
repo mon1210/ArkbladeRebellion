@@ -98,7 +98,7 @@ void Title::draw()
 	{
 	case TITLE_FADE:
 	case TITLE_DONE:
-
+		System->FadeOut();
 	}
 
 }

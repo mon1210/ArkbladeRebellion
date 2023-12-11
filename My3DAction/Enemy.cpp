@@ -81,8 +81,6 @@ void Enemy::update()
     // Rader
     pRadar->addPoint(position.x, position.z, eRadar::Enemy);
 
-    // 描画メソッド呼び出し
-    draw();
 }
 
 
