@@ -49,7 +49,8 @@ Enemy::~Enemy()
 */
 void Enemy::initAnimation()
 {
-    setAnim(eEnemy::Idle);
+    animNo = eEnemy::AnimationNum::Idle;
+    SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
 }
 
 
@@ -107,14 +108,16 @@ void Enemy::Wait()
         count = 0;
         currentState = EnemyState::Move;
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
-        setAnim(eEnemy::Run);
+        animNo = eEnemy::AnimationNum::Run;
+        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
 
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
     {
         currentState = EnemyState::Chase;
-        setAnim(eEnemy::Run);
+        animNo = eEnemy::AnimationNum::Run;
+        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
     }
 
 }
@@ -183,7 +186,8 @@ void Enemy::Move()
     {
         count = 0;
         currentState = EnemyState::Wait;
-        setAnim(eEnemy::Idle);
+        animNo = eEnemy::AnimationNum::Idle;
+        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
@@ -242,7 +246,8 @@ void Enemy::Chase()
     {
         currentState = EnemyState::Wait;
         count = 0;
-        setAnim(eEnemy::Idle);
+        animNo = eEnemy::AnimationNum::Idle;
+        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
     }
 }
 
@@ -298,27 +303,6 @@ void Enemy::setEnemyModel(int model)
 
 
 /**
-* @brief アニメーションセット関数
-*
-*/
-void Enemy::setAnim(eEnemy::AnimationNum num)
-{
-    if (animNo != num)
-    {
-        animNo = num;
-        animTimer = 0;
-        // アニメーションにかかる時間を取得
-        animTime = MV1GetAnimTotalTime(animHandle, animNo);
-        // アニメーションをデタッチ
-        MV1DetachAnim(animHandle, 0);
-        // アニメーションをアタッチ
-        MV1AttachAnim(animHandle, animNo);
-    }
-
-}
-
-
-/**
 * @brief エネミーのアニメーションメソッド
 * @return true:生存 / false:死亡
 * @note ここでは加速度の設定だけ行い、(x, y)座標の更新はcollide() で行う
@@ -340,14 +324,6 @@ bool Enemy::move()
 */
 void Enemy::draw()
 {
-    animTimer += ENEMY_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (animTimer >= animTime)
-    {
-        animTimer = 0.0f;
-    }
-    MV1SetAttachAnimTime(animHandle, 0, animTimer);
-
     // 画面に映る位置に3Dモデルを移動
     MV1SetPosition(animHandle, position);
 
