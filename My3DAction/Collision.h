@@ -27,7 +27,3 @@ protected:
 	int tileHandle;
 
 };
-
-#define CHARA_HIT_HEIGHT		250.f	// “–‚½‚è”»’è‚Ì‘å‚«‚³
-#define CHARA_HIT_WIDTH			50.f	// “–‚½‚è”»’èƒJƒvƒZƒ‹‚Ì”¼Œa
-#define CHARA_HIT_PUSH_POWER	20.f	// 

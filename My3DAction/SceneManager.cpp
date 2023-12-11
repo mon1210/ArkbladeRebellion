@@ -103,13 +103,13 @@ void SceneManager::doDraw() {
 */
 void SceneManager::FadeOut()
 {
-	int elapsedFrames = (GetNowCount() - startTime) * 60 / 1000;  // 経過フレーム数
+	int elapsedFrames = (GetNowCount() - startTime) * FRAME / 1000;  // 経過フレーム数	 / 1000 => 60(f/s)を実装
 	fadeTimer = Clamp(elapsedFrames, 0, fadeTime);
 
 	// フェードアウト処理
 	if (fadeTimer < fadeTime)
 	{
-		int opacity = 255 * (fadeTimer / fadeTime);
+		int opacity = MAX_OPACITY * (fadeTimer / fadeTime);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, opacity);
 		DrawBox(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
