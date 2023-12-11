@@ -156,7 +156,7 @@
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="RadarPoint.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -178,7 +178,7 @@
     <ClInclude Include="Radar.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Stage.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Title.h" />

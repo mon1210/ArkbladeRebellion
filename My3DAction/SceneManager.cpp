@@ -11,7 +11,7 @@
 // タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
 // ゲーム内のステージ関連クラスと列挙型の定義
-#include "Stage.h"
+#include "Game.h"
 
 
 /**
@@ -60,7 +60,7 @@ void SceneManager::doAnim() {
 		if (rc == GAMESCENE_DEFAULT)
 			break;
 		SAFE_DELETE(pScene);
-		pScene = new Stage(this);
+		pScene = new Game(this);
 		eGamePhase = GAMEPHASE_GAME;
 		
 		// ゲームシーン

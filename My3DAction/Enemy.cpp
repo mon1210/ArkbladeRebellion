@@ -5,7 +5,7 @@
 * @brief Enemyのコンストラクタ
 *
 */
-Enemy::Enemy(Stage *parent)
+Enemy::Enemy(Game *parent)
 {
     animNo = 0;
     count = 0;
