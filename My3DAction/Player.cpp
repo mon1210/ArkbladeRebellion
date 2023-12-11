@@ -213,7 +213,7 @@ void Player::setMove()
         rollAnim();
         if (animNo == ePlayer::Roll)
         {
-            angle = -RIGHT_ROTATION_ANGLE - cameraHA;
+            angle = RIGHT_ROTATION_ANGLE - cameraHA;
             moveFlag = true;
             moveVec.x = PLAYER_MOVE_SPEED;
         }
