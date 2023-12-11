@@ -83,46 +83,6 @@ GameSceneResultCode Title::move()
 }
 
 
-
-void SceneFadeOut(int TmpValue)
-{
-
-
-	SetDrawScreen(DX_SCREEN_BACK);
-
-	//フェード値の設定（0～255の値が有効）
-	TmpValue = 255;		// 変数名変更 Todo
-
-	while(1)
-	{
-		ClearDrawScreen(); // 裏画面のデータを全て削除
-
-		if (TmpValue < 256) 
-		{
-			SetDrawBright(TmpValue, TmpValue, TmpValue);
-		}
-
-		TmpValue--;
-
-		// 0で終了
-		if (TmpValue == 0) 
-		{
-			break;
-		}
-
-		// エラー回避
-		if (ProcessMessage() == -1) 
-		{
-			break;
-		}
-
-		ScreenFlip();
-	}
-
-}
-
-int tmp = 255;
-
 /**
 * @brief 描画処理
 * @note	 
@@ -138,11 +98,7 @@ void Title::draw()
 	{
 	case TITLE_FADE:
 	case TITLE_DONE:
-		while (tmp >= 0)
-		{
-			SceneFadeOut(tmp);
-			tmp--;
-		}
+
 	}
 
 }
