@@ -16,11 +16,12 @@ Enemy::Enemy(Stage *parent)
     hitPoint = 1.f;
     animTimer = 0.f;
     vecLength = 0.f;
+
     pRadar = NULL;
 
-    enemyToPlayer = VGet(0.f, 0.f, 0.f);
     angle = ENEMY_START_ROTATE_Y;
 
+    enemyToPlayer = VGet(0.f, 0.f, 0.f);
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
     playerPos = VGet(0.f, 0.f, 0.f);
 
@@ -32,7 +33,6 @@ Enemy::Enemy(Stage *parent)
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, eEnemy::Idle);
-
 
 }
 
