@@ -24,7 +24,7 @@ public:
 	~Player();
 	bool move() override;	// アニメーションメソッド
 	void draw() override;	// 描画メソッド
-	void setMove();			// 行動管理メソッド
+	void update();			// 行動管理メソッド
 	void setAnim(ePlayer::AnimationNum num);  // アニメーションセットメソッド
 	void rollAnim();		// Rollのアニメーションメソッド
 	VECTOR  getPlayerPos();			// 座標を取得して返すメソッド

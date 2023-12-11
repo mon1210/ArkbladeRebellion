@@ -103,6 +103,7 @@ GameSceneResultCode Game::move()
 				Timer = 0;
 				break;
 			}
+			pPlayer->update();
 			if (pRadar)
 				pRadar->listReset();	// PointƒŠƒXƒg‰Šú‰»
 			if (pCamera) {

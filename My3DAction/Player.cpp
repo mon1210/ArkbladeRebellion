@@ -132,7 +132,7 @@ void Player::setPlayerNewPos(VECTOR new_pos)
 
 
 /**
-* @brief 行動管理関数
+* @brief 行動管理メソッド
 *
 */
 // ****************************************** //
@@ -143,7 +143,7 @@ void Player::setPlayerNewPos(VECTOR new_pos)
 //          PAD INPUT_9 = SHARE(-),
 //          PAD INPUT_10 = OPTIONS(+)
 // ****************************************** //
-void Player::setMove()
+void Player::update()
 {
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
@@ -287,9 +287,6 @@ bool Player::move()
 */
 void Player::draw()
 {
-    // 行動管理関数呼び出し
-    setMove();
-
     // モデルの大きさ変更
     MV1SetScale(animHandle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 
