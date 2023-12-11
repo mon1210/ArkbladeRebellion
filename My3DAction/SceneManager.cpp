@@ -1,6 +1,6 @@
 /**
-* @file Selector.cpp
-* @brief クラスSelectorの実装ファイル
+* @file SceneManager.cpp
+* @brief クラスSceneManagerの実装ファイル
 */
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
@@ -19,10 +19,8 @@
 */
 SceneManager::SceneManager()
 {
-	// メンバ初期化
-	count = 0;
-	//wait = 0;
 	eGamePhase = GAMEPHASE_INIT;
+
 	pScene = NULL;
 
 	fadeTimer = 0;
@@ -53,7 +51,7 @@ void SceneManager::doAnim() {
 	case GAMEPHASE_RESET:
 		SAFE_DELETE(pScene);
 		pScene = new Title(this);
-		eGamePhase = GAMEPHASE_TITLE;	// GAMEへDebug
+		eGamePhase = GAMEPHASE_TITLE;
 		
 	// タイトルシーン
 	case GAMEPHASE_TITLE:
@@ -78,8 +76,6 @@ void SceneManager::doAnim() {
 
 		eGamePhase = GAMEPHASE_RESET;
 	}
-	// デバッグ用カウンタ
-	count++;
 }
 
 
@@ -100,6 +96,11 @@ void SceneManager::doDraw() {
 	}
 }
 
+
+/**
+* @brief シーン遷移時のフェードアウト　Todo 未完成
+* @note  Title => Game , Game => Title に使用
+*/
 void SceneManager::FadeOut()
 {
 	int elapsedFrames = (GetNowCount() - startTime) * 60 / 1000;  // 経過フレーム数

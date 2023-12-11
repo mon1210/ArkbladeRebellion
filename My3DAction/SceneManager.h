@@ -29,8 +29,8 @@ public:
 	virtual ~SceneManager(void);
 	void doAnim();			// ゲーム全体のアニメート
 	void doDraw();			// ゲーム全体の描画
-	void FadeOut();	//  
-	int Clamp(int value, int min, int max){	// 値を指定された範囲内に収めるメソッド
+	void FadeOut();			// シーン遷移時のフェードアウト処理　Todo 未完成
+	int Clamp(int value, int min, int max){		// 値を指定された範囲内に収めるメソッド
 		if (value < min)
 			return min;
 		else if (value > max)
@@ -41,8 +41,6 @@ public:
 protected:
 	IGameScene *pScene;		//	シーン
 	eGamePhase eGamePhase;	//	状態変数
-	//INT m_iWait;
-	INT		count;	// カウンター(デバッグ用)
 	int fadeTimer;  // フェードタイマー
 	int fadeTime;   // フェード時間（フレーム）
 	int startTime;	// 開始時間
