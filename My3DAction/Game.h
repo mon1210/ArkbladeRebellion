@@ -1,6 +1,6 @@
 /**
-* @file		Stage.h
-* @brief	クラス Stage の宣言
+* @file		Game.h
+* @brief	クラス Game の宣言
 */
 #pragma once
 #include "SceneManager.h"
@@ -34,11 +34,11 @@ enum StagePhase {
 	STAGE_DONE = 4,
 };
 
-class Stage : public IGameScene
+class Game : public IGameScene
 {
 public:
-	Stage(SceneManager* pSystem);
-	virtual ~Stage(void);
+	Game(SceneManager* pSystem);
+	virtual ~Game(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	virtual void draw() override;		// 描画メソッド
 	virtual Collision *GetCollision();	// 当たり判定用のCollisionを返す
