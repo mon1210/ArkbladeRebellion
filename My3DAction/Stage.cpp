@@ -7,8 +7,9 @@
 /**
 * @brief Stageのコンストラクタ
 */
-Stage::Stage()
+Stage::Stage(SceneManager* pSystem)
 {
+	System = pSystem;
 	pModel = NULL;
 	pCamera = NULL;
 	pCollision = NULL;
@@ -102,7 +103,19 @@ GameSceneResultCode Stage::move()
 				Timer = 0;
 				break;
 			}
-
+			if (pRadar)
+				pRadar->listReset();	// Pointリスト初期化
+			if (pCamera) {
+				pCamera->controller();
+				pCamera->setPositionAndDirection(pPlayer->getPlayerPos());			//カメラの位置・角度設定 
+				pPlayer->setCameraHAngle(pCamera->getHorizontalAngle());		// カメラの水平角度取得
+				pPlayer->setPlayerNewPos(pCamera->moveAlongHAngle
+				(pPlayer->getPlayerMoveVec(), pPlayer->getPlayerPos()));	// プレイヤーの座標設定
+			}
+			if (pEnemy) {
+				pEnemy->update();
+				pEnemy->setPlayerPos(pPlayer->getPlayerPos());
+			}
 
 		}
 		break;
@@ -152,27 +165,14 @@ void Stage::draw()
 	switch (Phase)
 	{
 		default:
-			if (pRadar)
-				pRadar->listReset();	// Pointリスト初期化
 			if (pBG)
 				pBG->draw();
 			if (pGrid)
 				pGrid->draw();
 			if (pPlayer)
 				pPlayer->draw();
-			if (pCamera) {
-				pCamera->controller();
-				pCamera->setPositionAndDirection(pPlayer->getPlayerPos());			//カメラの位置・角度設定 
-				if (pPlayer) {
-					pPlayer->setCameraHAngle(pCamera->getHorizontalAngle());		// カメラの水平角度取得
-					pPlayer->setPlayerNewPos(pCamera->moveAlongHAngle
-						(pPlayer->getPlayerMoveVec(), pPlayer->getPlayerPos()));	// プレイヤーの座標設定
-				}
-			}			
-			if (pEnemy) {
-				pEnemy->update();
-				pEnemy->setPlayerPos(pPlayer->getPlayerPos());
-			}
+			if (pEnemy)
+				pEnemy->draw();
 			if (pRadar)
 				pRadar->draw();
 				
@@ -187,6 +187,7 @@ void Stage::draw()
 	case STAGE_DONE:
 	{
 		// フェードアウト処理
+		System->FadeOut();
 	}
 		break;
 	default:
