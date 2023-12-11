@@ -273,6 +273,9 @@ bool Player::move()
         return false;
     }
 
+    // シーン遷移デバッグ用
+    if (CheckHitKey(KEY_INPUT_O))return false;
+
     return true;
 
 }
