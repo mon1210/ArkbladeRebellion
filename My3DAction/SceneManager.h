@@ -1,6 +1,6 @@
 /**
-* @file		Selector.h
-* @brief	クラスSelectorの宣言ファイル
+* @file		SceneManager.h
+* @brief	クラスSceneManagerの宣言ファイル
 */
 #pragma once
 #include "IGameScene.h"
