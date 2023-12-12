@@ -27,8 +27,7 @@ public:
 protected:
 	SceneManager *System;
 	TitlePhase	Phase;
-	bool	Flag;
-	INT		Timer;
+	bool	titleRunFlag;	// Title‚Ìó‘Ô‚ğŠÇ—‚·‚éflag
 	INT		FadeTimer;
 };
 

@@ -17,7 +17,6 @@ Title::Title(SceneManager *pSystem)
 {
 	System = pSystem;	//---Select
 	Phase = TITLE_INIT;	//---TitlePhase
-	Timer = 0;			//---INT
 	FadeTimer = 0;		//---INT
 }
 
@@ -37,26 +36,24 @@ GameSceneResultCode Title::move()
 	switch (Phase) {
 		// タイトル開始
 	case TITLE_INIT:
-		Timer = TITLE_TIMER_INIT;
-		Flag = true;
+		titleRunFlag = true;
 		Phase = TITLE_RUN;
 
 		// タイトル画面
 	case TITLE_RUN:
 	{	//	これがないと bDone の初期化でエラーがでる
 		bool bDone = false;
-		Timer++;
 
 		if (GetAsyncKeyState(VK_SPACE))
 		{
-			if (!Flag) {
+			if (!titleRunFlag) {
 				bDone = true;
-				Flag = true;
+				titleRunFlag = true;
 			}
 		}
 		else	// 何もしていない時
 		{
-			Flag = false;
+			titleRunFlag = false;
 		}
 		// タイトル終了フラグON
 		if (bDone) {
