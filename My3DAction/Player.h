@@ -14,10 +14,10 @@
 #include "Radar.h"
 
 // ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
+class CharaBase;
 class Game;
 class Collision;
 class Radar;
-class CharaBase;
 
 class Player : public CharaBase
 {

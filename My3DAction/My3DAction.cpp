@@ -3,13 +3,13 @@
 * @author	R.Monda
 * @date		..2023
 * @brief	シーン管理クラス		: SceneManager	(SceneManager.h)
-*			ゲームシーンクラス		: Stage		(Stage.h)
-*			プレイヤークラス		: Player	(Player.h)
-*			背景・マップクラス		: BG		(BG.h)
+*			ゲームシーンクラス		: Game			(Game.h)
+*			プレイヤークラス		: Player		(Player.h)
+*			背景・マップクラス		: BG			(BG.h)
 * @note		エラーが出た際は、プロジェクトのプロパティを開き、
-*			C/C++	 -> 全般 -> 追加のインクルードディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
-*			リンカー -> 全般 -> 追加のライブラリディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
-*			リンカー -> 入力 -> 追加の依存ファイルで'd3d11.lib'を追加してください
+*			C/C++	 => 全般 => 追加のインクルードディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
+*			リンカー => 全般 => 追加のライブラリディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
+*			リンカー => 入力 => 追加の依存ファイルで'd3d11.lib'を追加してください
 */
 
 // Windowsアプリケーション開発用の共通ヘッダファイル
@@ -36,7 +36,6 @@
 #define SAFE_DELETE_ARRAY(o) if(o){ delete [] (o); o = NULL; }
 
 #define FPS 60.0
-#define INTERVAL (1.0/FPS)
 
 SceneManager *g_pSceneManager = NULL;	//	ゲームシステムオブジェクト
 
@@ -50,7 +49,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	int			nCmdShow)
 {
 	//! デバッグ用のフラグセット
-	//--- メモリデバッグを行うために使用される _Crt ライブラリの関数
+	// メモリデバッグを行うために使用される _Crt ライブラリの関数
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	ChangeWindowMode(TRUE);     // ウィンドウモードに設定

@@ -15,9 +15,9 @@
 #include "Radar.h"
 
 // ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
+class CharaBase;
 class Game;
 class Radar;
-class CharaBase;
 
 class Enemy : public CharaBase
 {
