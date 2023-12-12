@@ -10,7 +10,7 @@
 Game::Game(SceneManager* pSystem)
 {
 	System = pSystem;
-	pModel = NULL;
+	pModelManager = NULL;
 	pCamera = NULL;
 	pCollision = NULL;
 	pPlayer = NULL;
@@ -27,7 +27,7 @@ Game::Game(SceneManager* pSystem)
 	tileHandle = 0;
 
 	// インスタンス化
-	pModel = new Model();
+	pModelManager = new ModelManager();
 	pCamera = new Camera();
 	pCollision = new Collision();	// 必ずPlayerより上に書く
 	pRadar = new Radar();		// 必ずPlayerより上に書く
@@ -37,10 +37,10 @@ Game::Game(SceneManager* pSystem)
 	pGrid = new Grid();
 
 	// モデルセット
-	pModel->loadModel();
-	pBG->setTileModel(pModel->getTileModel());
-	pPlayer->setPlayerModel(pModel->getPlayerModel());
-	pEnemy->setEnemyModel(pModel->getEnemyModel());
+	pModelManager->loadModel();
+	pBG->setTileModel(pModelManager->getTileModel());
+	pPlayer->setPlayerModel(pModelManager->getPlayerModel());
+	pEnemy->setEnemyModel(pModelManager->getEnemyModel());
 	pEnemy->setTileModel(pBG->getModelHandle());
 	pCollision->setTileModel(pBG->getModelHandle());
 	tileHandle = pBG->getModelHandle();
@@ -59,7 +59,7 @@ Game::~Game()
 	SAFE_DELETE(pEnemy);
 	SAFE_DELETE(pPlayer);
 	SAFE_DELETE(pCamera);
-	SAFE_DELETE(pModel);
+	SAFE_DELETE(pModelManager);
 	SAFE_DELETE(pRadar);
 }
 
