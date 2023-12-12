@@ -146,6 +146,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CharaBase.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CharaBase.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Enemy.h" />

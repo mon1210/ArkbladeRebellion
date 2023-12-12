@@ -4,27 +4,29 @@
 * @note		当たり判定 () x ()
 */
 #pragma once
-#include "DxLib.h"
-#include "Enums.h"
+#include "CharaBase.h"
+
+#include "Animation.h"
 #include "Constants.h"
 #include "Collision.h"
+#include "Enums.h"
 #include "Game.h"
 #include "Radar.h"
-#include "IGameObject.h"
 
 // クラスの前方宣言
 class Game;
-class Collider;
+class Collision;
 class Radar;
+class CharaBase;
 
-class Player : public IGameObject
+class Player : public CharaBase
 {
 public:
 	Player(Game *parent);
 	~Player();
 	bool move() override;	// アニメーションメソッド
 	void draw() override;	// 描画メソッド
-	void update();			// 行動管理メソッド
+	void update() override;	// 行動管理メソッド
 	void moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 	VECTOR  getPlayerPos();			// 座標を取得して返すメソッド
 	VECTOR  getPlayerMoveVec();		// Playerの移動方向を取得して返すメソッド
@@ -34,15 +36,8 @@ public:
 protected:
 	Collision *pCollision;
 	Radar	  *pRadar;
-	VECTOR	position;	// 座標
 	VECTOR  newPos;		// 移動後の座標保存用
 	VECTOR	moveVec;	// 移動の向きベクトル
-	int		animHandle;	// モデルハンドル
-	int		animNo;		// アニメーション番号
-	float	animTime;	// アニメーションの総再生時間
-	float	animTimer;	// アニメーションの現在の再生時間
-	float	angle;		// プレイヤーの向き
-	float	hitPoint;	// HP
 	float   cameraHA;	// カメラの水平角度  CameraHorizontalAngle
 	bool	moveFlag;	// 移動フラグ
 	bool	rollAble;	// Roll可能フラグ
