@@ -1,9 +1,16 @@
 #include "Animation.h"
 
-
-void SetAnim(int handle, int anim_no, float anim_time, float& anim_timer, float ANIM_F_INCREMENT)
+/**
+* @brief アニメーションをセットする
+* @param[in] handle         モデルハンドル
+* @param[in] anim_no        アニメーションの番号
+* @param[in] anim_timer     アニメーションの現在の経過時間
+* @param[in] anim_time      アニメーションの総再生時間
+*/
+void SetAnim(int handle, int anim_no, float& anim_time, float& anim_timer)
 {
-    anim_timer = 0;
+    // タイマー初期化
+    anim_timer = 0.f;
     // アニメーションにかかる時間を取得
     anim_time = MV1GetAnimTotalTime(handle, anim_no);
     // アニメーションをデタッチ
@@ -11,11 +18,23 @@ void SetAnim(int handle, int anim_no, float anim_time, float& anim_timer, float 
     // アニメーションをアタッチ
     MV1AttachAnim(handle, anim_no);
 
+}
+
+/**
+* @brief アニメーションが完了したかを判断する
+* @return  true:アニメーションタイマーをリセット / false:何もしない
+* @param[in] anim_time          アニメーションの総再生時間
+* @param[in] anim_timer         アニメーションの現在の経過時間
+* @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量
+*/
+bool IsAnimationComplete(float anim_time, float& anim_timer, float ANIM_F_INCREMENT)
+{
     anim_timer += ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
     if (anim_timer >= anim_time)
     {
-        anim_timer = 0.0f;
+        return true;
     }
-    MV1SetAttachAnimTime(handle, 0, anim_timer);
+
+    return false;
 }

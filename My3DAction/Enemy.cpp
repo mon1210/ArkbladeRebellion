@@ -14,7 +14,6 @@ Enemy::Enemy(Game *parent)
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 1.f;
-    animTimer = 0.f;
     vecLength = 0.f;
 
     pRadar = NULL;
@@ -49,9 +48,23 @@ Enemy::~Enemy()
 */
 void Enemy::initAnimation()
 {
-    animNo = eEnemy::AnimationNum::Idle;
-    SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
+    animationHandle(eEnemy::Idle);
+
 }
+
+
+/**
+* @brief アニメーションを設定する
+* @param[in] num　	        アニメーション番号
+*/
+void Enemy::animationHandle(eEnemy::AnimationNum num) {
+    // アニメーションをセット
+    if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
+    {
+        animNo = num;
+        SetAnim(animHandle, animNo, animTime, animTimer);
+    }
+};
 
 
 /**
@@ -82,6 +95,13 @@ void Enemy::update()
     // Rader
     pRadar->addPoint(position.x, position.z, eRadar::Enemy);
 
+    // アニメーションタイマーリセット
+    if (IsAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
+        animTimer = 0.f;
+
+    // モデルにタイマーセット
+    // これがないとアニメーションしない
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
 }
 
 
@@ -108,16 +128,16 @@ void Enemy::Wait()
         count = 0;
         currentState = EnemyState::Move;
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
-        animNo = eEnemy::AnimationNum::Run;
-        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
+        // アニメーションをセット
+        animationHandle(eEnemy::Run);
 
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
     {
         currentState = EnemyState::Chase;
-        animNo = eEnemy::AnimationNum::Run;
-        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
+        // アニメーションをセット
+        animationHandle(eEnemy::Run);
     }
 
 }
@@ -186,8 +206,8 @@ void Enemy::Move()
     {
         count = 0;
         currentState = EnemyState::Wait;
-        animNo = eEnemy::AnimationNum::Idle;
-        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
+        // アニメーションをセット
+        animationHandle(eEnemy::Idle);
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
@@ -246,8 +266,7 @@ void Enemy::Chase()
     {
         currentState = EnemyState::Wait;
         count = 0;
-        animNo = eEnemy::AnimationNum::Idle;
-        SetAnim(animHandle, animNo, animTime, animTimer, ENEMY_ANIM_F_INCREMENT);
+        animationHandle(eEnemy::Idle);
     }
 }
 
