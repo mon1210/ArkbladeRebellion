@@ -1,11 +1,11 @@
-#include "Model.h"
+#include "ModelManager.h"
 
 
 /**
 * @brief Modelのコンストラクタ
 *
 */
-Model::Model()
+ModelManager::ModelManager()
 {
     enemyHandle = 0;
     playerHandle = 0;
@@ -15,7 +15,7 @@ Model::Model()
 
 
 // デストラクタ
-Model::~Model()
+ModelManager::~ModelManager()
 {
     MV1DeleteModel(playerHandle);
     MV1DeleteModel(enemyHandle);
@@ -26,7 +26,7 @@ Model::~Model()
 /**
 * @brief モデル読み込みメソッド
 */
-void Model::loadModel()
+void ModelManager::loadModel()
 {
     // 3Dモデルの読み込み
     playerHandle = MV1LoadModel("res\\Player\\PlayerModel2.mv1");
@@ -38,7 +38,7 @@ void Model::loadModel()
 /**
 * @brief プレイヤーモデルを取得して返す
 */
-int Model::getPlayerModel()
+int ModelManager::getPlayerModel()
 {
     return playerHandle;
 }
@@ -47,7 +47,7 @@ int Model::getPlayerModel()
 /**
 * @brief エネミーモデルを取得して返す
 */
-int Model::getEnemyModel()
+int ModelManager::getEnemyModel()
 {
     return enemyHandle;
 }
@@ -56,7 +56,7 @@ int Model::getEnemyModel()
 /**
 * @brief タイルモデルを取得して返す
 */
-int Model::getTileModel()
+int ModelManager::getTileModel()
 {
     return tileHandle;
 }
