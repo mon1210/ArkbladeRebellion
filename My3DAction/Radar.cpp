@@ -3,7 +3,6 @@
 
 /**
 * @brief Radarのコンストラクタ
-* 
 */
 Radar::Radar()
 {
@@ -25,7 +24,6 @@ Radar::~Radar()
 
 /**
 * @brief 描画メソッド
-*
 */
 void Radar::draw()
 {
@@ -48,7 +46,7 @@ void Radar::draw()
 
 	};
 
-	// Pointの数分描画メソッド呼び出し
+	// Pointの数分、描画メソッド呼び出し
 	for (auto& point : pointList)
 	{
 		point.draw(radarData);

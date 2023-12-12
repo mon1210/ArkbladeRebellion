@@ -27,7 +27,6 @@ BG::~BG()
 
 /**
 * @brief 床モデルセット
-* @note
 */
 void BG::setTileModel(int model)
 {
@@ -37,7 +36,6 @@ void BG::setTileModel(int model)
 
 /**
 * @brief 床モデルを取得して返す
-* @note
 */
 int BG::getModelHandle()
 {

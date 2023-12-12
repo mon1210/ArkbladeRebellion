@@ -17,8 +17,8 @@ public:
 	void controller();			// カメラ操作メソッド
 	void setPositionAndDirection(VECTOR player_pos);			// カメラの位置算出メソッド
 	float getHorizontalAngle();	// カメラ水平角度取得関数
-	float getVerticalAngle();		// カメラ垂直角度取得関数
-	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);		// プレイヤーの位置算出メソッド(return playerPos)
+	float getVerticalAngle();	// カメラ垂直角度取得関数
+	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);	// プレイヤーの位置算出メソッド(return playerPos)
 protected:
 	VECTOR	position;
 	VECTOR	playerPos;

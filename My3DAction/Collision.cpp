@@ -1,8 +1,7 @@
 #include "Collision.h"
 
 /**
-* @brief Cameraのコンストラクタ
-*
+* @brief Collisionのコンストラクタ
 */
 Collision::Collision()
 {

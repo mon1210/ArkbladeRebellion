@@ -6,12 +6,11 @@
 */
 #pragma once
 
-
 namespace ePlayer
 {
 	enum AnimationNum
 	{
-		Default = -1,
+		Default = -1,	// -1‘ã“ü—p
 		Idle = 1,
 		Run,
 		Roll,
@@ -25,7 +24,7 @@ namespace eEnemy
 {
 	enum AnimationNum
 	{
-		Default = -1,
+		Default = -1,	// -1‘ã“ü—p
 		Idle = 1,
 		Run,
 		Swiping,
@@ -37,7 +36,7 @@ namespace eEnemy
 
 enum EnemyState
 {
-	Default = -1,
+	Default = -1,	// -1‘ã“ü—p
 	Wait,
 	Move, 
 	Chase,

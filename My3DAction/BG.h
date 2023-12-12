@@ -1,7 +1,7 @@
 /*
 * @file		BG.h
 * @brief	ƒNƒ‰ƒX BG ‚ÌéŒ¾
-* @note		°‚â‚Í‚±‚±‚ÅŠÇ—
+* @note		°‚Í‚±‚±‚ÅŠÇ—
 */
 #pragma once
 #include "DxLib.h"

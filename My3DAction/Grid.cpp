@@ -3,7 +3,6 @@
 
 /**
 * @brief Gridのコンストラクタ
-*
 */
 Grid::Grid()
 {
@@ -24,7 +23,7 @@ Grid::~Grid()
 
 /**
 * @brief 描画関数
-* @note  Stage::draw()で呼び出し
+* @note  Game::draw()で呼び出し
 */
 void Grid::draw()
 {

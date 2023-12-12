@@ -2,7 +2,6 @@
 
 /**
 * @brief Cameraのコンストラクタ
-* 
 */
 Camera::Camera()
 {
@@ -25,7 +24,6 @@ Camera::~Camera()
 
 /**
 * @brief カメラ操作メソッド
-* @note  
 */
 void Camera::controller()
 {
@@ -98,7 +96,6 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 
 /**
 * @brief 位置算出メソッド
-* @note  
 */
 void Camera::setPositionAndDirection(VECTOR player_pos)
 {
@@ -137,7 +134,6 @@ void Camera::setPositionAndDirection(VECTOR player_pos)
 
 /**
 * @brief カメラ水平角度を取得して返す
-* @note
 */
 float Camera::getHorizontalAngle()
 {
@@ -147,7 +143,6 @@ float Camera::getHorizontalAngle()
 
 /**
 * @brief カメラ垂直角度を取得して返す
-* @note
 */
 float Camera::getVerticalAngle()
 {

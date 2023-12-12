@@ -3,7 +3,6 @@
 
 /**
 * @brief Enemyのコンストラクタ
-*
 */
 Enemy::Enemy(Game *parent)
 {
@@ -55,7 +54,7 @@ void Enemy::initAnimation()
 
 /**
 * @brief アニメーションを設定する
-* @param[in] num　	        アニメーション番号
+* @param[in] num    アニメーション番号
 */
 void Enemy::animationHandle(eEnemy::AnimationNum num) {
     // アニメーションをセット
@@ -110,7 +109,6 @@ void Enemy::update()
 
 /**
 * @brief Wait状態の管理メソッド
-* 
 */
 void Enemy::Wait()
 {
@@ -148,7 +146,6 @@ void Enemy::Wait()
 
 /**
 * @brief 床モデルをセットする
-*
 */
 void Enemy::setTileModel(int model)
 {
@@ -158,7 +155,6 @@ void Enemy::setTileModel(int model)
 
 /**
 * @brief Move状態の管理メソッド
-*
 */
 void Enemy::Move()
 {
@@ -224,7 +220,6 @@ void Enemy::Move()
 
 /**
 * @brief Chase状態の管理メソッド
-*
 */
 void Enemy::Chase()
 {
@@ -276,7 +271,6 @@ void Enemy::Chase()
 
 /**
 * @brief プレイヤーの座標をセットする
-*
 */
 void Enemy::setPlayerPos(VECTOR player_pos)
 {
@@ -310,7 +304,6 @@ bool Enemy::isTargetVisible()
 
 /**
 * @brief エネミーモデルをセットする
-*
 */
 void Enemy::setEnemyModel(int model)
 {
@@ -357,7 +350,6 @@ void Enemy::draw()
 
 /**
 * @brief エネミー座標を取得して返す
-* @note
 */
 VECTOR Enemy::getEnemyPos()
 {

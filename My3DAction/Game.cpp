@@ -1,11 +1,10 @@
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "stdafx.h"
-// ゲーム内のステージ関連クラスと列挙型の定義
 #include "Game.h"
 
 
 /**
-* @brief Stageのコンストラクタ
+* @brief Gameのコンストラクタ
 */
 Game::Game(SceneManager* pSystem)
 {
@@ -176,12 +175,12 @@ void Game::draw()
 				pEnemy->draw();
 			if (pRadar)
 				pRadar->draw();
-				
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);
 			break;
 	}
 
+	// フェードアウト描画用
 	switch (Phase)
 	{
 	case STAGE_FADE:

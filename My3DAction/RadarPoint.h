@@ -34,8 +34,8 @@ public:
 	~RadarPoint();
 	virtual void draw(RadarData& param);	// 描画メソッド　Radar.cppの中で呼び出す
 private:	// Radarで使用できないように
-	float posX;	// Pointの座標
-	float posZ;
+	float posX;					// Pointの座標X
+	float posZ;					// Pointの座標Z
 	float centerToPointVecX;	// center => point のベクトルX
 	float centerToPointVecZ;	// center => point のベクトルZ
 	float vecLength;			// ベクトルの長さ

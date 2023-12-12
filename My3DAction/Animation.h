@@ -1,3 +1,7 @@
+/*
+* @file		Animation.h
+* @brief	アニメーションに関するメソッドの定義
+*/
 #pragma once
 #include "DxLib.h"
 
@@ -9,9 +13,7 @@
  * @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量 *
  *---------------------------------------------------------------*/
 
-/**
-* @brief アニメーションをセットする
-*/
+// @brief アニメーションをセットする
 void SetAnim(int handle, int anim_no, float& anim_time, float& anim_timer);
 
 /**

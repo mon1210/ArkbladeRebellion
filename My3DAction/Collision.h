@@ -1,7 +1,7 @@
 /**
-* @file		Collider.h
-* @brief	クラス Collider の宣言
-* @note		プレイヤー・床に対して影響するのでStageで関数使用
+* @file		Collision.h
+* @brief	クラス Collision の宣言
+* @note		プレイヤー・床に対して影響するのでGameで関数使用
 */
 #pragma once
 #include "DxLib.h"

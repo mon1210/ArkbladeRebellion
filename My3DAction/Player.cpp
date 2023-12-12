@@ -2,7 +2,6 @@
 
 /**
 * @brief Playerのコンストラクタ
-*
 */
 Player::Player(Game *parent)
 {
@@ -36,7 +35,7 @@ Player::Player(Game *parent)
 
 /**
 * @brief デストラクタ
-* @note  ポインタのDeleteはStageでしているので、記述の必要なし
+* @note  ポインタのDeleteはGameクラスでしているので、記述の必要なし
 */
 Player::~Player()
 {
@@ -45,7 +44,6 @@ Player::~Player()
 
 /**
 * @brief プレイヤーモデルをセットする
-*
 */
 void Player::setPlayerModel(int model)
 {
@@ -53,14 +51,13 @@ void Player::setPlayerModel(int model)
 }
 
 
-// Rollだけ、PLAYER_ANIM_F_INCREMENT(== 0.2f)だと違和感があるので、作っている
-// また、長押しで回転し続けられるのを直すようにもしたい
-// 未完成
+// Roll時、長押しで回転し続けられるのを直すようにもしたい
+// Todo
+// void RollHandle(){}
 
 
 /**
 * @brief カメラの水平角度をセットする
-*
 */
 void Player::setCameraHAngle(float camera_H_A)
 {
@@ -208,7 +205,7 @@ void Player::update()
     if (moveFlag)
         pCollision->clampToStageBounds(newPos, position, rollAble);
 
-    // Todo プレイヤーの向きに対する動きがいまいち
+    // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定
     float rad = angle * (DX_PI / 180.0f);
     float front_vec_x = -sinf(rad);
@@ -270,7 +267,6 @@ void Player::draw()
 
 /**
 * @brief プレイヤー座標を取得して返す
-* @note  
 */
 VECTOR Player::getPlayerPos()
 {   
@@ -280,7 +276,6 @@ VECTOR Player::getPlayerPos()
 
 /**
 * @brief プレイヤー移動ベクトルを取得して返す
-* @note
 */
 VECTOR Player::getPlayerMoveVec()
 {
