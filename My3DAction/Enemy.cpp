@@ -91,6 +91,8 @@ void Enemy::update()
     //case EnemyState::Death:
     //    break;
     }
+    // enemyとplayerの距離ベクトルの更新
+    updateEnemyToPlayerVec();
 
     // Rader
     pRadar->addPoint(position.x, position.z, eRadar::Enemy);
@@ -102,6 +104,7 @@ void Enemy::update()
     // モデルにタイマーセット
     // これがないとアニメーションしない
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
+
 }
 
 
@@ -295,14 +298,8 @@ bool Enemy::isTargetVisible()
         点と円の当たり判定を使い、点が円の中にあったらtrue
     
     */
-
-    enemyToPlayer = VSub(playerPos, position);   // エネミーからプレイヤーの距離ベクトル
-    vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z);    // 距離ベクトルの長さ
-
-    float radius = 50.f;    // 円の半径
-
-    // 半径よりベクトルが短くなったらtrueを返す
-    if (vecLength <= radius)
+    // 円の半径よりベクトルが短くなったらtrueを返す
+    if (vecLength <= ENEMY_VIEW_RADIUS)
     {
         return true;
     }
