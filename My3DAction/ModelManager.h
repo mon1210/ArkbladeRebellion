@@ -1,7 +1,7 @@
 /*
-* @file		Model.h
-* @brief	クラス Model の宣言
-* @note		
+* @file		ModelManager.h
+* @brief	クラス ModelManager の宣言
+* @note		モデルに関する処理を管理する
 * 
 */
 #pragma once
@@ -9,11 +9,11 @@
 #include "Constants.h"
 
 
-class Model
+class ModelManager
 {
 public:
-	Model();
-	~Model();
+	ModelManager();
+	~ModelManager();
 	void loadModel();		// モデル読み込みメソッド　Stageで呼び出す
 	int getPlayerModel();	// Playerモデルを取得して返すメソッド
 	int getEnemyModel();	// Enemyモデルを取得して返すメソッド

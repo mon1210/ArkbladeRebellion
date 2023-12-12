@@ -151,7 +151,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="IGameScene.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="My3DAction.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Radar.cpp" />
@@ -173,7 +173,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="IGameScene.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="My3DAction.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RadarPoint.h" />
