@@ -34,6 +34,11 @@ public:
 	void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
 	void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
 	VECTOR getEnemyPos();	// 座標取得メソッド
+
+	void updateEnemyToPlayerVec() {		// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+		enemyToPlayer = VSub(playerPos, position);   // エネミーからプレイヤーの距離ベクトルを求める
+		vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z); // 距離ベクトルの長さ
+	}
 private:
 	// 状態ごとのメソッド
 	virtual void Wait();
