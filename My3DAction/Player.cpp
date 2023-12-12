@@ -11,7 +11,6 @@ Player::Player(Game *parent)
     animTime = 0.f;
     animTimer = 0.f;
     hitPoint = 100.f;
-    animTimer = 0.f;
     cameraHA = 0.f;
     pCollision = NULL;
     pRadar = NULL;
@@ -54,60 +53,9 @@ void Player::setPlayerModel(int model)
 }
 
 
-/**
-* @brief アニメーションセット関数
-*
-*/
-void Player::setAnim(ePlayer::AnimationNum num)
-{
-    if (animNo != num)
-    {
-        animNo = num;
-        animTimer = 0;
-        // アニメーションにかかる時間を取得
-        animTime = MV1GetAnimTotalTime(animHandle, animNo);
-        // アニメーションをデタッチ
-        MV1DetachAnim(animHandle, 0);
-        // アニメーションをアタッチ
-        MV1AttachAnim(animHandle, animNo);
-
-    }
-        animTimer += PLAYER_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (animTimer >= animTime)
-    {
-        animTimer -= animTime;
-    }
-    MV1SetAttachAnimTime(animHandle, 0, animTimer);
-}
-
-
 // Rollだけ、PLAYER_ANIM_F_INCREMENT(== 0.2f)だと違和感があるので、作っている
 // また、長押しで回転し続けられるのを直すようにもしたい
 // 未完成
-void Player::rollAnim()
-{
-    // アニメーションをセット
-    if (animNo != ePlayer::Roll)
-    {
-        animNo = ePlayer::Roll;
-        animTimer = 0;
-        // アニメーションにかかる時間を取得
-        animTime = MV1GetAnimTotalTime(animHandle, animNo);
-        // アニメーションをデタッチ
-        MV1DetachAnim(animHandle, 0);
-        // アニメーションをアタッチ
-        MV1AttachAnim(animHandle, animNo);
-
-    }
-    animTimer += PLAYER_ROLL_ANIM_F_INCREMENT;
-    // アニメーション時間を過ぎたらリセット
-    if (animTimer >= animTime)
-    {
-        animTimer -= animTime;
-    }
-    MV1SetAttachAnimTime(animHandle, 0, animTimer);
-}
 
 
 /**
@@ -132,8 +80,37 @@ void Player::setPlayerNewPos(VECTOR new_pos)
 
 
 /**
+* @brief 移動時の行動管理
+* @note  アニメーションと向きの設定をする
+*        moveFlagはここでtrueに
+* @param[in] num　	        アニメーション番号
+* @param[in] ROTATE_ANGLE　	回転角度
+* @param[in] move_x　	    x軸方向の移動スピード
+* @param[in] move_z　	    z軸方向の移動スピード
+*/
+void Player::moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z)
+{
+    // アニメーションをセット
+    if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
+    {
+        animNo = num;
+        SetAnim(animHandle, animNo, animTime, animTimer);
+    }
+
+    // 移動する向きと速度を設定
+    if (animNo == num)
+    {
+        angle = ROTATE_ANGLE - cameraHA;
+        moveFlag = true;
+        moveVec.x = move_x;
+        moveVec.z = move_z;
+    }
+}
+
+
+/**
 * @brief 行動管理メソッド
-*
+* @note  入力されたキーによって行動判定
 */
 // ****************************************** //
 // PAD入力　PAD_INPUT_1 = □, PAD_INPUT_2 = ×,
@@ -151,102 +128,81 @@ void Player::update()
     // Up => Runモーション(3) 前移動
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Run);
-        if (animNo == ePlayer::Run)
-        {
-            angle = FORWARD_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.z = PLAYER_MOVE_SPEED;
-        }
+        // アニメーション、移動動作をセット
+        moveHandle(ePlayer::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        // アニメーションタイマーリセット
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // Down => Runモーション(3) 下移動
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Run);
-        if (animNo == ePlayer::Run)
-        {
-            angle = BACKWARD_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.z = -PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // Right => Runモーション(3) 右移動
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Run);
-        if (animNo == ePlayer::Run)
-        {
-            angle = RIGHT_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.x = PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // Left => Runモーション(3) 左移動
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Run);
-        if (animNo == ePlayer::Run)
-        {
-            angle = LEFT_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.x = -PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // Space or PAD_× => Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
-        rollAnim();
-        if (animNo == ePlayer::Roll)
-        {
-            angle = FORWARD_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.z = PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // 右Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
-        rollAnim();
-        if (animNo == ePlayer::Roll)
-        {
-            angle = RIGHT_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.x = PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Roll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // 左Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
-        rollAnim();
-        if (animNo == ePlayer::Roll)
-        {
-            angle = LEFT_ROTATION_ANGLE - cameraHA;
-            moveFlag = true;
-            moveVec.x = -PLAYER_MOVE_SPEED;
-        }
+        moveHandle(ePlayer::Roll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // F => Drinking 回復時モーション
     else if (CheckHitKey(KEY_INPUT_F))
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Drinking);
+        // angle をセットすることで今の向きを保持
+        moveHandle(ePlayer::Drinking, angle, 0, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // G => Dying
     else if (CheckHitKey(KEY_INPUT_G))
     {
-        // アニメーションをセット
-        setAnim(ePlayer::Dying);
+        moveHandle(ePlayer::Dying, angle, 0, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
     // Idle
     else
     {
         moveFlag = false;
-        setAnim(ePlayer::Idle);
+        moveHandle(ePlayer::Idle,angle, 0, 0);
+        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+            animTimer = 0.f;
     }
+
+    // モデルにタイマーセット
+    // これがないとアニメーションしない
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
