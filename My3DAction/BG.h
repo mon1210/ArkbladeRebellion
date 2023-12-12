@@ -6,7 +6,6 @@
 #pragma once
 #include "DxLib.h"
 #include "stdafx.h"
-#include "IGameObject.h"
 
 class BG
 {

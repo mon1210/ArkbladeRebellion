@@ -13,7 +13,6 @@
 #include "Collision.h"
 #include "Radar.h"
 #include "Constants.h"
-#include "IGameObject.h"
 
 // ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
 class SceneManager;
