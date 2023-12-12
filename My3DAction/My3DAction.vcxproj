@@ -150,7 +150,6 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IGameScene.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="My3DAction.cpp" />
@@ -173,7 +172,6 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGameScene.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="My3DAction.h" />
