@@ -176,15 +176,24 @@ void Player::update()
     // F => Drinking 回復時モーション
     else if (CheckHitKey(KEY_INPUT_F))
     {
-        // angle をセットすることで今の向きを保持
-        moveHandle(ePlayer::Drinking, angle, 0, 0);
+        // アニメーションをセット
+        if (animNo != ePlayer::Drinking)  // ここがないとanimTimerがうまくリセットされない
+        {
+            animNo = ePlayer::Drinking;
+            SetAnim(animHandle, animNo, animTime, animTimer);
+        }
         if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // G => Dying
     else if (CheckHitKey(KEY_INPUT_G))
     {
-        moveHandle(ePlayer::Dying, angle, 0, 0);
+        // アニメーションをセット
+        if (animNo != ePlayer::Dying)  // ここがないとanimTimerがうまくリセットされない
+        {
+            animNo = ePlayer::Dying;
+            SetAnim(animHandle, animNo, animTime, animTimer);
+        }
         if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
@@ -192,7 +201,12 @@ void Player::update()
     else
     {
         moveFlag = false;
-        moveHandle(ePlayer::Idle,angle, 0, 0);
+        // アニメーションをセット
+        if (animNo != ePlayer::Idle)  // ここがないとanimTimerがうまくリセットされない
+        {
+            animNo = ePlayer::Idle;
+            SetAnim(animHandle, animNo, animTime, animTimer);
+        }
         if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
