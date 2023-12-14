@@ -80,10 +80,13 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 	VECTOR TempMoveVector;
 
 	// カメラの角度に合わせて移動ベクトルを回転してから加算
+
+	// カメラの水平角度に対するsin, cos値を算出
 	sinParam = sin(hAngle / 180.0f * DX_PI_F);
 	cosParam = cos(hAngle / 180.0f * DX_PI_F);
+	// 移動ベクトルを水平方向に回転して保存
 	TempMoveVector.x = move_vec.x * cosParam - move_vec.z * sinParam;
-	TempMoveVector.y = 0.0f;
+	TempMoveVector.y = 0.0f;	// 上下は無視
 	TempMoveVector.z = move_vec.x * sinParam + move_vec.z * cosParam;
 
 	playerPos = VAdd(player_pos, TempMoveVector);
