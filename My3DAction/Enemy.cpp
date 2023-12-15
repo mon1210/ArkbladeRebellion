@@ -6,33 +6,19 @@
 */
 Enemy::Enemy(Game *Game_)
 {
-    animNo = 0;
-    count = 0;
-    animHandle = 0;
-    tileHandle = 0;
-    animTime = 0.f;
-    animTimer = 0.f;
-    hitPoint = 1.f;
-    vecLength = 0.f;
-
-    pGame = NULL;
     pGame = Game_;
 
     // モデル取得
-    if (pGame != NULL) {
+    if (pGame) {
         animHandle = pGame->GetModelManager()->getEnemyModel();
         tileHandle = pGame->GetBG()->getModelHandle();
     }
 
     angle = ENEMY_START_ROTATE_Y;
 
-    enemyToPlayer = VGet(0.f, 0.f, 0.f);
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
-    playerPos = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
-
-    currentState = EnemyState::Wait;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, eEnemy::Idle);
@@ -69,6 +55,17 @@ void Enemy::animationHandle(eEnemy::AnimationNum num) {
         SetAnim(animHandle, animNo, animTime, animTimer);
     }
 };
+
+
+/**
+* @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+* @note  毎フレームの処理
+*/
+void Enemy::updateEnemyToPlayerVec() 
+{
+    enemyToPlayer = VSub(pGame->GetPlayer()->getPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
+    vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z); // 距離ベクトルの長さ
+}
 
 
 /**
@@ -262,15 +259,6 @@ void Enemy::Chase()
         count = 0;
         animationHandle(eEnemy::Idle);
     }
-}
-
-
-/**
-* @brief プレイヤーの座標をセットする
-*/
-void Enemy::setPlayerPos(VECTOR player_pos)
-{
-    playerPos = player_pos;
 }
 
 
