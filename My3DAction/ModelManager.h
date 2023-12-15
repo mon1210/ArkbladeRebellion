@@ -19,7 +19,7 @@ public:
 	int getEnemyModel();	// Enemyモデルを取得して返すメソッド
 	int getTileModel();		// Tileモデルを取得して返すメソッド
 protected:
-	int		playerHandle;
-	int		enemyHandle;
-	int		tileHandle;
+	int		playerHandle = 0;
+	int		enemyHandle = 0;
+	int		tileHandle = 0;
 };

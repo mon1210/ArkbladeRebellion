@@ -6,13 +6,6 @@
 */
 Radar::Radar()
 {
-	uiPosX = 120.0f;
-	uiPosY = 120.0f;
-	centerX = 0.f;
-	centerZ = 0.f;
-	frontVecX = 0.f;
-	frontVecZ = 0.f;
-	radius = 100.0f;
 }
 
 

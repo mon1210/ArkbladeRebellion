@@ -22,12 +22,12 @@ public:
 	Title(SceneManager *pSystem);
 	virtual ~Title();
 	virtual GameSceneResultCode move() override;	// アニメーションメソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
-	virtual void draw() override;	// 描画メソッド
+	virtual void draw() override;					// 描画メソッド
 
 protected:
-	SceneManager *System;
-	TitlePhase	Phase;
-	bool	titleRunFlag;	// Titleの状態を管理するflag
-	INT		FadeTimer;
+	SceneManager *System = NULL;
+	TitlePhase	Phase = TITLE_INIT;
+	bool	titleRunFlag = false;					// Titleの状態を管理するflag
+	INT		FadeTimer = 0;
 };
 

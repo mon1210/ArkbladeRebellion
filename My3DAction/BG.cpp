@@ -14,7 +14,7 @@
 */
 BG::BG(Game *Game_)
 {
-	if (Game_ != NULL)
+	if (Game_)
 		tileHandle = Game_->GetModelManager()->getTileModel();
 }
 

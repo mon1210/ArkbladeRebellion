@@ -25,6 +25,6 @@ public:
 	virtual void clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);	// プレイヤー移動時のステージとの当たり判定メソッド
 	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int dif_color, int spc_color, int flag);
 protected:
-	int tileHandle;
+	int tileHandle = 0;
 
 };

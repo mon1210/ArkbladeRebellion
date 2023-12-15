@@ -5,8 +5,7 @@
 */
 Collision::Collision(Game *Game_)
 {
-	tileHandle = 0;
-	if (Game_ != NULL)
+	if (Game_)
 		tileHandle = Game_->GetModelManager()->getTileModel();
 }
 

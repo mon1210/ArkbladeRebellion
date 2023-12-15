@@ -7,10 +7,6 @@
 */
 ModelManager::ModelManager()
 {
-    enemyHandle = 0;
-    playerHandle = 0;
-    tileHandle = 0;
-
     loadModel();
 }
 

@@ -19,12 +19,6 @@
 */
 SceneManager::SceneManager()
 {
-	eGamePhase = GAMEPHASE_INIT;
-
-	pScene = NULL;
-
-	fadeTimer = 0;
-	fadeTime = 60;
 	startTime = GetNowCount();
 }
 

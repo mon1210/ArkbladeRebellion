@@ -15,9 +15,9 @@ class BG
 public:
 	BG(Game *Game_);
 	~BG();
-	void draw();						// 描画メソッド
-	int  getModelHandle();				// モデル取得関数
+	void draw();							// 描画メソッド
+	int  getModelHandle();					// モデル取得関数
 protected:
-	VECTOR	position = VGet(0, 0, 0);	// 座標
-	int		tileHandle = 0;				// モデル保存用変数
+	VECTOR	position = VGet(0.f, 0.f, 0.f);	// 座標
+	int		tileHandle = 0;					// モデル保存用変数
 };
