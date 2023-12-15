@@ -12,10 +12,10 @@
 /**
 * @brief BGのコンストラクタ
 */
-BG::BG()
+BG::BG(Game *Game_)
 {
-	tile_handle = 0;
-	position = VGet(0.f, 0.f, 0.f);
+	if (Game_ != NULL)
+		tileHandle = Game_->GetModelManager()->getTileModel();
 }
 
 
@@ -26,20 +26,11 @@ BG::~BG()
 
 
 /**
-* @brief 床モデルセット
-*/
-void BG::setTileModel(int model)
-{
-	tile_handle = model;
-}
-
-
-/**
 * @brief 床モデルを取得して返す
 */
 int BG::getModelHandle()
 {
-	return tile_handle;
+	return tileHandle;
 }
 
 
@@ -50,9 +41,9 @@ int BG::getModelHandle()
 void BG::draw() 
 {
 	// 3Dモデルに座標をセット
-	MV1SetPosition(tile_handle, position);
+	MV1SetPosition(tileHandle, position);
 
 	// 3Dモデルの描画
-	MV1DrawModel(tile_handle);
+	MV1DrawModel(tileHandle);
 
 }
