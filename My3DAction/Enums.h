@@ -2,7 +2,6 @@
 * @file		Enums.h
 * @brief	eunm変数宣言用ヘッダファイル
 * @note		クラス名と被るためnamespaceにはプレフィクス付与
-*			3Dモデルのアニメーション番号管理
 */
 #pragma once
 

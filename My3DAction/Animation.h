@@ -13,11 +13,9 @@
  * @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量 *
  *---------------------------------------------------------------*/
 
-// @brief アニメーションをセットする
+// アニメーションをセットする
 void SetAnim(int handle, int anim_no, float& anim_time, float& anim_timer);
 
-/**
-* @brief アニメーションが完了したかを判断する
-* @return  true:アニメーションタイマーをリセット / false:何もしない
-*/
+// アニメーションが完了したかを判断する
+// return  true:アニメーションタイマーをリセット / false:何もしない
 bool IsAnimationComplete(float anim_time, float& anim_timer, float ANIM_F_INCREMENT);
