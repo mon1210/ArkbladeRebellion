@@ -20,21 +20,17 @@ class Player : public CharaBase
 public:
 	Player(Game *Game_);
 	~Player();
-	bool move() override;		// アニメーションメソッド
-	void draw() override;		// 描画メソッド
-	void update() override;		// 行動管理メソッド
-	VECTOR  getPos() override;			// 座標を取得して返すメソッド
-	void moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
-	VECTOR  getPlayerMoveVec();			// Playerの移動方向を取得して返すメソッド
-	void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
-	void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
+	bool move() override;											// アニメーションメソッド
+	void draw() override;											// 描画メソッド
+	void update() override;											// 行動管理メソッド
+	VECTOR  getPos() override;										// 座標を取得して返すメソッド
+	void moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, 
+		float move_x, float move_z);								// 移動時の行動管理メソッド
 protected:
-	Game	*pGame;		// 
-	VECTOR  newPos;		// 移動後の座標保存用
-	VECTOR	moveVec;	// 移動の向きベクトル
-	float   cameraHA;	// カメラの水平角度  CameraHorizontalAngle
-	bool	moveFlag;	// 移動フラグ
-	bool	rollAble;	// Roll可能フラグ
+	Game	*pGame = NULL;
+	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);	// 移動の向きベクトル
+	bool	moveFlag = false;				// 移動フラグ
+	bool	rollAble = true;				// Roll可能フラグ
 };
 
 
