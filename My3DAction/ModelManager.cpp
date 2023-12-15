@@ -11,6 +11,7 @@ ModelManager::ModelManager()
     playerHandle = 0;
     tileHandle = 0;
 
+    loadModel();
 }
 
 
