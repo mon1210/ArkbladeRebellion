@@ -7,17 +7,18 @@
 #include "DxLib.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Game.h"
 
 // クラスの前方宣言
 class Enemy;
+class Game;
 
 class Collision
 {
 public:
-	Collision();
+	Collision(Game *Game_);
 	~Collision();
 	virtual void initCollision(int handle);	// 当たり判定を付与する　一度だけStageで呼び出す　今はタイルのみ
-	virtual void setTileModel(int model);	// タイルモデルをセットする　Stageで呼び出し
 
 	// 以下3つ未完成
 	virtual void chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* move_vec);	// キャラ同士の当たり判定
