@@ -3,7 +3,7 @@
 /**
 * @brief Playerのコンストラクタ
 */
-Player::Player(Game *parent)
+Player::Player(Game *Game_)
 {
     animNo = 0;
     animHandle = 0;
@@ -11,8 +11,13 @@ Player::Player(Game *parent)
     animTimer = 0.f;
     hitPoint = 100.f;
     cameraHA = 0.f;
-    pCollision = NULL;
-    pRadar = NULL;
+
+    pGame = NULL;
+    pGame = Game_;
+    
+    // モデル取得
+    if (pGame != NULL)
+        animHandle = pGame->GetModelManager()->getPlayerModel();
 
     angle = PLAYER_START_ROTATE_Y;
 
@@ -21,9 +26,6 @@ Player::Player(Game *parent)
     moveVec = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
-
-    pCollision = parent->GetCollision();
-    pRadar = parent->GetRadar();
 
     moveFlag = false;
     rollAble = true;
@@ -39,15 +41,6 @@ Player::Player(Game *parent)
 */
 Player::~Player()
 {
-}
-
-
-/**
-* @brief プレイヤーモデルをセットする
-*/
-void Player::setModel(int model)
-{
-    animHandle = model;
 }
 
 
@@ -217,7 +210,7 @@ void Player::update()
 
     // 移動した場合の当たり判定更新と座標セット
     if (moveFlag)
-        pCollision->clampToStageBounds(newPos, position, rollAble);
+        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定
@@ -225,7 +218,7 @@ void Player::update()
     float front_vec_x = -sinf(rad);
     float front_vec_z = -cosf(rad);
     VECTOR frontVector = VGet(front_vec_x, 0.0f, front_vec_z);
-    pRadar->addCenter(position.x, position.z, frontVector.x, frontVector.z);
+    pGame->GetRadar()->addCenter(position.x, position.z, frontVector.x, frontVector.z);
 }
 
 

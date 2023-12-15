@@ -8,34 +8,28 @@
 
 #include "Animation.h"
 #include "Constants.h"
-#include "Collision.h"
 #include "Enums.h"
 #include "Game.h"
-#include "Radar.h"
 
 // クラスの前方宣言
 class CharaBase;
 class Game;
-class Collision;
-class Radar;
 
 class Player : public CharaBase
 {
 public:
-	Player(Game *parent);
+	Player(Game *Game_);
 	~Player();
 	bool move() override;		// アニメーションメソッド
 	void draw() override;		// 描画メソッド
 	void update() override;		// 行動管理メソッド
-	void setModel(int model) override;	// プレイヤーのモデルをセットするメソッド
 	VECTOR  getPos() override;			// 座標を取得して返すメソッド
 	void moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 	VECTOR  getPlayerMoveVec();			// Playerの移動方向を取得して返すメソッド
 	void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
 	void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
 protected:
-	Collision *pCollision;
-	Radar	  *pRadar;
+	Game	*pGame;		// 
 	VECTOR  newPos;		// 移動後の座標保存用
 	VECTOR	moveVec;	// 移動の向きベクトル
 	float   cameraHA;	// カメラの水平角度  CameraHorizontalAngle
