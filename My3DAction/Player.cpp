@@ -5,30 +5,17 @@
 */
 Player::Player(Game *Game_)
 {
-    animNo = 0;
-    animHandle = 0;
-    animTime = 0.f;
-    animTimer = 0.f;
-    hitPoint = 100.f;
-    cameraHA = 0.f;
-
-    pGame = NULL;
     pGame = Game_;
     
     // モデル取得
-    if (pGame != NULL)
+    if (pGame)
         animHandle = pGame->GetModelManager()->getPlayerModel();
 
     angle = PLAYER_START_ROTATE_Y;
 
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
-    newPos = position;
-    moveVec = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
-
-    moveFlag = false;
-    rollAble = true;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, ePlayer::Idle);
@@ -47,26 +34,6 @@ Player::~Player()
 // Roll時、長押しで回転し続けられるのを直すようにもしたい
 // Todo
 // void RollHandle(){}
-
-
-/**
-* @brief カメラの水平角度をセットする
-*/
-void Player::setCameraHAngle(float camera_H_A)
-{
-    cameraHA = camera_H_A;
-}
-
-
-/**
-* @brief 新座標をセットする
-* @note  移動後、新しい座標を取得するため
-*/
-void Player::setPlayerNewPos(VECTOR new_pos)
-{
-    newPos = position;  // 現在の位置を取得してから
-    newPos = new_pos;
-}
 
 
 /**
@@ -90,7 +57,7 @@ void Player::moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float mov
     // 移動する向きと速度を設定
     if (animNo == num)
     {
-        angle = ROTATE_ANGLE - cameraHA;
+        angle = ROTATE_ANGLE - pGame->GetCamera()->getHorizontalAngle();
         moveFlag = true;
         moveVec.x = move_x;
         moveVec.z = move_z;
@@ -209,8 +176,10 @@ void Player::update()
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
     // 移動した場合の当たり判定更新と座標セット
-    if (moveFlag)
-        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);
+    if (moveFlag) {
+        VECTOR newPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);        // 移動後の座標取得
+        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);  // 当たり判定更新
+    }
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定
@@ -278,13 +247,4 @@ void Player::draw()
 VECTOR Player::getPos()
 {   
     return position;
-}
-
-
-/**
-* @brief プレイヤー移動ベクトルを取得して返す
-*/
-VECTOR Player::getPlayerMoveVec()
-{
-    return moveVec;
 }
