@@ -9,24 +9,10 @@
 Game::Game(SceneManager* pSystem)
 {
 	System = pSystem;
-	pModelManager = NULL;
-	pCamera = NULL;
-	pCollision = NULL;
-	pPlayer = NULL;
-	pEnemy = NULL;
-	pBG = NULL;
-	pGrid = NULL;
-	pRadar = NULL;
-
-	Phase = STAGE_INIT;
-
-	bPause = true;
-
-	Timer = 0;
 
 	// インスタンス化
 	pModelManager = new ModelManager();
-	pCamera = new Camera();
+	pCamera = new Camera(this);
 	pCollision = new Collision(this);	// 必ずPlayerより上に書く
 	pRadar = new Radar();				// 必ずPlayerより上に書く
 	pBG = new BG(this);
@@ -63,14 +49,16 @@ GameSceneResultCode Game::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
-		pCollision->initCollision(pBG->getModelHandle());
-		pEnemy->initAnimation();	// phase分けはEnemyのみなので
+		if (pCollision)
+			pCollision->initCollision(pBG->getModelHandle());
+		if (pEnemy)
+			pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		Phase = STAGE_RUN;
 		break;
 
 	case STAGE_RUN:
 		//	ポーズ画面呼び出し
-		if (GetAsyncKeyState(0x50))		 // P 
+		if (GetAsyncKeyState(0x50))		// P 
 		{
 			if (!bPause) 
 			{
@@ -92,21 +80,13 @@ GameSceneResultCode Game::move()
 				Timer = 0;
 				break;
 			}
-			pPlayer->update();
 			if (pRadar)
 				pRadar->listReset();	// Pointリスト初期化
-			if (pCamera) {
-				pCamera->controller();
-				pCamera->setPositionAndDirection(pPlayer->getPos());			//カメラの位置・角度設定 
-				pPlayer->setCameraHAngle(pCamera->getHorizontalAngle());		// カメラの水平角度取得
-				pPlayer->setPlayerNewPos(pCamera->moveAlongHAngle
-				(pPlayer->getPlayerMoveVec(), pPlayer->getPos()));	// プレイヤーの座標設定
-			}
-			if (pEnemy) {
+			pPlayer->update();
+			if (pCamera)
+				pCamera->update();
+			if (pEnemy)
 				pEnemy->update();
-				pEnemy->setPlayerPos(pPlayer->getPos());
-			}
-
 		}
 		break;
 		// --------------------- STAGE_RUN END --------------------- //
@@ -217,7 +197,25 @@ Radar *Game::GetRadar()
 /**
 * @brief BGを取得して返す
 */
-BG* Game::GetBG()
+BG *Game::GetBG()
 {
 	return pBG;
+}
+
+
+/**
+* @brief Playerを取得して返す
+*/
+Player *Game::GetPlayer()
+{
+	return pPlayer;
+}
+
+
+/**
+* @brief Cameraを取得して返す
+*/
+Camera *Game::GetCamera()
+{
+	return pCamera;
 }
