@@ -15,7 +15,6 @@ public:
 	virtual bool move() = 0;
 	virtual void draw() = 0;
 	virtual void update() = 0;
-	virtual void setModel(int model) = 0;
 	virtual VECTOR getPos() = 0;
 protected:
 	VECTOR	position;	// ç¿ïW
