@@ -38,8 +38,8 @@ Game::Game(SceneManager* pSystem)
 	// モデルセット
 	pModelManager->loadModel();
 	pBG->setTileModel(pModelManager->getTileModel());
-	pPlayer->setPlayerModel(pModelManager->getPlayerModel());
-	pEnemy->setEnemyModel(pModelManager->getEnemyModel());
+	pPlayer->setModel(pModelManager->getPlayerModel());
+	pEnemy->setModel(pModelManager->getEnemyModel());
 	pEnemy->setTileModel(pBG->getModelHandle());
 	pCollision->setTileModel(pBG->getModelHandle());
 	tileHandle = pBG->getModelHandle();
@@ -107,14 +107,14 @@ GameSceneResultCode Game::move()
 				pRadar->listReset();	// Pointリスト初期化
 			if (pCamera) {
 				pCamera->controller();
-				pCamera->setPositionAndDirection(pPlayer->getPlayerPos());			//カメラの位置・角度設定 
+				pCamera->setPositionAndDirection(pPlayer->getPos());			//カメラの位置・角度設定 
 				pPlayer->setCameraHAngle(pCamera->getHorizontalAngle());		// カメラの水平角度取得
 				pPlayer->setPlayerNewPos(pCamera->moveAlongHAngle
-				(pPlayer->getPlayerMoveVec(), pPlayer->getPlayerPos()));	// プレイヤーの座標設定
+				(pPlayer->getPlayerMoveVec(), pPlayer->getPos()));	// プレイヤーの座標設定
 			}
 			if (pEnemy) {
 				pEnemy->update();
-				pEnemy->setPlayerPos(pPlayer->getPlayerPos());
+				pEnemy->setPlayerPos(pPlayer->getPos());
 			}
 
 		}

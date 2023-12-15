@@ -24,13 +24,13 @@ class Player : public CharaBase
 public:
 	Player(Game *parent);
 	~Player();
-	bool move() override;	// アニメーションメソッド
-	void draw() override;	// 描画メソッド
-	void update() override;	// 行動管理メソッド
+	bool move() override;		// アニメーションメソッド
+	void draw() override;		// 描画メソッド
+	void update() override;		// 行動管理メソッド
+	void setModel(int model) override;	// プレイヤーのモデルをセットするメソッド
+	VECTOR  getPos() override;			// 座標を取得して返すメソッド
 	void moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
-	VECTOR  getPlayerPos();			// 座標を取得して返すメソッド
-	VECTOR  getPlayerMoveVec();		// Playerの移動方向を取得して返すメソッド
-	void setPlayerModel(int model);				// プレイヤーのモデルをセットするメソッド
+	VECTOR  getPlayerMoveVec();			// Playerの移動方向を取得して返すメソッド
 	void setCameraHAngle(float camera_H_A);		// カメラの水平方向の角度をセットするメソッド
 	void setPlayerNewPos(VECTOR new_pos);		// プレイヤーの移動後の新しい座標をセットするメソッド
 protected:

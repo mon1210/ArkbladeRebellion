@@ -46,12 +46,12 @@ void Collision::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 	// 
 	if (HitCheck_Capsule_Capsule(
 		ChPosition, VAdd(ChPosition, VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH,
-		enemy->getEnemyPos(), VAdd(enemy->getEnemyPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
+		enemy->getPos(), VAdd(enemy->getPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
 	{
 		// 当たっていたらプレイヤー押し戻し
 
 		// chk_ch から ch へのベクトルを算出
-		ChkChToChVec = VSub(ChPosition, enemy->getEnemyPos());
+		ChkChToChVec = VSub(ChPosition, enemy->getPos());
 
 		// Ｙ軸は見ない
 		ChkChToChVec.y = 0.f;

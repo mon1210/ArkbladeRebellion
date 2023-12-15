@@ -305,7 +305,7 @@ bool Enemy::isTargetVisible()
 /**
 * @brief エネミーモデルをセットする
 */
-void Enemy::setEnemyModel(int model)
+void Enemy::setModel(int model)
 {
     animHandle = model;
 }
@@ -351,7 +351,7 @@ void Enemy::draw()
 /**
 * @brief エネミー座標を取得して返す
 */
-VECTOR Enemy::getEnemyPos()
+VECTOR Enemy::getPos()
 {
     return  position;
 }
