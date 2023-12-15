@@ -24,16 +24,16 @@ class Enemy : public CharaBase
 public:
 	Enemy(Game *parent);
 	~Enemy();
-	void initAnimation();	// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
-	bool move() override;	// エネミーのアニメーションメソッド　true:生存 / false:死亡
-	void draw() override;	// 描画メソッド
-	void update() override;	// 状態管理とdraw呼び出し　毎フレーム呼び出される
-	bool isTargetVisible();	// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
+	void initAnimation();		// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
+	bool move() override;		// エネミーのアニメーションメソッド　true:生存 / false:死亡
+	void draw() override;		// 描画メソッド
+	void update() override;		// 状態管理とdraw呼び出し　毎フレーム呼び出される
+	void setModel(int model) override;	// モデルをセットする
+	VECTOR getPos() override;	// 座標取得メソッド
+	bool isTargetVisible();		// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	void animationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
-	void setEnemyModel(int model);			// エネミーのモデルをセットする
 	void setTileModel(int model);			// 床モデルをセットする　 床 => 当たり判定で使用
 	void setPlayerPos(VECTOR player_pos);	// プレイヤーの座標をセットする
-	VECTOR getEnemyPos();	// 座標取得メソッド
 
 	void updateEnemyToPlayerVec() {		// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 		enemyToPlayer = VSub(playerPos, position);   // エネミーからプレイヤーの距離ベクトルを求める

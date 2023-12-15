@@ -45,7 +45,7 @@ Player::~Player()
 /**
 * @brief プレイヤーモデルをセットする
 */
-void Player::setPlayerModel(int model)
+void Player::setModel(int model)
 {
     animHandle = model;
 }
@@ -282,7 +282,7 @@ void Player::draw()
 /**
 * @brief プレイヤー座標を取得して返す
 */
-VECTOR Player::getPlayerPos()
+VECTOR Player::getPos()
 {   
     return position;
 }
