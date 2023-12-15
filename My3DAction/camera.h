@@ -6,25 +6,27 @@
 #pragma once
 #include "DxLib.h"
 #include "Constants.h"
+#include "Game.h"
 #include <math.h>
 
+class Game;
 
 class Camera
 {
 public:
-	Camera();
+	Camera(Game *Game_);
 	~Camera();
-	void controller();			// カメラ操作メソッド
-	void setPositionAndDirection(VECTOR player_pos);			// カメラの位置算出メソッド
-	float getHorizontalAngle();	// カメラ水平角度取得関数
-	float getVerticalAngle();	// カメラ垂直角度取得関数
+	void controller();											// カメラ操作メソッド
+	void update();												// 更新メソッド
+	void positionAndDirection(VECTOR player_pos);				// カメラの位置算出メソッド
+	float getHorizontalAngle();									// カメラ水平角度取得関数
 	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);	// プレイヤーの位置算出メソッド(return playerPos)
 protected:
-	VECTOR	position;
-	VECTOR	playerPos;
-	float	hAngle;	// 水平方向の角度
-	float	vAngle;	// 垂直方向の角度
-	float	sinParam;
-	float	cosParam;
+	Game	*pGame = NULL;
+	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標
+	float	hAngle = 0.f;						// 水平方向の角度
+	float	vAngle = 40.f;						// 垂直方向の角度
+	float	sinParam = 0.f;
+	float	cosParam = 0.f;
 };
 

@@ -4,30 +4,21 @@
 /**
 * @brief Enemyのコンストラクタ
 */
-Enemy::Enemy(Game *parent)
+Enemy::Enemy(Game *Game_)
 {
-    animNo = 0;
-    count = 0;
-    animHandle = 0;
-    tileHandle = 0;
-    animTime = 0.f;
-    animTimer = 0.f;
-    hitPoint = 1.f;
-    vecLength = 0.f;
+    pGame = Game_;
 
-    pRadar = NULL;
+    // モデル取得
+    if (pGame) {
+        animHandle = pGame->GetModelManager()->getEnemyModel();
+        tileHandle = pGame->GetBG()->getModelHandle();
+    }
 
     angle = ENEMY_START_ROTATE_Y;
 
-    enemyToPlayer = VGet(0.f, 0.f, 0.f);
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
-    playerPos = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
-
-    pRadar = parent->GetRadar();
-
-    currentState = EnemyState::Wait;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, eEnemy::Idle);
@@ -67,6 +58,17 @@ void Enemy::animationHandle(eEnemy::AnimationNum num) {
 
 
 /**
+* @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+* @note  毎フレームの処理
+*/
+void Enemy::updateEnemyToPlayerVec() 
+{
+    enemyToPlayer = VSub(pGame->GetPlayer()->getPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
+    vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z); // 距離ベクトルの長さ
+}
+
+
+/**
 * @brief 行動状態の管理メソッド
 * @note  毎フレームの処理
 */
@@ -93,8 +95,8 @@ void Enemy::update()
     // enemyとplayerの距離ベクトルの更新
     updateEnemyToPlayerVec();
 
-    // Rader
-    pRadar->addPoint(position.x, position.z, eRadar::Enemy);
+    // RaderのPointに追加
+    pGame->GetRadar()->addPoint(position.x, position.z, eRadar::Enemy);
 
     // アニメーションタイマーリセット
     if (IsAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
@@ -141,15 +143,6 @@ void Enemy::Wait()
         animationHandle(eEnemy::Run);
     }
 
-}
-
-
-/**
-* @brief 床モデルをセットする
-*/
-void Enemy::setTileModel(int model)
-{
-    tileHandle = model;
 }
 
 
@@ -270,15 +263,6 @@ void Enemy::Chase()
 
 
 /**
-* @brief プレイヤーの座標をセットする
-*/
-void Enemy::setPlayerPos(VECTOR player_pos)
-{
-    playerPos = player_pos;
-}
-
-
-/**
 * @brief   エネミーの視野メソッド
 * @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 */
@@ -299,15 +283,6 @@ bool Enemy::isTargetVisible()
     }
     
     return false;
-}
-
-
-/**
-* @brief エネミーモデルをセットする
-*/
-void Enemy::setModel(int model)
-{
-    animHandle = model;
 }
 
 

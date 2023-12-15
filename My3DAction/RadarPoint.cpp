@@ -11,17 +11,6 @@
 RadarPoint::RadarPoint(float x, float z, eRadar::PointType type_) 
 	: posX(x), posZ(z), pointType(type_)
 {
-	centerToPointVecX = 0.f;
-	centerToPointVecZ = 0.f;
-	vecLength = 0.f;
-	normalizedVecX = 0.f;
-	normalizedVecZ = 0.f;
-	rad = 0.f;
-	dotProduct = 0.f;
-	crossProductY = 0.f;
-	newVecX = 0.f;
-	newVecZ = 0.f;
-	rate = 0.f;
 }
 
 

@@ -16,8 +16,6 @@
 Title::Title(SceneManager *pSystem)
 {
 	System = pSystem;	//---Select
-	Phase = TITLE_INIT;	//---TitlePhase
-	FadeTimer = 0;		//---INT
 }
 
 

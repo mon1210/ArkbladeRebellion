@@ -27,23 +27,21 @@ class SceneManager
 public:
 	SceneManager();
 	virtual ~SceneManager(void);
-	void doAnim();			// ゲーム全体のアニメート
-	void doDraw();			// ゲーム全体の描画
-	void FadeOut();			// シーン遷移時のフェードアウト処理　Todo 未完成
-	int Clamp(int value, int min, int max){		// 値を指定された範囲内に収めるメソッド
-		if (value < min)
-			return min;
-		else if (value > max)
-			return max;
-		else
-			return value;
+	void doAnim();							// ゲーム全体のアニメート
+	void doDraw();							// ゲーム全体の描画
+	void FadeOut();							// シーン遷移時のフェードアウト処理　Todo 未完成
+	int Clamp(int value, int min, int max)	// 値を指定された範囲内に収めるメソッド
+	{
+		if (value < min)return min; 
+		else if (value > max)return max;
+		else return value;
 	}
 protected:
-	IGameScene *pScene;		//	シーン
-	eGamePhase eGamePhase;	//	状態変数
-	int fadeTimer;  // フェードタイマー
-	int fadeTime;   // フェード時間（フレーム）
-	int startTime;	// 開始時間
+	IGameScene *pScene = NULL;				//	シーン
+	eGamePhase eGamePhase = GAMEPHASE_INIT;	//	状態変数
+	int fadeTimer = 0;						// フェードタイマー
+	int fadeTime = 0;						// フェード時間（フレーム）
+	int startTime = 0;						// 開始時間
 };
 
 //	マクロ定義

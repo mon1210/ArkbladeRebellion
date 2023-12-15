@@ -15,15 +15,14 @@ public:
 	virtual bool move() = 0;
 	virtual void draw() = 0;
 	virtual void update() = 0;
-	virtual void setModel(int model) = 0;
 	virtual VECTOR getPos() = 0;
 protected:
-	VECTOR	position;	// 座標
-	int		animHandle;	// モデルハンドル
-	int		animNo;		// アニメーション番号
-	float	animTime;	// アニメーションの総再生時間
-	float	animTimer;	// アニメーションの現在の再生時間
-	float	angle;		// 向き		アタッチ時にradに変換
-	float	hitPoint;	// HP
+	VECTOR	position = VGet(0.f, 0.f, 0.f);	// 座標
+	int		animHandle = 0;					// モデルハンドル
+	int		animNo = 0;						// アニメーション番号
+	float	animTime = 0.f;					// アニメーションの総再生時間
+	float	animTimer = 0.f;				// アニメーションの現在の再生時間
+	float	angle = 0.f;					// 向き		アタッチ時にradに変換
+	float	hitPoint = 100.f;				// HP
 	//float damage
 };

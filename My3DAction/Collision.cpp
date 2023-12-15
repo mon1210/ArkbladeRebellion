@@ -3,9 +3,10 @@
 /**
 * @brief Collisionのコンストラクタ
 */
-Collision::Collision()
+Collision::Collision(Game *Game_)
 {
-	tileHandle = 0;
+	if (Game_)
+		tileHandle = Game_->GetModelManager()->getTileModel();
 }
 
 
@@ -84,15 +85,6 @@ void Collision::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
 	*moveVec = VSub(ChPosition, *player);
 
 
-}
-
-
-/**
-* @brief 床モデルをセットする
-*/
-void Collision::setTileModel(int model)
-{
-	tileHandle = model;
 }
 
 

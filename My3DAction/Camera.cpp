@@ -3,22 +3,30 @@
 /**
 * @brief Cameraのコンストラクタ
 */
-Camera::Camera()
+Camera::Camera(Game *Game_)
 {
-	position = VGet(0.f, 0.f, 0.f);
-	playerPos = VGet(0.f, 0.f, 0.f);
-
-	hAngle = 0.f;
-	vAngle = 40.f;
-	sinParam = 0.f;
-	cosParam = 0.f;
-
+	pGame = Game_;
 }
 
 
 // デストラクタ
 Camera::~Camera()
 {
+}
+
+
+/**
+* @brief カメラの更新
+*/
+void Camera::update()
+{
+	// 操作メソッド
+	controller();
+
+	// カメラの位置算出
+	if (pGame)
+		positionAndDirection(pGame->GetPlayer()->getPos());
+
 }
 
 
@@ -77,7 +85,7 @@ void Camera::controller()
 */
 VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 {
-	VECTOR TempMoveVector;
+	VECTOR NewPlayerPos;
 
 	// カメラの角度に合わせて移動ベクトルを回転してから加算
 
@@ -85,22 +93,22 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 	sinParam = sin(hAngle / 180.0f * DX_PI_F);
 	cosParam = cos(hAngle / 180.0f * DX_PI_F);
 	// 移動ベクトルを水平方向に回転して保存
-	TempMoveVector.x = move_vec.x * cosParam - move_vec.z * sinParam;
-	TempMoveVector.y = 0.0f;	// 上下は無視
-	TempMoveVector.z = move_vec.x * sinParam + move_vec.z * cosParam;
+	NewPlayerPos.x = move_vec.x * cosParam - move_vec.z * sinParam;
+	NewPlayerPos.y = 0.0f;	// 上下は無視
+	NewPlayerPos.z = move_vec.x * sinParam + move_vec.z * cosParam;
 
-	playerPos = VAdd(player_pos, TempMoveVector);
+	NewPlayerPos = VAdd(player_pos, NewPlayerPos);
 
 	// pCollider->Chara_Collision(&playerPos, pEnemy, &TempMoveVector);
 
-	return playerPos;
+	return NewPlayerPos;
 }
 
 
 /**
 * @brief 位置算出メソッド
 */
-void Camera::setPositionAndDirection(VECTOR player_pos)
+void Camera::positionAndDirection(VECTOR player_pos)
 {
 	VECTOR VerticalAnglePos;	// 垂直角度を反映した位置
 	VECTOR HorizontalAnglePos;	// 水平角度を反映した位置
@@ -141,13 +149,4 @@ void Camera::setPositionAndDirection(VECTOR player_pos)
 float Camera::getHorizontalAngle()
 {
 	return hAngle;
-}
-
-
-/**
-* @brief カメラ垂直角度を取得して返す
-*/
-float Camera::getVerticalAngle()
-{
-	return vAngle;
 }

@@ -6,12 +6,6 @@
 */
 Grid::Grid()
 {
-    // Horizontal
-    startHorizontal = VGet(0.f, 0.f, 0.f);
-    endHorizontal = VGet(0.f, 0.f, 0.f);
-    // Vertical
-    startVertical = VGet(0.f, 0.f, 0.f);
-    endVertical = VGet(0.f, 0.f, 0.f);
 }
 
 
