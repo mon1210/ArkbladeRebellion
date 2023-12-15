@@ -39,9 +39,11 @@ public:
 	Game(SceneManager* pSystem);
 	virtual ~Game(void);
 	virtual GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
-	virtual void draw() override;		// 描画メソッド
-	virtual Collision *GetCollision();	// 当たり判定用のCollisionを返す
-	virtual Radar *GetRadar();			// 当たり判定用のRadarを返す
+	virtual void draw() override;					// 描画メソッド
+	virtual ModelManager *GetModelManager();		// 
+	virtual Collision *GetCollision();				// 当たり判定用のCollisionを返す
+	virtual Radar *GetRadar();						// 当たり判定用のRadarを返す
+	virtual BG	*GetBG();							// 
 protected:
 	SceneManager *System;
 	Player		 *pPlayer;
@@ -52,8 +54,7 @@ protected:
 	Grid		 *pGrid;
 	Collision	 *pCollision;
 	Radar		 *pRadar;
-	StagePhase	Phase;
-	bool		bPause;		//	ポーズボタン連打防止フラグ
-	int			Timer;
-	int			tileHandle;
+	StagePhase	 Phase;
+	bool		 bPause;		//	ポーズボタン連打防止フラグ
+	int			 Timer;
 };

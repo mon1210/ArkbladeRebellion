@@ -23,26 +23,16 @@ Game::Game(SceneManager* pSystem)
 	bPause = true;
 
 	Timer = 0;
-	tileHandle = 0;
 
 	// インスタンス化
 	pModelManager = new ModelManager();
 	pCamera = new Camera();
-	pCollision = new Collision();	// 必ずPlayerより上に書く
-	pRadar = new Radar();		// 必ずPlayerより上に書く
+	pCollision = new Collision(this);	// 必ずPlayerより上に書く
+	pRadar = new Radar();				// 必ずPlayerより上に書く
+	pBG = new BG(this);
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
-	pBG = new BG();
 	pGrid = new Grid();
-
-	// モデルセット
-	pModelManager->loadModel();
-	pBG->setTileModel(pModelManager->getTileModel());
-	pPlayer->setModel(pModelManager->getPlayerModel());
-	pEnemy->setModel(pModelManager->getEnemyModel());
-	pEnemy->setTileModel(pBG->getModelHandle());
-	pCollision->setTileModel(pBG->getModelHandle());
-	tileHandle = pBG->getModelHandle();
 }
 
 
@@ -73,7 +63,7 @@ GameSceneResultCode Game::move()
 	switch (Phase)
 	{
 	case STAGE_INIT:
-		pCollision->initCollision(tileHandle);
+		pCollision->initCollision(pBG->getModelHandle());
 		pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		Phase = STAGE_RUN;
 		break;
@@ -198,6 +188,15 @@ void Game::draw()
 
 
 /**
+* @brief ModelManagerを取得して返す
+*/
+ModelManager* Game::GetModelManager()
+{
+	return pModelManager;
+}
+
+
+/**
 * @brief Collisionを取得して返す
 */
 Collision *Game::GetCollision()
@@ -212,4 +211,13 @@ Collision *Game::GetCollision()
 Radar *Game::GetRadar()
 {
 	return pRadar;
+}
+
+
+/**
+* @brief BGを取得して返す
+*/
+BG* Game::GetBG()
+{
+	return pBG;
 }
