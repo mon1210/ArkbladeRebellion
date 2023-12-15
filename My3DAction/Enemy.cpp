@@ -4,7 +4,7 @@
 /**
 * @brief Enemyのコンストラクタ
 */
-Enemy::Enemy(Game *parent)
+Enemy::Enemy(Game *Game_)
 {
     animNo = 0;
     count = 0;
@@ -15,7 +15,14 @@ Enemy::Enemy(Game *parent)
     hitPoint = 1.f;
     vecLength = 0.f;
 
-    pRadar = NULL;
+    pGame = NULL;
+    pGame = Game_;
+
+    // モデル取得
+    if (pGame != NULL) {
+        animHandle = pGame->GetModelManager()->getEnemyModel();
+        tileHandle = pGame->GetBG()->getModelHandle();
+    }
 
     angle = ENEMY_START_ROTATE_Y;
 
@@ -24,8 +31,6 @@ Enemy::Enemy(Game *parent)
     playerPos = VGet(0.f, 0.f, 0.f);
 
     animTime = MV1GetAnimTotalTime(animHandle, 0);
-
-    pRadar = parent->GetRadar();
 
     currentState = EnemyState::Wait;
 
@@ -93,8 +98,8 @@ void Enemy::update()
     // enemyとplayerの距離ベクトルの更新
     updateEnemyToPlayerVec();
 
-    // Rader
-    pRadar->addPoint(position.x, position.z, eRadar::Enemy);
+    // RaderのPointに追加
+    pGame->GetRadar()->addPoint(position.x, position.z, eRadar::Enemy);
 
     // アニメーションタイマーリセット
     if (IsAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
@@ -141,15 +146,6 @@ void Enemy::Wait()
         animationHandle(eEnemy::Run);
     }
 
-}
-
-
-/**
-* @brief 床モデルをセットする
-*/
-void Enemy::setTileModel(int model)
-{
-    tileHandle = model;
 }
 
 
@@ -299,15 +295,6 @@ bool Enemy::isTargetVisible()
     }
     
     return false;
-}
-
-
-/**
-* @brief エネミーモデルをセットする
-*/
-void Enemy::setModel(int model)
-{
-    animHandle = model;
 }
 
 
