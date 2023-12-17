@@ -27,7 +27,17 @@ const float CAMERA_FULL_CIRCLE_DEGREES = 360.f;	// 完全な円の角度
 const int SPATIAL_PARTITION = 32;				// 空間分割数
 const float CHARA_HIT_HEIGHT = 250.f;			// 当たり判定の大きさ
 const float CHARA_HIT_WIDTH = 50.f;				// 当たり判定カプセルの半径
-const float CHARA_HIT_PUSH_POWER = 20.f;		// 
+const float CHARA_HIT_PUSH_POWER = 20.f;		// 当たった際に押し戻される力
+//const float PLAYER_WIDTH = 50.f;				// プレイヤーの横幅
+//const float PLAYER_DEPTH = 50.f;				// プレイヤーの薄さ
+//const float PLAYER_HEIGHT = 270.f;				// プレイヤーの高さ
+//const float ENEMY_WIDTH = 120.f;				// エネミーの横幅
+//const float ENEMY_DEPTH = 100.f;				// エネミーの薄さ
+//const float ENEMY_DEPTH_BACK = ENEMY_DEPTH / 2;	// エネミーの薄さ　後ろ側　前のめりなため
+//const float ENEMY_HEIGHT = 270.f;				// エネミーの高さ
+const float PLAYER_CAP_RADIUS = 55.f;			// プレイヤーの当たり判定カプセルの半径
+const float ENEMY_CAP_RADIUS = 100.f;			// エネミーの当たり判定カプセルの半径
+const float CAP_HEIGHT = 215.f;					// カプセルの高さ
 // 以上Collision用定数=============================================================================================== //
 
 
