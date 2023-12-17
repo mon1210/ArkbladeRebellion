@@ -145,6 +145,8 @@ void Game::draw()
 				pEnemy->draw();
 			if (pRadar)
 				pRadar->draw();
+			if (pCollision)
+				pCollision->debugCapColDraw();	    // デバッグ用当たり判定カプセル描画
 			//if (m_pUI)
 			//	m_pUI->draw(pRenderTarget);
 			break;
@@ -218,4 +220,13 @@ Player *Game::GetPlayer()
 Camera *Game::GetCamera()
 {
 	return pCamera;
+}
+
+
+/**
+* @brief Enemyを取得して返す
+*/
+Enemy* Game::GetEnemy() 
+{
+	return pEnemy;
 }

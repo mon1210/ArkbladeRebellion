@@ -40,12 +40,13 @@ public:
 	~Game(void);
 	GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	void draw() override;					// 描画メソッド
-	ModelManager *GetModelManager();		// Modelを取得して返す
-	Collision *GetCollision();				// Collisionを取得して返す
-	Radar *GetRadar();						// Radarを取得して返す
-	BG	*GetBG();							// BGを取得して返す
-	Player *GetPlayer();					// Playerを取得して返す
-	Camera *GetCamera();					// Cameraを取得して返す
+	ModelManager	*GetModelManager();		// Modelを取得して返す
+	Collision		*GetCollision();		// Collisionを取得して返す
+	Radar			*GetRadar();			// Radarを取得して返す
+	BG				*GetBG();				// BGを取得して返す
+	Player			*GetPlayer();			// Playerを取得して返す
+	Camera			*GetCamera();			// Cameraを取得して返す
+	Enemy			*GetEnemy();			// Enemyを取得して返す
 protected:
 	SceneManager *System = NULL;
 	Player		 *pPlayer = NULL;
