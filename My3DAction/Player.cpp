@@ -176,9 +176,15 @@ void Player::update()
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
     // 移動した場合の当たり判定更新と座標セット
-    if (moveFlag) {
-        VECTOR newPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);        // 移動後の座標取得
-        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);  // 当たり判定更新
+    if (moveFlag && pGame) {
+        // エネミー座標取得
+        VECTOR enemy = pGame->GetEnemy()->getPos();
+        // エネミーとの当たり判定
+        pGame->GetCollision()->charaCapCol(position, moveVec, enemy, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
+        // 移動後の座標取得
+        VECTOR newPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
+        // 当たり判定更新
+        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);
     }
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
@@ -225,15 +231,9 @@ void Player::draw()
     // 3Dモデルに座標をセット
     MV1SetPosition(animHandle, position);
 
-
     //VECTOR rotate = MV1GetRotationXYZ(anim_handle);
     //int nRotateY = static_cast<int>(rotate.y);
     //DrawFormatString(0, 0, GetColor(0, 0, 0), "nRotateY:%d",nRotateY);
-
-
-    // 
-    //pCollider->draw(position, VAdd(position, VGet(0.0f, CHARA_HIT_HEIGHT, 0.0f)),
-    //    CHARA_HIT_WIDTH, 50, GetColor(0, 255, 0), GetColor(255, 255, 255), FALSE);
 
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
