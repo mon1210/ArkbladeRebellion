@@ -106,6 +106,7 @@ void Enemy::update()
     // これがないとアニメーションしない
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
+
 }
 
 
@@ -168,7 +169,7 @@ void Enemy::Move()
     new_pos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
     MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-        tileHandle,				                         // 判定対象となるモデルのフレーム
+        tileHandle,				                        // 判定対象となるモデルのフレーム
         -1,												// 対象となるフレーム番号
         new_pos,										// Rayの始点   モデルの足元
         VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
@@ -227,7 +228,12 @@ void Enemy::Chase()
     // 単位ベクトルをスカラー倍、移動速度に
     VECTOR velocity = VScale(direction, ENEMY_MOVE_SPEED);
 
+    // 移動先までのベクトル取得
     VECTOR new_pos = VAdd(velocity, position);
+
+    //VECTOR playerPos = pGame->GetPlayer()->getPos();
+    //pGame->GetCollision()->charaCapCol(position, new_pos, playerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
+
     new_pos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
     MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
@@ -319,7 +325,6 @@ void Enemy::draw()
 
     // ３Ｄモデルの描画
     MV1DrawModel(animHandle);
-
 }
 
 
