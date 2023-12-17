@@ -68,6 +68,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画対象を裏のキャンバスに指定
 
+	// ZBuffer設定
+	SetUseZBuffer3D(true);
+	// ZBuffer書き込み設定
+	SetWriteZBuffer3D(true);
+
 	// カメラの描画距離   SetCameraNearFar(最短距離,最長距離)
 	SetCameraNearFar(0.f, CAMERA_FAR_DISTANCE);
 
