@@ -1364,3 +1364,20 @@
 //}
 //
 //
+
+
+//// 引数でそれぞれのposと縦幅、横幅、高さをいれる
+//void Collision::debugColDraw(VECTOR pos, float WIDTH, float DEPTH, float DEPTH_BACK, float HEIGHT)
+//{
+//	// 足元の四角形を作る -----
+//	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z + DEPTH_BACK), VGet(pos.x + WIDTH, 0.f, pos.z - DEPTH), RED);//右
+//	DrawLine3D(VGet(pos.x - WIDTH, 0.f, pos.z + DEPTH_BACK), VGet(pos.x - WIDTH, 0.f, pos.z - DEPTH), RED);//左
+//	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z + DEPTH_BACK), VGet(pos.x - WIDTH, 0.f, pos.z + DEPTH_BACK), RED);//前
+//	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z - DEPTH), VGet(pos.x - WIDTH, 0.f, pos.z - DEPTH), RED);//後
+//
+//	// 縦の線を作る ----
+//	DrawLine3D(VGet(pos.x - WIDTH, 0.f, pos.z + DEPTH_BACK), VGet(pos.x - WIDTH, pos.y + HEIGHT, pos.z + DEPTH_BACK), RED);//左前
+//	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z + DEPTH_BACK), VGet(pos.x + WIDTH, pos.y + HEIGHT, pos.z + DEPTH_BACK), RED);//右前
+//	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z - DEPTH), VGet(pos.x + WIDTH, pos.y + HEIGHT, pos.z - DEPTH), RED);//右後
+//	DrawLine3D(VGet(pos.x - WIDTH, 0.f, pos.z - DEPTH), VGet(pos.x - WIDTH, pos.y + HEIGHT, pos.z - DEPTH), RED);//左後
+//}
