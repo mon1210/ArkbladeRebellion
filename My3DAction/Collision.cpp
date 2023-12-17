@@ -5,8 +5,11 @@
 */
 Collision::Collision(Game *Game_)
 {
-	if (Game_)
-		tileHandle = Game_->GetModelManager()->getTileModel();
+	pGame = Game_;
+
+	if (pGame)
+		tileHandle = pGame->GetModelManager()->getTileModel();
+
 }
 
 
@@ -30,61 +33,6 @@ void Collision::initCollision(int handle)
 		SPATIAL_PARTITION,	// Y軸の空間分割数
 		SPATIAL_PARTITION	// Z軸の空間分割数
 	);
-}
-
-
-// キャラ同士の当たり判定
-void Collision::chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* moveVec)
-{
-	VECTOR ChkChToChVec;
-	VECTOR PushVec;
-	VECTOR ChPosition;
-	float Length;
-
-	// 移動後の ch の座標を算出
-	ChPosition = VAdd(*player, *moveVec);
-
-	// 
-	if (HitCheck_Capsule_Capsule(
-		ChPosition, VAdd(ChPosition, VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH,
-		enemy->getPos(), VAdd(enemy->getPos(), VGet(0.f, CHARA_HIT_HEIGHT, 0.f)), CHARA_HIT_WIDTH) == TRUE)
-	{
-		// 当たっていたらプレイヤー押し戻し
-
-		// chk_ch から ch へのベクトルを算出
-		ChkChToChVec = VSub(ChPosition, enemy->getPos());
-
-		// Ｙ軸は見ない
-		ChkChToChVec.y = 0.f;
-
-		// 二人の距離を算出
-		Length = VSize(ChkChToChVec);
-
-		// chk_ch から ch へのベクトルを正規化( ベクトルの長さを 1.0f にする )
-		PushVec = VScale(ChkChToChVec, 1.0f / Length);
-
-		// 押し出す距離を算出、もし二人の距離から二人の大きさを引いた値に押し出し力を足して離れてしまう場合は、ぴったりくっつく距離に移動する
-		if (Length - CHARA_HIT_WIDTH * 2.0f + CHARA_HIT_PUSH_POWER > 0.0f)
-		{
-			float TempY;
-
-			TempY = ChPosition.y;
-			ChPosition = VAdd(*player, VScale(PushVec, CHARA_HIT_WIDTH * 2.0f));
-
-			// Ｙ座標は変化させない
-			ChPosition.y = TempY;
-		}
-		else
-		{
-			// 押し出し
-			ChPosition = VAdd(ChPosition, VScale(PushVec, CHARA_HIT_PUSH_POWER));
-		}
-	}
-
-	// 当たり判定処理後の移動ベクトルをセット
-	*moveVec = VSub(ChPosition, *player);
-
-
 }
 
 
@@ -124,24 +72,76 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 }
 
 
-// 
-void Collision::draw(VECTOR start, VECTOR end, float radius, int polygon, int difColor, int spcColor, int flag)
+/**
+* @brief デバッグ用　キャラ同士のカプセル描画メソッド
+* @note  Gameで毎フレーム呼び出している
+*/
+void Collision::debugCapColDraw()
+{
+	// player
+	VECTOR Pos = pGame->GetPlayer()->getPos();
+	DrawCapsule3D(Pos, VGet(Pos.x, Pos.y + CAP_HEIGHT, Pos.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+	// enemy
+	VECTOR ePos = pGame->GetEnemy()->getPos();
+	DrawCapsule3D(ePos, VGet(ePos.x, ePos.y + CAP_HEIGHT, ePos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+}
+
+
+/**
+* @brief キャラ同士のカプセル当たり判定メソッド
+* @note  playerの移動時に呼び出している
+* @param[in] pos1　			移動しているキャラの座標
+* @param[in] pos1_move_vec　移動しているキャラの移動ベクトル
+* @param[in] pos2　			当たられる側の座標
+* @param[in] CAP1_HEIGHT　	pos1のカプセルの高さ
+* @param[in] CAP2_HEIGHT　	pos2のカプセルの高さ
+* @param[in] CAP1_RADIUS　	pos1のカプセルの半径
+* @param[in] CAP2_RADIUS　	pos2のカプセルの半径
+*/
+void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS)
 {
 
-	VECTOR dir = VSub(end, start);
-	float length = VSize(dir);
+	// 移動後の ch の座標を算出
+	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);
 
-	// カプセル中心線
-	DrawLine3D(start, end, difColor);
+	// 二つのカプセルで当たり判定
+	if (HitCheck_Capsule_Capsule(
+		pos1, VGet(pos1.x, pos1.y + CAP1_HEIGHT, pos1.z), CAP1_RADIUS,
+		pos2, VGet(pos2.x, pos2.y + CAP2_HEIGHT, pos2.z), CAP2_RADIUS) == TRUE)
+	{
+		// pos2 から pos1 へのベクトルを算出
+		VECTOR Pos2ToPos1Vec = VSub(NewPos1, pos2);
 
-	// 座標 ( 320.0f, 100.0f, 0.0f ) と ( 320.0f, 300.0f, 0.0f ) を２点とする
-    // 半径 40.0f のカプセルを描画する
-	// DrawCapsule3D(VGet(320.0f, 100.0f, 0.0f), VGet(320.0f, 300.0f, 0.0f), 40.0f, 8, GetColor(255, 255, 0), FALSE);
-	
-	// カプセルの上半分
-	DrawCapsule3D(start, VGet(length / 2, 0.f, 0.f), radius, polygon, difColor, spcColor, flag);
+		// Ｙ軸は見ない
+		Pos2ToPos1Vec.y = 0.f;
 
-	// カプセルの下半分
-	DrawCapsule3D(end, VGet(length / 2, 0.f, 0.f), radius, polygon, difColor, spcColor, flag);
+		// 二人の距離を算出
+		float length = VSize(Pos2ToPos1Vec);
+
+		// pos2 から pos1 へのベクトルを正規化( ベクトルの長さを 1.0f にする )
+		VECTOR pushVec = VScale(Pos2ToPos1Vec, 1.f / length);
+
+		// 押し出す距離を算出 ------
+		// 二人の距離から二人の大きさを引いた値に押し出し力を足しても離れてしまう場合は、ぴったりくっつく距離に移動する
+		if (length - (CAP2_RADIUS * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
+		{
+			float TempY;	// コピー用
+
+			TempY = NewPos1.y;	// Y軸をコピー
+			NewPos1 = VAdd(pos1, VScale(pushVec, CAP2_RADIUS * 2.f));
+
+			// Y座標は変化させない
+			NewPos1.y = TempY;
+
+		}
+		else
+		{
+			// 押し出し
+			NewPos1 = VAdd(NewPos1, VScale(pushVec, CHARA_HIT_PUSH_POWER));
+		}
+	}
+
+	// 当たり判定処理後の移動ベクトルをセット
+	pos1_move_vec = VSub(NewPos1, pos1);
 
 }

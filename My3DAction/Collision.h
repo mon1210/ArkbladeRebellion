@@ -5,12 +5,9 @@
 */
 #pragma once
 #include "DxLib.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "Game.h"
 
 // クラスの前方宣言
-class Enemy;
 class Game;
 
 class Collision
@@ -18,13 +15,13 @@ class Collision
 public:
 	Collision(Game *Game_);
 	~Collision();
-	virtual void initCollision(int handle);	// 当たり判定を付与する　一度だけStageで呼び出す　今はタイルのみ
-
-	// 以下3つ未完成
-	virtual void chara_Collision(VECTOR* player, Enemy* enemy, VECTOR* move_vec);	// キャラ同士の当たり判定
-	virtual void clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);	// プレイヤー移動時のステージとの当たり判定メソッド
-	virtual void draw(VECTOR start, VECTOR end, float radius, int polygon, int dif_color, int spc_color, int flag);
+	void initCollision(int handle);														// 当たり判定を付与する　一度だけStageで呼び出す　今はタイルのみ
+	void clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);		// プレイヤー移動時のステージとの当たり判定メソッド
+	void debugCapColDraw();																// デバッグ用　キャラ同士のカプセル描画メソッド
+	void charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, 
+		float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS);	// キャラ同士のカプセル当たり判定メソッド
 protected:
+	Game *pGame = NULL;
 	int tileHandle = 0;
 
 };
