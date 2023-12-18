@@ -43,18 +43,21 @@ enum StagePhase
 	STAGE_DONE = 4,
 };
 
-// プレイヤーモデルのアニメーション番号
+// プレイヤーモデルのアニメーション番号		Todo　アニメーション番号がとびとびにならないようにする
 namespace ePlayer
 {
 	enum AnimationNum
 	{
 		Default = -1,	// -1代入用
-		Idle = 1,
-		Run,
+		Drinking = 40,
+		Idle,
 		Roll,
-		Drinking,
-		Dying = 11
-
+		Run,
+		Dying = 20,
+		Damage = 48,
+		Slash1,
+		Slash2,
+		Slash3,
 	};
 }
 
