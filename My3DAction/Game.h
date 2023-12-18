@@ -13,6 +13,7 @@
 #include "Grid.h"
 #include "Collision.h"
 #include "Radar.h"
+#include "UI.h"
 #include "Constants.h"
 
 // クラスの前方宣言
@@ -25,6 +26,7 @@ class BG;
 class Grid;
 class Collision;
 class Radar;
+class UI;
 
 
 class Game : public IGameScene
@@ -53,6 +55,7 @@ protected:
 	Grid		 *pGrid = NULL;
 	Collision	 *pCollision = NULL;
 	Radar		 *pRadar = NULL;
+	UI			 *pUI = NULL;
 	StagePhase	 Phase = STAGE_INIT;		// 状態を表す
 	bool		 bPause = false;			// ポーズボタン連打防止フラグ
 	int			 Timer = 0;
