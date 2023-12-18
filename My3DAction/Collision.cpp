@@ -85,15 +85,7 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 */
 void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS)
 {
-#ifdef _DEBUG
-	// “–‚½‚è”»’èƒJƒvƒZƒ‹•`‰æ
-	// player
-	VECTOR Pos = pGame->GetPlayer()->GetPos();
-	DrawCapsule3D(Pos, VGet(Pos.x, Pos.y + CAP_HEIGHT, Pos.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
-	// enemy
-	VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
-	DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
-#endif
+
 
 
 

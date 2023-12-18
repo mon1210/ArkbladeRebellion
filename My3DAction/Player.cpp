@@ -240,6 +240,15 @@ void Player::draw()
     // 3Dƒ‚ƒfƒ‹‚Ì•`‰æ
     MV1DrawModel(animHandle);
 
+#ifdef _DEBUG
+    // “–‚½‚è”»’èƒJƒvƒZƒ‹•`‰æ
+    // player
+    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+    // enemy
+    VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
+    DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+#endif
+
 }
 
 
