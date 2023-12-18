@@ -27,15 +27,17 @@ public:
 	bool move() override;							// エネミーのアニメーションメソッド　true:生存 / false:死亡
 	void draw() override;							// 描画メソッド
 	void update() override;							// 状態管理とdraw呼び出し　毎フレーム呼び出される
-	VECTOR getPos() override;						// 座標取得メソッド
 	bool isTargetVisible();							// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	void animationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
-	void updateEnemyToPlayerVec();					// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す}
+	void updateEnemyToPlayerVec();					// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+	// 以下取得用定数===================================================================== //
+	VECTOR GetPos() override;						// 座標取得メソッド
+	// 以上取得用定数===================================================================== //
 private:
 	// 状態ごとのメソッド
-	virtual void Wait();
-	virtual void Move();
-	virtual void Chase();
+	virtual void Wait();	// 待機
+	virtual void Move();	// 移動
+	virtual void Chase();	// 追跡
 protected:
 	Game	*pGame = NULL;
 	VECTOR  enemyToPlayer = VGet(0.f, 0.f, 0.f);	// エネミーからプレイヤーまでの距離
@@ -43,5 +45,5 @@ protected:
 	int		count = 0;								// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;						// ベクトルの長さ保存用
 
-	EnemyState currentState = EnemyState::Wait;
+	EnemyState currentState = EnemyState::Wait;		// 状態を表す
 };

@@ -12,10 +12,12 @@ class CharaBase
 {
 public:
 	virtual ~CharaBase();
-	virtual bool move() = 0;
-	virtual void draw() = 0;
-	virtual void update() = 0;
-	virtual VECTOR getPos() = 0;
+	virtual bool move() = 0;				// アニメーションメソッド　true:生存 / false:死亡
+	virtual void draw() = 0;				// 描画メソッド
+	virtual void update() = 0;				// 更新メソッド
+	// 以下取得用定数===================================================================== //
+	virtual VECTOR GetPos() = 0;			// 座標を取得して返す
+	// 以上取得用定数===================================================================== //
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);	// 座標
 	int		animHandle = 0;					// モデルハンドル

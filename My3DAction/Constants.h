@@ -23,10 +23,9 @@ const float CAMERA_FULL_CIRCLE_DEGREES = 360.f;	// 完全な円の角度
 // 以上Camera用定数================================================================================================== //
 
 
-// 以上Collision用定数=============================================================================================== //
+// 以下Collision用定数=============================================================================================== //
 const int SPATIAL_PARTITION = 32;				// 空間分割数
-const float CHARA_HIT_HEIGHT = 250.f;			// 当たり判定の大きさ
-const float CHARA_HIT_WIDTH = 50.f;				// 当たり判定カプセルの半径
+const float CHARA_HEIGHT = 250.f;				// 当たり判定の大きさ
 const float CHARA_HIT_PUSH_POWER = 20.f;		// 当たった際に押し戻される力
 //const float PLAYER_WIDTH = 50.f;				// プレイヤーの横幅
 //const float PLAYER_DEPTH = 50.f;				// プレイヤーの薄さ

@@ -25,7 +25,7 @@ void Camera::update()
 
 	// カメラの位置算出
 	if (pGame)
-		positionAndDirection(pGame->GetPlayer()->getPos());
+		positionAndDirection(pGame->GetPlayer()->GetPos());
 
 }
 
@@ -146,7 +146,7 @@ void Camera::positionAndDirection(VECTOR player_pos)
 /**
 * @brief カメラ水平角度を取得して返す
 */
-float Camera::getHorizontalAngle()
+float Camera::GetHorizontalAngle()
 {
 	return hAngle;
 }

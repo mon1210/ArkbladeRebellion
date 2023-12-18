@@ -8,7 +8,7 @@ Collision::Collision(Game *Game_)
 	pGame = Game_;
 
 	if (pGame)
-		tileHandle = pGame->GetModelManager()->getTileModel();
+		tileHandle = pGame->GetModelManager()->GetTileModel();
 
 }
 
@@ -45,17 +45,17 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
-	MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-		tileHandle,									    // 判定対象となるモデルのフレーム
-		-1,												// 対象となるフレーム番号
-		new_pos,										// Rayの始点   モデルの足元
-		VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
+	MV1_COLL_RESULT_POLY Result = MV1CollCheck_Line(
+		tileHandle,												// 判定対象となるモデルのフレーム
+		-1,														// 対象となるフレーム番号
+		new_pos,												// Rayの始点   モデルの足元
+		VGet(new_pos.x, new_pos.y - CHARA_HEIGHT, new_pos.z)	// Rayの終点   モデルの頭上
 	);
 
-	if (result.HitFlag == 1) // 当たりチェック
+	if (Result.HitFlag == 1) // 当たりチェック
 	{
 		// HitPosition => 交点の座標
-		new_pos.y = result.HitPosition.y;
+		new_pos.y = Result.HitPosition.y;
 		player_pos = new_pos;
 		roll_able = true;
 		// 当たったときにその旨を描画
@@ -79,11 +79,11 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 void Collision::debugCapColDraw()
 {
 	// player
-	VECTOR Pos = pGame->GetPlayer()->getPos();
+	VECTOR Pos = pGame->GetPlayer()->GetPos();
 	DrawCapsule3D(Pos, VGet(Pos.x, Pos.y + CAP_HEIGHT, Pos.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 	// enemy
-	VECTOR ePos = pGame->GetEnemy()->getPos();
-	DrawCapsule3D(ePos, VGet(ePos.x, ePos.y + CAP_HEIGHT, ePos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+	VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
+	DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
 }
 
 
@@ -116,19 +116,19 @@ void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, f
 		Pos2ToPos1Vec.y = 0.f;
 
 		// 二人の距離を算出
-		float length = VSize(Pos2ToPos1Vec);
+		float Length = VSize(Pos2ToPos1Vec);
 
 		// pos2 から pos1 へのベクトルを正規化( ベクトルの長さを 1.0f にする )
-		VECTOR pushVec = VScale(Pos2ToPos1Vec, 1.f / length);
+		VECTOR PushVec = VScale(Pos2ToPos1Vec, 1.f / Length);
 
 		// 押し出す距離を算出 ------
 		// 二人の距離から二人の大きさを引いた値に押し出し力を足しても離れてしまう場合は、ぴったりくっつく距離に移動する
-		if (length - (CAP2_RADIUS * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
+		if (Length - (CAP2_RADIUS * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
 		{
 			float TempY;	// コピー用
 
 			TempY = NewPos1.y;	// Y軸をコピー
-			NewPos1 = VAdd(pos1, VScale(pushVec, CAP2_RADIUS * 2.f));
+			NewPos1 = VAdd(pos1, VScale(PushVec, CAP2_RADIUS * 2.f));
 
 			// Y座標は変化させない
 			NewPos1.y = TempY;
@@ -137,7 +137,7 @@ void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, f
 		else
 		{
 			// 押し出し
-			NewPos1 = VAdd(NewPos1, VScale(pushVec, CHARA_HIT_PUSH_POWER));
+			NewPos1 = VAdd(NewPos1, VScale(PushVec, CHARA_HIT_PUSH_POWER));
 		}
 	}
 

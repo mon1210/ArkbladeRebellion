@@ -10,8 +10,8 @@ Enemy::Enemy(Game *Game_)
 
     // モデル取得
     if (pGame) {
-        animHandle = pGame->GetModelManager()->getEnemyModel();
-        tileHandle = pGame->GetBG()->getModelHandle();
+        animHandle = pGame->GetModelManager()->GetEnemyModel();
+        tileHandle = pGame->GetBG()->GetModelHandle();
     }
 
     angle = ENEMY_START_ROTATE_Y;
@@ -52,7 +52,7 @@ void Enemy::animationHandle(eEnemy::AnimationNum num) {
     if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
     {
         animNo = num;
-        SetAnim(animHandle, animNo, animTime, animTimer);
+        setAnim(animHandle, animNo, animTime, animTimer);
     }
 };
 
@@ -63,7 +63,7 @@ void Enemy::animationHandle(eEnemy::AnimationNum num) {
 */
 void Enemy::updateEnemyToPlayerVec() 
 {
-    enemyToPlayer = VSub(pGame->GetPlayer()->getPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
+    enemyToPlayer = VSub(pGame->GetPlayer()->GetPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
     vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z); // 距離ベクトルの長さ
 }
 
@@ -99,7 +99,7 @@ void Enemy::update()
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::Enemy);
 
     // アニメーションタイマーリセット
-    if (IsAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
+    if (isAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
         animTimer = 0.f;
 
     // モデルにタイマーセット
@@ -154,32 +154,32 @@ void Enemy::Move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
     // ベクトル算出
-    float rad = angle * DX_PI_F / 180.f;
+    float Rad = angle * DX_PI_F / 180.f;
     // 三次元ベクトルの生成
-    VECTOR vec = VGet(sinf(rad), 0.f, cosf(rad));
+    VECTOR Vec = VGet(sinf(Rad), 0.f, cosf(Rad));
     // -1を乗算することでベクトルが逆転
-    vec = VScale(vec, -1.f);
+    Vec = VScale(Vec, -1.f);
 
     // 座標変更
     // ベクトルの大きさを乗算、移動速度に
-    vec = VScale(vec, ENEMY_MOVE_SPEED);
+    Vec = VScale(Vec, ENEMY_MOVE_SPEED);
     // 移動先までのベクトル取得
-    VECTOR new_pos = VAdd(vec, position);
+    VECTOR NewPos = VAdd(Vec, position);
 
-    new_pos.y += 1.0f;  // これがないと左右,下に移動できない
+    NewPos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
-    MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-        tileHandle,				                        // 判定対象となるモデルのフレーム
-        -1,												// 対象となるフレーム番号
-        new_pos,										// Rayの始点   モデルの足元
-        VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
+    MV1_COLL_RESULT_POLY Result = MV1CollCheck_Line(
+        tileHandle,				                             // 判定対象となるモデルのフレーム
+        -1,												        // 対象となるフレーム番号
+        NewPos,										        // Rayの始点   モデルの足元
+        VGet(NewPos.x, NewPos.y - CHARA_HEIGHT, NewPos.z)	// Rayの終点   モデルの頭上
     );
 
-    if (result.HitFlag == 1) // 当たりチェック
+    if (Result.HitFlag == 1) // 当たりチェック
     {
         // HitPosition => 交点の座標
-        new_pos.y = result.HitPosition.y;
-        position = new_pos;
+        NewPos.y = Result.HitPosition.y;
+        position = NewPos;
         if (isTargetVisible() == true)
         {
             currentState = EnemyState::Chase;
@@ -223,36 +223,36 @@ void Enemy::Chase()
     if (vecLength <= 0.f) { return; }
 
     // ベクトルを単位ベクトルに
-    VECTOR direction = VGet(enemyToPlayer.x / vecLength, 0.f, enemyToPlayer.z / vecLength);
+    VECTOR Direction = VGet(enemyToPlayer.x / vecLength, 0.f, enemyToPlayer.z / vecLength);
 
     // 単位ベクトルをスカラー倍、移動速度に
-    VECTOR velocity = VScale(direction, ENEMY_MOVE_SPEED);
+    VECTOR Velocity = VScale(Direction, ENEMY_MOVE_SPEED);
 
     // 移動先までのベクトル取得
-    VECTOR new_pos = VAdd(velocity, position);
+    VECTOR NewPos = VAdd(Velocity, position);
 
     //VECTOR playerPos = pGame->GetPlayer()->getPos();
     //pGame->GetCollision()->charaCapCol(position, new_pos, playerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
 
-    new_pos.y += 1.0f;  // これがないと左右,下に移動できない
+    NewPos.y += 1.0f;  // これがないと左右,下に移動できない
     // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
-    MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-        tileHandle,				                       // 判定対象となるモデルのフレーム
-        -1,												// 対象となるフレーム番号
-        new_pos,										// Rayの始点   モデルの足元
-        VGet(new_pos.x, new_pos.y - 250.f, new_pos.z)	// Rayの終点   モデルの頭上
+    MV1_COLL_RESULT_POLY Result = MV1CollCheck_Line(
+        tileHandle,				                                // 判定対象となるモデルのフレーム
+        -1,												        // 対象となるフレーム番号
+        NewPos,										        // Rayの始点   モデルの足元
+        VGet(NewPos.x, NewPos.y - CHARA_HEIGHT, NewPos.z)	// Rayの終点   モデルの頭上
     );
 
-    if (result.HitFlag == 1) // 当たりチェック
+    if (Result.HitFlag == 1) // 当たりチェック
     {
         // HitPosition => 交点の座標
-        new_pos.y = result.HitPosition.y;
+        NewPos.y = Result.HitPosition.y;
         // if(length >= ENEMY_SPEED)
-        position = new_pos;
+        position = NewPos;
     }
 
     // 逆三角関数を使用　ベクトルからエネミーに対するプレイヤーの角度を求める
-    angle = atan2f(-velocity.x, -velocity.z);
+    angle = atan2f(-Velocity.x, -Velocity.z);
 
     // 遷移
     /*
@@ -331,7 +331,7 @@ void Enemy::draw()
 /**
 * @brief エネミー座標を取得して返す
 */
-VECTOR Enemy::getPos()
+VECTOR Enemy::GetPos()
 {
     return  position;
 }
