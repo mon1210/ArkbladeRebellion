@@ -5,6 +5,8 @@
 */
 Player::Player(Game *Game_)
 {
+    hitPoint = MAX_HP;
+
     pGame = Game_;
     
     // ƒ‚ƒfƒ‹æ“¾
@@ -211,6 +213,8 @@ bool Player::move()
 #ifdef _DEBUG
     // O‚ÅƒQ[ƒ€‰æ–ÊI—¹
     if (CheckHitKey(KEY_INPUT_O)) { return false; }
+    // L‚ÅHPŒ¸­
+    if (CheckHitKey(KEY_INPUT_L)) { hitPoint -= HP_CHANGE_AMOUNT; }
 #endif
 
     return true;
@@ -258,4 +262,13 @@ void Player::draw()
 VECTOR Player::GetPos()
 {   
     return position;
+}
+
+
+/**
+* @brief Hp‚ğæ“¾‚µ‚Ä•Ô‚·
+*/
+float Player::GetHp()
+{
+    return hitPoint;
 }

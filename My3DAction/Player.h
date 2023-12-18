@@ -27,11 +27,12 @@ public:
 		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 	// 以下取得用定数====================================================================== //
 	VECTOR  GetPos() override;								// 座標を取得して返すメソッド
+	float	GetHp();										// 
 	// 以上取得用定数====================================================================== //
 protected:
 	Game	*pGame = NULL;
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);	// 移動の向きベクトル
-	bool	isMove = false;				// 移動フラグ
+	bool	isMove = false;					// 移動フラグ
 	bool	rollAble = true;				// Roll可能フラグ
 };
 
