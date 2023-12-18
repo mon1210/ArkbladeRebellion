@@ -1381,3 +1381,11 @@
 //	DrawLine3D(VGet(pos.x + WIDTH, 0.f, pos.z - DEPTH), VGet(pos.x + WIDTH, pos.y + HEIGHT, pos.z - DEPTH), RED);//右後
 //	DrawLine3D(VGet(pos.x - WIDTH, 0.f, pos.z - DEPTH), VGet(pos.x - WIDTH, pos.y + HEIGHT, pos.z - DEPTH), RED);//左後
 //}
+
+/*---------------------------------------------------------------*
+ * @param[in] handle			 モデルハンドル					 *
+ * @param[in] anim_no			 アニメーションの番号			 *
+ * @param[in] anim_timer		 アニメーションの現在の経過時間	 *
+ * @param[in] anim_time			 アニメーションの総再生時間		 *
+ * @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量 *
+ *---------------------------------------------------------------*/
