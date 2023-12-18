@@ -19,6 +19,7 @@ Game::Game(SceneManager* System_)
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
 	pGrid = new Grid();
+	pUI = new UI(this);
 }
 
 
@@ -36,6 +37,7 @@ Game::~Game()
 	SAFE_DELETE(pCamera);
 	SAFE_DELETE(pModelManager);
 	SAFE_DELETE(pRadar);
+	SAFE_DELETE(pUI);
 }
 
 
@@ -90,6 +92,10 @@ GameSceneResultCode Game::move()
 			if (pEnemy)
 				pEnemy->update();
 		}
+
+		if (pUI)
+			pUI->move();
+
 		break;
 		// --------------------- STAGE_RUN END --------------------- //
 
@@ -144,8 +150,8 @@ void Game::draw()
 		pEnemy->draw();
 	if (pRadar)
 		pRadar->draw();
-	//if (m_pUI)
-	//	m_pUI->draw(pRenderTarget);
+	if (pUI)
+		pUI->draw();
 
 	// フェードアウト描画用
 	switch (Phase)
