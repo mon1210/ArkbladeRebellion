@@ -73,21 +73,6 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 
 
 /**
-* @brief デバッグ用　キャラ同士のカプセル描画メソッド
-* @note  Gameで毎フレーム呼び出している
-*/
-void Collision::debugCapColDraw()
-{
-	// player
-	VECTOR Pos = pGame->GetPlayer()->GetPos();
-	DrawCapsule3D(Pos, VGet(Pos.x, Pos.y + CAP_HEIGHT, Pos.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
-	// enemy
-	VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
-	DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
-}
-
-
-/**
 * @brief キャラ同士のカプセル当たり判定メソッド
 * @note  playerの移動時に呼び出している
 * @param[in] pos1　			移動しているキャラの座標
@@ -100,6 +85,17 @@ void Collision::debugCapColDraw()
 */
 void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS)
 {
+#ifdef _DEBUG
+	// 当たり判定カプセル描画
+	// player
+	VECTOR Pos = pGame->GetPlayer()->GetPos();
+	DrawCapsule3D(Pos, VGet(Pos.x, Pos.y + CAP_HEIGHT, Pos.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+	// enemy
+	VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
+	DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+#endif
+
+
 
 	// 移動後の ch の座標を算出
 	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);

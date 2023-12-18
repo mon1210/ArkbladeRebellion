@@ -17,7 +17,6 @@ public:
 	~Collision();
 	void initCollision(int handle);														// 当たり判定を付与する　一度だけStageで呼び出す　今はタイルのみ
 	void clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able);		// プレイヤー移動時のステージとの当たり判定メソッド
-	void debugCapColDraw();																// デバッグ用　キャラ同士のカプセル描画メソッド
 	void charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, 
 		float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS);	// キャラ同士のカプセル当たり判定メソッド
 protected:
