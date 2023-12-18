@@ -8,7 +8,7 @@
 ModelManager::ModelManager()
 {
     // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-    playerHandle = MV1LoadModel("res\\Player\\PlayerModel2.mv1");
+    playerHandle = MV1LoadModel("res\\Player\\PlayerModel3.mv1");
     enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel2.mv1");
     tileHandle = MV1LoadModel("res\\test_Tile_model.mv1");
 }
