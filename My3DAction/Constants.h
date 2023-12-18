@@ -87,6 +87,7 @@ const float RIGHT_ROTATION_ANGLE = -90.f;		// プレイヤー右移動時の回転角度
 const float LEFT_ROTATION_ANGLE = 90.f;			// プレイヤー左移動時の回転角度
 const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
+const float MAX_HP = 100.f;						// 
 // 以上Player用定数================================================================================================== //
 
 
@@ -122,3 +123,12 @@ const int TITLE_POS_Y = 0;						// TitleのY座標
 const int TITLE_PS_POS_X = 20;					// PressSpaceのX座標
 const int TITLE_PS_POS_Y = 240;					// PressSpaceのY座標
 // 以上Title用定数=================================================================================================== //
+
+
+// 以下UI用定数====================================================================================================== //
+const int HP_BAR_POS_X = 250;					// HPバーのX座標
+const int HP_BAR_POS_Y = 20;					// HPバーのY座標
+const int HP_BAR_WIDTH = 350;					// HPバーの横幅
+const int HP_BAR_HEIGHT = 13;					// HPバーの高さ
+const float HP_CHANGE_AMOUNT = 0.5f;			// HPの変化量　バーの増減速度
+// 以上UI用定数====================================================================================================== //
