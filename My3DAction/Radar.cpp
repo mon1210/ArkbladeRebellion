@@ -27,7 +27,7 @@ void Radar::draw()
 	DrawCircle(uiPosX, uiPosY, radius, WHITE, FALSE);
 
 	// Radarデータ代入
-	RadarData radarData
+	RadarData RadarData
 	{
 		uiPosX,
 		uiPosY,
@@ -42,7 +42,7 @@ void Radar::draw()
 	// Pointの数分、描画メソッド呼び出し
 	for (auto& point : pointList)
 	{
-		point.draw(radarData);
+		point.draw(RadarData);
 	}
 }
 
