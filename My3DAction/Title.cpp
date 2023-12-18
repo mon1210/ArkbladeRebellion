@@ -40,12 +40,12 @@ GameSceneResultCode Title::move()
 		// タイトル画面
 	case TITLE_RUN:
 	{	//	これがないと bDone の初期化でエラーがでる
-		bool bDone = false;
+		bool IsDone = false;
 
 		if (GetAsyncKeyState(VK_SPACE))
 		{
 			if (!titleRunFlag) {
-				bDone = true;
+				IsDone = true;
 				titleRunFlag = true;
 			}
 		}
@@ -54,7 +54,7 @@ GameSceneResultCode Title::move()
 			titleRunFlag = false;
 		}
 		// タイトル終了フラグON
-		if (bDone) {
+		if (IsDone) {
 			FadeTimer = TITLE_DONE_TIME;
 			Phase = TITLE_FADE;
 		}
@@ -93,7 +93,7 @@ void Title::draw()
 	{
 	case TITLE_FADE:
 	case TITLE_DONE:
-		System->FadeOut();
+		System->fadeOut();
 	}
 
 }

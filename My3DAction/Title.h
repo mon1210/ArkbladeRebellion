@@ -4,14 +4,8 @@
 */
 #pragma once
 #include "Constants.h"
+#include "Enums.h"
 #include "IGameScene.h"
-
-enum TitlePhase {
-	TITLE_INIT = 0,
-	TITLE_RUN = 1,
-	TITLE_FADE = 2,
-	TITLE_DONE = 3
-};
 
 // クラスの前方宣言
 class SceneManager;
@@ -26,7 +20,7 @@ public:
 
 protected:
 	SceneManager *System = NULL;
-	TitlePhase	Phase = TITLE_INIT;
+	TitlePhase	Phase = TITLE_INIT;					// 状態を表す
 	bool	titleRunFlag = false;					// Titleの状態を管理するflag
 	INT		FadeTimer = 0;
 };

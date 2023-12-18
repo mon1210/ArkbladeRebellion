@@ -9,7 +9,7 @@ Player::Player(Game *Game_)
     
     // モデル取得
     if (pGame)
-        animHandle = pGame->GetModelManager()->getPlayerModel();
+        animHandle = pGame->GetModelManager()->GetPlayerModel();
 
     angle = PLAYER_START_ROTATE_Y;
 
@@ -51,14 +51,14 @@ void Player::moveHandle(ePlayer::AnimationNum num, float ROTATE_ANGLE, float mov
     if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
     {
         animNo = num;
-        SetAnim(animHandle, animNo, animTime, animTimer);
+        setAnim(animHandle, animNo, animTime, animTimer);
     }
 
     // 移動する向きと速度を設定
     if (animNo == num)
     {
-        angle = ROTATE_ANGLE - pGame->GetCamera()->getHorizontalAngle();
-        moveFlag = true;
+        angle = ROTATE_ANGLE - pGame->GetCamera()->GetHorizontalAngle();
+        isMove = true;
         moveVec.x = move_x;
         moveVec.z = move_z;
     }
@@ -88,49 +88,49 @@ void Player::update()
         // アニメーション、移動動作をセット
         moveHandle(ePlayer::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         // アニメーションタイマーリセット
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Down => Runモーション(3) 下移動
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
         moveHandle(ePlayer::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Right => Runモーション(3) 右移動
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
         moveHandle(ePlayer::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Left => Runモーション(3) 左移動
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
         moveHandle(ePlayer::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Space or PAD_× => Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
         moveHandle(ePlayer::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // 右Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
         moveHandle(ePlayer::Roll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // 左Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
         moveHandle(ePlayer::Roll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // F => Drinking 回復時モーション
@@ -140,9 +140,9 @@ void Player::update()
         if (animNo != ePlayer::Drinking)  // ここがないとanimTimerがうまくリセットされない
         {
             animNo = ePlayer::Drinking;
-            SetAnim(animHandle, animNo, animTime, animTimer);
+            setAnim(animHandle, animNo, animTime, animTimer);
         }
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // G => Dying
@@ -152,22 +152,22 @@ void Player::update()
         if (animNo != ePlayer::Dying)  // ここがないとanimTimerがうまくリセットされない
         {
             animNo = ePlayer::Dying;
-            SetAnim(animHandle, animNo, animTime, animTimer);
+            setAnim(animHandle, animNo, animTime, animTimer);
         }
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Idle
     else
     {
-        moveFlag = false;
+        isMove = false;
         // アニメーションをセット
         if (animNo != ePlayer::Idle)  // ここがないとanimTimerがうまくリセットされない
         {
             animNo = ePlayer::Idle;
-            SetAnim(animHandle, animNo, animTime, animTimer);
+            setAnim(animHandle, animNo, animTime, animTimer);
         }
-        if (IsAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (isAnimationComplete(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
 
@@ -176,24 +176,24 @@ void Player::update()
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
 
     // 移動した場合の当たり判定更新と座標セット
-    if (moveFlag && pGame) {
+    if (isMove && pGame) {
         // エネミー座標取得
-        VECTOR enemy = pGame->GetEnemy()->getPos();
+        VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
         // エネミーとの当たり判定
-        pGame->GetCollision()->charaCapCol(position, moveVec, enemy, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
+        pGame->GetCollision()->charaCapCol(position, moveVec, EnemyPos, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
         // 移動後の座標取得
-        VECTOR newPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
+        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
         // 当たり判定更新
-        pGame->GetCollision()->clampToStageBounds(newPos, position, rollAble);
+        pGame->GetCollision()->clampToStageBounds(NewPos, position, rollAble);
     }
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定
-    float rad = angle * (DX_PI / 180.0f);
-    float front_vec_x = -sinf(rad);
-    float front_vec_z = -cosf(rad);
-    VECTOR frontVector = VGet(front_vec_x, 0.0f, front_vec_z);
-    pGame->GetRadar()->addCenter(position.x, position.z, frontVector.x, frontVector.z);
+    float Rad = angle * (DX_PI / 180.0f);
+    float FrontVecX = -sinf(Rad);
+    float FrontVecZ = -cosf(Rad);
+    VECTOR FrontVector = VGet(FrontVecX, 0.0f, FrontVecZ);
+    pGame->GetRadar()->addCenter(position.x, position.z, FrontVector.x, FrontVector.z);
 }
 
 
@@ -208,8 +208,10 @@ bool Player::move()
         return false;
     }
 
-    // シーン遷移デバッグ用
-    if (CheckHitKey(KEY_INPUT_O))return false;
+#ifdef _DEBUG
+    // Oでゲーム画面終了
+    if (CheckHitKey(KEY_INPUT_O)) { return false; }
+#endif
 
     return true;
 
@@ -244,7 +246,7 @@ void Player::draw()
 /**
 * @brief プレイヤー座標を取得して返す
 */
-VECTOR Player::getPos()
+VECTOR Player::GetPos()
 {   
     return position;
 }

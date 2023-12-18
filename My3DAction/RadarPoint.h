@@ -48,7 +48,7 @@ private:// Radarで使用できないように
 	float newVecZ = 0.f;					// 角度を求めた後のベクトルZ
 	float rate = 0.f;						// Raderの索敵範囲と半径の比率
 
-	eRadar::PointType pointType;
+	eRadar::PointType pointType;			// 種類
 };
 
 #define RED	GetColor(255, 0, 0)

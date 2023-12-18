@@ -15,7 +15,7 @@
 BG::BG(Game *Game_)
 {
 	if (Game_)
-		tileHandle = Game_->GetModelManager()->getTileModel();
+		tileHandle = Game_->GetModelManager()->GetTileModel();
 }
 
 
@@ -28,7 +28,7 @@ BG::~BG()
 /**
 * @brief °ƒ‚ƒfƒ‹‚ğæ“¾‚µ‚Ä•Ô‚·
 */
-int BG::getModelHandle()
+int BG::GetModelHandle()
 {
 	return tileHandle;
 }

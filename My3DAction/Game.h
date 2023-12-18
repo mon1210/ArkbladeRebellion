@@ -7,6 +7,7 @@
 #include "BG.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Enums.h"
 #include "Camera.h"
 #include "ModelManager.h"
 #include "Grid.h"
@@ -25,30 +26,25 @@ class Grid;
 class Collision;
 class Radar;
 
-enum StagePhase {
-	STAGE_INIT = 0,
-	STAGE_RUN = 1,
-	STAGE_PAUSE = 2,
-	STAGE_FADE = 3,
-	STAGE_DONE = 4,
-};
 
 class Game : public IGameScene
 {
 public:
-	Game(SceneManager* pSystem);
+	Game(SceneManager* System_);
 	~Game(void);
 	GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
 	void draw() override;					// 描画メソッド
+	// 以下取得用定数=================================================== //
+	Player			*GetPlayer();			// Playerを取得して返す
+	Enemy			*GetEnemy();			// Enemyを取得して返す
 	ModelManager	*GetModelManager();		// Modelを取得して返す
+	Camera			*GetCamera();			// Cameraを取得して返す
+	BG				*GetBG();				// BGを取得して返す
 	Collision		*GetCollision();		// Collisionを取得して返す
 	Radar			*GetRadar();			// Radarを取得して返す
-	BG				*GetBG();				// BGを取得して返す
-	Player			*GetPlayer();			// Playerを取得して返す
-	Camera			*GetCamera();			// Cameraを取得して返す
-	Enemy			*GetEnemy();			// Enemyを取得して返す
+	// 以上取得用定数=================================================== //
 protected:
-	SceneManager *System = NULL;
+	SceneManager *pSystem = NULL;
 	Player		 *pPlayer = NULL;
 	Enemy		 *pEnemy = NULL;
 	ModelManager *pModelManager = NULL;
@@ -57,7 +53,7 @@ protected:
 	Grid		 *pGrid = NULL;
 	Collision	 *pCollision = NULL;
 	Radar		 *pRadar = NULL;
-	StagePhase	 Phase = STAGE_INIT;
-	bool		 bPause = false;			//	ポーズボタン連打防止フラグ
+	StagePhase	 Phase = STAGE_INIT;		// 状態を表す
+	bool		 bPause = false;			// ポーズボタン連打防止フラグ
 	int			 Timer = 0;
 };

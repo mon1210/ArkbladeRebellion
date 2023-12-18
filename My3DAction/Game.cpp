@@ -6,9 +6,9 @@
 /**
 * @brief Gameのコンストラクタ
 */
-Game::Game(SceneManager* pSystem)
+Game::Game(SceneManager* System_)
 {
-	System = pSystem;
+	pSystem = System_;
 
 	// インスタンス化
 	pModelManager = new ModelManager();
@@ -50,13 +50,15 @@ GameSceneResultCode Game::move()
 	{
 	case STAGE_INIT:
 		if (pCollision)
-			pCollision->initCollision(pBG->getModelHandle());
+			pCollision->initCollision(pBG->GetModelHandle());
 		if (pEnemy)
 			pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		Phase = STAGE_RUN;
 		break;
 
 	case STAGE_RUN:
+		// --------------------- STAGE_RUN START ------------------- //
+
 		//	ポーズ画面呼び出し
 		if (GetAsyncKeyState(0x50))		// P 
 		{
@@ -132,25 +134,20 @@ GameSceneResultCode Game::move()
 */
 void Game::draw()
 {
-	switch (Phase)
-	{
-		default:
-			if (pBG)
-				pBG->draw();
-			if (pGrid)
-				pGrid->draw();
-			if (pPlayer)
-				pPlayer->draw();
-			if (pEnemy)
-				pEnemy->draw();
-			if (pRadar)
-				pRadar->draw();
-			if (pCollision)
-				pCollision->debugCapColDraw();	    // デバッグ用当たり判定カプセル描画
-			//if (m_pUI)
-			//	m_pUI->draw(pRenderTarget);
-			break;
-	}
+	if (pBG)
+		pBG->draw();
+	if (pGrid)
+		pGrid->draw();
+	if (pPlayer)
+		pPlayer->draw();
+	if (pEnemy)
+		pEnemy->draw();
+	if (pRadar)
+		pRadar->draw();
+	if (pCollision)
+		pCollision->debugCapColDraw();	    // デバッグ用当たり判定カプセル描画
+	//if (m_pUI)
+	//	m_pUI->draw(pRenderTarget);
 
 	// フェードアウト描画用
 	switch (Phase)
@@ -159,7 +156,7 @@ void Game::draw()
 	case STAGE_DONE:
 	{
 		// フェードアウト処理
-		System->FadeOut();
+		pSystem->fadeOut();
 	}
 		break;
 	default:
