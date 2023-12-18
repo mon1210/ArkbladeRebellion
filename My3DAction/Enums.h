@@ -5,6 +5,45 @@
 */
 #pragma once
 
+// ゲームの状態を表す
+enum GamePhase 
+{
+	GAMEPHASE_INIT = 0,
+	GAMEPHASE_RESET = 1,
+	GAMEPHASE_TITLE = 0x010,
+	GAMEPHASE_GAME = 0x100,
+	GAMEPHASE_GAMEOVER = 0x200
+};
+
+// シーンの状態を管理
+enum GameSceneResultCode 
+{
+	GAMESCENE_DEFAULT = 0,
+	GAMESCENE_END_OK = 1,
+	GAMESCENE_END_TIMEOUT = 2,
+	GAMESCENE_END_FAILURE = 3
+};
+
+// タイトルの状態を表す
+enum TitlePhase 
+{
+	TITLE_INIT = 0,
+	TITLE_RUN = 1,
+	TITLE_FADE = 2,
+	TITLE_DONE = 3
+};
+
+// ステージの状態を表す
+enum StagePhase 
+{
+	STAGE_INIT = 0,
+	STAGE_RUN = 1,
+	STAGE_PAUSE = 2,
+	STAGE_FADE = 3,
+	STAGE_DONE = 4,
+};
+
+// プレイヤーモデルのアニメーション番号
 namespace ePlayer
 {
 	enum AnimationNum
@@ -19,6 +58,7 @@ namespace ePlayer
 	};
 }
 
+// エネミーモデルのアニメーション番号
 namespace eEnemy
 {
 	enum AnimationNum
@@ -32,7 +72,7 @@ namespace eEnemy
 	};
 }
 
-
+// エネミーの状態を表す
 enum EnemyState
 {
 	Default = -1,	// -1代入用
@@ -45,7 +85,7 @@ enum EnemyState
 
 };
 
-
+// Radarに映るPointの種類
 namespace eRadar
 {
 	enum PointType
