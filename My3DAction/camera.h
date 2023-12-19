@@ -28,7 +28,5 @@ protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標
 	float	hAngle = 0.f;						// 水平方向の角度
 	float	vAngle = 40.f;						// 垂直方向の角度
-	float	sinParam = 0.f;						// sinパラメータの保存用
-	float	cosParam = 0.f;						// cosパラメータの保存用
 };
 
