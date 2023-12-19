@@ -99,13 +99,8 @@ void Enemy::update()
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::Enemy);
 
     // アニメーションタイマーリセット
-    if (isAnimationComplete(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
+    if (updateAnimation(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
         animTimer = 0.f;
-
-    // モデルにタイマーセット
-    // これがないとアニメーションしない
-    MV1SetAttachAnimTime(animHandle, 0, animTimer);
-
 
 }
 
@@ -314,6 +309,10 @@ bool Enemy::move()
 */
 void Enemy::draw()
 {
+    // モデルにタイマーセット
+    // これがないとアニメーションしない
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
+
     // 画面に映る位置に3Dモデルを移動
     MV1SetPosition(animHandle, position);
 

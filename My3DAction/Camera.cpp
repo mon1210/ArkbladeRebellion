@@ -90,8 +90,8 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 	// カメラの角度に合わせて移動ベクトルを回転してから加算
 
 	// カメラの水平角度に対するsin, cos値を算出
-	sinParam = sin(hAngle / 180.0f * DX_PI_F);
-	cosParam = cos(hAngle / 180.0f * DX_PI_F);
+	float sinParam = sin(hAngle / 180.0f * DX_PI_F);
+	float cosParam = cos(hAngle / 180.0f * DX_PI_F);
 	// 移動ベクトルを水平方向に回転して保存
 	NewPlayerPos.x = move_vec.x * cosParam - move_vec.z * sinParam;
 	NewPlayerPos.y = 0.0f;	// 上下は無視
@@ -121,8 +121,8 @@ void Camera::positionAndDirection(VECTOR player_pos)
 	// カメラの位置はカメラの水平角度と垂直角度から算出
 
 	// 最初に垂直角度を反映した位置を算出
-	sinParam = sin(vAngle / 180.0f * DX_PI_F);
-	cosParam = cos(vAngle / 180.0f * DX_PI_F);
+	float sinParam = sin(vAngle / 180.0f * DX_PI_F);
+	float cosParam = cos(vAngle / 180.0f * DX_PI_F);
 	VerticalAnglePos.x = 0.0f;
 	VerticalAnglePos.y = sinParam * CAMERA_LOOK_AT_DISTANCE;
 	VerticalAnglePos.z = -cosParam * CAMERA_LOOK_AT_DISTANCE;

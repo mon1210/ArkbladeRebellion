@@ -68,7 +68,6 @@ GameSceneResultCode Game::move()
 			{
 				Phase = STAGE_PAUSE;
 				bPause = true;
-				break;
 			}
 		}
 		else 
@@ -82,7 +81,6 @@ GameSceneResultCode Game::move()
 			{
 				Phase = STAGE_FADE;
 				Timer = 0;
-				break;
 			}
 			if (pRadar)
 				pRadar->listReset();	// Pointリスト初期化
@@ -101,7 +99,7 @@ GameSceneResultCode Game::move()
 
 	case STAGE_PAUSE:
 		//	ポーズ画面呼び出し
-		if (GetAsyncKeyState(0x50))		// P
+		if (GetAsyncKeyState(KEY_INPUT_P))	
 		{
 			if (!bPause) 
 			{
