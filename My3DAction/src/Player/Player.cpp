@@ -68,23 +68,130 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float
 
 
 /**
-* @brief 行動管理メソッド
-* @note  入力されたキーによって行動判定
+* @brief 移動キーチェック
+* @note  条件文を簡潔に
 */
-// ****************************************** //
-// PAD入力　PAD_INPUT_1 = □, PAD_INPUT_2 = ×,
-//          PAD_INPUT_3 = 〇, PAD_INPUT_4 = △,
-//          PAD_INPUT_5 = L1, PAD_INPUT_6 = R1,
-//          PAD_INPUT_7 = L2, PAD_INPUT_8 = R2,
-//          PAD INPUT_9 = SHARE(-),
-//          PAD INPUT_10 = OPTIONS(+)
-// ****************************************** //
+bool Player::checkMoveKey()
+{
+    return Key_ForwardMove || Key_BackMove || Key_Left_Move || Key_RightMove;
+}
+
+
+/**
+* @brief 前転キーチェック
+* @note  条件文を簡潔に
+*/
+bool Player::checkRollKey()
+{
+    return Key_ForwardRoll || Key_LeftRoll || Key_RightRoll && rollAble;
+}
+
+
+/**
+* @brief 状態管理メソッド
+* @note  毎フレームの処理
+*/
 void Player::update()
 {
+    switch (currentState)
+    {
+        // Idle ---------------------------------------------------------------------------------------------
+    case PlayerState::Idle:
+        Idle();
+        break;
+
+        // Move ---------------------------------------------------------------------------------------------
+    case PlayerState::Move:
+        Move();
+        break;
+
+        // Roll ---------------------------------------------------------------------------------------------
+    case PlayerState::Roll:
+        Roll();
+        break;
+
+        // Attack -------------------------------------------------------------------------------------------
+    case PlayerState::Attack:
+        Attack();
+        break;
+
+        // Damage -------------------------------------------------------------------------------------------
+    case PlayerState::Damage:
+        Damage();
+        break;
+
+        // Heal ---------------------------------------------------------------------------------------------
+    case PlayerState::Healing:
+        Healing();
+        break;
+
+        // Death ---------------------------------------------------------------------------------------------
+    case PlayerState::Death:
+        Death();
+        break;
+    }
+
+    // 移動した場合の当たり判定更新と座標セット
+    if (isMove && pGame) {
+        // エネミー座標取得
+        VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
+        // エネミーとの当たり判定
+        pGame->GetCollision()->charaCapCol(position, moveVec, EnemyPos, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
+        // 移動後の座標取得
+        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
+        // 当たり判定更新
+        pGame->GetCollision()->clampToStageBounds(NewPos, position, rollAble);
+    }
+
+    // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
+    // レーダーの中心を今の座標と正面の向きに設定
+    float Rad = angle * (DX_PI / 180.0f);
+    float FrontVecX = -sinf(Rad);
+    float FrontVecZ = -cosf(Rad);
+    VECTOR FrontVector = VGet(FrontVecX, 0.0f, FrontVecZ);
+    pGame->GetRadar()->addCenter(position.x, position.z, FrontVector.x, FrontVector.z);
+}
+
+
+/**
+* @brief Idle状態の管理メソッド
+*/
+void Player::Idle()
+{
+    isMove = false;
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
 
-    // Up => Runモーション(3) 前移動
+    // アニメーションをセット
+    if (animNo != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
+    {
+        animNo = (int)ePlayer::AnimationNum::Idle;
+        setAnim(animHandle, animNo, animTime, animTimer);
+    }
+    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+        animTimer = 0.f;
+
+    if (checkMoveKey()) {
+        currentState = PlayerState::Move;
+    }
+    else if (checkRollKey()) {
+        currentState = PlayerState::Roll;
+    }
+    else if (CheckHitKey(KEY_INPUT_F)) {
+        currentState = PlayerState::Healing;
+    }
+    else if (CheckHitKey(KEY_INPUT_G)) {
+        currentState = PlayerState::Death;
+    }
+}
+
+
+/**
+* @brief Move状態の管理メソッド
+* @note  移動キーを話すとIdle
+*/
+void Player::Move()
+{
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
         // アニメーション、移動動作をセット
@@ -114,29 +221,78 @@ void Player::update()
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
-    // Space or PAD_× => Roll
-    else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
+    else
     {
-        animateAndMove(ePlayer::AnimationNum::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
-        if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        currentState = PlayerState::Idle;
+    }
+}
+
+
+/**
+* @brief Roll状態の管理メソッド
+* @note  アニメーション終了時にIdle    Todo 連続Roll
+*/
+void Player::Roll()
+{
+    // Space or PAD_× => Roll
+    if (Key_ForwardRoll)
+    {
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
     }
     // 右Roll
-    else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
+    else if (Key_RightRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::Roll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
-        if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
     }
     // 左Roll
-    else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
+    else if (Key_LeftRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::Roll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
-        if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
     }
+
+    // アニメーション終了後
+    if (rollAble)
+    {
+        if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+        {
+            animTimer = 0.f;
+            rollAble = false;
+            currentState = PlayerState::Idle;
+        }
+    }
+}
+
+
+/**
+* @brief Attack状態の管理メソッド
+*/
+void Player::Attack()
+{
+
+}
+
+
+/**
+* @brief Damage状態の管理メソッド
+* @norte HPの減少　HP <= 0でDeathへ
+*/
+void Player::Damage()
+{
+    if (hitPoint <= 0) {
+        currentState = PlayerState::Death;
+    }
+
+}
+
+
+/**
+* @brief Healing状態の管理メソッド
+* @note  HPの回復　アニメーション終了時にIdle
+*/
+void Player::Healing()
+{
     // F => Drinking 回復時モーション
-    else if (CheckHitKey(KEY_INPUT_F))
+    if (CheckHitKey(KEY_INPUT_F))
     {
         // アニメーションをセット
         if (animNo != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
@@ -144,11 +300,27 @@ void Player::update()
             animNo = (int)ePlayer::AnimationNum::Drinking;
             setAnim(animHandle, animNo, animTime, animTimer);
         }
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+
     }
+
+    // アニメーション終了後
+    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
+    {
+        animTimer = 0.f;
+        // ここでHP回復
+        currentState = PlayerState::Idle;
+    }
+}
+
+
+/**
+* @brief Death状態の管理メソッド
+* @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了 
+*/
+void Player::Death()
+{
     // G => Dying
-    else if (CheckHitKey(KEY_INPUT_G))
+    if (CheckHitKey(KEY_INPUT_G))
     {
         // アニメーションをセット
         if (animNo != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
@@ -156,42 +328,14 @@ void Player::update()
             animNo = (int)ePlayer::AnimationNum::Dying;
             setAnim(animHandle, animNo, animTime, animTimer);
         }
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+
     }
-    // Idle
-    else
+
+    // アニメーション終了後
+    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
     {
-        isMove = false;
-        // アニメーションをセット
-        if (animNo != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
-        {
-            animNo = (int)ePlayer::AnimationNum::Idle;
-            setAnim(animHandle, animNo, animTime, animTimer);
-        }
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        animTimer = 0.f;
     }
-
-    // 移動した場合の当たり判定更新と座標セット
-    if (isMove && pGame) {
-        // エネミー座標取得
-        VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
-        // エネミーとの当たり判定
-        pGame->GetCollision()->charaCapCol(position, moveVec, EnemyPos, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
-        // 移動後の座標取得
-        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
-        // 当たり判定更新
-        pGame->GetCollision()->clampToStageBounds(NewPos, position, rollAble);
-    }
-
-    // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
-    // レーダーの中心を今の座標と正面の向きに設定
-    float Rad = angle * (DX_PI / 180.0f);
-    float FrontVecX = -sinf(Rad);
-    float FrontVecZ = -cosf(Rad);
-    VECTOR FrontVector = VGet(FrontVecX, 0.0f, FrontVecZ);
-    pGame->GetRadar()->addCenter(position.x, position.z, FrontVector.x, FrontVector.z);
 }
 
 
