@@ -35,40 +35,40 @@ SceneManager::~SceneManager()
 *
 */
 void SceneManager::doAnim() {
-	GameSceneResultCode Rc = GAMESCENE_DEFAULT;
+	GameSceneResultCode Rc = GameSceneResultCode::GAMESCENE_DEFAULT;
 
 	switch (GamePhase) {
 
-	case GAMEPHASE_INIT:
-		GamePhase = GAMEPHASE_RESET;
+	case GamePhase::GAMEPHASE_INIT:
+		GamePhase = GamePhase::GAMEPHASE_RESET;
 
-	case GAMEPHASE_RESET:
+	case GamePhase::GAMEPHASE_RESET:
 		SAFE_DELETE(pScene);
 		pScene = new Title(this);
-		GamePhase = GAMEPHASE_TITLE;
+		GamePhase = GamePhase::GAMEPHASE_TITLE;
 		
 	// タイトルシーン
-	case GAMEPHASE_TITLE:
+	case GamePhase::GAMEPHASE_TITLE:
 		if (pScene != NULL)
 			Rc = pScene->move();
-		if (Rc == GAMESCENE_DEFAULT)
+		if (Rc == GameSceneResultCode::GAMESCENE_DEFAULT)
 			break;
 		SAFE_DELETE(pScene);
 		pScene = new Game(this);
-		GamePhase = GAMEPHASE_GAME;
+		GamePhase = GamePhase::GAMEPHASE_GAME;
 		
 		// ゲームシーン
-	case GAMEPHASE_GAME:
+	case GamePhase::GAMEPHASE_GAME:
 		if (pScene != NULL)
 			Rc = pScene->move();
 		else // pScene == NULL
 		{
 			printf("");		// Debug
 		}
-		if (Rc == GAMESCENE_DEFAULT)
+		if (Rc == GameSceneResultCode::GAMESCENE_DEFAULT)
 			break;
 
-		GamePhase = GAMEPHASE_RESET;
+		GamePhase = GamePhase::GAMEPHASE_RESET;
 	}
 }
 

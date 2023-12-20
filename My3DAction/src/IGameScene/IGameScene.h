@@ -4,7 +4,7 @@
 */
 #pragma once
 
-enum GameSceneResultCode;
+enum class GameSceneResultCode;
 
 class IGameScene
 {

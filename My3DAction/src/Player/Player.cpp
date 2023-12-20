@@ -20,7 +20,7 @@ Player::Player(Game *Game_)
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, ePlayer::Idle);
+    MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
 }
 
 
@@ -50,14 +50,14 @@ Player::~Player()
 void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z)
 {
     // アニメーションをセット
-    if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
+    if (animNo != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNo = num;
+        animNo = static_cast<int>(num);
         setAnim(animHandle, animNo, animTime, animTimer);
     }
 
     // 移動する向きと速度を設定
-    if (animNo == num)
+    if (animNo == static_cast<int>(num))
     {
         angle = ROTATE_ANGLE - pGame->GetCamera()->GetHorizontalAngle();
         isMove = true;
@@ -88,7 +88,7 @@ void Player::update()
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
         // アニメーション、移動動作をセット
-        animateAndMove(ePlayer::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        animateAndMove(ePlayer::AnimationNum::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         // アニメーションタイマーリセット
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
@@ -96,42 +96,42 @@ void Player::update()
     // Down => Runモーション(3) 下移動
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
-        animateAndMove(ePlayer::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
+        animateAndMove(ePlayer::AnimationNum::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Right => Runモーション(3) 右移動
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
-        animateAndMove(ePlayer::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Left => Runモーション(3) 左移動
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
-        animateAndMove(ePlayer::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // Space or PAD_× => Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_W) && rollAble)
     {
-        animateAndMove(ePlayer::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        animateAndMove(ePlayer::AnimationNum::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // 右Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_D) && rollAble)
     {
-        animateAndMove(ePlayer::Roll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Roll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
         if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
     // 左Roll
     else if (Key_Roll && CheckHitKey(KEY_INPUT_A) && rollAble)
     {
-        animateAndMove(ePlayer::Roll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Roll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
         if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
             animTimer = 0.f;
     }
@@ -139,9 +139,9 @@ void Player::update()
     else if (CheckHitKey(KEY_INPUT_F))
     {
         // アニメーションをセット
-        if (animNo != ePlayer::Drinking)  // ここがないとanimTimerがうまくリセットされない
+        if (animNo != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
         {
-            animNo = ePlayer::Drinking;
+            animNo = (int)ePlayer::AnimationNum::Drinking;
             setAnim(animHandle, animNo, animTime, animTimer);
         }
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
@@ -151,9 +151,9 @@ void Player::update()
     else if (CheckHitKey(KEY_INPUT_G))
     {
         // アニメーションをセット
-        if (animNo != ePlayer::Dying)  // ここがないとanimTimerがうまくリセットされない
+        if (animNo != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
         {
-            animNo = ePlayer::Dying;
+            animNo = (int)ePlayer::AnimationNum::Dying;
             setAnim(animHandle, animNo, animTime, animTimer);
         }
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
@@ -164,9 +164,9 @@ void Player::update()
     {
         isMove = false;
         // アニメーションをセット
-        if (animNo != ePlayer::Idle)  // ここがないとanimTimerがうまくリセットされない
+        if (animNo != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
         {
-            animNo = ePlayer::Idle;
+            animNo = (int)ePlayer::AnimationNum::Idle;
             setAnim(animHandle, animNo, animTime, animTimer);
         }
         if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))

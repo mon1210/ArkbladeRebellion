@@ -50,15 +50,15 @@ GameSceneResultCode Game::move()
 {
 	switch (Phase)
 	{
-	case STAGE_INIT:
+	case StagePhase::STAGE_INIT:
 		if (pCollision)
 			pCollision->initCollision(pBG->GetModelHandle());
 		if (pEnemy)
 			pEnemy->initAnimation();	// phase分けはEnemyのみなので
-		Phase = STAGE_RUN;
+		Phase = StagePhase::STAGE_RUN;
 		break;
 
-	case STAGE_RUN:
+	case StagePhase::STAGE_RUN:
 		// --------------------- STAGE_RUN START ------------------- //
 
 		//	ポーズ画面呼び出し
@@ -66,7 +66,7 @@ GameSceneResultCode Game::move()
 		{
 			if (!bPause) 
 			{
-				Phase = STAGE_PAUSE;
+				Phase = StagePhase::STAGE_PAUSE;
 				bPause = true;
 			}
 		}
@@ -79,7 +79,7 @@ GameSceneResultCode Game::move()
 		{
 			if (!pPlayer->isAlive())
 			{
-				Phase = STAGE_FADE;
+				Phase = StagePhase::STAGE_FADE;
 				Timer = 0;
 			}
 			if (pRadar)
@@ -97,13 +97,13 @@ GameSceneResultCode Game::move()
 		break;
 		// --------------------- STAGE_RUN END --------------------- //
 
-	case STAGE_PAUSE:
+	case StagePhase::STAGE_PAUSE:
 		//	ポーズ画面呼び出し
 		if (GetAsyncKeyState(KEY_INPUT_P))	
 		{
 			if (!bPause) 
 			{
-				Phase = STAGE_RUN;
+				Phase = StagePhase::STAGE_RUN;
 				bPause = true;
 				break;
 			}
@@ -115,20 +115,20 @@ GameSceneResultCode Game::move()
 
 		break;
 
-	case STAGE_FADE:
+	case StagePhase::STAGE_FADE:
 		if (Timer++ < STAGE_FADE_TIMER)
 		{
 			break;
 		}
-		Phase = STAGE_DONE;
+		Phase = StagePhase::STAGE_DONE;
 		break;
 
-	case STAGE_DONE:
-		return GAMESCENE_END_OK;
+	case StagePhase::STAGE_DONE:
+		return GameSceneResultCode::GAMESCENE_END_OK;
 
 	}
 
-	return GAMESCENE_DEFAULT;
+	return GameSceneResultCode::GAMESCENE_DEFAULT;
 }
 
 
@@ -154,8 +154,8 @@ void Game::draw()
 	// フェードアウト描画用
 	switch (Phase)
 	{
-	case STAGE_FADE:
-	case STAGE_DONE:
+	case StagePhase::STAGE_FADE:
+	case StagePhase::STAGE_DONE:
 	{
 		// フェードアウト処理
 		pSystem->fadeOut();

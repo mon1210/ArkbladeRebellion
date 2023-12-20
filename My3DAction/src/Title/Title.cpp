@@ -33,12 +33,12 @@ GameSceneResultCode Title::move()
 {
 	switch (Phase) {
 		// タイトル開始
-	case TITLE_INIT:
+	case TitlePhase::TITLE_INIT:
 		titleRunFlag = true;
-		Phase = TITLE_RUN;
+		Phase = TitlePhase::TITLE_RUN;
 
 		// タイトル画面
-	case TITLE_RUN:
+	case TitlePhase::TITLE_RUN:
 	{	//	これがないと bDone の初期化でエラーがでる
 		bool IsDone = false;
 
@@ -56,25 +56,25 @@ GameSceneResultCode Title::move()
 		// タイトル終了フラグON
 		if (IsDone) {
 			FadeTimer = TITLE_DONE_TIME;
-			Phase = TITLE_FADE;
+			Phase = TitlePhase::TITLE_FADE;
 		}
 		break;
 	}
 
 	// タイトルフェードアウト
-	case TITLE_FADE:
+	case TitlePhase::TITLE_FADE:
 		FadeTimer++;
 		// 30フレームかけてフェードアウト
 		if (FadeTimer < TITLE_FADEOUT_TIME)
 			break;
-		Phase = TITLE_DONE;
+		Phase = TitlePhase::TITLE_DONE;
 
 		// タイトル終了
-	case TITLE_DONE:
-		return GAMESCENE_END_OK;
+	case TitlePhase::TITLE_DONE:
+		return GameSceneResultCode::GAMESCENE_END_OK;
 	}
 
-	return GAMESCENE_DEFAULT;
+	return GameSceneResultCode::GAMESCENE_DEFAULT;
 }
 
 
@@ -91,8 +91,8 @@ void Title::draw()
 
 	switch (Phase) 
 	{
-	case TITLE_FADE:
-	case TITLE_DONE:
+	case TitlePhase::TITLE_FADE:
+	case TitlePhase::TITLE_DONE:
 		System->fadeOut();
 	}
 

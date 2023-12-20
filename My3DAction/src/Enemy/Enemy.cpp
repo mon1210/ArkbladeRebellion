@@ -21,7 +21,7 @@ Enemy::Enemy(Game *Game_)
     animTime = MV1GetAnimTotalTime(animHandle, 0);
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, eEnemy::Idle);
+    MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
 
 }
 
@@ -38,7 +38,7 @@ Enemy::~Enemy()
 */
 void Enemy::initAnimation()
 {
-    animationHandle(eEnemy::Idle);
+    animationHandle(eEnemy::AnimationNum::Idle);
 
 }
 
@@ -49,9 +49,9 @@ void Enemy::initAnimation()
 */
 void Enemy::animationHandle(eEnemy::AnimationNum num) {
     // アニメーションをセット
-    if (animNo != num)  // ここがないとanimTimerがうまくリセットされない
+    if (animNo != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNo = num;
+        animNo = static_cast<int>(num);
         setAnim(animHandle, animNo, animTime, animTimer);
     }
 };
@@ -96,7 +96,7 @@ void Enemy::update()
     updateEnemyToPlayerVec();
 
     // RaderのPointに追加
-    pGame->GetRadar()->addPoint(position.x, position.z, eRadar::Enemy);
+    pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
 
     // アニメーションタイマーリセット
     if (updateAnimation(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
@@ -128,7 +128,7 @@ void Enemy::Wait()
         currentState = EnemyState::Move;
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
         // アニメーションをセット
-        animationHandle(eEnemy::Run);
+        animationHandle(eEnemy::AnimationNum::Run);
 
     }
     // 視野に入っていたら追跡
@@ -136,7 +136,7 @@ void Enemy::Wait()
     {
         currentState = EnemyState::Chase;
         // アニメーションをセット
-        animationHandle(eEnemy::Run);
+        animationHandle(eEnemy::AnimationNum::Run);
     }
 
 }
@@ -195,7 +195,7 @@ void Enemy::Move()
         count = 0;
         currentState = EnemyState::Wait;
         // アニメーションをセット
-        animationHandle(eEnemy::Idle);
+        animationHandle(eEnemy::AnimationNum::Idle);
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
@@ -258,7 +258,7 @@ void Enemy::Chase()
     {
         currentState = EnemyState::Wait;
         count = 0;
-        animationHandle(eEnemy::Idle);
+        animationHandle(eEnemy::AnimationNum::Idle);
     }
 }
 

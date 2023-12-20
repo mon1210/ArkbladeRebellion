@@ -24,7 +24,7 @@ public:
 	}
 protected:
 	IGameScene *pScene = NULL;				//	シーン
-	GamePhase GamePhase = GAMEPHASE_INIT;	//	状態変数
+	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	//	状態変数
 	int fadeTimer = 0;						// フェードタイマー
 	int fadeTime = 0;						// フェード時間（フレーム）
 	int startTime = 0;						// 開始時間

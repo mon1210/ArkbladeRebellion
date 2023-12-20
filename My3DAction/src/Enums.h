@@ -6,7 +6,7 @@
 #pragma once
 
 // ゲームの状態を表す
-enum GamePhase 
+enum class GamePhase 
 {
 	GAMEPHASE_INIT = 0,
 	GAMEPHASE_RESET = 1,
@@ -16,7 +16,7 @@ enum GamePhase
 };
 
 // シーンの状態を管理
-enum GameSceneResultCode 
+enum class GameSceneResultCode 
 {
 	GAMESCENE_DEFAULT = 0,
 	GAMESCENE_END_OK = 1,
@@ -25,7 +25,7 @@ enum GameSceneResultCode
 };
 
 // タイトルの状態を表す
-enum TitlePhase 
+enum class TitlePhase 
 {
 	TITLE_INIT = 0,
 	TITLE_RUN = 1,
@@ -34,7 +34,7 @@ enum TitlePhase
 };
 
 // ステージの状態を表す
-enum StagePhase 
+enum class StagePhase 
 {
 	STAGE_INIT = 0,
 	STAGE_RUN = 1,
@@ -46,7 +46,7 @@ enum StagePhase
 // プレイヤーモデルのアニメーション番号
 namespace ePlayer
 {
-	enum AnimationNum
+	enum class AnimationNum
 	{
 		Default = -1,	// -1代入用
 		Idle = 1,
@@ -66,7 +66,7 @@ namespace ePlayer
 // エネミーモデルのアニメーション番号
 namespace eEnemy
 {
-	enum AnimationNum
+	enum class AnimationNum
 	{
 		Default = -1,	// -1代入用
 		Idle = 1,
@@ -78,7 +78,7 @@ namespace eEnemy
 }
 
 // エネミーの状態を表す
-enum EnemyState
+enum class EnemyState
 {
 	Default = -1,	// -1代入用
 	Wait,
@@ -93,7 +93,7 @@ enum EnemyState
 // Radarに映るPointの種類
 namespace eRadar
 {
-	enum PointType
+	enum class PointType
 	{
 		Default = -1,	// -1代入用
 		Enemy,

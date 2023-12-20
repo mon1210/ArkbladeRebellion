@@ -20,7 +20,7 @@ public:
 
 protected:
 	SceneManager *System = NULL;
-	TitlePhase	Phase = TITLE_INIT;					// ó‘Ô‚ğ•\‚·
+	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// ó‘Ô‚ğ•\‚·
 	bool	titleRunFlag = false;					// Title‚Ìó‘Ô‚ğŠÇ—‚·‚éflag
 	INT		FadeTimer = 0;
 };
