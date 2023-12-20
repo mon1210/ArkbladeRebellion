@@ -1389,3 +1389,12 @@
  * @param[in] anim_time			 アニメーションの総再生時間		 *
  * @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量 *
  *---------------------------------------------------------------*/
+
+ // ****************************************** //
+ // PAD入力　PAD_INPUT_1 = □, PAD_INPUT_2 = ×,
+ //          PAD_INPUT_3 = 〇, PAD_INPUT_4 = △,
+ //          PAD_INPUT_5 = L1, PAD_INPUT_6 = R1,
+ //          PAD_INPUT_7 = L2, PAD_INPUT_8 = R2,
+ //          PAD INPUT_9 = SHARE(-),
+ //          PAD INPUT_10 = OPTIONS(+)
+ // ****************************************** //
