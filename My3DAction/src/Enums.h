@@ -77,6 +77,20 @@ namespace eEnemy
 	};
 }
 
+// プレイヤーの状態を表す
+enum class PlayerState
+{
+	None = -1,		// -1代入用
+	Idle,
+	Move,
+	Roll,
+	Attack,
+	Damage,
+	Healing,
+	Death
+
+};
+
 // エネミーの状態を表す
 enum class EnemyState
 {
