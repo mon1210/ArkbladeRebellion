@@ -20,7 +20,7 @@ class Player : public CharaBase
 public:
 	Player(Game *Game_);
 	~Player();
-	bool move() override;									// アニメーションメソッド
+	bool isAlive() override;								// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;									// 描画メソッド
 	void update() override;									// 行動管理メソッド
 	void animateAndMove(ePlayer::AnimationNum num,

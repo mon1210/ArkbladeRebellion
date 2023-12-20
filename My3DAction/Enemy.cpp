@@ -288,11 +288,10 @@ bool Enemy::isTargetVisible()
 
 
 /**
-* @brief エネミーのアニメーションメソッド
+* @brief  生き死にを結果として返す
 * @return true:生存 / false:死亡
-* @note ここでは加速度の設定だけ行い、(x, y)座標の更新はcollide() で行う
 */
-bool Enemy::move()
+bool Enemy::isAlive()
 {
     if (hitPoint <= 0)
     {

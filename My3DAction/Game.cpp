@@ -77,7 +77,7 @@ GameSceneResultCode Game::move()
 
 		if (pPlayer)
 		{
-			if (!pPlayer->move())
+			if (!pPlayer->isAlive())
 			{
 				Phase = STAGE_FADE;
 				Timer = 0;

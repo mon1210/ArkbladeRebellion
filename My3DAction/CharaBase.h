@@ -12,7 +12,7 @@ class CharaBase
 {
 public:
 	virtual ~CharaBase();
-	virtual bool move() = 0;				// アニメーションメソッド　true:生存 / false:死亡
+	virtual bool isAlive() = 0;				// アニメーションメソッド　true:生存 / false:死亡
 	virtual void draw() = 0;				// 描画メソッド
 	virtual void update() = 0;				// 更新メソッド
 	// 以下取得用定数===================================================================== //

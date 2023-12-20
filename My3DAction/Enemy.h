@@ -24,7 +24,7 @@ public:
 	Enemy(Game *Game_);
 	~Enemy();
 	void initAnimation();							// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
-	bool move() override;							// エネミーのアニメーションメソッド　true:生存 / false:死亡
+	bool isAlive() override;						// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;							// 描画メソッド
 	void update() override;							// 状態管理とdraw呼び出し　毎フレーム呼び出される
 	bool isTargetVisible();							// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 

@@ -196,10 +196,10 @@ void Player::update()
 
 
 /**
-* @brief プレイヤーのアニメーションメソッド
+* @brief  生き死にを結果として返す
 * @return true:生存 / false:死亡
 */
-bool Player::move()
+bool Player::isAlive()
 {
     if (hitPoint <= 0)
     {
