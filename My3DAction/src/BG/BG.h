@@ -5,8 +5,8 @@
 */
 #pragma once
 #include "DxLib.h"
-#include "stdafx.h"
-#include "Game.h"
+#include "..\stdafx.h"
+#include "..\Game\Game.h"
 
 class Game;
 

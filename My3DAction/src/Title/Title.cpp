@@ -3,9 +3,9 @@
 * @brief クラス Title の実装
 */
 // Windowsアプリケーション開発用の共通ヘッダファイル
-#include "stdafx.h"
+#include "..\stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "SceneManager.h"
+#include "..\SceneManager\SceneManager.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
 

@@ -3,15 +3,15 @@
 * @brief クラスSceneManagerの実装ファイル
 */
 // Windowsアプリケーション開発用の共通ヘッダファイル
-#include "stdafx.h"
+#include "..\stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "SceneManager.h"
 // 定数値を定めたヘッダファイル
-#include "Constants.h"
+#include "..\Constants.h"
 // タイトル画面のゲームシーンを管理するヘッダファイル
-#include "Title.h"
+#include "..\Title\Title.h"
 // ゲーム内のステージ関連クラスと列挙型の定義
-#include "Game.h"
+#include "..\Game\Game.h"
 
 
 /**

@@ -13,7 +13,7 @@
 */
 
 // Windowsアプリケーション開発用の共通ヘッダファイル
-#include "stdafx.h"
+#include "..\stdafx.h"
 // CRT デバッグヘッダファイルをインクルード
 #include <crtdbg.h>
 // TCHAR タイプやマクロを定義したヘッダファイルをインクルード
@@ -21,9 +21,9 @@
 // 標準入出力関数を提供する C ライブラリヘッダファイルをインクルード
 #include <stdio.h>
 // ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "SceneManager.h"
+#include "..\SceneManager\SceneManager.h"
 // 定数値を定めたヘッダファイル
-#include "Constants.h"
+#include "..\Constants.h"
 
 
 #define MAX_LOADSTRING 100

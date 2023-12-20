@@ -3,8 +3,8 @@
 * @brief	ƒNƒ‰ƒX UI ‚ÌéŒ¾
 */
 #pragma once
-#include "Constants.h"
-#include "Game.h"
+#include "..\Constants.h"
+#include "..\Game\Game.h"
 
 class Game;
 

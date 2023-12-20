@@ -3,8 +3,8 @@
 * @brief	クラスSceneManagerの宣言ファイル
 */
 #pragma once
-#include "IGameScene.h"
-#include "Enums.h"
+#include "..\IGameScene\IGameScene.h"
+#include "..\Enums.h"
 
 class IGameScene;	// シーン管理クラス
 

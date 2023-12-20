@@ -7,8 +7,8 @@
 #include <math.h>
 #include <DxLib.h>
 #include <vector>
-#include "Enums.h"
-#include "Constants.h"
+#include "..\Enums.h"
+#include "..\Constants.h"
 
 
 // Radarクラスで中身代入、このクラスで使用

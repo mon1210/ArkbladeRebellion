@@ -6,7 +6,7 @@
 */
 #pragma once
 #include "DxLib.h"
-#include "Constants.h"
+#include "..\Constants.h"
 
 
 class ModelManager

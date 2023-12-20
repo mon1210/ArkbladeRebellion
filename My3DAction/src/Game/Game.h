@@ -3,18 +3,18 @@
 * @brief	クラス Game の宣言
 */
 #pragma once
-#include "SceneManager.h"
-#include "BG.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Enums.h"
-#include "Camera.h"
-#include "ModelManager.h"
-#include "Grid.h"
-#include "Collision.h"
-#include "Radar.h"
-#include "UI.h"
-#include "Constants.h"
+#include "..\SceneManager\SceneManager.h"
+#include "..\BG\BG.h"
+#include "..\Player\Player.h"
+#include "..\Enemy\Enemy.h"
+#include "..\Enums.h"
+#include "..\Camera\Camera.h"
+#include "..\ModelManager\ModelManager.h"
+#include "..\Grid\Grid.h"
+#include "..\Collision\Collision.h"
+#include "..\Radar\Radar.h"
+#include "..\UI\UI.h"
+#include "..\Constants.h"
 
 // クラスの前方宣言
 class SceneManager;

@@ -4,7 +4,7 @@
 * @note
 */
 #pragma once
-#include "RadarPoint.h"
+#include "..\RadarPoint\RadarPoint.h"
 
 class Radar
 {

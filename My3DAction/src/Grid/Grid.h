@@ -4,7 +4,7 @@
 * @note		3Dモデルの位置を視覚的にわかりやすくするために、地面にラインを表示する
 */
 #pragma once
-#include "Constants.h"
+#include "..\Constants.h"
 #include "DxLib.h"
 
 

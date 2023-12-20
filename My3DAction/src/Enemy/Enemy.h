@@ -4,15 +4,15 @@
 * @note		“–‚½‚è”»’è () x ()
 */
 #pragma once
-#include "CharaBase.h"
+#include "..\CharaBase\CharaBase.h"
 
 #include <math.h>
-#include "BG.h"
-#include "Player.h"
-#include "Animation.h"
-#include "Constants.h"
-#include "Enums.h"
-#include "Game.h"
+#include "..\BG\BG.h"
+#include "..\Player\Player.h"
+#include "..\Animation\Animation.h"
+#include "..\Constants.h"
+#include "..\Enums.h"
+#include "..\Game\Game.h"
 
 // ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
 class CharaBase;

@@ -5,7 +5,7 @@
 */
 #pragma once
 #include "DxLib.h"
-#include "Game.h"
+#include "..\Game\Game.h"
 
 // ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
 class Game;

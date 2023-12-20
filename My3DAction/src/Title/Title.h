@@ -3,9 +3,9 @@
 * @brief	クラス Title の宣言
 */
 #pragma once
-#include "Constants.h"
-#include "Enums.h"
-#include "IGameScene.h"
+#include "..\Constants.h"
+#include "..\Enums.h"
+#include "..\IGameScene\IGameScene.h"
 
 // クラスの前方宣言
 class SceneManager;
