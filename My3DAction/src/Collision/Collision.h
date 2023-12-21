@@ -20,7 +20,7 @@ public:
 	void charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, 
 		float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS);	// キャラ同士のカプセル当たり判定メソッド
 protected:
-	Game *pGame = NULL;
+	Game *pGame = nullptr;
 	int tileHandle = 0;		// 床モデル保存用
 
 };

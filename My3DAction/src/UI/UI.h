@@ -17,7 +17,7 @@ public:
 	void draw();			// 描画用メソッド
 private:
 protected:
-	Game	*pGame = NULL;
+	Game	*pGame = nullptr;
 	float	hpRatio = 0.f;	// HPバーの表示比率
 
 };

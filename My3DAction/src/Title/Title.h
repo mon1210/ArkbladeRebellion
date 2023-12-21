@@ -19,7 +19,7 @@ public:
 	virtual void draw() override;					// 描画メソッド
 
 protected:
-	SceneManager *System = NULL;
+	SceneManager *System = nullptr;
 	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// 状態を表す
 	bool	titleRunFlag = false;					// Titleの状態を管理するflag
 	INT		FadeTimer = 0;

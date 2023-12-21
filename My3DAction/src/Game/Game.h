@@ -46,16 +46,16 @@ public:
 	Radar			*GetRadar();			// Radarを取得して返す
 	// 以上取得用定数=================================================== //
 protected:
-	SceneManager *pSystem = NULL;
-	Player		 *pPlayer = NULL;
-	Enemy		 *pEnemy = NULL;
-	ModelManager *pModelManager = NULL;
-	Camera		 *pCamera = NULL;
-	BG			 *pBG = NULL;
-	Grid		 *pGrid = NULL;
-	Collision	 *pCollision = NULL;
-	Radar		 *pRadar = NULL;
-	UI			 *pUI = NULL;
+	SceneManager *pSystem = nullptr;
+	Player		 *pPlayer = nullptr;
+	Enemy		 *pEnemy = nullptr;
+	ModelManager *pModelManager = nullptr;
+	Camera		 *pCamera = nullptr;
+	BG			 *pBG = nullptr;
+	Grid		 *pGrid = nullptr;
+	Collision	 *pCollision = nullptr;
+	Radar		 *pRadar = nullptr;
+	UI			 *pUI = nullptr;
 	StagePhase	 Phase = StagePhase::STAGE_INIT;		// 状態を表す
 	bool		 bPause = false;			// ポーズボタン連打防止フラグ
 	int			 Timer = 0;

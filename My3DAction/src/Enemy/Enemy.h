@@ -40,7 +40,7 @@ private:
 	virtual void Move();	// 移動
 	virtual void Chase();	// 追跡
 protected:
-	Game	*pGame = NULL;
+	Game	*pGame = nullptr;
 	VECTOR  enemyToPlayer = VGet(0.f, 0.f, 0.f);			// エネミーからプレイヤーまでの距離
 	int		tileHandle = 0;									// 床モデルハンドル
 	int		count = 0;										// フレーム計測用　行動遷移, で使用 

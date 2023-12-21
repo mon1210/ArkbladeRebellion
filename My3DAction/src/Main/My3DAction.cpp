@@ -37,7 +37,7 @@
 
 #define FPS 60.0
 
-SceneManager *g_pSceneManager = NULL;	//	ゲームシステムオブジェクト
+SceneManager *g_pSceneManager = nullptr;	//	ゲームシステムオブジェクト
 
 /**
 * @fn

@@ -49,7 +49,7 @@ void SceneManager::doAnim() {
 		
 	// タイトルシーン
 	case GamePhase::GAMEPHASE_TITLE:
-		if (pScene != NULL)
+		if (pScene != nullptr)
 			Rc = pScene->move();
 		if (Rc == GameSceneResultCode::GAMESCENE_DEFAULT)
 			break;
@@ -59,12 +59,8 @@ void SceneManager::doAnim() {
 		
 		// ゲームシーン
 	case GamePhase::GAMEPHASE_GAME:
-		if (pScene != NULL)
+		if (pScene != nullptr)
 			Rc = pScene->move();
-		else // pScene == NULL
-		{
-			printf("");		// Debug
-		}
 		if (Rc == GameSceneResultCode::GAMESCENE_DEFAULT)
 			break;
 
@@ -82,12 +78,8 @@ void SceneManager::doDraw() {
 	TCHAR	Str[256];
 
 	//	シーンを描画
-	if (pScene != NULL)
+	if (pScene != nullptr)
 		pScene->draw();
-	else // pScene == NULL
-	{
-		printf("");		// Debug
-	}
 }
 
 

@@ -42,7 +42,7 @@ private:
 	void Healing();	// 回復
 	void Death();	// 死亡
 protected:
-	Game	*pGame = NULL;
+	Game	*pGame = nullptr;
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);					// 移動の向きベクトル
 	bool	isMove = false;									// 移動フラグ
 	bool	rollAble = true;								// Roll可能フラグ

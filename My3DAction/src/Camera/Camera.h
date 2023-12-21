@@ -24,7 +24,7 @@ public:
 	float GetHorizontalAngle();									// カメラ水平角度取得関数	
 	// 以上取得用定数===================================================================== //
 protected:
-	Game	*pGame = NULL;
+	Game	*pGame = nullptr;
 	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標
 	float	hAngle = 0.f;						// 水平方向の角度
 	float	vAngle = 40.f;						// 垂直方向の角度
