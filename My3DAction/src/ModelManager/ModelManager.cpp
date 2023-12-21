@@ -11,6 +11,9 @@ ModelManager::ModelManager()
     playerHandle = MV1LoadModel("res\\Player\\PlayerModel.mv1");
     enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel2.mv1");
     tileHandle = MV1LoadModel("res\\test_Tile_model.mv1");
+
+    // unordered_map初期化
+    initializeModelList();
 }
 
 
@@ -24,27 +27,28 @@ ModelManager::~ModelManager()
 
 
 /**
-* @brief プレイヤーモデルを取得して返す
+* @brief unordered_map初期化メソッド　	
+* @note  戻り値になる変数を登録
 */
-int ModelManager::GetPlayerModel()
+void ModelManager::initializeModelList()
 {
-    return playerHandle;
+    modelList[ModelType::Player] = { playerHandle };
+    modelList[ModelType::Enemy]  = { enemyHandle  };
+    modelList[ModelType::Tile]   = { tileHandle   };
+
 }
 
 
 /**
-* @brief エネミーモデルを取得して返す
+* @brief モデルを取得して返す
 */
-int ModelManager::GetEnemyModel()
+int ModelManager::GetHandle(ModelType type_)
 {
-    return enemyHandle;
-}
+    // リストが空でないとき
+    if (modelList.count(type_) > 0)
+    {
+        return modelList[type_];
+    }
 
-
-/**
-* @brief タイルモデルを取得して返す
-*/
-int ModelManager::GetTileModel()
-{
-    return tileHandle;
+    return modelList[ModelType::No];
 }
