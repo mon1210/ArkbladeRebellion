@@ -41,12 +41,12 @@ private:
 	virtual void Chase();	// 追跡
 protected:
 	Game	*pGame = nullptr;
-	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);				// エネミーからプレイヤーまでの距離
-	int		tileHandle = 0;									// 床モデルハンドル
-	int		count = 0;										// フレーム計測用　行動遷移, で使用 
-	float   vecLength = 0.f;								// ベクトルの長さ保存用
+	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
+	int		tileHandle = 0;											// 床モデルハンドル
+	int		count = 0;												// フレーム計測用　行動遷移, で使用 
+	float   vecLength = 0.f;										// ベクトルの長さ保存用
 
-	EnemyState currentState = EnemyState::Wait;				// 状態を表す
+	EnemyState currentState = EnemyState::Wait;						// 状態を表す
 
-	std::map<EnemyState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
+	std::unordered_map<EnemyState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
 };

@@ -43,13 +43,13 @@ private:
 	void Death();	// 死亡
 protected:
 	Game	*pGame = nullptr;
-	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);					// 移動の向きベクトル
-	bool	isMove = false;									// 移動フラグ
-	bool	rollAble = true;								// Roll可能フラグ
+	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);								// 移動の向きベクトル
+	bool	isMove = false;												// 移動フラグ
+	bool	rollAble = true;											// Roll可能フラグ
 
-	PlayerState currentState = PlayerState::Idle;			// 状態を表す
+	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
-	std::map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
+	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
 };
 
 

@@ -6,7 +6,7 @@
 */
 #pragma once
 #include "DxLib.h"
-#include <map>
+#include <unordered_map>
 #include <functional>
 
 // Šî’êƒNƒ‰ƒX
