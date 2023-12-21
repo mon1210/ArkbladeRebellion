@@ -64,10 +64,10 @@ void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
 * @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 * @note  毎フレームの処理
 */
-void Enemy::updateEnemyToPlayerVec() 
+void Enemy::updateToPlayerVec() 
 {
-    enemyToPlayer = VSub(pGame->GetPlayer()->GetPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
-    vecLength = sqrtf(enemyToPlayer.x * enemyToPlayer.x + enemyToPlayer.z * enemyToPlayer.z); // 距離ベクトルの長さ
+    toPlayerVec = VSub(pGame->GetPlayer()->GetPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
+    vecLength = sqrtf(toPlayerVec.x * toPlayerVec.x + toPlayerVec.z * toPlayerVec.z); // 距離ベクトルの長さ
 }
 
 
@@ -97,7 +97,7 @@ void Enemy::update()
     stateFunctionMap[currentState]();
 
     // enemyとplayerの距離ベクトルの更新
-    updateEnemyToPlayerVec();
+    updateToPlayerVec();
 
     // RaderのPointに追加
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
@@ -222,7 +222,7 @@ void Enemy::Chase()
     if (vecLength <= 0.f) { return; }
 
     // ベクトルを単位ベクトルに
-    VECTOR Direction = VGet(enemyToPlayer.x / vecLength, 0.f, enemyToPlayer.z / vecLength);
+    VECTOR Direction = VGet(toPlayerVec.x / vecLength, 0.f, toPlayerVec.z / vecLength);
 
     // 単位ベクトルをスカラー倍、移動速度に
     VECTOR Velocity = VScale(Direction, ENEMY_MOVE_SPEED);

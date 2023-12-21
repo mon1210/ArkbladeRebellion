@@ -30,7 +30,7 @@ public:
 	void initializeStateFunctions() override;			// map初期化メソッド　各Stateごとの関数登録	
 	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	void setAnimationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
-	void updateEnemyToPlayerVec();						// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+	void updateToPlayerVec();							// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 	// 以下取得用定数===================================================================== //
 	VECTOR GetPos() override;							// 座標取得メソッド
 	// 以上取得用定数===================================================================== //
@@ -41,7 +41,7 @@ private:
 	virtual void Chase();	// 追跡
 protected:
 	Game	*pGame = nullptr;
-	VECTOR  enemyToPlayer = VGet(0.f, 0.f, 0.f);			// エネミーからプレイヤーまでの距離
+	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);				// エネミーからプレイヤーまでの距離
 	int		tileHandle = 0;									// 床モデルハンドル
 	int		count = 0;										// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;								// ベクトルの長さ保存用
