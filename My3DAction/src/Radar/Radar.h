@@ -23,5 +23,6 @@ protected:
 	float	frontVecX = 0.f;			// 正面ベクトルX
 	float	frontVecZ = 0.f;			// 正面ベクトルZ
 	float	radius = 100.0f;			// Radarの半径 
+
 	std::vector<RadarPoint> pointList;	// Pointリスト作成
 };

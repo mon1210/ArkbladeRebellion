@@ -28,11 +28,11 @@ RadarPoint::~RadarPoint()
 void RadarPoint::draw(RadarData& param)
 {
 	// center => Pointの座標でのベクトル
-	centerToPointVecX = posX - param.centerX;
-	centerToPointVecZ = posZ - param.centerZ;
+	float centerToPointVecX = posX - param.centerX;
+	float centerToPointVecZ = posZ - param.centerZ;
 
 	// ベクトルの長さ
-	vecLength = sqrt(centerToPointVecX * centerToPointVecX + centerToPointVecZ * centerToPointVecZ);
+	float vecLength = sqrt(centerToPointVecX * centerToPointVecX + centerToPointVecZ * centerToPointVecZ);
 
 	// 長さが索敵範囲外になったら終了	ここで止まっている
 	if (vecLength >= RADAR_DETECTION_RANGE)
@@ -47,19 +47,19 @@ void RadarPoint::draw(RadarData& param)
 
 
 	// center => Pointの座標でのベクトルを正規化
-	normalizedVecX = centerToPointVecX / vecLength;	// X
-	normalizedVecZ = centerToPointVecZ / vecLength;	// Z
+	float normalizedVecX = centerToPointVecX / vecLength;	// X
+	float normalizedVecZ = centerToPointVecZ / vecLength;	// Z
 
 	//  center => Pointの単位ベクトルと、frontベクトルの内積(cosθ)を求める
-	dotProduct = normalizedVecX * param.frontVecX + normalizedVecZ * param.frontVecZ;
+	float dotProduct = normalizedVecX * param.frontVecX + normalizedVecZ * param.frontVecZ;
 
 	// cosθを角度に変更
-	rad = acosf(dotProduct);
+	float rad = acosf(dotProduct);
 
 
 	// 左右判定 ------------------------------------------
 	//  center => Pointのベクトルと、frontベクトルの外積(yのみ)を求める
-	crossProductY = centerToPointVecX * param.frontVecZ - centerToPointVecZ * param.frontVecX;
+	float crossProductY = centerToPointVecX * param.frontVecZ - centerToPointVecZ * param.frontVecX;
 	// crossProductYが負の値の時、radを反転
 	if (crossProductY < 0.f)
 	{
@@ -68,12 +68,12 @@ void RadarPoint::draw(RadarData& param)
 
 
 	// 角度からベクトルを求める
-	newVecX = sinf(rad);
-	newVecZ = cosf(rad);
+	float newVecX = sinf(rad);
+	float newVecZ = cosf(rad);
 
 
 	// Raderの索敵範囲と半径の比率を求める
-	rate = param.raderRadius / RADAR_DETECTION_RANGE;
+	float rate = param.raderRadius / RADAR_DETECTION_RANGE;
 
 
 	// 比率にcenter => pointの長さを乗算した値をベクトルの長さにする
