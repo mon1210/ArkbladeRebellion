@@ -11,7 +11,7 @@ Player::Player(Game *Game_)
     
     // ƒ‚ƒfƒ‹Žæ“¾
     if (pGame)
-        animHandle = pGame->GetModelManager()->GetPlayerModel();
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
 
     angle = PLAYER_START_ROTATE_Y;
 
