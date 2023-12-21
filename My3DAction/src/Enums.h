@@ -43,6 +43,16 @@ enum class StagePhase
 	STAGE_DONE = 4,
 };
 
+// モデルの種類
+enum class ModelType
+{
+	No = -1,	// -1代入用
+	Player,
+	Enemy,
+	Tile
+
+};
+
 // プレイヤーモデルのアニメーション番号
 namespace ePlayer
 {
