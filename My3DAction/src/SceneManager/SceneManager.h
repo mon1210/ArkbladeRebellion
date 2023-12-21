@@ -6,6 +6,7 @@
 #include "..\IGameScene\IGameScene.h"
 #include "..\Colors.h"
 #include "..\Enums.h"
+#include "..\GlobalFunctions\GlobalFunctions.h"
 
 class IGameScene;	// シーン管理クラス
 
@@ -17,12 +18,6 @@ public:
 	void doAnim();							// ゲーム全体のアニメート
 	void doDraw();							// ゲーム全体の描画
 	void fadeOut();							// シーン遷移時のフェードアウト処理　Todo 未完成
-	int clamp(int value, int min, int max)	// 値を指定された範囲内に収めるメソッド
-	{
-		if (value < min)return min; 
-		else if (value > max)return max;
-		else return value;
-	}
 protected:
 	IGameScene *pScene = nullptr;				//	シーン
 	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	//	状態変数
