@@ -49,10 +49,10 @@ void Enemy::initAnimation()
 */
 void Enemy::animationHandle(eEnemy::AnimationNum num) {
     // アニメーションをセット
-    if (animNo != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNo = static_cast<int>(num);
-        setAnim(animHandle, animNo, animTime, animTimer);
+        animNum = static_cast<int>(num);
+        setAnim(animHandle, animNum, animTime, animTimer);
     }
 };
 

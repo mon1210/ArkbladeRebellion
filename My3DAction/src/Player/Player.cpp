@@ -50,14 +50,14 @@ Player::~Player()
 void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z)
 {
     // アニメーションをセット
-    if (animNo != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNo = static_cast<int>(num);
-        setAnim(animHandle, animNo, animTime, animTimer);
+        animNum = static_cast<int>(num);
+        setAnim(animHandle, animNum, animTime, animTimer);
     }
 
     // 移動する向きと速度を設定
-    if (animNo == static_cast<int>(num))
+    if (animNum == static_cast<int>(num))
     {
         angle = ROTATE_ANGLE - pGame->GetCamera()->GetHorizontalAngle();
         isMove = true;
@@ -163,10 +163,10 @@ void Player::Idle()
     moveVec = VGet(0.f, 0.f, 0.f);
 
     // アニメーションをセット
-    if (animNo != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
     {
-        animNo = (int)ePlayer::AnimationNum::Idle;
-        setAnim(animHandle, animNo, animTime, animTimer);
+        animNum = (int)ePlayer::AnimationNum::Idle;
+        setAnim(animHandle, animNum, animTime, animTimer);
     }
     if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
         animTimer = 0.f;
@@ -295,10 +295,10 @@ void Player::Healing()
     if (CheckHitKey(KEY_INPUT_F))
     {
         // アニメーションをセット
-        if (animNo != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
+        if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
         {
-            animNo = (int)ePlayer::AnimationNum::Drinking;
-            setAnim(animHandle, animNo, animTime, animTimer);
+            animNum = (int)ePlayer::AnimationNum::Drinking;
+            setAnim(animHandle, animNum, animTime, animTimer);
         }
 
     }
@@ -323,10 +323,10 @@ void Player::Death()
     if (CheckHitKey(KEY_INPUT_G))
     {
         // アニメーションをセット
-        if (animNo != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
+        if (animNum != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
         {
-            animNo = (int)ePlayer::AnimationNum::Dying;
-            setAnim(animHandle, animNo, animTime, animTimer);
+            animNum = (int)ePlayer::AnimationNum::Dying;
+            setAnim(animHandle, animNum, animTime, animTimer);
         }
 
     }

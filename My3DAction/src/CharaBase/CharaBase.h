@@ -21,7 +21,7 @@ public:
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);	// 座標
 	int		animHandle = 0;					// モデルハンドル
-	int		animNo = 0;						// アニメーション番号
+	int		animNum = 0;					// アニメーション番号
 	float	animTime = 0.f;					// アニメーションの総再生時間
 	float	animTimer = 0.f;				// アニメーションの現在の再生時間
 	float	angle = 0.f;					// 向き		アタッチ時にradに変換
