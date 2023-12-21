@@ -23,7 +23,7 @@ Enemy::Enemy(Game *Game_)
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
 
-    // map初期化
+    // unordered_map初期化
     initializeStateFunctions();
 
 }
@@ -72,7 +72,7 @@ void Enemy::updateToPlayerVec()
 
 
 /**
-* @brief map初期化メソッド
+* @brief unordered_map初期化メソッド
 * @note  各Stateごとのメソッドを登録
 */
 void Enemy::initializeStateFunctions()

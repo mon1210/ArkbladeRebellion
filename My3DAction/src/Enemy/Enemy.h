@@ -27,7 +27,7 @@ public:
 	bool isAlive() override;							// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;								// 描画メソッド
 	void update() override;								// 状態管理とdraw呼び出し　毎フレーム呼び出される
-	void initializeStateFunctions() override;			// map初期化メソッド　各Stateごとの関数登録	
+	void initializeStateFunctions() override;			// unordered_map初期化メソッド　各Stateごとの関数登録	
 	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	void setAnimationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
 	void updateToPlayerVec();							// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
@@ -48,5 +48,5 @@ protected:
 
 	EnemyState currentState = EnemyState::Wait;						// 状態を表す
 
-	std::unordered_map<EnemyState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
+	std::unordered_map<EnemyState, StateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
 };

@@ -22,7 +22,7 @@ Player::Player(Game *Game_)
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
 
-    // map初期化
+    // unordered_map初期化
     initializeStateFunctions();
 }
 
@@ -91,7 +91,7 @@ bool Player::checkRollKey()
 
 
 /**
-* @brief map初期化メソッド
+* @brief unordered_map初期化メソッド
 * @note  各Stateごとのメソッドを登録
 */
 void Player::initializeStateFunctions()

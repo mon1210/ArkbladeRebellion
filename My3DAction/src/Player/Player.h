@@ -23,7 +23,7 @@ public:
 	bool isAlive() override;								// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;									// 描画メソッド
 	void update() override;									// 行動管理メソッド
-	void initializeStateFunctions() override;				// map初期化メソッド　各Stateごとの関数登録	
+	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void animateAndMove(ePlayer::AnimationNum num,
@@ -49,7 +49,7 @@ protected:
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
-	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
+	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
 };
 
 
