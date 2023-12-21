@@ -4,6 +4,7 @@
 */
 #pragma once
 #include "..\IGameScene\IGameScene.h"
+#include "..\Colors.h"
 #include "..\Enums.h"
 
 class IGameScene;	// シーン管理クラス

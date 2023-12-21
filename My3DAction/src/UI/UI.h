@@ -4,6 +4,7 @@
 */
 #pragma once
 #include "..\Constants.h"
+#include "..\Colors.h"
 #include "..\Game\Game.h"
 
 class Game;
@@ -21,6 +22,3 @@ protected:
 	float	hpRatio = 0.f;	// HPÉoÅ[ÇÃï\é¶î‰ó¶
 
 };
-
-#define GREEN GetColor(0, 255, 0) 
-#define WHITE GetColor(255, 255, 255)
