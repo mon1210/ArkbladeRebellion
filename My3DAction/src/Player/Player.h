@@ -23,6 +23,7 @@ public:
 	bool isAlive() override;								// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;									// 描画メソッド
 	void update() override;									// 行動管理メソッド
+	void initializeStateFunctions() override;				// map初期化メソッド　各Stateごとの関数登録	
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void animateAndMove(ePlayer::AnimationNum num,
@@ -35,18 +36,20 @@ private:
 	// 状態ごとのメソッド
 	void Idle();	// 待機
 	void Move();	// 移動
-	void Roll();	// 前転
+	void Roll();	// 前転(回避)
 	void Attack();	// 攻撃 => 三段攻撃の予定
 	void Damage();	// 被ダメージ
 	void Healing();	// 回復
 	void Death();	// 死亡
 protected:
 	Game	*pGame = NULL;
-	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
-	bool	isMove = false;							// 移動フラグ
-	bool	rollAble = true;						// Roll可能フラグ
+	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);					// 移動の向きベクトル
+	bool	isMove = false;									// 移動フラグ
+	bool	rollAble = true;								// Roll可能フラグ
 
-	PlayerState currentState = PlayerState::Idle;	// 状態を表す
+	PlayerState currentState = PlayerState::Idle;			// 状態を表す
+
+	std::map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったmapを定義
 };
 
 

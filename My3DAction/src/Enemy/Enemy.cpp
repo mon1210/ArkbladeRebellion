@@ -23,6 +23,9 @@ Enemy::Enemy(Game *Game_)
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
 
+    // map初期化
+    initializeStateFunctions();
+
 }
 
 
@@ -69,29 +72,30 @@ void Enemy::updateEnemyToPlayerVec()
 
 
 /**
+* @brief map初期化メソッド
+* @note  各Stateごとのメソッドを登録
+*/
+void Enemy::initializeStateFunctions()
+{
+    stateFunctionMap[EnemyState::Wait]  = [this]() { Wait();  };
+    stateFunctionMap[EnemyState::Move]  = [this]() { Move();  };
+    stateFunctionMap[EnemyState::Chase] = [this]() { Chase(); };
+    //stateFunctionMap[EnemyState::Attack] = [this]() { Attack();  };
+    //stateFunctionMap[EnemyState::Damage] = [this]() { Damage();  };  
+    //stateFunctionMap[EnemyState::Death] = [this]() { Death();   };
+
+}
+
+
+/**
 * @brief 行動状態の管理メソッド
 * @note  毎フレームの処理
 */
 void Enemy::update()
 {
-    switch (currentState)
-    {
-    case EnemyState::Wait:
-        Wait();
-        break;
-    case EnemyState::Move:
-        Move();
-        break;
-    case EnemyState::Chase:
-        Chase();
-        break;
-    //case EnemyState::Attack:
-    //    break;
-    //case EnemyState::Damage:
-    //    break;
-    //case EnemyState::Death:
-    //    break;
-    }
+    // 今のStateに対応するメソッド呼び出し
+    stateFunctionMap[currentState]();
+
     // enemyとplayerの距離ベクトルの更新
     updateEnemyToPlayerVec();
 

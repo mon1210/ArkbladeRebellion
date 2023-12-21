@@ -21,6 +21,9 @@ Player::Player(Game *Game_)
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
+
+    // map初期化
+    initializeStateFunctions();
 }
 
 
@@ -88,48 +91,29 @@ bool Player::checkRollKey()
 
 
 /**
+* @brief map初期化メソッド
+* @note  各Stateごとのメソッドを登録
+*/
+void Player::initializeStateFunctions()
+{
+    stateFunctionMap[PlayerState::Idle]     = [this]() { Idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move]     = [this]() { Move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll]     = [this]() { Roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack]   = [this]() { Attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage]   = [this]() { Damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing]  = [this]() { Healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death]    = [this]() { Death();   };  // 死亡
+}
+
+
+/**
 * @brief 状態管理メソッド
 * @note  毎フレームの処理
 */
 void Player::update()
 {
-    switch (currentState)
-    {
-        // Idle ---------------------------------------------------------------------------------------------
-    case PlayerState::Idle:
-        Idle();
-        break;
-
-        // Move ---------------------------------------------------------------------------------------------
-    case PlayerState::Move:
-        Move();
-        break;
-
-        // Roll ---------------------------------------------------------------------------------------------
-    case PlayerState::Roll:
-        Roll();
-        break;
-
-        // Attack -------------------------------------------------------------------------------------------
-    case PlayerState::Attack:
-        Attack();
-        break;
-
-        // Damage -------------------------------------------------------------------------------------------
-    case PlayerState::Damage:
-        Damage();
-        break;
-
-        // Heal ---------------------------------------------------------------------------------------------
-    case PlayerState::Healing:
-        Healing();
-        break;
-
-        // Death ---------------------------------------------------------------------------------------------
-    case PlayerState::Death:
-        Death();
-        break;
-    }
+    // 今のStateに対応するメソッド呼び出し
+    stateFunctionMap[currentState]();
 
     // 移動した場合の当たり判定更新と座標セット
     if (isMove && pGame) {
