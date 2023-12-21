@@ -6,7 +6,7 @@
 #include "DxLib.h"
 
 // アニメーションをセットする
-void setAnim(int handle, int anim_no, float& anim_time, float& anim_timer);
+void setAnim(int handle, int anim_num, float& anim_time, float& anim_timer);
 
 // アニメーションが完了したかを判断する
 // true:アニメーションタイマーをリセット / false:何もしない
