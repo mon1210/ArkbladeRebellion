@@ -25,6 +25,3 @@ protected:
 	float	radius = 100.0f;			// Radar‚Ì”¼Œa 
 	std::vector<RadarPoint> pointList;	// PointƒŠƒXƒgì¬
 };
-
-#define WHITE GetColor(255, 255, 255)
-#define BLACK GetColor(0, 0, 0)

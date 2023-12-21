@@ -8,6 +8,7 @@
 #include <DxLib.h>
 #include <vector>
 #include "..\Enums.h"
+#include "..\Colors.h"
 #include "..\Constants.h"
 
 
@@ -51,4 +52,3 @@ private:// Radar‚ÅŽg—p‚Å‚«‚È‚¢‚æ‚¤‚É
 	eRadar::PointType pointType;			// Ží—Þ
 };
 
-#define RED	GetColor(255, 0, 0)
