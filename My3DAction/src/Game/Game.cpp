@@ -48,14 +48,14 @@ Game::~Game()
 */
 GameSceneResultCode Game::move()
 {
-	switch (Phase)
+	switch (stagePhase)
 	{
 	case StagePhase::STAGE_INIT:
 		if (pCollision)
 			pCollision->initCollision(pBG->GetModelHandle());
 		if (pEnemy)
 			pEnemy->initAnimation();	// phase分けはEnemyのみなので
-		Phase = StagePhase::STAGE_RUN;
+		stagePhase = StagePhase::STAGE_RUN;
 		break;
 
 	case StagePhase::STAGE_RUN:
@@ -66,7 +66,7 @@ GameSceneResultCode Game::move()
 		{
 			if (!bPause) 
 			{
-				Phase = StagePhase::STAGE_PAUSE;
+				stagePhase = StagePhase::STAGE_PAUSE;
 				bPause = true;
 			}
 		}
@@ -79,8 +79,8 @@ GameSceneResultCode Game::move()
 		{
 			if (!pPlayer->isAlive())
 			{
-				Phase = StagePhase::STAGE_FADE;
-				Timer = 0;
+				stagePhase = StagePhase::STAGE_FADE;
+				timer = 0;
 			}
 			if (pRadar)
 				pRadar->listReset();	// Pointリスト初期化
@@ -103,7 +103,7 @@ GameSceneResultCode Game::move()
 		{
 			if (!bPause) 
 			{
-				Phase = StagePhase::STAGE_RUN;
+				stagePhase = StagePhase::STAGE_RUN;
 				bPause = true;
 				break;
 			}
@@ -116,11 +116,11 @@ GameSceneResultCode Game::move()
 		break;
 
 	case StagePhase::STAGE_FADE:
-		if (Timer++ < STAGE_FADE_TIMER)
+		if (timer++ < STAGE_FADE_TIMER)
 		{
 			break;
 		}
-		Phase = StagePhase::STAGE_DONE;
+		stagePhase = StagePhase::STAGE_DONE;
 		break;
 
 	case StagePhase::STAGE_DONE:
@@ -152,7 +152,7 @@ void Game::draw()
 		pUI->draw();
 
 	// フェードアウト描画用
-	switch (Phase)
+	switch (stagePhase)
 	{
 	case StagePhase::STAGE_FADE:
 	case StagePhase::STAGE_DONE:

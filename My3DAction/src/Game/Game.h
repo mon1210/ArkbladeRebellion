@@ -56,7 +56,7 @@ protected:
 	Collision	 *pCollision = nullptr;
 	Radar		 *pRadar = nullptr;
 	UI			 *pUI = nullptr;
-	StagePhase	 Phase = StagePhase::STAGE_INIT;		// 状態を表す
-	bool		 bPause = false;			// ポーズボタン連打防止フラグ
-	int			 Timer = 0;
+	StagePhase	 stagePhase = StagePhase::STAGE_INIT;	// 状態を表す
+	bool		 bPause = false;						// ポーズボタン連打防止フラグ
+	int			 timer = 0;
 };
