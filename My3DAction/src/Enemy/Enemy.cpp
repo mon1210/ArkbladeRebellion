@@ -41,7 +41,7 @@ Enemy::~Enemy()
 */
 void Enemy::initAnimation()
 {
-    animationHandle(eEnemy::AnimationNum::Idle);
+    setAnimationHandle(eEnemy::AnimationNum::Idle);
 
 }
 
@@ -50,7 +50,7 @@ void Enemy::initAnimation()
 * @brief アニメーションを設定する
 * @param[in] num    アニメーション番号
 */
-void Enemy::animationHandle(eEnemy::AnimationNum num) {
+void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
     // アニメーションをセット
     if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
@@ -132,7 +132,7 @@ void Enemy::Wait()
         currentState = EnemyState::Move;
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
         // アニメーションをセット
-        animationHandle(eEnemy::AnimationNum::Run);
+        setAnimationHandle(eEnemy::AnimationNum::Run);
 
     }
     // 視野に入っていたら追跡
@@ -140,7 +140,7 @@ void Enemy::Wait()
     {
         currentState = EnemyState::Chase;
         // アニメーションをセット
-        animationHandle(eEnemy::AnimationNum::Run);
+        setAnimationHandle(eEnemy::AnimationNum::Run);
     }
 
 }
@@ -199,7 +199,7 @@ void Enemy::Move()
         count = 0;
         currentState = EnemyState::Wait;
         // アニメーションをセット
-        animationHandle(eEnemy::AnimationNum::Idle);
+        setAnimationHandle(eEnemy::AnimationNum::Idle);
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
@@ -262,7 +262,7 @@ void Enemy::Chase()
     {
         currentState = EnemyState::Wait;
         count = 0;
-        animationHandle(eEnemy::AnimationNum::Idle);
+        setAnimationHandle(eEnemy::AnimationNum::Idle);
     }
 }
 

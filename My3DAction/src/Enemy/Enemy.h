@@ -23,16 +23,16 @@ class Enemy : public CharaBase
 public:
 	Enemy(Game *Game_);
 	~Enemy();
-	void initAnimation();							// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
-	bool isAlive() override;						// 生き死にを結果として返す　true:生存 / false:死亡
-	void draw() override;							// 描画メソッド
-	void update() override;							// 状態管理とdraw呼び出し　毎フレーム呼び出される
-	void initializeStateFunctions() override;		// map初期化メソッド　各Stateごとの関数登録	
-	bool isTargetVisible();							// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
-	void animationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
-	void updateEnemyToPlayerVec();					// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+	void initAnimation();								// アニメーション状態初期化関数 Stageで初期化時一度だけ呼び出す
+	bool isAlive() override;							// 生き死にを結果として返す　true:生存 / false:死亡
+	void draw() override;								// 描画メソッド
+	void update() override;								// 状態管理とdraw呼び出し　毎フレーム呼び出される
+	void initializeStateFunctions() override;			// map初期化メソッド　各Stateごとの関数登録	
+	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
+	void setAnimationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
+	void updateEnemyToPlayerVec();						// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 	// 以下取得用定数===================================================================== //
-	VECTOR GetPos() override;						// 座標取得メソッド
+	VECTOR GetPos() override;							// 座標取得メソッド
 	// 以上取得用定数===================================================================== //
 private:
 	// 状態ごとのメソッド
