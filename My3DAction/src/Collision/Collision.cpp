@@ -37,11 +37,10 @@ void Collision::initCollision(int handle)
 
 
 /**
-* @brief プレイヤー移動時のステージとの当たり判定メソッド
-* @note  Playerクラスで呼び出し
-*		 プレイヤーの移動範囲を制限している
+* @brief 移動時のステージとの当たり判定メソッド
+* @note  移動範囲を制限している
 */
-void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& roll_able)
+bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 {
 	new_pos.y += 1.0f;  // これがないと左右,下に移動できない
 	// MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
@@ -56,17 +55,16 @@ void Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& player_pos, bool& ro
 	{
 		// HitPosition => 交点の座標
 		new_pos.y = Result.HitPosition.y;
-		player_pos = new_pos;
-		roll_able = true;
+		pos = new_pos;
 		// 当たったときにその旨を描画
 		DrawString(0, 0, "HIT", GetColor(255, 0, 0));
+		return true;
 	}
 	else
 	{
-		// ステージ端っこでRollできないように
-		roll_able = false;
 		// 当たらなかった場合は衝突しなかった旨を描画
 		DrawString(0, 0, "NO HIT", GetColor(0, 0, 255));
+		return false;
 	}
 
 }
