@@ -165,8 +165,7 @@ void Player::Idle()
         animNum = (int)ePlayer::AnimationNum::Idle;
         setAnim(animHandle, animNum, animTime, animTimer);
     }
-    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-        animTimer = 0.f;
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
 
     if (checkMoveKey()) {
         currentState = PlayerState::Move;
@@ -201,29 +200,25 @@ void Player::Move()
         // アニメーション、移動動作をセット
         animateAndMove(ePlayer::AnimationNum::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         // アニメーションタイマーリセット
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Down => Runモーション(3) 下移動
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
         animateAndMove(ePlayer::AnimationNum::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Right => Runモーション(3) 右移動
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
         animateAndMove(ePlayer::AnimationNum::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Left => Runモーション(3) 左移動
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
         animateAndMove(ePlayer::AnimationNum::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
-        if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-            animTimer = 0.f;
+        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     else
     {
@@ -257,9 +252,8 @@ void Player::Roll()
     // アニメーション終了後
     if (rollAble)
     {
-        if (updateAnimation(animTime, animTimer, PLAYER_ROLL_ANIM_F_INCREMENT))
+        if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT)) 
         {
-            animTimer = 0.f;
             rollAble = false;
             currentState = PlayerState::Idle;
         }
@@ -308,12 +302,9 @@ void Player::Healing()
     }
 
     // アニメーション終了後
-    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-    {
-        animTimer = 0.f;
+    if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT))
         // ここでHP回復
         currentState = PlayerState::Idle;
-    }
 }
 
 
@@ -336,10 +327,7 @@ void Player::Death()
     }
 
     // アニメーション終了後
-    if (updateAnimation(animTime, animTimer, PLAYER_ANIM_F_INCREMENT))
-    {
-        animTimer = 0.f;
-    }
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
 }
 
 

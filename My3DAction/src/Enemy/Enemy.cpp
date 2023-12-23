@@ -103,8 +103,7 @@ void Enemy::update()
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
 
     // アニメーションタイマーリセット
-    if (updateAnimation(animTime, animTimer, ENEMY_ANIM_F_INCREMENT))
-        animTimer = 0.f;
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
 
 }
 
