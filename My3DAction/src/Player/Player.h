@@ -44,12 +44,15 @@ private:
 protected:
 	Game	*pGame = nullptr;
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);								// 移動の向きベクトル
+	int		rollCoolTime = 0;
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
 	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
+
+	std::vector<ePlayer::AnimationNum> animationList;
 };
 
 

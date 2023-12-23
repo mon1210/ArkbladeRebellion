@@ -26,6 +26,7 @@ protected:
 	int		animHandle = 0;							// モデルハンドル
 	int		animNum = 0;							// アニメーション番号
 	float	animTime = 0.f;							// アニメーションの総再生時間
+	//float*	animTimes;								// アニメーションの総再生時間
 	float	animTimer = 0.f;						// アニメーションの現在の再生時間
 	float	angle = 0.f;							// 向き		アタッチ時にradに変換
 	float	hitPoint = 100.f;						// HP

@@ -3,12 +3,12 @@
 /**
 * @brief Playerのコンストラクタ
 */
-Player::Player(Game *Game_)
+Player::Player(Game* Game_)
 {
     hitPoint = MAX_HP;
 
     pGame = Game_;
-    
+
     // モデル取得
     if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
@@ -34,11 +34,6 @@ Player::Player(Game *Game_)
 Player::~Player()
 {
 }
-
-
-// Roll時、長押しで回転し続けられるのを直すようにもしたい
-// Todo
-// void RollHandle(){}
 
 
 /**
@@ -123,8 +118,26 @@ void Player::update()
         pGame->GetCollision()->charaCapCol(position, moveVec, EnemyPos, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
         // 移動後の座標取得
         VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
-        // 当たり判定更新
-        pGame->GetCollision()->clampToStageBounds(NewPos, position, rollAble);
+
+        // 当たり判定更新 -------
+        // roll以外       ローリングのクールタイムがdefault値の時
+        if (rollCoolTime == 0)
+            rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
+        // roll中の時
+        else
+        {
+            pGame->GetCollision()->clampToStageBounds(NewPos, position);
+
+            // クールタイムを減らす処理
+            rollCoolTime--;
+
+            // クールタイムが０以下
+            if (rollCoolTime <= 0)
+            {
+                // クールタイムをdefaultに
+                rollCoolTime = 0;
+            }
+        }
     }
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
@@ -158,8 +171,15 @@ void Player::Idle()
     if (checkMoveKey()) {
         currentState = PlayerState::Move;
     }
-    else if (checkRollKey()) {
+    else if (checkRollKey() && rollAble) {
         currentState = PlayerState::Roll;
+        /*
+            ローリングのクールタイムを追加
+            roll_coolTime = Const.MAX_ROLLING_COOLTIME + animTime;
+        */
+        // animTimeをRollの数にするように、配列を作成して取得
+        rollCoolTime = MAX_ROLL_COOL_TIME /* + animTime */ ;
+
     }
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
@@ -299,7 +319,7 @@ void Player::Healing()
 
 /**
 * @brief Death状態の管理メソッド
-* @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了 
+* @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了
 */
 void Player::Death()
 {
@@ -388,7 +408,7 @@ void Player::draw()
 * @brief プレイヤー座標を取得して返す
 */
 VECTOR Player::GetPos()
-{   
+{
     return position;
 }
 
@@ -400,3 +420,4 @@ float Player::GetHp()
 {
     return hitPoint;
 }
+
