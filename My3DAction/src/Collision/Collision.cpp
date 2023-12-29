@@ -8,8 +8,7 @@ Collision::Collision(Game *Game_)
 	pGame = Game_;
 
 	if (pGame)
-		tileHandle = pGame->GetModelManager()->GetHandle(ModelType::Tile);
-
+		tileHandle = pGame->GetBG()->GetModelHandle();
 }
 
 
@@ -27,7 +26,7 @@ void Collision::initCollision(int handle)
 {
 	// Tileに当たり判定付与
 	MV1SetupCollInfo(
-		handle = 0,			// 当たり判定を設定するモデルのハンドル
+		handle = 0,		// 当たり判定を設定するモデルのハンドル
 		-1,					// 対象となるモデルのフレーム番号(-1は全て)	
 		SPATIAL_PARTITION,	// X軸の空間分割数
 		SPATIAL_PARTITION,	// Y軸の空間分割数
@@ -76,24 +75,20 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 * @param[in] pos1　			移動しているキャラの座標
 * @param[in] pos1_move_vec　移動しているキャラの移動ベクトル
 * @param[in] pos2　			当たられる側の座標
-* @param[in] CAP1_HEIGHT　	pos1のカプセルの高さ
-* @param[in] CAP2_HEIGHT　	pos2のカプセルの高さ
-* @param[in] CAP1_RADIUS　	pos1のカプセルの半径
-* @param[in] CAP2_RADIUS　	pos2のカプセルの半径
+* @param[in] cap1_height　	pos1のカプセルの高さ
+* @param[in] cap2_height　	pos2のカプセルの高さ
+* @param[in] cap1_radius　	pos1のカプセルの半径
+* @param[in] cap2_radius　	pos2のカプセルの半径
 */
-void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float CAP1_HEIGHT, float CAP2_HEIGHT, float CAP1_RADIUS, float CAP2_RADIUS)
+void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
 {
-
-
-
-
 	// 移動後の ch の座標を算出
 	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);
 
 	// 二つのカプセルで当たり判定
 	if (HitCheck_Capsule_Capsule(
-		pos1, VGet(pos1.x, pos1.y + CAP1_HEIGHT, pos1.z), CAP1_RADIUS,
-		pos2, VGet(pos2.x, pos2.y + CAP2_HEIGHT, pos2.z), CAP2_RADIUS) == TRUE)
+		pos1, VGet(pos1.x, pos1.y + cap1_height, pos1.z), cap1_radius,
+		pos2, VGet(pos2.x, pos2.y + cap2_height, pos2.z), cap2_radius) == TRUE)
 	{
 		// pos2 から pos1 へのベクトルを算出
 		VECTOR Pos2ToPos1Vec = VSub(NewPos1, pos2);
@@ -109,12 +104,12 @@ void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, f
 
 		// 押し出す距離を算出 ------
 		// 二人の距離から二人の大きさを引いた値に押し出し力を足しても離れてしまう場合は、ぴったりくっつく距離に移動する
-		if (Length - (CAP2_RADIUS * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
+		if (Length - (cap2_radius * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
 		{
 			float TempY;	// コピー用
 
 			TempY = NewPos1.y;	// Y軸をコピー
-			NewPos1 = VAdd(pos1, VScale(PushVec, CAP2_RADIUS * 2.f));
+			NewPos1 = VAdd(pos1, VScale(PushVec, cap2_radius * 2.f));
 
 			// Y座標は変化させない
 			NewPos1.y = TempY;
