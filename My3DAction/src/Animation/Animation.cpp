@@ -21,8 +21,8 @@ void setAnim(int handle, int anim_num, float& anim_time, float& anim_timer)
 }
 
 /**
-* @brief   アニメーションが完了したかを判断する
-* @return  true:アニメーションタイマーをリセット / false:何もしない
+* @brief   アニメーションタイマーを進行させ、終了後リセットする
+* @return  true:アニメーション終了 / false:何もしない
 * @param[in] anim_time          アニメーションの総再生時間
 * @param[in] anim_timer         アニメーションの現在の経過時間
 * @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量

@@ -7,11 +7,6 @@
 */
 ModelManager::ModelManager()
 {
-    // 3Dモデルの読み込み
-    playerHandle = MV1LoadModel("res\\Player\\PlayerModel.mv1");
-    enemyHandle = MV1LoadModel("res\\Enemy\\EnemyModel2.mv1");
-    tileHandle = MV1LoadModel("res\\test_Tile_model.mv1");
-
     // unordered_map初期化
     initializeModelList();
 }
@@ -20,9 +15,6 @@ ModelManager::ModelManager()
 // デストラクタ
 ModelManager::~ModelManager()
 {
-    MV1DeleteModel(playerHandle);
-    MV1DeleteModel(enemyHandle);
-    MV1DeleteModel(tileHandle);
 }
 
 
@@ -32,10 +24,9 @@ ModelManager::~ModelManager()
 */
 void ModelManager::initializeModelList()
 {
-    modelList[ModelType::Player] = { playerHandle };
-    modelList[ModelType::Enemy]  = { enemyHandle  };
-    modelList[ModelType::Tile]   = { tileHandle   };
-
+    modelList[ModelType::Player] = { MV1LoadModel("res\\Player\\PlayerModel.mv1") };
+    modelList[ModelType::Enemy]  = { MV1LoadModel("res\\Enemy\\EnemyModel2.mv1") };
+    modelList[ModelType::Tile]   = { MV1LoadModel("res\\test_Tile_model.mv1") };
 }
 
 

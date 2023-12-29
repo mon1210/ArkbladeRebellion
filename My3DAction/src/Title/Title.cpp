@@ -26,7 +26,7 @@ Title::~Title()
 
 
 /**
-* @brief アニメーションメソッド
+* @brief  管理メソッド
 * @return GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
 */
 GameSceneResultCode Title::move()

@@ -13,7 +13,7 @@ class Grid
 public:
 	Grid();
 	~Grid();
-	virtual void draw();	// 描画メソッド
+	void draw();	// 描画メソッド
 protected:
 	VECTOR startHorizontal = VGet(0.f, 0.f, 0.f);	// 水平方向の開始地点
 	VECTOR endHorizontal = VGet(0.f, 0.f, 0.f);		// 水平方向の最終地点 
