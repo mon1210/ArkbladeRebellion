@@ -14,12 +14,12 @@ class CharaBase
 {
 public:
 	virtual ~CharaBase();
-	virtual bool isAlive() = 0;						// アニメーションメソッド　true:生存 / false:死亡
+	virtual bool isAlive() = 0;						// 生き死にを結果として返す　true:生存 / false:死亡
 	virtual void draw() = 0;						// 描画メソッド
 	virtual void update() = 0;						// 更新メソッド
 	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
 	// 以下取得用定数===================================================================== //
-	virtual VECTOR GetPos() = 0;					// 座標を取得して返す
+	VECTOR GetPos() { return position; };			// 座標を取得して返す
 	// 以上取得用定数===================================================================== //
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
