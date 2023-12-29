@@ -26,6 +26,9 @@ Enemy::Enemy(Game *Game_)
     // unordered_map初期化
     initializeStateFunctions();
 
+    // アニメーション状態初期化
+    initAnimation();
+
 }
 
 
@@ -77,12 +80,12 @@ void Enemy::updateToPlayerVec()
 */
 void Enemy::initializeStateFunctions()
 {
-    stateFunctionMap[EnemyState::Wait]  = [this]() { Wait();  };
-    stateFunctionMap[EnemyState::Move]  = [this]() { Move();  };
-    stateFunctionMap[EnemyState::Chase] = [this]() { Chase(); };
-    //stateFunctionMap[EnemyState::Attack] = [this]() { Attack();  };
-    //stateFunctionMap[EnemyState::Damage] = [this]() { Damage();  };  
-    //stateFunctionMap[EnemyState::Death] = [this]() { Death();   };
+    stateFunctionMap[EnemyState::Wait]  = [this]() { wait();  };
+    stateFunctionMap[EnemyState::Move]  = [this]() { move();  };
+    stateFunctionMap[EnemyState::Chase] = [this]() { chase(); };
+    //stateFunctionMap[EnemyState::Attack] = [this]() { attack();  };
+    //stateFunctionMap[EnemyState::Damage] = [this]() { damage();  };  
+    //stateFunctionMap[EnemyState::Death] = [this]() { death();   };
 
 }
 
@@ -111,7 +114,7 @@ void Enemy::update()
 /**
 * @brief Wait状態の管理メソッド
 */
-void Enemy::Wait()
+void Enemy::wait()
 {
     // 行動 => 何もしない
     //SetAnim(eEnemy::Idle);  // これがないとanimTimerが増加せず、最初固まる
@@ -148,7 +151,7 @@ void Enemy::Wait()
 /**
 * @brief Move状態の管理メソッド
 */
-void Enemy::Move()
+void Enemy::move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
     // ベクトル算出
@@ -213,7 +216,7 @@ void Enemy::Move()
 /**
 * @brief Chase状態の管理メソッド
 */
-void Enemy::Chase()
+void Enemy::chase()
 {
     // 行動：視野内のプレイヤーを追いかける
     
@@ -326,13 +329,9 @@ void Enemy::draw()
 
     // ３Ｄモデルの描画
     MV1DrawModel(animHandle);
-}
 
-
-/**
-* @brief エネミー座標を取得して返す
-*/
-VECTOR Enemy::GetPos()
-{
-    return  position;
+#ifdef _DEBUG
+    // 当たり判定カプセル描画
+    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+#endif
 }
