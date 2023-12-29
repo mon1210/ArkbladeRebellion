@@ -21,11 +21,11 @@ Camera::~Camera()
 void Camera::update()
 {
 	// 操作メソッド
-	controller();
+	control();
 
 	// カメラの位置算出
 	if (pGame)
-		positionAndDirection(pGame->GetPlayer()->GetPos());
+		setPosition(pGame->GetPlayer()->GetPos());
 
 }
 
@@ -33,7 +33,7 @@ void Camera::update()
 /**
 * @brief カメラ操作メソッド
 */
-void Camera::controller()
+void Camera::control()
 {
 	// カメラの垂直角度を上に回転
 	if (CheckHitKey(KEY_INPUT_S))
@@ -108,7 +108,7 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 /**
 * @brief 位置算出メソッド
 */
-void Camera::positionAndDirection(VECTOR player_pos)
+void Camera::setPosition(VECTOR player_pos)
 {
 	VECTOR VerticalAnglePos;	// 垂直角度を反映した位置
 	VECTOR HorizontalAnglePos;	// 水平角度を反映した位置
