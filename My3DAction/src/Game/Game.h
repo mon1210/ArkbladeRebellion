@@ -34,7 +34,7 @@ class Game : public IGameScene
 public:
 	Game(SceneManager* System_);
 	~Game(void);
-	GameSceneResultCode move() override;	// アニメーション(1フレーム)の実行
+	GameSceneResultCode move() override;	// 管理メソッド
 	void draw() override;					// 描画メソッド
 	// 以下取得用定数=================================================== //
 	Player			*GetPlayer();			// Playerを取得して返す

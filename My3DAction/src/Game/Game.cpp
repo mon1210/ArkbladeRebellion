@@ -13,9 +13,9 @@ Game::Game(SceneManager* System_)
 	// インスタンス化
 	pModelManager = new ModelManager();
 	pCamera = new Camera(this);
+	pBG = new BG(this);
 	pCollision = new Collision(this);	// 必ずPlayerより上に書く
 	pRadar = new Radar();				// 必ずPlayerより上に書く
-	pBG = new BG(this);
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
 	pGrid = new Grid();
@@ -42,7 +42,7 @@ Game::~Game()
 
 
 /**
-* @brief アニメーション(1フレーム)の実行
+* @brief 管理メソッド
 * @note 
 * @return GAMESCENE_DEFAULT: 継続 / GAMESCENE_END_FAILURE: ゲームオーバー
 */
@@ -53,8 +53,6 @@ GameSceneResultCode Game::move()
 	case StagePhase::STAGE_INIT:
 		if (pCollision)
 			pCollision->initCollision(pBG->GetModelHandle());
-		if (pEnemy)
-			pEnemy->initAnimation();	// phase分けはEnemyのみなので
 		stagePhase = StagePhase::STAGE_RUN;
 		break;
 
