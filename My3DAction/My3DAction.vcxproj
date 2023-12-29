@@ -170,7 +170,6 @@
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\CharaBase\CharaBase.h" />
     <ClInclude Include="src\Collision\Collision.h" />
-    <ClInclude Include="src\Colors.h" />
     <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Enemy\Enemy.h" />
     <ClInclude Include="src\Enums.h" />
