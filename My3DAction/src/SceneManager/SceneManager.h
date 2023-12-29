@@ -14,16 +14,16 @@ class SceneManager
 {
 public:
 	SceneManager();
-	virtual ~SceneManager(void);
-	void doAnim();							// ゲーム全体のアニメート
-	void doDraw();							// ゲーム全体の描画
-	void fadeOut();							// シーン遷移時のフェードアウト処理　Todo 未完成
+	~SceneManager(void);
+	void doAnim();		// ゲーム全体のアニメート
+	void doDraw();		// ゲーム全体の描画
+	void fadeOut();		// シーン遷移時のフェードアウト処理　Todo 未完成
 protected:
-	IGameScene *pScene = nullptr;				//	シーン
+	IGameScene *pScene = nullptr;						//	シーン
 	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	//	状態変数
-	int fadeTimer = 0;						// フェードタイマー
-	int fadeTime = 0;						// フェード時間（フレーム）
-	int startTime = 0;						// 開始時間
+	int fadeTimer = 0;									// フェードタイマー
+	int fadeTime = 0;									// フェード時間（フレーム）
+	int startTime = 0;									// 開始時間
 };
 
 //	マクロ定義
