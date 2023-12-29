@@ -92,8 +92,11 @@ void Title::draw()
 	switch (Phase) 
 	{
 	case TitlePhase::TITLE_FADE:
-	case TitlePhase::TITLE_DONE:
-		System->fadeOut();
+	case TitlePhase::TITLE_DONE:		
+		FadeTimer++;
+		// 30フレームかけてフェードアウト
+		if (FadeTimer < TITLE_FADEOUT_TIME)
+			System->fadeOut();
 	}
 
 }
