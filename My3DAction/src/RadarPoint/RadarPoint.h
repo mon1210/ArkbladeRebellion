@@ -8,7 +8,6 @@
 #include <DxLib.h>
 #include <vector>
 #include "..\Enums.h"
-#include "..\Colors.h"
 #include "..\Constants.h"
 
 
