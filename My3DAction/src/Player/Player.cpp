@@ -91,13 +91,13 @@ bool Player::checkRollKey()
 */
 void Player::initializeStateFunctions()
 {
-    stateFunctionMap[PlayerState::Idle]     = [this]() { Idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move]     = [this]() { Move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll]     = [this]() { Roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack]   = [this]() { Attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage]   = [this]() { Damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing]  = [this]() { Healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death]    = [this]() { Death();   };  // 死亡
+    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
 }
 
 
@@ -153,7 +153,7 @@ void Player::update()
 /**
 * @brief Idle状態の管理メソッド
 */
-void Player::Idle()
+void Player::idle()
 {
     isMove = false;
     // 移動ベクトルを初期化
@@ -193,7 +193,7 @@ void Player::Idle()
 * @brief Move状態の管理メソッド
 * @note  移動キーを話すとIdle
 */
-void Player::Move()
+void Player::move()
 {
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
@@ -231,7 +231,7 @@ void Player::Move()
 * @brief Roll状態の管理メソッド
 * @note  アニメーション終了時にIdle    Todo 連続Roll
 */
-void Player::Roll()
+void Player::roll()
 {
     // Space or PAD_× => Roll
     if (Key_ForwardRoll)
@@ -264,7 +264,7 @@ void Player::Roll()
 /**
 * @brief Attack状態の管理メソッド
 */
-void Player::Attack()
+void Player::attack()
 {
 
 }
@@ -274,7 +274,7 @@ void Player::Attack()
 * @brief Damage状態の管理メソッド
 * @norte HPの減少　HP <= 0でDeathへ
 */
-void Player::Damage()
+void Player::damage()
 {
     if (hitPoint <= 0) {
         currentState = PlayerState::Death;
@@ -287,7 +287,7 @@ void Player::Damage()
 * @brief Healing状態の管理メソッド
 * @note  HPの回復　アニメーション終了時にIdle
 */
-void Player::Healing()
+void Player::healing()
 {
     // F => Drinking 回復時モーション
     if (CheckHitKey(KEY_INPUT_F))
@@ -312,7 +312,7 @@ void Player::Healing()
 * @brief Death状態の管理メソッド
 * @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了
 */
-void Player::Death()
+void Player::death()
 {
     // G => Dying
     if (CheckHitKey(KEY_INPUT_G))
@@ -382,22 +382,9 @@ void Player::draw()
 
 #ifdef _DEBUG
     // 当たり判定カプセル描画
-    // player
     DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
-    // enemy
-    VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
-    DrawCapsule3D(EnemyPos, VGet(EnemyPos.x, EnemyPos.y + CAP_HEIGHT, EnemyPos.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
 #endif
 
-}
-
-
-/**
-* @brief プレイヤー座標を取得して返す
-*/
-VECTOR Player::GetPos()
-{
-    return position;
 }
 
 
