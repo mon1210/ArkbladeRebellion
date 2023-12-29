@@ -33,7 +33,7 @@ class RadarPoint
 public:
 	RadarPoint(float x, float z, eRadar::PointType type_);
 	~RadarPoint();
-	virtual void draw(RadarData& param);	// 描画メソッド　Radar.cppの中で呼び出す
+	void draw(RadarData& param);	// 描画メソッド　Radar.cppの中で呼び出す
 private:
 	float posX = 0.f;						// Pointの座標X
 	float posZ = 0.f;						// Pointの座標Z
