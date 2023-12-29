@@ -1,17 +1,17 @@
-#include "UI.h"
+#include "HPBar.h"
 
 
 /*
-* @brief UIのコンストラクタ
+* @brief HPBarのコンストラクタ
 */
-UI::UI(Game* Game_)
+HPBar::HPBar(Game* Game_)
 {
 	pGame = Game_;
 }
 
 
 // デストラクタ
-UI::~UI()
+HPBar::~HPBar()
 {
 }
 
@@ -20,7 +20,7 @@ UI::~UI()
 * @brief 変動処理
 * @note  滑らかなHPの増減を実装
 */
-void UI::move()
+void HPBar::move()
 {
 	// HPバーの表示比率がHP以上の時
 	if (hpRatio > pGame->GetPlayer()->GetHp()) {
@@ -37,7 +37,7 @@ void UI::move()
 * @brief 描画メソッド
 * @note  
 */
-void UI::draw()
+void HPBar::draw()
 {
 	// HPの割合を求める
 	float Ratio = hpRatio / MAX_HP;

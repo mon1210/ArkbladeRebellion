@@ -1,6 +1,6 @@
 /**
-* @file		UI.h
-* @brief	クラス UI の宣言
+* @file		HPBar.h
+* @brief	クラス HPBar の宣言
 */
 #pragma once
 #include "..\Constants.h"
@@ -8,11 +8,11 @@
 
 class Game;
 
-class UI
+class HPBar
 {
 public:
-	UI(Game *Game_);
-	~UI();
+	HPBar(Game *Game_);
+	~HPBar();
 	void move();			// UIの変動用メソッド
 	void draw();			// 描画用メソッド
 private:
