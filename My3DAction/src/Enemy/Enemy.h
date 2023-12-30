@@ -29,6 +29,7 @@ public:
 	void update() override;								// 状態管理とdraw呼び出し　毎フレーム呼び出される
 private:
 	void initializeStateFunctions() override;			// unordered_map初期化メソッド　各Stateごとの関数登録	
+	void initializeAnimationList() override;			// animationList初期化メソッド
 	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
 	void setAnimationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
 	void updateToPlayerVec();							// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
@@ -42,6 +43,7 @@ protected:
 	int		tileHandle = 0;											// 床モデルハンドル
 	int		count = 0;												// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;										// ベクトルの長さ保存用
+	float	animTime = 0.f;											// アニメーション時間保存用変数
 
 	EnemyState currentState = EnemyState::Wait;						// 状態を表す
 
