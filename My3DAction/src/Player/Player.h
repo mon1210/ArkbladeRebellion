@@ -28,6 +28,7 @@ public:
 	// 以上取得用定数====================================================================== //
 private:
 	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
+	void initializeAnimationList() override;				// animationList初期化メソッド
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void animateAndMove(ePlayer::AnimationNum num,
@@ -48,11 +49,13 @@ protected:
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 
+	float* animTimes = 0;
+
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
 	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
 
-	std::vector<ePlayer::AnimationNum> animationList;
+	std::vector<int> animationList;
 };
 
 

@@ -18,23 +18,31 @@ Enemy::Enemy(Game *Game_)
 
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
 
-    animTime = MV1GetAnimTotalTime(animHandle, 0);
-
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
 
     // unordered_map初期化
     initializeStateFunctions();
 
+    // animationList初期化
+    initializeAnimationList();
+    // animTimesのサイズをanimationListと同じサイズに
+    animTimes = new float [animationList.size()];
+    // animTimesにアニメーション時間を保存
+    for (int i = static_cast<int>(eEnemy::AnimationNum::Idle); i < animationList.size(); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, animationList[i]);
+    }
+
     // アニメーション状態初期化
     initAnimation();
-
 }
 
 
 // デストラクタ
 Enemy::~Enemy()
 {
+    delete[] animTimes;
 }
 
 
@@ -45,6 +53,7 @@ Enemy::~Enemy()
 void Enemy::initAnimation()
 {
     setAnimationHandle(eEnemy::AnimationNum::Idle);
+    animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
 
 }
 
@@ -58,7 +67,7 @@ void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
     if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
         animNum = static_cast<int>(num);
-        setAnim(animHandle, animNum, animTime, animTimer);
+        setAnim(animHandle, animNum, animTimer);
     }
 };
 
@@ -87,6 +96,21 @@ void Enemy::initializeStateFunctions()
     //stateFunctionMap[EnemyState::Damage] = [this]() { damage();  };  
     //stateFunctionMap[EnemyState::Death] = [this]() { death();   };
 
+}
+
+
+/**
+* @brief animationList初期化メソッド
+* @note  アニメーションの種類を番号で取得
+*/
+void Enemy::initializeAnimationList()
+{
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Default));
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Idle));
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Run));
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Swiping));
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Damage));
+    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Dying));
 }
 
 
@@ -135,6 +159,7 @@ void Enemy::wait()
         angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
         // アニメーションをセット
         setAnimationHandle(eEnemy::AnimationNum::Run);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
 
     }
     // 視野に入っていたら追跡
@@ -143,6 +168,7 @@ void Enemy::wait()
         currentState = EnemyState::Chase;
         // アニメーションをセット
         setAnimationHandle(eEnemy::AnimationNum::Run);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
     }
 
 }
@@ -202,6 +228,7 @@ void Enemy::move()
         currentState = EnemyState::Wait;
         // アニメーションをセット
         setAnimationHandle(eEnemy::AnimationNum::Idle);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
     }
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
@@ -265,6 +292,7 @@ void Enemy::chase()
         currentState = EnemyState::Wait;
         count = 0;
         setAnimationHandle(eEnemy::AnimationNum::Idle);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
     }
 }
 

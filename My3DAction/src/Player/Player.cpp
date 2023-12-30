@@ -17,13 +17,22 @@ Player::Player(Game* Game_)
 
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
 
-    animTime = MV1GetAnimTotalTime(animHandle, 0);
-
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
 
     // unordered_map初期化
     initializeStateFunctions();
+
+    // animationList初期化
+    initializeAnimationList();
+    // animTimesのサイズをanimationListと同じサイズに
+    animTimes = new float[animationList.size()];
+    // animTimesにアニメーション時間を保存
+    for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i < animationList.size(); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, animationList[i]);
+    }
+
 }
 
 
@@ -33,6 +42,7 @@ Player::Player(Game* Game_)
 */
 Player::~Player()
 {
+    delete[] animTimes;
 }
 
 
@@ -51,7 +61,7 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float
     if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
     {
         animNum = static_cast<int>(num);
-        setAnim(animHandle, animNum, animTime, animTimer);
+        setAnim(animHandle, animNum, animTimer);
     }
 
     // 移動する向きと速度を設定
@@ -98,6 +108,26 @@ void Player::initializeStateFunctions()
     stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
     stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
     stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
+}
+
+
+/**
+* @brief animationList初期化メソッド
+* @note  アニメーションの種類を番号で取得
+*/
+void Player::initializeAnimationList()
+{
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Idle));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Run));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::NoMoveRoll));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Roll));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::SpeedRoll));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash1));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash2));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash3));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Damage));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Drinking));
+    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Dying));
 }
 
 
@@ -163,9 +193,9 @@ void Player::idle()
     if (animNum != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
     {
         animNum = (int)ePlayer::AnimationNum::Idle;
-        setAnim(animHandle, animNum, animTime, animTimer);
+        setAnim(animHandle, animNum, animTimer);
     }
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Idle)], &animTimer, PLAYER_ANIM_F_INCREMENT);
 
     if (checkMoveKey()) {
         currentState = PlayerState::Move;
@@ -177,7 +207,7 @@ void Player::idle()
             roll_coolTime = Const.MAX_ROLLING_COOLTIME + animTime;
         */
         // animTimeをRollの数にするように、配列を作成して取得
-        rollCoolTime = MAX_ROLL_COOL_TIME /* + animTime */ ;
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
     }
     else if (CheckHitKey(KEY_INPUT_F)) {
@@ -200,25 +230,25 @@ void Player::move()
         // アニメーション、移動動作をセット
         animateAndMove(ePlayer::AnimationNum::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         // アニメーションタイマーリセット
-        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Down => Runモーション(3) 下移動
     else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
     {
         animateAndMove(ePlayer::AnimationNum::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
-        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Right => Runモーション(3) 右移動
     else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
     {
         animateAndMove(ePlayer::AnimationNum::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
-        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Left => Runモーション(3) 左移動
     else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
     {
         animateAndMove(ePlayer::AnimationNum::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
-        updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     else
     {
@@ -252,7 +282,7 @@ void Player::roll()
     // アニメーション終了後
     if (rollAble)
     {
-        if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT)) 
+        if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
             rollAble = false;
             currentState = PlayerState::Idle;
@@ -296,13 +326,13 @@ void Player::healing()
         if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
         {
             animNum = (int)ePlayer::AnimationNum::Drinking;
-            setAnim(animHandle, animNum, animTime, animTimer);
+            setAnim(animHandle, animNum, animTimer);
         }
 
     }
 
     // アニメーション終了後
-    if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT))
+    if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Drinking)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         // ここでHP回復
         currentState = PlayerState::Idle;
 }
@@ -321,13 +351,13 @@ void Player::death()
         if (animNum != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
         {
             animNum = (int)ePlayer::AnimationNum::Dying;
-            setAnim(animHandle, animNum, animTime, animTimer);
+            setAnim(animHandle, animNum, animTimer);
         }
 
     }
 
     // アニメーション終了後
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT);
 }
 
 

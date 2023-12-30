@@ -18,6 +18,7 @@ public:
 	virtual void draw() = 0;						// 描画メソッド
 	virtual void update() = 0;						// 更新メソッド
 	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
+	virtual void initializeAnimationList() = 0;		// animationList初期化メソッド
 	// 以下取得用定数===================================================================== //
 	VECTOR GetPos() { return position; };			// 座標を取得して返す
 	// 以上取得用定数===================================================================== //
@@ -25,12 +26,13 @@ protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	int		animHandle = 0;							// モデルハンドル
 	int		animNum = 0;							// アニメーション番号
-	float	animTime = 0.f;							// アニメーションの総再生時間
-	//float*	animTimes;								// アニメーションの総再生時間
+	float   *animTimes = 0;							// アニメーションの総再生時間
 	float	animTimer = 0.f;						// アニメーションの現在の再生時間
 	float	angle = 0.f;							// 向き		アタッチ時にradに変換
 	float	hitPoint = 100.f;						// HP
 	//float damage
+
+	std::vector<int> animationList;
 
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };
