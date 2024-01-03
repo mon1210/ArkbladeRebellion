@@ -5,27 +5,11 @@
 */
 Player::Player(Game* Game_)
 {
-    hitPoint = MAX_HP;
-
     pGame = Game_;
 
     // モデル取得
     if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
-
-    angle = PLAYER_START_ROTATE_Y;
-
-    position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
-
-    // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
-
-    // unordered_map初期化
-    initializeStateFunctions();
-
-    // animationList初期化
-    initializeAnimationList();
-
 }
 
 
@@ -36,6 +20,37 @@ Player::Player(Game* Game_)
 Player::~Player()
 {
     delete[] animTimes;
+}
+
+
+/**
+* @brief 初期化メソッド
+* @note
+*/
+void Player::initialize(int hit_point)
+{
+    // 変数初期化
+    hitPoint = hit_point;
+    angle = PLAYER_START_ROTATE_Y;
+    position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
+    moveVec = VGet(0.f, 0.f, 0.f);
+    rollCoolTime = 0;
+    isMove = false;
+    rollAble = true;
+
+    // モデルにIdleアニメーションをセット
+    MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
+
+    // unordered_map初期化
+    initializeStateFunctions();
+
+    // animTimesのサイズを指定　アニメーション番号最後尾 + 1
+    animTimes = new float[static_cast<int>(ePlayer::AnimationNum::Dying) + 1];
+    for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i <= static_cast<int>(ePlayer::AnimationNum::Dying); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
+
 }
 
 
@@ -103,21 +118,6 @@ void Player::initializeStateFunctions()
     stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
 }
 
-
-/**
-* @brief animationList初期化メソッド
-* @note  アニメーションの種類を番号で取得
-*/
-void Player::initializeAnimationList()
-{
-    // animTimesのサイズを指定　アニメーション番号最後尾 + 1
-    animTimes = new float[static_cast<int>(ePlayer::AnimationNum::Dying) + 1];
-    for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i <= static_cast<int>(ePlayer::AnimationNum::Dying); i++)
-    {
-        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
-    }
-
-}
 
 
 /**

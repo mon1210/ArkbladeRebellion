@@ -14,21 +14,6 @@ Enemy::Enemy(Game *Game_)
         tileHandle = pGame->GetBG()->GetModelHandle();
     }
 
-    angle = ENEMY_START_ROTATE_Y;
-
-    position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
-
-    // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
-
-    // unordered_map初期化
-    initializeStateFunctions();
-
-    // animationList初期化
-    initializeAnimationList();
-
-    // アニメーション状態初期化
-    initAnimation();
 }
 
 
@@ -40,14 +25,34 @@ Enemy::~Enemy()
 
 
 /**
-* @brief アニメーション状態初期化関数
-* @note  Stageで初期化時一度だけ呼び出す
+* @brief 初期化メソッド
+* @note
 */
-void Enemy::initAnimation()
+void Enemy::initialize(int hit_point)
 {
+    // 変数初期化
+    hitPoint = hit_point;
+    angle = ENEMY_START_ROTATE_Y;
+    position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
+    count = 0;
+    toPlayerVec = VGet(0.f, 0.f, 0.f);
+    
+    // モデルにIdleアニメーションをセット
+    MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
+
+    // unordered_map初期化
+    initializeStateFunctions();
+    // アニメーション状態初期化
     setAnimationHandle(eEnemy::AnimationNum::Idle);
     animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
 
+    // animTimesのサイズをanimationListと同じサイズに
+    animTimes = new float[static_cast<int>(eEnemy::AnimationNum::Dying) + 1];
+    // animTimesにアニメーション時間を保存
+    for (int i = static_cast<int>(eEnemy::AnimationNum::Idle); i <= static_cast<int>(eEnemy::AnimationNum::Dying); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
 }
 
 
@@ -89,22 +94,6 @@ void Enemy::initializeStateFunctions()
     //stateFunctionMap[EnemyState::Damage] = [this]() { damage();  };  
     //stateFunctionMap[EnemyState::Death] = [this]() { death();   };
 
-}
-
-
-/**
-* @brief animationList初期化メソッド
-* @note  アニメーションの種類を番号で取得
-*/
-void Enemy::initializeAnimationList()
-{
-    // animTimesのサイズをanimationListと同じサイズに
-    animTimes = new float[static_cast<int>(eEnemy::AnimationNum::Dying) + 1];
-    // animTimesにアニメーション時間を保存
-    for (int i = static_cast<int>(eEnemy::AnimationNum::Idle); i <= static_cast<int>(eEnemy::AnimationNum::Dying); i++)
-    {
-        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
-    }
 }
 
 

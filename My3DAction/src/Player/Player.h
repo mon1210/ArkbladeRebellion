@@ -22,13 +22,13 @@ public:
 	~Player() override;
 	bool isAlive() override;								// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;									// 描画メソッド
+	void initialize(int hit_point) override;				// 初期化メソッド
 	void update() override;									// 行動管理メソッド
 	// 以下取得用定数====================================================================== //
 	float	GetHp();										// hitPointを取得して返す
 	// 以上取得用定数====================================================================== //
 private:
 	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
-	void initializeAnimationList() override;				// animationList初期化メソッド
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void animateAndMove(ePlayer::AnimationNum num,

@@ -16,9 +16,9 @@ public:
 	virtual ~CharaBase();
 	virtual bool isAlive() = 0;						// 生き死にを結果として返す　true:生存 / false:死亡
 	virtual void draw() = 0;						// 描画メソッド
+	virtual void initialize(int hit_point) = 0;		// 初期化メソッド
 	virtual void update() = 0;						// 更新メソッド
 	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
-	virtual void initializeAnimationList() = 0;		// animationList初期化メソッド
 	// 以下取得用定数===================================================================== //
 	VECTOR GetPos() { return position; };			// 座標を取得して返す
 	// 以上取得用定数===================================================================== //
@@ -31,5 +31,6 @@ protected:
 	float	angle = 0.f;							// 向き		アタッチ時にradに変換
 	float	hitPoint = 100.f;						// HP
 	//float damage
+
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };
