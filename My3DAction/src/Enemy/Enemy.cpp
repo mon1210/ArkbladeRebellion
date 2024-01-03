@@ -26,13 +26,6 @@ Enemy::Enemy(Game *Game_)
 
     // animationList初期化
     initializeAnimationList();
-    // animTimesのサイズをanimationListと同じサイズに
-    animTimes = new float [animationList.size()];
-    // animTimesにアニメーション時間を保存
-    for (int i = static_cast<int>(eEnemy::AnimationNum::Idle); i < animationList.size(); i++)
-    {
-        animTimes[i] = MV1GetAnimTotalTime(animHandle, animationList[i]);
-    }
 
     // アニメーション状態初期化
     initAnimation();
@@ -105,12 +98,13 @@ void Enemy::initializeStateFunctions()
 */
 void Enemy::initializeAnimationList()
 {
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Default));
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Idle));
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Run));
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Swiping));
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Damage));
-    animationList.push_back(static_cast<int>(eEnemy::AnimationNum::Dying));
+    // animTimesのサイズをanimationListと同じサイズに
+    animTimes = new float[static_cast<int>(eEnemy::AnimationNum::Dying) + 1];
+    // animTimesにアニメーション時間を保存
+    for (int i = static_cast<int>(eEnemy::AnimationNum::Idle); i <= static_cast<int>(eEnemy::AnimationNum::Dying); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
 }
 
 

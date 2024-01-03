@@ -25,13 +25,6 @@ Player::Player(Game* Game_)
 
     // animationList初期化
     initializeAnimationList();
-    // animTimesのサイズをanimationListと同じサイズに
-    animTimes = new float[animationList.size()];
-    // animTimesにアニメーション時間を保存
-    for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i < animationList.size(); i++)
-    {
-        animTimes[i] = MV1GetAnimTotalTime(animHandle, animationList[i]);
-    }
 
 }
 
@@ -117,17 +110,13 @@ void Player::initializeStateFunctions()
 */
 void Player::initializeAnimationList()
 {
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Idle));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Run));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::NoMoveRoll));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Roll));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::SpeedRoll));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash1));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash2));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Slash3));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Damage));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Drinking));
-    animationList.push_back(static_cast<int>(ePlayer::AnimationNum::Dying));
+    // animTimesのサイズを指定　アニメーション番号最後尾 + 1
+    animTimes = new float[static_cast<int>(ePlayer::AnimationNum::Dying) + 1];
+    for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i <= static_cast<int>(ePlayer::AnimationNum::Dying); i++)
+    {
+        animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
+
 }
 
 

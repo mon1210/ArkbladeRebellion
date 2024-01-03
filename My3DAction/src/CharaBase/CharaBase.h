@@ -31,8 +31,5 @@ protected:
 	float	angle = 0.f;							// 向き		アタッチ時にradに変換
 	float	hitPoint = 100.f;						// HP
 	//float damage
-
-	std::vector<int> animationList;
-
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };

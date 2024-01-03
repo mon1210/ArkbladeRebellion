@@ -49,13 +49,9 @@ protected:
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 
-	float* animTimes = 0;
-
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
 	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
-
-	std::vector<int> animationList;
 };
 
 
