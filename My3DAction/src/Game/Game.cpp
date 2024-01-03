@@ -52,7 +52,7 @@ void Game::update()
 	if (pEnemy)
 		pEnemy->update();
 	if (pHPBar)
-		pHPBar->move();
+		pHPBar->update();
 }
 
 

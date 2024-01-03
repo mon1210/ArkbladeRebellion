@@ -20,7 +20,7 @@ HPBar::~HPBar()
 * @brief •Ï“®ˆ—
 * @note  ŠŠ‚ç‚©‚ÈHP‚Ì‘Œ¸‚ðŽÀ‘•
 */
-void HPBar::move()
+void HPBar::update()
 {
 	// HPƒo[‚Ì•\Ž¦”ä—¦‚ªHPˆÈã‚ÌŽž
 	if (hpRatio > pGame->GetPlayer()->GetHp()) {

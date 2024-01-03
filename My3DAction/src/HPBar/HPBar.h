@@ -13,7 +13,7 @@ class HPBar
 public:
 	HPBar(Game *Game_);
 	~HPBar();
-	void move();			// UIの変動用メソッド
+	void update();			// UIの変動用メソッド
 	void draw();			// 描画用メソッド
 private:
 protected:
