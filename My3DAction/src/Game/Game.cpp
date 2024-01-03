@@ -52,7 +52,7 @@ GameSceneResultCode Game::move()
 	{
 	case StagePhase::STAGE_INIT:
 		if (pCollision)
-			pCollision->initCollision(pBG->GetModelHandle());
+			pCollision->initialize(pBG->GetModelHandle());
 		stagePhase = StagePhase::STAGE_RUN;
 		break;
 

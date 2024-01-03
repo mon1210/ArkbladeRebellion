@@ -22,7 +22,7 @@ Collision::~Collision()
 * @brief “–‚½‚è”»’è‰Šú‰»
 * @note  °‚É“–‚½‚è”»’è•t—^
 */
-void Collision::initCollision(int handle)
+void Collision::initialize(int handle)
 {
 	// Tile‚É“–‚½‚è”»’è•t—^
 	MV1SetupCollInfo(
