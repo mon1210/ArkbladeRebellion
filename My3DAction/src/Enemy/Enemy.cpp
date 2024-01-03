@@ -42,9 +42,6 @@ void Enemy::initialize(int hit_point)
 
     // unordered_map初期化
     initializeStateFunctions();
-    // アニメーション状態初期化
-    setAnimationHandle(eEnemy::AnimationNum::Idle);
-    animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
 
     // animTimesのサイズをanimationListと同じサイズに
     animTimes = new float[static_cast<int>(eEnemy::AnimationNum::Dying) + 1];
@@ -53,6 +50,10 @@ void Enemy::initialize(int hit_point)
     {
         animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
     }
+
+    // アニメーション状態初期化
+    setAnimationHandle(eEnemy::AnimationNum::Idle);
+    animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
 }
 
 

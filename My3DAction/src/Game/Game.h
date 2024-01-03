@@ -45,6 +45,9 @@ public:
 	Collision		*GetCollision();		// Collisionを取得して返す
 	Radar			*GetRadar();			// Radarを取得して返す
 	// 以上取得用定数=================================================== //
+private:
+	void initialize();						// 初期化メソッド
+	void update();							// 更新メソッド
 protected:
 	SceneManager *pSystem = nullptr;
 	Player		 *pPlayer = nullptr;

@@ -24,6 +24,39 @@ Game::Game(SceneManager* System_)
 
 
 /**
+* @brief 初期化メソッド
+* @note  別クラスの初期化メソッドを管理
+*/
+void Game::initialize()
+{
+	if (pPlayer)
+		pPlayer->initialize(MAX_HP);
+	if (pEnemy)
+		pEnemy->initialize(MAX_HP);
+	if (pCollision && pBG)
+		pCollision->initialize(pBG->GetModelHandle());
+
+}
+
+
+/**
+* @brief 更新メソッド
+* @note  毎フレームの処理
+*		 別クラスの更新メソッドを管理
+*/
+void Game::update()
+{
+	pPlayer->update();
+	if (pCamera)
+		pCamera->update();
+	if (pEnemy)
+		pEnemy->update();
+	if (pHPBar)
+		pHPBar->move();
+}
+
+
+/**
 * @brief デストラクタ
 * @note	 すべてのポインタをここでDelete
 */
@@ -51,8 +84,7 @@ GameSceneResultCode Game::move()
 	switch (stagePhase)
 	{
 	case StagePhase::STAGE_INIT:
-		if (pCollision)
-			pCollision->initialize(pBG->GetModelHandle());
+		initialize();
 		stagePhase = StagePhase::STAGE_RUN;
 		break;
 
@@ -82,16 +114,10 @@ GameSceneResultCode Game::move()
 			}
 			if (pRadar)
 				pRadar->listReset();	// Pointリスト初期化
-			pPlayer->update();
-			if (pCamera)
-				pCamera->update();
-			if (pEnemy)
-				pEnemy->update();
+			
+			// 更新
+			update();		
 		}
-
-		if (pHPBar)
-			pHPBar->move();
-
 		break;
 		// --------------------- STAGE_RUN END --------------------- //
 
