@@ -177,20 +177,10 @@ void Enemy::move()
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(Vec, position);
 
-    NewPos.y += 1.0f;  // これがないと左右,下に移動できない
-    // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
-    MV1_COLL_RESULT_POLY Result = MV1CollCheck_Line(
-        tileHandle,				                             // 判定対象となるモデルのフレーム
-        -1,												        // 対象となるフレーム番号
-        NewPos,										        // Rayの始点   モデルの足元
-        VGet(NewPos.x, NewPos.y - CHARA_HEIGHT, NewPos.z)	// Rayの終点   モデルの頭上
-    );
-
-    if (Result.HitFlag == 1) // 当たりチェック
+    // 床との当たり判定　当たっていたら入る
+    if (pGame->GetCollision()->clampToStageBounds(NewPos, position)) 
     {
-        // HitPosition => 交点の座標
-        NewPos.y = Result.HitPosition.y;
-        position = NewPos;
+        // 視野に入っていたら追跡        
         if (isTargetVisible() == true)
         {
             currentState = EnemyState::Chase;
@@ -243,25 +233,8 @@ void Enemy::chase()
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(Velocity, position);
 
-    //VECTOR playerPos = pGame->GetPlayer()->getPos();
-    //pGame->GetCollision()->charaCapCol(position, new_pos, playerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
-
-    NewPos.y += 1.0f;  // これがないと左右,下に移動できない
-    // MV1_COLL_RESULT_POLY => 当たり判定の結果情報が保存された構造体
-    MV1_COLL_RESULT_POLY Result = MV1CollCheck_Line(
-        tileHandle,				                                // 判定対象となるモデルのフレーム
-        -1,												        // 対象となるフレーム番号
-        NewPos,										        // Rayの始点   モデルの足元
-        VGet(NewPos.x, NewPos.y - CHARA_HEIGHT, NewPos.z)	// Rayの終点   モデルの頭上
-    );
-
-    if (Result.HitFlag == 1) // 当たりチェック
-    {
-        // HitPosition => 交点の座標
-        NewPos.y = Result.HitPosition.y;
-        // if(length >= ENEMY_SPEED)
-        position = NewPos;
-    }
+    // 床との当たり判定
+    pGame->GetCollision()->clampToStageBounds(NewPos, position);
 
     // 逆三角関数を使用　ベクトルからエネミーに対するプレイヤーの角度を求める
     angle = atan2f(-Velocity.x, -Velocity.z);
