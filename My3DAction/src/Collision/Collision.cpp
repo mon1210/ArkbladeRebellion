@@ -36,8 +36,9 @@ void Collision::initialize(int handle)
 
 
 /**
-* @brief 移動時のステージとの当たり判定メソッド
-* @note  移動範囲を制限している
+* @brief  移動時のステージとの当たり判定メソッド
+* @note   移動範囲を制限している
+* @return true:判定あり、移動可 / false:判定なし、移動不可
 */
 bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 {
@@ -55,14 +56,15 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 		// HitPosition => 交点の座標
 		new_pos.y = Result.HitPosition.y;
 		pos = new_pos;
-		// 当たったときにその旨を描画
-		DrawString(0, 0, "HIT", GetColor(255, 0, 0));
 		return true;
 	}
 	else
 	{
-		// 当たらなかった場合は衝突しなかった旨を描画
-		DrawString(0, 0, "NO HIT", GetColor(0, 0, 255));
+	#ifdef _DEBUG
+			// 当たらなかった場合は衝突しなかった旨を描画
+			DrawString(0, 0, "NO HIT", BLUE);
+	#endif // !_DEBUG
+
 		return false;
 	}
 

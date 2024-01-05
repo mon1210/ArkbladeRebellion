@@ -140,4 +140,7 @@ const int BLACK = GetColor(	 0,	  0,   0);		// çï
 const int WHITE = GetColor(255, 255, 255);		// îí
 const int RED	= GetColor(255,   0,   0);		// ê‘
 const int GREEN = GetColor(  0, 255,   0);		// óŒ
+#ifdef _DEBUG
+const int BLUE  = GetColor(0, 0, 255);			// ê¬
+#endif
 // à»è„Color====================================================================================================== //
