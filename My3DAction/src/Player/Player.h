@@ -44,7 +44,6 @@ private:
 	void death();	// 死亡
 protected:
 	Game	*pGame = nullptr;
-	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);								// 移動の向きベクトル
 	int		rollCoolTime = 0;
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ

@@ -24,6 +24,7 @@ public:
 	// 以上取得用定数===================================================================== //
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
+	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
 	int		animHandle = 0;							// モデルハンドル
 	int		animNum = 0;							// アニメーション番号
 	float   *animTimes = 0;							// アニメーションの総再生時間
