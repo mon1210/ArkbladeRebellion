@@ -78,8 +78,8 @@ void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
 */
 void Enemy::updateToPlayerVec() 
 {
-    toPlayerVec = VSub(pGame->GetPlayer()->GetPos(), position);   // エネミーからプレイヤーの距離ベクトルを求める
-    vecLength = sqrtf(toPlayerVec.x * toPlayerVec.x + toPlayerVec.z * toPlayerVec.z); // 距離ベクトルの長さ
+    toPlayerVec = VSub(pGame->GetPlayer()->GetPos(), position);                         // エネミーからプレイヤーの距離ベクトルを求める
+    vecLength = sqrtf(toPlayerVec.x * toPlayerVec.x + toPlayerVec.z * toPlayerVec.z);   // 距離ベクトルの長さ
 }
 
 
@@ -126,7 +126,6 @@ void Enemy::update()
 void Enemy::wait()
 {
     // 行動 => 何もしない
-    //SetAnim(eEnemy::Idle);  // これがないとanimTimerが増加せず、最初固まる
 
     // 遷移
     /*
@@ -137,24 +136,28 @@ void Enemy::wait()
     */
     count++;
 
-    if (count > TIME_TO_TRANSITION)   // 遷移タイマーを超えたのでMoveへ
+    if (count > TIME_TO_TRANSITION)   // 遷移タイマーを超えた
     {
-        count = 0;
-        currentState = EnemyState::Move;
-        angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Run);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
+        // 視野に入っていたら追跡
+        if (isTargetVisible() == true)
+        {
+            currentState = EnemyState::Chase;
+            // アニメーションをセット
+            setAnimationHandle(eEnemy::AnimationNum::Run);
+            animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
+        }
+        // Moveへ
+        else
+        {
+            count = 0;
+            currentState = EnemyState::Move;
+            angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
+            // アニメーションをセット
+            setAnimationHandle(eEnemy::AnimationNum::Run);
+            animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
+        }
+    }
 
-    }
-    // 視野に入っていたら追跡
-    else if (isTargetVisible() == true)
-    {
-        currentState = EnemyState::Chase;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Run);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
-    }
 
 }
 
@@ -168,15 +171,20 @@ void Enemy::move()
     // ベクトル算出
     float Rad = angle * DX_PI_F / 180.f;
     // 三次元ベクトルの生成
-    VECTOR Vec = VGet(sinf(Rad), 0.f, cosf(Rad));
+    moveVec = VGet(sinf(Rad), 0.f, cosf(Rad));
     // -1を乗算することでベクトルが逆転
-    Vec = VScale(Vec, -1.f);
+    moveVec = VScale(moveVec, -1.f);
 
     // 座標変更
     // ベクトルの大きさを乗算、移動速度に
-    Vec = VScale(Vec, ENEMY_MOVE_SPEED);
+    moveVec = VScale(moveVec, ENEMY_MOVE_SPEED);
+
+    // プレイヤーとの当たり判定
+    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
+    pGame->GetCollision()->charaCapCol(position, moveVec, PlayerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
+
     // 移動先までのベクトル取得
-    VECTOR NewPos = VAdd(Vec, position);
+    VECTOR NewPos = VAdd(moveVec, position);
 
     // 床との当たり判定　当たっていたら入る
     if (pGame->GetCollision()->clampToStageBounds(NewPos, position)) 
@@ -229,24 +237,32 @@ void Enemy::chase()
     VECTOR Direction = VGet(toPlayerVec.x / vecLength, 0.f, toPlayerVec.z / vecLength);
 
     // 単位ベクトルをスカラー倍、移動速度に
-    VECTOR Velocity = VScale(Direction, ENEMY_MOVE_SPEED);
+    moveVec = VScale(Direction, ENEMY_MOVE_SPEED);
+    // 逆三角関数を使用　ベクトルからエネミーに対するプレイヤーの角度を求める
+    /* ※これより下に書くと、接触時に角度が変わってしまうので注意※ */
+    angle = atan2f(-moveVec.x, -moveVec.z) * 180.f / DX_PI_F;
+
+    // プレイヤーとの当たり判定
+    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
+    if (pGame->GetCollision()->charaCapCol(position, moveVec, PlayerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS))
+        isColHit = true;
 
     // 移動先までのベクトル取得
-    VECTOR NewPos = VAdd(Velocity, position);
+    VECTOR NewPos = VAdd(moveVec, position);
 
     // 床との当たり判定
     pGame->GetCollision()->clampToStageBounds(NewPos, position);
-
-    // 逆三角関数を使用　ベクトルからエネミーに対するプレイヤーの角度を求める
-    angle = atan2f(-Velocity.x, -Velocity.z);
 
     // 遷移
     /*
         待機：
             条件：プレイヤーが視野から出る
+                        　or
+                  プレイヤーと当たる
     */
-    if (isTargetVisible() == false)
+    if (isTargetVisible() == false || isColHit)
     {
+        isColHit = false;
         currentState = EnemyState::Wait;
         count = 0;
         setAnimationHandle(eEnemy::AnimationNum::Idle);
