@@ -34,6 +34,7 @@ void Enemy::initialize(int hit_point)
     hitPoint = hit_point;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
+    moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
     
