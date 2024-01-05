@@ -60,10 +60,10 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 	}
 	else
 	{
-	#ifdef _DEBUG
-			// 当たらなかった場合は衝突しなかった旨を描画
-			DrawString(0, 0, "NO HIT", BLUE);
-	#endif // !_DEBUG
+#ifdef _DEBUG
+		// 当たらなかった場合は衝突しなかった旨を描画
+		DrawString(0, 0, "NO HIT", BLUE);
+#endif // !_DEBUG
 
 		return false;
 	}
@@ -72,8 +72,9 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 
 
 /**
-* @brief キャラ同士のカプセル当たり判定メソッド
-* @note  playerの移動時に呼び出している
+* @brief  キャラ同士のカプセル当たり判定メソッド
+* @note   キャラの移動時に呼び出している
+* @return true:当たっている / false:当たっていない
 * @param[in] pos1　			移動しているキャラの座標
 * @param[in] pos1_move_vec　移動しているキャラの移動ベクトル
 * @param[in] pos2　			当たられる側の座標
@@ -82,7 +83,7 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 * @param[in] cap1_radius　	pos1のカプセルの半径
 * @param[in] cap2_radius　	pos2のカプセルの半径
 */
-void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
+bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
 {
 	// 移動後の ch の座標を算出
 	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);
@@ -108,23 +109,33 @@ void Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, f
 		// 二人の距離から二人の大きさを引いた値に押し出し力を足しても離れてしまう場合は、ぴったりくっつく距離に移動する
 		if (Length - (cap2_radius * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
 		{
-			float TempY;	// コピー用
+			float TempY;		// コピー用
 
 			TempY = NewPos1.y;	// Y軸をコピー
 			NewPos1 = VAdd(pos1, VScale(PushVec, cap2_radius * 2.f));
 
 			// Y座標は変化させない
 			NewPos1.y = TempY;
-
+			// 当たり判定処理後の移動ベクトルをセット
+			pos1_move_vec = VSub(NewPos1, pos1);
 		}
 		else
 		{
 			// 押し出し
 			NewPos1 = VAdd(NewPos1, VScale(PushVec, CHARA_HIT_PUSH_POWER));
+			// 当たり判定処理後の移動ベクトルをセット
+			pos1_move_vec = VSub(NewPos1, pos1);
 		}
+
+		return true;
+	}
+	// 当たっていない
+	else
+	{
+		// 当たり判定処理後の移動ベクトルをセット
+		pos1_move_vec = VSub(NewPos1, pos1);
+		return false;
 	}
 
-	// 当たり判定処理後の移動ベクトルをセット
-	pos1_move_vec = VSub(NewPos1, pos1);
-
+	return false;
 }
