@@ -139,3 +139,26 @@ bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, f
 
 	return false;
 }
+
+
+/**
+* @brief  ƒLƒƒƒ‰ƒNƒ^[‚ªUŒ‚”ÍˆÍ“à‚É‚¢‚é‚©“¯‚©‚ğ”»’è‚·‚éƒƒ\ƒbƒh
+* @note   
+* @return true:UŒ‚”ÍˆÍ‚Ì’† / false:UŒ‚”ÍˆÍ‚ÌŠO
+* @param[in] attack_ch_pos@UŒ‚‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚ÌÀ•W
+* @param[in] damage_ch_pos@UŒ‚‚ğó‚¯‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚ÌÀ•W
+* @param[in] attack_area@	UŒ‚”ÍˆÍ
+*/
+bool Collision::checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, float attack_area)
+{
+	// UŒ‚å‚©‚ç‘Šè‚Ü‚Å‚ÌˆÊ’u‚ğ‘ª‚é
+	float DistanceLength = VSize(VSub(attack_ch_pos, damage_ch_pos));
+
+	// ƒLƒƒƒ‰‚Ì‹——£‚ªUŒ‚”ÍˆÍ‚æ‚è¬‚³‚©‚Á‚½‚ç
+	if (attack_area >= DistanceLength)
+	{
+		return true;
+	}
+
+	return false;
+}
