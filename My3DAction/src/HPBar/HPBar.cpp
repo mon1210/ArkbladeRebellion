@@ -41,10 +41,16 @@ void HPBar::draw()
 {
 	// HPの割合を求める
 	float Ratio = hpRatio / MAX_HP;
+
+	// バーの色指定
+	int BarColor = GREEN;
+	// 体力低下でバーの色変更
+	if (pGame->GetPlayer()->GetHp() <= LOW_HP) { BarColor = RED; }
+
 	// HPバー描画	横幅に割合をかけて増減を表現
 	DrawBox(HP_BAR_POS_X, HP_BAR_POS_Y,
 			HP_BAR_POS_X + (HP_BAR_WIDTH * Ratio), HP_BAR_POS_Y + HP_BAR_HEIGHT,
-			GREEN, TRUE);
+			BarColor, TRUE);
 	// 増減がわかりやすいように縁も描画
 	DrawBox(HP_BAR_POS_X, HP_BAR_POS_Y,
 			HP_BAR_POS_X + HP_BAR_WIDTH, HP_BAR_POS_Y + HP_BAR_HEIGHT, 
