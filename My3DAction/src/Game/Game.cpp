@@ -46,7 +46,8 @@ void Game::initialize()
 */
 void Game::update()
 {
-	pPlayer->update();
+	if (pPlayer)
+		pPlayer->update();
 	if (pCamera)
 		pCamera->update();
 	if (pEnemy)
