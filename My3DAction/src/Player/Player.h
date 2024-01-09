@@ -10,6 +10,7 @@
 #include "..\Constants.h"
 #include "..\Enums.h"
 #include "..\Game\Game.h"
+#include "..\GlobalFunctions\GlobalFunctions.h"
 
 // クラスの前方宣言
 class CharaBase;
@@ -47,6 +48,7 @@ protected:
 	int		rollCoolTime = 0;
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
+	bool	isDeath = false;											// 死亡フラグ
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 

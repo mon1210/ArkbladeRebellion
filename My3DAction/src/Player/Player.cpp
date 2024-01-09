@@ -333,20 +333,17 @@ void Player::healing()
 */
 void Player::death()
 {
-    // G => Dying
-    if (CheckHitKey(KEY_INPUT_G))
+    // アニメーションをセット
+    if (animNum != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
     {
-        // アニメーションをセット
-        if (animNum != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
-        {
-            animNum = (int)ePlayer::AnimationNum::Dying;
-            setAnim(animHandle, animNum, animTimer);
-        }
-
+        animNum = (int)ePlayer::AnimationNum::Dying;
+        setAnim(animHandle, animNum, animTimer);
     }
 
-    // アニメーション終了後
-    updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT);
+    // アニメーション終了後、死亡フラグをtrueに
+    if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        isDeath = true;
+
 }
 
 
@@ -356,16 +353,29 @@ void Player::death()
 */
 bool Player::isAlive()
 {
-    if (hitPoint <= 0)
+    // hitPointが0以下
+    if (hitPoint <= 0.f)
     {
-        return false;
+        if (isDeath)
+        {
+            return false;
+        }
+        // 先に入る
+        else
+        {
+            // 死亡状態へ
+            currentState = PlayerState::Death;
+        }
     }
 
 #ifdef _DEBUG
     // Oでゲーム画面終了
     if (CheckHitKey(KEY_INPUT_O)) { return false; }
     // LでHP減少
-    if (CheckHitKey(KEY_INPUT_L)) { hitPoint -= HP_CHANGE_AMOUNT; }
+    if (CheckHitKey(KEY_INPUT_L)) {
+        hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
+        hitPoint -= HP_CHANGE_AMOUNT;
+    }
 #endif
 
     return true;
