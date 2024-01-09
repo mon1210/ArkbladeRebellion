@@ -37,7 +37,7 @@ void Enemy::initialize(int hit_point)
     moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
-    
+
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
 
@@ -55,6 +55,9 @@ void Enemy::initialize(int hit_point)
     // アニメーション状態初期化
     setAnimationHandle(eEnemy::AnimationNum::Idle);
     animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
+
+    // アニメーションタイマーリセット
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
 }
 
 
@@ -76,7 +79,7 @@ void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
 * @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 * @note  毎フレームの処理
 */
-void Enemy::updateToPlayerVec() 
+void Enemy::updateToPlayerVec()
 {
     toPlayerVec = VSub(pGame->GetPlayer()->GetPos(), position);                         // エネミーからプレイヤーの距離ベクトルを求める
     vecLength = sqrtf(toPlayerVec.x * toPlayerVec.x + toPlayerVec.z * toPlayerVec.z);   // 距離ベクトルの長さ
@@ -89,10 +92,10 @@ void Enemy::updateToPlayerVec()
 */
 void Enemy::initializeStateFunctions()
 {
-    stateFunctionMap[EnemyState::Wait]  = [this]() { wait();  };
-    stateFunctionMap[EnemyState::Move]  = [this]() { move();  };
-    stateFunctionMap[EnemyState::Chase] = [this]() { chase(); };
-    //stateFunctionMap[EnemyState::Attack] = [this]() { attack();  };
+    stateFunctionMap[EnemyState::Wait]      = [this]() { wait();   };
+    stateFunctionMap[EnemyState::Move]      = [this]() { move();   };
+    stateFunctionMap[EnemyState::Chase]     = [this]() { chase();  };
+    stateFunctionMap[EnemyState::Attack]    = [this]() { attack(); };
     //stateFunctionMap[EnemyState::Damage] = [this]() { damage();  };  
     //stateFunctionMap[EnemyState::Death] = [this]() { death();   };
 
@@ -113,10 +116,6 @@ void Enemy::update()
 
     // RaderのPointに追加
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
-
-    // アニメーションタイマーリセット
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
-
 }
 
 
@@ -133,6 +132,8 @@ void Enemy::wait()
             条件：一定時間の経過
         追跡：
             条件：視野にプレイヤーが入る
+        攻撃：
+            条件：攻撃範囲内にプレイヤーがいる
     */
     count++;
 
@@ -156,9 +157,24 @@ void Enemy::wait()
             setAnimationHandle(eEnemy::AnimationNum::Run);
             animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
         }
+
+        isAttack = false;
     }
 
+    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
+    // 攻撃範囲内にプレイヤーがいたら
+    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    {
+        count = 0;
+        currentState = EnemyState::Attack;
+        // アニメーションをセット
+        setAnimationHandle(eEnemy::AnimationNum::Swiping);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        isAttack = true;
+    }
 
+    // アニメーションタイマーリセット
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
 }
 
 
@@ -187,7 +203,7 @@ void Enemy::move()
     VECTOR NewPos = VAdd(moveVec, position);
 
     // 床との当たり判定　当たっていたら入る
-    if (pGame->GetCollision()->clampToStageBounds(NewPos, position)) 
+    if (pGame->GetCollision()->clampToStageBounds(NewPos, position))
     {
         // 視野に入っていたら追跡        
         if (isTargetVisible() == true)
@@ -202,6 +218,8 @@ void Enemy::move()
             条件：一定時間の経過
         追跡：
             条件：視野にプレイヤーが入る
+        攻撃：
+            条件：攻撃範囲内にプレイヤーがいる
     */
     count++;
 
@@ -220,6 +238,20 @@ void Enemy::move()
         // アニメーションはすでにRunなので変更なし
     }
 
+    // 攻撃範囲内にプレイヤーがいたら
+    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    {
+        count = 0;
+        currentState = EnemyState::Attack;
+        // アニメーションをセット
+        setAnimationHandle(eEnemy::AnimationNum::Swiping);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        isAttack = true;
+    }
+
+    // アニメーションタイマーリセット
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+
 }
 
 
@@ -229,7 +261,7 @@ void Enemy::move()
 void Enemy::chase()
 {
     // 行動：視野内のプレイヤーを追いかける
-    
+
     // 距離が0以下の時は何もしない   // ほぼ通らない
     if (vecLength <= 0.f) { return; }
 
@@ -259,6 +291,8 @@ void Enemy::chase()
             条件：プレイヤーが視野から出る
                         　or
                   プレイヤーと当たる
+        攻撃：
+            条件：攻撃範囲内にプレイヤーがいる
     */
     if (isTargetVisible() == false || isColHit)
     {
@@ -268,12 +302,46 @@ void Enemy::chase()
         setAnimationHandle(eEnemy::AnimationNum::Idle);
         animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
     }
+
+    // 攻撃範囲内にプレイヤーがいたら
+    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    {
+        count = 0;
+        currentState = EnemyState::Attack;
+        // アニメーションをセット
+        setAnimationHandle(eEnemy::AnimationNum::Swiping);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        isAttack = true;
+    }
+
+    // アニメーションタイマーリセット
+    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+}
+
+
+/**
+* @brief Attack状態の管理メソッド
+*/
+void Enemy::attack()
+{
+    // アニメーションタイマーリセット
+    if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT))
+    {
+        count = 0;
+        currentState = EnemyState::Wait;
+        // アニメーションをセット
+        setAnimationHandle(eEnemy::AnimationNum::Idle);
+        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
+    }
+
+    DrawString(0, 0, "Attack", RED);
+
 }
 
 
 /**
 * @brief   エネミーの視野メソッド
-* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
+* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
 */
 bool Enemy::isTargetVisible()
 {
@@ -283,14 +351,14 @@ bool Enemy::isTargetVisible()
         ・円の半径は10
 
         点と円の当たり判定を使い、点が円の中にあったらtrue
-    
+
     */
     // 円の半径よりベクトルが短くなったらtrueを返す
     if (vecLength <= ENEMY_VIEW_RADIUS)
     {
         return true;
     }
-    
+
     return false;
 }
 
