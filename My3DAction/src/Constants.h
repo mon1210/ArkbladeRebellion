@@ -49,7 +49,7 @@ const float ENEMY_START_POS_Z = 900.f;			// エネミーの初期Z座標
 const float ENEMY_START_ROTATE_Y = 0.f;			// エネミーの初期回転Y
 const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメーションの増加数
 const float ENEMY_MOVE_SPEED = 2.f;				// エネミーの移動距離
-const float ENEMY_VIEW_RADIUS = 500.f;			// エネミーの視野円の半径
+const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
 // 以上Enemy用定数=================================================================================================== //
  
 
