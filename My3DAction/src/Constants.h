@@ -127,6 +127,7 @@ const int TITLE_PS_POS_Y = 240;					// PressSpaceのY座標
 
 
 // 以下UI用定数====================================================================================================== //
+const int LOW_HP = 30;							// この数値以下でゲージの色変更
 const int HP_BAR_POS_X = 250;					// HPバーのX座標
 const int HP_BAR_POS_Y = 20;					// HPバーのY座標
 const int HP_BAR_WIDTH = 350;					// HPバーの横幅
