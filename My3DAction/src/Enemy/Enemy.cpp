@@ -163,9 +163,8 @@ void Enemy::wait()
         isAttack = false;
     }
 
-    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
     // 攻撃範囲内にプレイヤーがいたら
-    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    if (pGame->GetCollision()->checkAttackArea(position, pGame->GetPlayer()->GetPos(), 250) && !isAttack)
     {
         setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
@@ -194,8 +193,7 @@ void Enemy::move()
     moveVec = VScale(moveVec, ENEMY_MOVE_SPEED);
 
     // プレイヤーとの当たり判定
-    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
-    pGame->GetCollision()->charaCapCol(position, moveVec, PlayerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
+    pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
 
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(moveVec, position);
@@ -231,7 +229,7 @@ void Enemy::move()
     }
 
     // 攻撃範囲内にプレイヤーがいたら
-    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    if (pGame->GetCollision()->checkAttackArea(position, pGame->GetPlayer()->GetPos(), 250) && !isAttack)
     {
         setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
@@ -263,8 +261,7 @@ void Enemy::chase()
     angle = atan2f(-moveVec.x, -moveVec.z) * 180.f / DX_PI_F;
 
     // プレイヤーとの当たり判定
-    VECTOR PlayerPos = pGame->GetPlayer()->GetPos();
-    if (pGame->GetCollision()->charaCapCol(position, moveVec, PlayerPos, CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS))
+    if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS))
         isColHit = true;
 
     // 移動先までのベクトル取得
@@ -289,7 +286,7 @@ void Enemy::chase()
     }
 
     // 攻撃範囲内にプレイヤーがいたら
-    if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
+    if (pGame->GetCollision()->checkAttackArea(position, pGame->GetPlayer()->GetPos(), 250) && !isAttack)
     {
         setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
