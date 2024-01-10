@@ -83,7 +83,7 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 * @param[in] cap1_radius　	pos1のカプセルの半径
 * @param[in] cap2_radius　	pos2のカプセルの半径
 */
-bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR& pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
+bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
 {
 	// 移動後の ch の座標を算出
 	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);
