@@ -53,26 +53,11 @@ void Enemy::initialize(int hit_point)
     }
 
     // アニメーション状態初期化
-    setAnimationHandle(eEnemy::AnimationNum::Idle);
-    animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
+    setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
 
     // アニメーションタイマーリセット
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
 }
-
-
-/**
-* @brief アニメーションを設定する
-* @param[in] num    アニメーション番号
-*/
-void Enemy::setAnimationHandle(eEnemy::AnimationNum num) {
-    // アニメーションをセット
-    if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
-    {
-        animNum = static_cast<int>(num);
-        setAnim(animHandle, animNum, animTimer);
-    }
-};
 
 
 /**
@@ -120,11 +105,36 @@ void Enemy::update()
 
 
 /**
+* @brief 状態とアニメーションを設定
+* @note  状態変更時に使用
+* @param[in] state  変更先の状態
+* @param[in] num    変更先のアニメーション
+*/
+void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
+{
+    // カウントリセット
+    count = 0;
+    // State変更
+    currentState = state;
+
+    // アニメーションをセット    
+    if (animNum != static_cast<int>(anim_num))   // ここがないとanimTimerがうまくリセットされない
+    {
+        animNum = static_cast<int>(anim_num);
+        setAnim(animHandle, animNum, animTimer);
+    }
+
+    // 現在のアニメーションの再生時間を取得
+    animTime = animTimes[static_cast<int>(anim_num)];
+}
+
+
+/**
 * @brief Wait状態の管理メソッド
 */
 void Enemy::wait()
 {
-    // 行動 => 何もしない
+    // 行動：何もしない
 
     // 遷移
     /*
@@ -141,23 +151,15 @@ void Enemy::wait()
     {
         // 視野に入っていたら追跡
         if (isTargetVisible() == true)
-        {
-            currentState = EnemyState::Chase;
-            // アニメーションをセット
-            setAnimationHandle(eEnemy::AnimationNum::Run);
-            animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
-        }
+            setStateAndAnim(EnemyState::Chase, eEnemy::AnimationNum::Run);
         // Moveへ
         else
         {
-            count = 0;
-            currentState = EnemyState::Move;
             angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
-            // アニメーションをセット
-            setAnimationHandle(eEnemy::AnimationNum::Run);
-            animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Run)];
+            setStateAndAnim(EnemyState::Move, eEnemy::AnimationNum::Run);
         }
 
+        // 攻撃フラグOFF
         isAttack = false;
     }
 
@@ -165,16 +167,12 @@ void Enemy::wait()
     // 攻撃範囲内にプレイヤーがいたら
     if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
     {
-        count = 0;
-        currentState = EnemyState::Attack;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Swiping);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
     }
 
     // アニメーションタイマーリセット
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
 }
 
 
@@ -212,7 +210,7 @@ void Enemy::move()
         }
     }
 
-    // 遷移
+    // 遷移：
     /*
         待機：
             条件：一定時間の経過
@@ -224,13 +222,7 @@ void Enemy::move()
     count++;
 
     if (count >= TIME_TO_TRANSITION)     // 遷移タイマーを超えたのでWaitへ
-    {
-        count = 0;
-        currentState = EnemyState::Wait;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Idle);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
-    }
+        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
     // 視野に入っていたら追跡
     else if (isTargetVisible() == true)
     {
@@ -241,16 +233,12 @@ void Enemy::move()
     // 攻撃範囲内にプレイヤーがいたら
     if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
     {
-        count = 0;
-        currentState = EnemyState::Attack;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Swiping);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
     }
 
     // アニメーションタイマーリセット
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
 
 }
 
@@ -296,26 +284,19 @@ void Enemy::chase()
     */
     if (isTargetVisible() == false || isColHit)
     {
+        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
         isColHit = false;
-        currentState = EnemyState::Wait;
-        count = 0;
-        setAnimationHandle(eEnemy::AnimationNum::Idle);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
     }
 
     // 攻撃範囲内にプレイヤーがいたら
     if (pGame->GetCollision()->checkAttackArea(position, PlayerPos, 250) && !isAttack)
     {
-        count = 0;
-        currentState = EnemyState::Attack;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Swiping);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Swiping)];
+        setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
     }
 
     // アニメーションタイマーリセット
-    updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT);
+    updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
 }
 
 
@@ -324,18 +305,17 @@ void Enemy::chase()
 */
 void Enemy::attack()
 {
+    // 行動：攻撃
+    DrawString(0, 0, "Attack", RED);// Debug
+
+    // 遷移
+    /*
+        待機：
+            条件：アニメーションの終了
+    */
     // アニメーションタイマーリセット
-    if (updateAnimation(animTime, &animTimer, PLAYER_ANIM_F_INCREMENT))
-    {
-        count = 0;
-        currentState = EnemyState::Wait;
-        // アニメーションをセット
-        setAnimationHandle(eEnemy::AnimationNum::Idle);
-        animTime = animTimes[static_cast<int>(eEnemy::AnimationNum::Idle)];
-    }
-
-    DrawString(0, 0, "Attack", RED);
-
+    if (updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT))
+        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
 }
 
 
@@ -351,7 +331,6 @@ bool Enemy::isTargetVisible()
         ・円の半径は10
 
         点と円の当たり判定を使い、点が円の中にあったらtrue
-
     */
     // 円の半径よりベクトルが短くなったらtrueを返す
     if (vecLength <= ENEMY_VIEW_RADIUS)

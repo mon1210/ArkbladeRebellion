@@ -29,9 +29,10 @@ public:
 	void update() override;								// 状態管理とdraw呼び出し　毎フレーム呼び出される
 private:
 	void initializeStateFunctions() override;			// unordered_map初期化メソッド　各Stateごとの関数登録
-	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる 
-	void setAnimationHandle(eEnemy::AnimationNum num);	// アニメーションを設定する
+	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
 	void updateToPlayerVec();							// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+	void setStateAndAnim(EnemyState state,
+					 eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
 	// 状態ごとのメソッド
 	void wait();	// 待機
 	void move();	// 移動
