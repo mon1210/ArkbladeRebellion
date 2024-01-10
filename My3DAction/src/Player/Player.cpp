@@ -131,10 +131,8 @@ void Player::update()
 
     // 移動した場合の当たり判定更新と座標セット
     if (isMove && pGame) {
-        // エネミー座標取得
-        VECTOR EnemyPos = pGame->GetEnemy()->GetPos();
         // エネミーとの当たり判定
-        pGame->GetCollision()->charaCapCol(position, moveVec, EnemyPos, CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
+        pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
         // 移動後の座標取得
         VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
 
