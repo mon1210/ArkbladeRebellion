@@ -197,6 +197,9 @@ void Player::idle()
         rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
     }
+    else if (CheckHitKey(KEY_INPUT_V)) {
+        currentState = PlayerState::Attack;
+    }
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
     }
@@ -283,6 +286,22 @@ void Player::roll()
 */
 void Player::attack()
 {
+    if (CheckHitKey(KEY_INPUT_V))
+    {
+        // アニメーションをセット
+        if (animNum != (int)ePlayer::AnimationNum::Slash1)  // ここがないとanimTimerがうまくリセットされない
+        {
+            animNum = (int)ePlayer::AnimationNum::Slash1;
+            setAnim(animHandle, animNum, animTimer);
+        }
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT);
+    }
+    else
+    {
+        currentState = PlayerState::Idle;
+    }
+
+
 
 }
 
