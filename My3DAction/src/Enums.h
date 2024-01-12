@@ -48,6 +48,7 @@ enum class ModelType
 {
 	No = -1,	// -1‘ã“ü—p
 	Player,
+	PlayerWithSword,
 	Enemy,
 	Tile
 
