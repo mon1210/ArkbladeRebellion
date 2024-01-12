@@ -197,6 +197,9 @@ void Player::idle()
         rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
     }
+    else if (CheckHitKey(KEY_INPUT_V)) {
+        currentState = PlayerState::Attack;
+    }
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
     }
@@ -283,6 +286,22 @@ void Player::roll()
 */
 void Player::attack()
 {
+    if (CheckHitKey(KEY_INPUT_V))
+    {
+        // アニメーションをセット
+        if (animNum != (int)ePlayer::AnimationNum::Slash1)  // ここがないとanimTimerがうまくリセットされない
+        {
+            animNum = (int)ePlayer::AnimationNum::Slash1;
+            setAnim(animHandle, animNum, animTimer);
+        }
+        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT);
+    }
+    else
+    {
+        currentState = PlayerState::Idle;
+    }
+
+
 
 }
 
@@ -407,7 +426,14 @@ void Player::draw()
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
-#ifdef _DEBUG
+    MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayer::AnimationNum::Slash1), animTimer);
+    // 41が右手のBone
+    MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 41);
+#ifdef _DEBUG    
+    VECTOR pos = VGet(0.f, 0.f, 0.f);
+    pos = VTransform(pos, FrameMatrix);
+    DrawSphere3D(pos, 10.f, 10, BLUE, BLUE, TRUE);
+
     // 当たり判定カプセル描画
     DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 #endif
