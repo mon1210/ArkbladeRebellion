@@ -15,11 +15,12 @@ Player::Player(Game* Game_)
 
 /**
 * @brief デストラクタ
-* @note  ポインタのDeleteはGameクラスでしているので、記述の必要なし
+* @note  ポインタpGameのDeleteはGameクラスでしているので、記述の必要なし
 */
 Player::~Player()
 {
     delete[] animTimes;
+    delete[] withSwordAnimTimes;
 }
 
 
@@ -64,6 +65,22 @@ void Player::initialize(int hit_point)
     // モデルを戻す
     if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
+}
+
+
+/**
+* @brief unordered_map初期化メソッド
+* @note  各Stateごとのメソッドを登録
+*/
+void Player::initializeStateFunctions()
+{
+    stateFunctionMap[PlayerState::Idle] = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move] = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll] = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack] = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage] = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing] = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death] = [this]() { death();   };  // 死亡
 }
 
 
@@ -137,23 +154,6 @@ void Player::manageRollCooldown()
 
 
 /**
-* @brief unordered_map初期化メソッド
-* @note  各Stateごとのメソッドを登録
-*/
-void Player::initializeStateFunctions()
-{
-    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
-}
-
-
-
-/**
 * @brief 状態管理メソッド
 * @note  毎フレームの処理
 */
@@ -162,7 +162,7 @@ void Player::update()
     // 今のStateに対応するメソッド呼び出し
     stateFunctionMap[currentState]();
 
-    // 以下移動中処理 --------------------------------------------------------------------------------------------------
+    // 以下移動中処理 -------------------------------------------------------------------------------------------------
     if (isMove && pGame) {
         // エネミーとの当たり判定
         pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
@@ -182,7 +182,7 @@ void Player::update()
             manageRollCooldown();
         }
     }
-    // 以上移動中処理 --------------------------------------------------------------------------------------------------
+    // 以上移動中処理 -------------------------------------------------------------------------------------------------
 
     // Roll後止まっているときのクールダウン
     if (!rollAble)
@@ -198,6 +198,7 @@ void Player::update()
 }
 
 
+// 以下状態管理メソッド ===============================================================================================
 /**
 * @brief Idle状態の管理メソッド
 */
@@ -238,10 +239,6 @@ void Player::idle()
     // healingへ
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
-    }
-    // deathへ
-    else if (CheckHitKey(KEY_INPUT_G)) {
-        currentState = PlayerState::Death;
     }
 }
 
@@ -287,7 +284,7 @@ void Player::move()
 
 /**
 * @brief Roll状態の管理メソッド
-* @note  アニメーション終了時にIdle    Todo 連続Roll
+* @note  アニメーション終了時にIdle
 */
 void Player::roll()
 {
@@ -354,14 +351,10 @@ void Player::attack()
 
 /**
 * @brief Damage状態の管理メソッド
-* @norte HPの減少　HP <= 0でDeathへ
+* @norte HPの減少
 */
 void Player::damage()
 {
-    if (hitPoint <= 0) {
-        currentState = PlayerState::Death;
-    }
-
 }
 
 
@@ -392,7 +385,7 @@ void Player::healing()
 
 /**
 * @brief Death状態の管理メソッド
-* @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了
+* @note  HPが0でここ　アニメーション終了時、ゲーム終了
 */
 void Player::death()
 {
@@ -406,8 +399,8 @@ void Player::death()
     // アニメーション終了後、死亡フラグをtrueに
     if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         isDeath = true;
-
 }
+// 以上状態管理メソッド ===============================================================================================
 
 
 /**
@@ -432,8 +425,6 @@ bool Player::isAlive()
     }
 
 #ifdef _DEBUG
-    // Oでゲーム画面終了
-    if (CheckHitKey(KEY_INPUT_O)) { return false; }
     // LでHP減少
     if (CheckHitKey(KEY_INPUT_L)) {
         hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
@@ -442,7 +433,6 @@ bool Player::isAlive()
 #endif
 
     return true;
-
 }
 
 
@@ -472,6 +462,7 @@ void Player::draw()
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
+    // 
     MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayer::AnimationNum::Slash1), animTimer);
     // 41が右手のBone
     MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 41);
