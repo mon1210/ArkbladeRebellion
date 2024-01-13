@@ -117,6 +117,26 @@ bool Player::checkRollKey()
 
 
 /**
+* @brief Rollのクールダウン管理メソッド
+* @note  クールタイムを減らし、0になるとRollをできるように
+*/
+void Player::manageRollCooldown()
+{            
+    // クールタイムを減らす
+    rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
+
+    // クールタイムが0以下
+    if (rollCoolTime <= 0)
+    {
+        // クールタイムをdefaultに
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+
+        rollAble = true;
+    }
+}
+
+
+/**
 * @brief unordered_map初期化メソッド
 * @note  各Stateごとのメソッドを登録
 */
@@ -149,42 +169,24 @@ void Player::update()
         // 移動後の座標取得
         VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
 
-        // 当たり判定更新 -------
-        // roll以外       ローリングのクールタイムがdefault値の時
+        // 当たり判定更新
+        // roll以外のとき(Rollのクールタイムがdefault値の時)
         if (rollCoolTime == 0)
             rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
         // roll中の時
         else
         {
+            // 当たり判定更新
             pGame->GetCollision()->clampToStageBounds(NewPos, position);
-
-            // クールタイムを減らす
-            rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
-
-            // クールタイムが0以下
-            if (rollCoolTime <= 0)
-            {
-                // クールタイムをdefaultに
-                rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
-                rollAble = true;
-            }
+            // Rollのクールダウン
+            manageRollCooldown();
         }
     }
     // 以上移動中処理 --------------------------------------------------------------------------------------------------
 
+    // Roll後止まっているときのクールダウン
     if (!rollAble)
-    {
-        // クールタイムを減らす
-        rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
-
-        // クールタイムが0以下
-        if (rollCoolTime <= 0)
-        {
-            // クールタイムをdefaultに
-            rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
-            rollAble = true;
-        }
-    }
+        manageRollCooldown();
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定

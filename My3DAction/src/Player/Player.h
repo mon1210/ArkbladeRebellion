@@ -32,6 +32,7 @@ private:
 	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
+	void manageRollCooldown();								// Rollのクールダウン管理メソッド
 	void animateAndMove(ePlayer::AnimationNum num,
 		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 private:
