@@ -230,14 +230,14 @@ void Player::idle()
 
     }
     // attackへ
-    else if (CheckHitKey(KEY_INPUT_V)) {
+    else if (Key_Attack) {
         currentState = PlayerState::Attack;
         // 武器を持ったモデルに変更
         if (pGame)
             animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
     }
     // healingへ
-    else if (CheckHitKey(KEY_INPUT_F)) {
+    else if (Key_Healing) {
         currentState = PlayerState::Healing;
     }
 }
@@ -326,7 +326,7 @@ void Player::roll()
 */
 void Player::attack()
 {
-    if (CheckHitKey(KEY_INPUT_V))
+    if (Key_Attack)
     {
         // アニメーションをセット
         if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
@@ -365,7 +365,7 @@ void Player::damage()
 void Player::healing()
 {
     // F => Drinking 回復時モーション
-    if (CheckHitKey(KEY_INPUT_F))
+    if (Key_Healing)
     {
         // アニメーションをセット
         if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
