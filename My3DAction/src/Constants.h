@@ -86,6 +86,7 @@ const float PLAYER_ROLL_ANIM_F_INCREMENT = 0.3f;// プレイヤーの前転時の移動距離
 const float FORWARD_ROTATION_ANGLE = 180.f;		// プレイヤー前進時の回転角度
 const float RIGHT_ROTATION_ANGLE = -90.f;		// プレイヤー右移動時の回転角度
 const float LEFT_ROTATION_ANGLE = 90.f;			// プレイヤー左移動時の回転角度
+const float BACK_ROTATION_ANGLE = 0.f;			// プレイヤー後移動時の回転角度
 const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
 const float MAX_HP = 100.f;						// 

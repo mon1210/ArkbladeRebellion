@@ -124,12 +124,12 @@ bool Player::checkMoveKey()
 
 
 /**
-* @brief 前転キーチェック
+* @brief 回転キーチェック
 * @note  条件文を簡潔に
 */
 bool Player::checkRollKey()
 {
-    return Key_ForwardRoll || Key_LeftRoll || Key_RightRoll && rollAble;
+    return Key_ForwardRoll || Key_LeftRoll || Key_RightRoll || Key_BackRoll && rollAble;
 }
 
 
@@ -288,22 +288,28 @@ void Player::move()
 */
 void Player::roll()
 {
-    // Space or PAD_× => Roll
+    // 前Roll
     if (Key_ForwardRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
         isRoll = true;
     }
     // 右Roll
-    if (Key_RightRoll && !isRoll)
+    else if (Key_RightRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
         isRoll = true;
     }
     // 左Roll
-    if (Key_LeftRoll && !isRoll)
+    else if (Key_LeftRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        isRoll = true;
+    }
+    // 後Roll
+    else if (Key_BackRoll && !isRoll)
+    {
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, BACK_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
         isRoll = true;
     }
 

@@ -70,5 +70,6 @@ protected:
 #define Key_ForwardRoll		CheckHitKey(KEY_INPUT_W)
 #define Key_RightRoll		CheckHitKey(KEY_INPUT_D)
 #define Key_LeftRoll		CheckHitKey(KEY_INPUT_A)
+#define Key_BackRoll		CheckHitKey(KEY_INPUT_S)
 #define Key_Attack			CheckHitKey(KEY_INPUT_V)
 #define Key_Healing			CheckHitKey(KEY_INPUT_F)
