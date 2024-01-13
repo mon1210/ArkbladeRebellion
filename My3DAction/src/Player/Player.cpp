@@ -142,7 +142,7 @@ void Player::update()
     // 今のStateに対応するメソッド呼び出し
     stateFunctionMap[currentState]();
 
-    // 移動した場合の当たり判定更新と座標セット
+    // 以下移動中処理 --------------------------------------------------------------------------------------------------
     if (isMove && pGame) {
         // エネミーとの当たり判定
         pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
@@ -158,15 +158,31 @@ void Player::update()
         {
             pGame->GetCollision()->clampToStageBounds(NewPos, position);
 
-            // クールタイムを減らす処理
-            rollCoolTime--;
+            // クールタイムを減らす
+            rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
 
-            // クールタイムが０以下
+            // クールタイムが0以下
             if (rollCoolTime <= 0)
             {
                 // クールタイムをdefaultに
-                rollCoolTime = 0;
+                rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+                rollAble = true;
             }
+        }
+    }
+    // 以上移動中処理 --------------------------------------------------------------------------------------------------
+
+    if (!rollAble)
+    {
+        // クールタイムを減らす
+        rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
+
+        // クールタイムが0以下
+        if (rollCoolTime <= 0)
+        {
+            // クールタイムをdefaultに
+            rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+            rollAble = true;
         }
     }
 
@@ -207,7 +223,7 @@ void Player::idle()
             roll_coolTime = Const.MAX_ROLLING_COOLTIME + animTime;
         */
         // animTimeをRollの数にするように、配列を作成して取得
-        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
 
     }
     // attackへ
@@ -274,19 +290,22 @@ void Player::move()
 void Player::roll()
 {
     // Space or PAD_× => Roll
-    if (Key_ForwardRoll)
+    if (Key_ForwardRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        isRoll = true;
     }
     // 右Roll
-    else if (Key_RightRoll)
+    if (Key_RightRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        isRoll = true;
     }
     // 左Roll
-    else if (Key_LeftRoll)
+    if (Key_LeftRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        isRoll = true;
     }
 
     // アニメーション終了後
@@ -295,7 +314,8 @@ void Player::roll()
         if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
             currentState = PlayerState::Idle;
-            rollAble = false;
+            rollAble = false;	
+            isRoll = false;
             isMove = false;
         }
     }
