@@ -36,7 +36,7 @@ void Camera::update()
 void Camera::control()
 {
 	// カメラの垂直角度を上に回転
-	if (CheckHitKey(KEY_INPUT_S))
+	if (CheckHitKey(KEY_INPUT_I))
 	{
 		vAngle += CAMERA_ANGLE_SPEED;
 		// 上限を超えたらリセット
@@ -46,7 +46,7 @@ void Camera::control()
 		}
 	}
 	// カメラの垂直角度を下に回転
-	if (CheckHitKey(KEY_INPUT_X))
+	if (CheckHitKey(KEY_INPUT_K))
 	{
 		vAngle -= CAMERA_ANGLE_SPEED;
 		// 下限を超えたらリセット
@@ -56,7 +56,7 @@ void Camera::control()
 		}
 	}
 	// カメラの水平角度を右に回転
-	if (CheckHitKey(KEY_INPUT_C))
+	if (CheckHitKey(KEY_INPUT_L))
 	{
 		hAngle += CAMERA_ANGLE_SPEED;
 		// 360度を超えた場合でも正確な角度を保つように
@@ -66,7 +66,7 @@ void Camera::control()
 		}
 	}
 	// カメラの水平角度を左に回転
-	if (CheckHitKey(KEY_INPUT_Z))
+	if (CheckHitKey(KEY_INPUT_J))
 	{
 		hAngle -= CAMERA_ANGLE_SPEED;
 		// 360度を超えた場合でも正確な角度を保つように
