@@ -463,7 +463,7 @@ void Player::draw()
     MV1DrawModel(animHandle);
 
     // 
-    MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayer::AnimationNum::Slash1), animTimer);
+    MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayerWS::AnimationNum::Slash1), animTimer);
     // 41‚ª‰EŽè‚ÌBone
     MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 41);
 #ifdef _DEBUG    
