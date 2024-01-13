@@ -74,6 +74,19 @@ namespace ePlayer
 	};
 }
 
+// 武器を持ったプレイヤーモデルのアニメーション番号
+namespace ePlayerWS
+{
+	enum class AnimationNum
+	{
+		Default = -1,	// -1代入用
+		Idle = 0,
+		Slash1,
+		Slash2,
+		Slash3,
+	};
+}
+
 // エネミーモデルのアニメーション番号
 namespace eEnemy
 {
