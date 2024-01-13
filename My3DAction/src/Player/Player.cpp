@@ -470,8 +470,8 @@ void Player::draw()
 
     // 
     MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayerWS::AnimationNum::Slash1), animTimer);
-    // 41‚ª‰EŽè‚ÌBone
-    MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 41);
+    // 55‚ª‰EŽè‚ÌBone
+    MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 55);
 #ifdef _DEBUG    
     VECTOR pos = VGet(0.f, 0.f, 0.f);
     pos = VTransform(pos, FrameMatrix);
