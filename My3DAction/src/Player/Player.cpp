@@ -426,7 +426,7 @@ bool Player::isAlive()
 
 #ifdef _DEBUG
     // LÇ≈HPå∏è≠
-    if (CheckHitKey(KEY_INPUT_L)) {
+    if (CheckHitKey(KEY_INPUT_H)) {
         hitPoint = clamp(hitPoint, 0, MAX_HP); // ç≈ëÂç≈è¨ÇåàíË
         hitPoint -= HP_CHANGE_AMOUNT;
     }
