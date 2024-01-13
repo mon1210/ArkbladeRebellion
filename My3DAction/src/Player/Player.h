@@ -49,6 +49,9 @@ protected:
 	float	*withSwordAnimTimes = 0;									// 
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
+	bool	isFrontRoll = false;										// 前回転中フラグ
+	bool	isRightRoll = false;										// 右回転中フラグ
+	bool	isLeftRoll = false;											// 左回転中フラグ
 	bool	isDeath = false;											// 死亡フラグ
 	bool	isAttackAnim = false;										// 
 
