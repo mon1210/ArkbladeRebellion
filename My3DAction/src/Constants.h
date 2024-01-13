@@ -74,7 +74,7 @@ const float CAMERA_FAR_DISTANCE = 1000.f;		// カメラの可視最長距離
 
 
 // 以下Player用定数================================================================================================== //
-const int MAX_ROLL_COOL_TIME = 0;				// 
+const int MAX_ROLL_COOL_TIME = 500;				// 
 const float PLAYER_START_POS_X = 0.f;			// プレイヤーの初期X座標
 const float PLAYER_START_POS_Y = 0.f;			// プレイヤーの初期Y座標 -250
 const float PLAYER_START_POS_Z = 600.f;			// プレイヤーの初期Z座標

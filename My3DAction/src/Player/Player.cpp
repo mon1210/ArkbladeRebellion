@@ -15,11 +15,12 @@ Player::Player(Game* Game_)
 
 /**
 * @brief デストラクタ
-* @note  ポインタのDeleteはGameクラスでしているので、記述の必要なし
+* @note  ポインタpGameのDeleteはGameクラスでしているので、記述の必要なし
 */
 Player::~Player()
 {
     delete[] animTimes;
+    delete[] withSwordAnimTimes;
 }
 
 
@@ -46,11 +47,40 @@ void Player::initialize(int hit_point)
 
     // animTimesのサイズを指定　アニメーション番号最後尾 + 1
     animTimes = new float[static_cast<int>(ePlayer::AnimationNum::Dying) + 1];
+    // アニメーション時間を取得
     for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i <= static_cast<int>(ePlayer::AnimationNum::Dying); i++)
     {
         animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
     }
 
+    // 武器を所持したモデルのアニメーション時間を取得
+    if (pGame)
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
+    withSwordAnimTimes = new float[static_cast<int>(ePlayerWS::AnimationNum::Slash3) + 1];
+    for (int i = static_cast<int>(ePlayerWS::AnimationNum::Idle); i <= static_cast<int>(ePlayerWS::AnimationNum::Slash3); i++)
+    {
+        withSwordAnimTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
+
+    // モデルを戻す
+    if (pGame)
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
+}
+
+
+/**
+* @brief unordered_map初期化メソッド
+* @note  各Stateごとのメソッドを登録
+*/
+void Player::initializeStateFunctions()
+{
+    stateFunctionMap[PlayerState::Idle] = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move] = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll] = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack] = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage] = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing] = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death] = [this]() { death();   };  // 死亡
 }
 
 
@@ -104,20 +134,23 @@ bool Player::checkRollKey()
 
 
 /**
-* @brief unordered_map初期化メソッド
-* @note  各Stateごとのメソッドを登録
+* @brief Rollのクールダウン管理メソッド
+* @note  クールタイムを減らし、0になるとRollをできるように
 */
-void Player::initializeStateFunctions()
-{
-    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
-}
+void Player::manageRollCooldown()
+{            
+    // クールタイムを減らす
+    rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
 
+    // クールタイムが0以下
+    if (rollCoolTime <= 0)
+    {
+        // クールタイムをdefaultに
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+
+        rollAble = true;
+    }
+}
 
 
 /**
@@ -129,33 +162,31 @@ void Player::update()
     // 今のStateに対応するメソッド呼び出し
     stateFunctionMap[currentState]();
 
-    // 移動した場合の当たり判定更新と座標セット
+    // 以下移動中処理 -------------------------------------------------------------------------------------------------
     if (isMove && pGame) {
         // エネミーとの当たり判定
         pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
         // 移動後の座標取得
         VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
 
-        // 当たり判定更新 -------
-        // roll以外       ローリングのクールタイムがdefault値の時
+        // 当たり判定更新
+        // roll以外のとき(Rollのクールタイムがdefault値の時)
         if (rollCoolTime == 0)
             rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
         // roll中の時
         else
         {
+            // 当たり判定更新
             pGame->GetCollision()->clampToStageBounds(NewPos, position);
-
-            // クールタイムを減らす処理
-            rollCoolTime--;
-
-            // クールタイムが０以下
-            if (rollCoolTime <= 0)
-            {
-                // クールタイムをdefaultに
-                rollCoolTime = 0;
-            }
+            // Rollのクールダウン
+            manageRollCooldown();
         }
     }
+    // 以上移動中処理 -------------------------------------------------------------------------------------------------
+
+    // Roll後止まっているときのクールダウン
+    if (!rollAble)
+        manageRollCooldown();
 
     // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
     // レーダーの中心を今の座標と正面の向きに設定
@@ -167,12 +198,12 @@ void Player::update()
 }
 
 
+// 以下状態管理メソッド ===============================================================================================
 /**
 * @brief Idle状態の管理メソッド
 */
 void Player::idle()
 {
-    isMove = false;
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
 
@@ -184,6 +215,7 @@ void Player::idle()
     }
     updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Idle)], &animTimer, PLAYER_ANIM_F_INCREMENT);
 
+    // 遷移 ------------------------------------------------------------------------------------------
     if (checkMoveKey()) {
         currentState = PlayerState::Move;
     }
@@ -194,17 +226,19 @@ void Player::idle()
             roll_coolTime = Const.MAX_ROLLING_COOLTIME + animTime;
         */
         // animTimeをRollの数にするように、配列を作成して取得
-        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
 
     }
+    // attackへ
     else if (CheckHitKey(KEY_INPUT_V)) {
         currentState = PlayerState::Attack;
+        // 武器を持ったモデルに変更
+        if (pGame)
+            animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
     }
+    // healingへ
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
-    }
-    else if (CheckHitKey(KEY_INPUT_G)) {
-        currentState = PlayerState::Death;
     }
 }
 
@@ -243,30 +277,34 @@ void Player::move()
     else
     {
         currentState = PlayerState::Idle;
+        isMove = false;
     }
 }
 
 
 /**
 * @brief Roll状態の管理メソッド
-* @note  アニメーション終了時にIdle    Todo 連続Roll
+* @note  アニメーション終了時にIdle
 */
 void Player::roll()
 {
     // Space or PAD_× => Roll
-    if (Key_ForwardRoll)
+    if (Key_ForwardRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        isRoll = true;
     }
     // 右Roll
-    else if (Key_RightRoll)
+    if (Key_RightRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        isRoll = true;
     }
     // 左Roll
-    else if (Key_LeftRoll)
+    if (Key_LeftRoll && !isRoll)
     {
         animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        isRoll = true;
     }
 
     // アニメーション終了後
@@ -274,8 +312,10 @@ void Player::roll()
     {
         if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
-            rollAble = false;
             currentState = PlayerState::Idle;
+            rollAble = false;	
+            isRoll = false;
+            isMove = false;
         }
     }
 }
@@ -289,33 +329,32 @@ void Player::attack()
     if (CheckHitKey(KEY_INPUT_V))
     {
         // アニメーションをセット
-        if (animNum != (int)ePlayer::AnimationNum::Slash1)  // ここがないとanimTimerがうまくリセットされない
+        if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
         {
-            animNum = (int)ePlayer::AnimationNum::Slash1;
+            animNum = (int)ePlayerWS::AnimationNum::Slash1;
             setAnim(animHandle, animNum, animTimer);
+            isAttackAnim = true;
         }
-        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
-    else
+
+    if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT))
     {
+        // モデルを戻す
+        if (pGame)
+            animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
         currentState = PlayerState::Idle;
+        isAttackAnim = false;
     }
-
-
 
 }
 
 
 /**
 * @brief Damage状態の管理メソッド
-* @norte HPの減少　HP <= 0でDeathへ
+* @norte HPの減少
 */
 void Player::damage()
 {
-    if (hitPoint <= 0) {
-        currentState = PlayerState::Death;
-    }
-
 }
 
 
@@ -346,7 +385,7 @@ void Player::healing()
 
 /**
 * @brief Death状態の管理メソッド
-* @note  HPが0でここ　アニメーション終了時、isAliveをfalseにしてゲーム終了
+* @note  HPが0でここ　アニメーション終了時、ゲーム終了
 */
 void Player::death()
 {
@@ -360,8 +399,8 @@ void Player::death()
     // アニメーション終了後、死亡フラグをtrueに
     if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         isDeath = true;
-
 }
+// 以上状態管理メソッド ===============================================================================================
 
 
 /**
@@ -386,8 +425,6 @@ bool Player::isAlive()
     }
 
 #ifdef _DEBUG
-    // Oでゲーム画面終了
-    if (CheckHitKey(KEY_INPUT_O)) { return false; }
     // LでHP減少
     if (CheckHitKey(KEY_INPUT_L)) {
         hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
@@ -396,7 +433,6 @@ bool Player::isAlive()
 #endif
 
     return true;
-
 }
 
 
@@ -426,6 +462,7 @@ void Player::draw()
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
+    // 
     MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayer::AnimationNum::Slash1), animTimer);
     // 41が右手のBone
     MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 41);

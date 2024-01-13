@@ -32,13 +32,14 @@ private:
 	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
+	void manageRollCooldown();								// Rollのクールダウン管理メソッド
 	void animateAndMove(ePlayer::AnimationNum num,
 		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 private:
 	// 状態ごとのメソッド
 	void idle();	// 待機
 	void move();	// 移動
-	void roll();	// 前転(回避)
+	void roll();	// 回転
 	void attack();	// 攻撃 => 三段攻撃の予定
 	void damage();	// 被ダメージ
 	void healing();	// 回復
@@ -46,9 +47,12 @@ private:
 protected:
 	Game	*pGame = nullptr;
 	int		rollCoolTime = 0;
+	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
+	bool	isRoll = false;												// 回転中フラグ
 	bool	isDeath = false;											// 死亡フラグ
+	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
