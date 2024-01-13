@@ -46,11 +46,11 @@ enum class StagePhase
 // モデルの種類
 enum class ModelType
 {
-	No = -1,	// -1代入用
+	No = -1,			// -1代入用
 	Player,
-	PlayerWithSword,
+	PlayerWithSword,	// 武器を持ったプレイヤー
 	Enemy,
-	Tile
+	Tile				// 床
 
 };
 
@@ -62,15 +62,12 @@ namespace ePlayer
 		Default = -1,	// -1代入用
 		Idle = 1,
 		Run,
-		NoMoveRoll,	// 
-		Roll,		// moveRoll
-		SpeedRoll,	// newRoll
-		Slash1,
-		Slash2,
-		Slash3,
-		Damage,
-		Drinking,
-		Dying,
+		NoMoveRoll,		// その場で
+		Roll,
+		SpeedRoll,		// 素早い
+		Damage = 9,
+		Drinking,		// 回復
+		Dying, 
 	};
 }
 
@@ -81,9 +78,9 @@ namespace ePlayerWS
 	{
 		Default = -1,	// -1代入用
 		Idle = 0,
-		Slash1,
-		Slash2,
-		Slash3,
+		Slash1,			// 攻撃 一段目
+		Slash2,			// 二段目
+		Slash3,			// 三段目
 	};
 }
 
@@ -95,7 +92,7 @@ namespace eEnemy
 		Default = -1,	// -1代入用
 		Idle = 1,
 		Run,
-		Swiping,
+		Swiping,		// 攻撃
 		Damage,
 		Dying
 	};
