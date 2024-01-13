@@ -46,9 +46,11 @@ private:
 protected:
 	Game	*pGame = nullptr;
 	int		rollCoolTime = 0;
+	float	*withSwordAnimTimes = 0;									// 
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isDeath = false;											// 死亡フラグ
+	bool	isAttackAnim = false;										// 
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 

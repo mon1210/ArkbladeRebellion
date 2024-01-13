@@ -46,11 +46,24 @@ void Player::initialize(int hit_point)
 
     // animTimesのサイズを指定　アニメーション番号最後尾 + 1
     animTimes = new float[static_cast<int>(ePlayer::AnimationNum::Dying) + 1];
+    // アニメーション時間を取得
     for (int i = static_cast<int>(ePlayer::AnimationNum::Idle); i <= static_cast<int>(ePlayer::AnimationNum::Dying); i++)
     {
         animTimes[i] = MV1GetAnimTotalTime(animHandle, i);
     }
 
+    // 武器を所持したモデルのアニメーション時間を取得
+    if (pGame)
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
+    withSwordAnimTimes = new float[static_cast<int>(ePlayerWS::AnimationNum::Slash3) + 1];
+    for (int i = static_cast<int>(ePlayerWS::AnimationNum::Idle); i <= static_cast<int>(ePlayerWS::AnimationNum::Slash3); i++)
+    {
+        withSwordAnimTimes[i] = MV1GetAnimTotalTime(animHandle, i);
+    }
+
+    // モデルを戻す
+    if (pGame)
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
 }
 
 
@@ -172,7 +185,6 @@ void Player::update()
 */
 void Player::idle()
 {
-    isMove = false;
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
 
@@ -184,6 +196,7 @@ void Player::idle()
     }
     updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Idle)], &animTimer, PLAYER_ANIM_F_INCREMENT);
 
+    // 遷移 ------------------------------------------------------------------------------------------
     if (checkMoveKey()) {
         currentState = PlayerState::Move;
     }
@@ -197,12 +210,18 @@ void Player::idle()
         rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
     }
+    // attackへ
     else if (CheckHitKey(KEY_INPUT_V)) {
         currentState = PlayerState::Attack;
+        // 武器を持ったモデルに変更
+        if (pGame)
+            animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
     }
+    // healingへ
     else if (CheckHitKey(KEY_INPUT_F)) {
         currentState = PlayerState::Healing;
     }
+    // deathへ
     else if (CheckHitKey(KEY_INPUT_G)) {
         currentState = PlayerState::Death;
     }
@@ -243,6 +262,7 @@ void Player::move()
     else
     {
         currentState = PlayerState::Idle;
+        isMove = false;
     }
 }
 
@@ -274,8 +294,9 @@ void Player::roll()
     {
         if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
-            rollAble = false;
             currentState = PlayerState::Idle;
+            rollAble = false;
+            isMove = false;
         }
     }
 }
@@ -289,19 +310,22 @@ void Player::attack()
     if (CheckHitKey(KEY_INPUT_V))
     {
         // アニメーションをセット
-        if (animNum != (int)ePlayer::AnimationNum::Slash1)  // ここがないとanimTimerがうまくリセットされない
+        if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
         {
-            animNum = (int)ePlayer::AnimationNum::Slash1;
+            animNum = (int)ePlayerWS::AnimationNum::Slash1;
             setAnim(animHandle, animNum, animTimer);
+            isAttackAnim = true;
         }
-        updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
-    else
+
+    if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT))
     {
+        // モデルを戻す
+        if (pGame)
+            animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
         currentState = PlayerState::Idle;
+        isAttackAnim = false;
     }
-
-
 
 }
 
