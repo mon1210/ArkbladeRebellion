@@ -74,13 +74,13 @@ void Player::initialize(int hit_point)
 */
 void Player::initializeStateFunctions()
 {
-    stateFunctionMap[PlayerState::Idle] = [this]() { idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move] = [this]() { move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll] = [this]() { roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack] = [this]() { attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage] = [this]() { damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing] = [this]() { healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death] = [this]() { death();   };  // 死亡
+    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
 }
 
 
@@ -150,6 +150,20 @@ void Player::manageRollCooldown()
 
         rollAble = true;
     }
+}
+
+
+/**
+* @brief AttackからIdleに戻る際の処理メソッド
+*/
+void Player::changeAttackToIdle()
+{
+    // モデルを戻す
+    if (pGame)
+        animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
+    // StateをIdleへ
+    currentState = PlayerState::Idle;
+    isAttackAnim = false;
 }
 
 
@@ -235,6 +249,7 @@ void Player::idle()
         // 武器を持ったモデルに変更
         if (pGame)
             animHandle = pGame->GetModelManager()->GetHandle(ModelType::PlayerWithSword);
+        isFirst = true;
     }
     // healingへ
     else if (Key_Healing) {
@@ -332,8 +347,11 @@ void Player::roll()
 */
 void Player::attack()
 {
-    if (Key_Attack)
+    // 一段目の攻撃 ===================================================================================================================
+    if (isFirst)
     {
+        //count += PLAYER_ANIM_F_INCREMENT;
+        
         // アニメーションをセット
         if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
         {
@@ -341,15 +359,83 @@ void Player::attack()
             setAnim(animHandle, animNum, animTimer);
             isAttackAnim = true;
         }
+        // アニメーション終了後
+        if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        {
+            isFirst = false;
+            isAttackAnim = false;
+        }
+        // 二段目へ行くかどうか
+        if (!isAttackAnim)
+        {
+            // Bキーを押している            countが43秒以上　アニメーション45秒の2秒前までに押す
+            if (CheckHitKey(KEY_INPUT_B)/*  && count >= 43 */)
+            {
+                // 二段目へ
+                isSecond = true;
+                isAttackAnim = true;
+            }
+            // Idleへ戻る
+            else/* if (count >= 50 ) // 五秒猶予 */
+            {
+                changeAttackToIdle();
+            }
+        }
+
     }
 
-    if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash1)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+    // 二段目の攻撃 ===================================================================================================================
+    if (isSecond)
     {
-        // モデルを戻す
-        if (pGame)
-            animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
-        currentState = PlayerState::Idle;
-        isAttackAnim = false;
+        //count += PLAYER_ANIM_F_INCREMENT
+
+        if (animNum != (int)ePlayerWS::AnimationNum::Slash2)
+        {
+            animNum = (int)ePlayerWS::AnimationNum::Slash2;
+            setAnim(animHandle, animNum, animTimer);
+            //count = 0;
+        }
+        // アニメーション終了後
+        if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash2)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        {
+            isSecond = false;
+            // アニメーション終了フラグをfalseに　二段目に行くかどうかを判定する用
+            isAttackAnim = false;
+        }
+        // 三段目に行くかどうか
+        if (!isAttackAnim)
+        {
+            // Nキーを押している        countが48秒以上　アニメーション50秒の2秒前までに押す
+            if (CheckHitKey(KEY_INPUT_N)/*  && count >= 48 */)
+            {
+                // 三段目へ
+                isThird = true;
+                isAttackAnim = true;
+            }
+            // Idleへ戻る
+            else
+            {
+                changeAttackToIdle();
+            }
+        }
+    }
+
+    // 三段目の攻撃 ===================================================================================================================
+    if(isThird)
+    {
+        if (animNum != (int)ePlayerWS::AnimationNum::Slash3)
+        {
+            animNum = (int)ePlayerWS::AnimationNum::Slash3;
+            setAnim(animHandle, animNum, animTimer);
+            //count = 0;
+        }
+        // アニメーション終了後
+        if (updateAnimation(withSwordAnimTimes[static_cast<int>(ePlayerWS::AnimationNum::Slash3)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        {
+            // Idleへ戻る
+            changeAttackToIdle();
+            isThird = false;
+        }
     }
 
 }
