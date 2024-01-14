@@ -33,6 +33,7 @@ private:
 	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void manageRollCooldown();								// Rollのクールダウン管理メソッド
+	void changeAttackToIdle();								// AttackからIdleに戻る際の処理メソッド
 	void animateAndMove(ePlayer::AnimationNum num,
 		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 private:
@@ -47,12 +48,16 @@ private:
 protected:
 	Game	*pGame = nullptr;
 	int		rollCoolTime = 0;
+	//int		count = 0;
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ
 	bool	isDeath = false;											// 死亡フラグ
 	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ
+	bool	isFirst = false;											// 一段目の攻撃かどうかのフラグ
+	bool	isSecond = false;											// 二段目の攻撃かどうかのフラグ
+	bool	isThird = false;											// 三段目の攻撃かどうかのフラグ
 
 	PlayerState currentState = PlayerState::Idle;						// 状態を表す
 
