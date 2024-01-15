@@ -50,6 +50,7 @@ protected:
 	int		rollCoolTime = 0;
 	//int		count = 0;
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
+	float	currentHP = 0.f;											// HPが変化したかを判断する用の変数
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ

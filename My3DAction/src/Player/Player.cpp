@@ -32,6 +32,7 @@ void Player::initialize(int hit_point)
 {
     // 変数初期化
     hitPoint = hit_point;
+    currentHP = hitPoint;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
@@ -255,6 +256,10 @@ void Player::idle()
     else if (Key_Healing) {
         currentState = PlayerState::Healing;
     }
+    // HP減少時　Damageへ    HPが0以下の際には通らずDeathへ
+    if (hitPoint < currentHP && hitPoint > 0) {
+        currentState = PlayerState::Damage;
+    }
 }
 
 
@@ -447,6 +452,19 @@ void Player::attack()
 */
 void Player::damage()
 {
+    // 現在のHP更新
+    currentHP = hitPoint;
+    // アニメーションをセット
+    if (animNum != (int)ePlayer::AnimationNum::Damage)  // ここがないとanimTimerがうまくリセットされない
+    {
+        animNum = (int)ePlayer::AnimationNum::Damage;
+        setAnim(animHandle, animNum, animTimer);
+    }
+
+    // アニメーション終了後
+    if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Damage)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        currentState = PlayerState::Idle;
+
 }
 
 
