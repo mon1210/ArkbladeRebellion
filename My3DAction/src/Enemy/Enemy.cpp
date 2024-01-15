@@ -11,7 +11,6 @@ Enemy::Enemy(Game *Game_)
     // ƒ‚ƒfƒ‹Žæ“¾
     if (pGame) {
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Enemy);
-        tileHandle = pGame->GetBG()->GetModelHandle();
     }
 
 }
