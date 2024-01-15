@@ -108,7 +108,7 @@ GameSceneResultCode Game::move()
 
 		if (pPlayer)
 		{
-			if (!pPlayer->isAlive())
+			if (!pPlayer->isAlive() || !pEnemy->isAlive())
 			{
 				stagePhase = StagePhase::STAGE_FADE;
 				timer = 0;
