@@ -30,6 +30,7 @@ void Enemy::initialize(int hit_point)
 {
     // 変数初期化
     hitPoint = hit_point;
+    currentHP = hitPoint;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
@@ -79,8 +80,8 @@ void Enemy::initializeStateFunctions()
     stateFunctionMap[EnemyState::Move]      = [this]() { move();   };
     stateFunctionMap[EnemyState::Chase]     = [this]() { chase();  };
     stateFunctionMap[EnemyState::Attack]    = [this]() { attack(); };
-    //stateFunctionMap[EnemyState::Damage] = [this]() { damage();  };  
-    //stateFunctionMap[EnemyState::Death] = [this]() { death();   };
+    stateFunctionMap[EnemyState::Damage]    = [this]() { damage(); };  
+    stateFunctionMap[EnemyState::Death]     = [this]() { death();  };
 
 }
 
@@ -127,6 +128,7 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 }
 
 
+// 以下状態管理メソッド ===============================================================================================
 /**
 * @brief Wait状態の管理メソッド
 */
@@ -166,6 +168,11 @@ void Enemy::wait()
     {
         setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
         isAttack = true;
+    }
+
+    // HP減少時　Damageへ    HPが0以下の際には通らずDeathへ
+    if (hitPoint < currentHP && hitPoint > 0) {
+        currentState = EnemyState::Damage;
     }
 
     // アニメーションタイマーリセット
@@ -332,6 +339,35 @@ void Enemy::attack()
 
 
 /**
+* @brief Damage状態の管理メソッド
+*/
+void Enemy::damage()
+{    
+    // 現在のHP更新
+    currentHP = hitPoint;
+    // アニメーションをセット
+    setStateAndAnim(EnemyState::Damage, eEnemy::AnimationNum::Damage);
+    // アニメーション終了後
+    if (updateAnimation(animTimes[static_cast<int>(eEnemy::AnimationNum::Damage)], &animTimer, ENEMY_ANIM_F_INCREMENT))
+        currentState = EnemyState::Wait;
+}
+
+
+/**
+* @brief Death状態の管理メソッド
+*/
+void Enemy::death()
+{
+    // アニメーションをセット
+    setStateAndAnim(EnemyState::Death, eEnemy::AnimationNum::Dying);
+    // アニメーション終了後、死亡フラグをtrueに
+    if (updateAnimation(animTimes[static_cast<int>(eEnemy::AnimationNum::Dying)], &animTimer, ENEMY_ANIM_F_INCREMENT))
+        isDeath = true;
+}
+// 以上状態管理メソッド ===============================================================================================
+
+
+/**
 * @brief   エネミーの視野メソッド
 * @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
 */
@@ -360,13 +396,29 @@ bool Enemy::isTargetVisible()
 */
 bool Enemy::isAlive()
 {
-    if (hitPoint <= 0)
+    // hitPointが0以下
+    if (hitPoint <= 0.f)
     {
-        return false;
+        if (isDeath)
+        {
+            return false;
+        }
+        // 先に入る
+        else
+        {
+            // 死亡状態へ
+            currentState = EnemyState::Death;
+        }
     }
+#ifdef _DEBUG
+    // LでHP減少
+    if (CheckHitKey(KEY_INPUT_U)) {
+        hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
+        hitPoint -= HP_CHANGE_AMOUNT;
+    }
+#endif
 
     return true;
-
 }
 
 
