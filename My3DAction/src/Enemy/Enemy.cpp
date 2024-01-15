@@ -211,17 +211,34 @@ void Enemy::move()
     /*
         待機：
             条件：一定時間の経過
+                        　or
+                  一定時間の経過　且つ　ランダムな数が0
         追跡：
             条件：視野にプレイヤーが入る
         攻撃：
             条件：攻撃範囲内にプレイヤーがいる
+                        　or
+                  一定時間の経過　且つ　ランダムな数が1
     */
     count++;
 
-    if (count >= TIME_TO_TRANSITION)     // 遷移タイマーを超えたのでWaitへ
-        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
+    if (count >= TIME_TO_TRANSITION)     // 遷移タイマーを超えたので状態遷移
+    {
+        // 0 or 1 ランダムな変数取得
+        int RandomStateIndex = rand() % 2;
+        switch (RandomStateIndex)
+        {
+            case 0: // Idleへ
+                setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
+                break;
+            case 1: // Attackへ
+                setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
+                isAttack = true;
+                break;
+        }
+    }
     // 視野に入っていたら追跡
-    else if (isTargetVisible() == true)
+    if (isTargetVisible() == true)
     {
         currentState = EnemyState::Chase;
         // アニメーションはすでにRunなので変更なし
