@@ -33,6 +33,7 @@ void Player::initialize(int hit_point)
     // 変数初期化
     hitPoint = hit_point;
     currentHP = hitPoint;
+    healCount = MAX_HEAL_COUNT;
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
@@ -253,7 +254,7 @@ void Player::idle()
         isFirst = true;
     }
     // healingへ
-    else if (Key_Healing) {
+    else if (Key_Healing && healCount > 0) {
         currentState = PlayerState::Healing;
     }
     // HP減少時　Damageへ    HPが0以下の際には通らずDeathへ
@@ -474,22 +475,25 @@ void Player::damage()
 */
 void Player::healing()
 {
-    // F => Drinking 回復時モーション
-    if (Key_Healing)
+    // アニメーションをセット
+    if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
     {
-        // アニメーションをセット
-        if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
-        {
-            animNum = (int)ePlayer::AnimationNum::Drinking;
-            setAnim(animHandle, animNum, animTimer);
-        }
-
+        animNum = (int)ePlayer::AnimationNum::Drinking;
+        setAnim(animHandle, animNum, animTimer);
     }
 
     // アニメーション終了後
     if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Drinking)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+    {
         // ここでHP回復
+        hitPoint += HEALING_VALUE;
+        // 最大最小を決定
+        hitPoint = clamp(hitPoint, 0, MAX_HP);
+        // 回復可能回数を減らす
+        healCount--;
+        // Idleへ
         currentState = PlayerState::Idle;
+    }
 }
 
 
@@ -572,6 +576,11 @@ void Player::draw()
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
+    // 回復回数を表示
+    int Color = GREEN;
+    if (healCount == 0) { Color = RED; } // 0の時は色変更 
+    DrawFormatString(HEAL_COUNT_POS_X, HEAL_COUNT_POS_Y, Color, "heal : %d", healCount);
+
     // 
     MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayerWS::AnimationNum::Slash1), animTimer);
     // 55が右手のBone
@@ -582,7 +591,7 @@ void Player::draw()
     DrawSphere3D(pos, 10.f, 10, BLUE, BLUE, TRUE);
 
     // 当たり判定カプセル描画
-    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 #endif
 
 }
