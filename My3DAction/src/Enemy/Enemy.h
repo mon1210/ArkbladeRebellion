@@ -46,10 +46,8 @@ protected:
 	int		count = 0;												// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;										// ベクトルの長さ保存用
 	float	animTime = 0.f;											// アニメーション時間保存用変数　Enemyは毎フレーム状態変数を通らないので必要
-	float	currentHP = 0.f;
 	bool	isColHit = false;										// 当たり判定が接触したかどうか
 	bool	isAttack = false;										// 攻撃状態かどうか
-	bool	isDeath = false;
 
 	EnemyState currentState = EnemyState::Wait;						// 状態を表す
 

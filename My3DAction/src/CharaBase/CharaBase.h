@@ -31,7 +31,9 @@ protected:
 	float	animTimer = 0.f;						// アニメーションの現在の再生時間
 	float	angle = 0.f;							// 向き		アタッチ時にradに変換
 	float	hitPoint = 100.f;						// HP
+	float	currentHP = 0.f;						// HPが変化したかを判断する用の変数
 	//float damage
+	bool	isDeath = false;						// 死亡フラグ
 
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };

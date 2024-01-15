@@ -51,11 +51,9 @@ protected:
 	int		healCount = 0;												// 回復可能回数
 	//int		count = 0;
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
-	float	currentHP = 0.f;											// HPが変化したかを判断する用の変数
 	bool	isMove = false;												// 移動フラグ
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ
-	bool	isDeath = false;											// 死亡フラグ
 	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ
 	bool	isFirst = false;											// 一段目の攻撃かどうかのフラグ
 	bool	isSecond = false;											// 二段目の攻撃かどうかのフラグ
