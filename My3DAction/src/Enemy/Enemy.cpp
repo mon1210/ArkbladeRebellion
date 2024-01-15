@@ -9,9 +9,8 @@ Enemy::Enemy(Game *Game_)
     pGame = Game_;
 
     // ƒ‚ƒfƒ‹Žæ“¾
-    if (pGame) {
+    if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Enemy);
-    }
 
 }
 

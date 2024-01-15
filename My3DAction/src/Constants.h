@@ -27,13 +27,6 @@ const float CAMERA_FULL_CIRCLE_DEGREES = 360.f;	// 完全な円の角度
 const int SPATIAL_PARTITION = 32;				// 空間分割数
 const float CHARA_HEIGHT = 250.f;				// 当たり判定の大きさ
 const float CHARA_HIT_PUSH_POWER = 20.f;		// 当たった際に押し戻される力
-//const float PLAYER_WIDTH = 50.f;				// プレイヤーの横幅
-//const float PLAYER_DEPTH = 50.f;				// プレイヤーの薄さ
-//const float PLAYER_HEIGHT = 270.f;				// プレイヤーの高さ
-//const float ENEMY_WIDTH = 120.f;				// エネミーの横幅
-//const float ENEMY_DEPTH = 100.f;				// エネミーの薄さ
-//const float ENEMY_DEPTH_BACK = ENEMY_DEPTH / 2;	// エネミーの薄さ　後ろ側　前のめりなため
-//const float ENEMY_HEIGHT = 270.f;				// エネミーの高さ
 const float PLAYER_CAP_RADIUS = 55.f;			// プレイヤーの当たり判定カプセルの半径
 const float ENEMY_CAP_RADIUS = 100.f;			// エネミーの当たり判定カプセルの半径
 const float CAP_HEIGHT = 215.f;					// カプセルの高さ
@@ -74,7 +67,7 @@ const float CAMERA_FAR_DISTANCE = 1000.f;		// カメラの可視最長距離
 
 
 // 以下Player用定数================================================================================================== //
-const int MAX_ROLL_COOL_TIME = 500;				// 
+const int MAX_ROLL_COOL_TIME = 500;				// Rollのクールタイム
 const int MAX_HEAL_COUNT = 8;					// 最大回復回数
 const int HEAL_COUNT_POS_X = 530;				// 回復回数を表示するX座標
 const int HEAL_COUNT_POS_Y = 40;				// 回復回数を表示するY座標
@@ -92,7 +85,7 @@ const float LEFT_ROTATION_ANGLE = 90.f;			// プレイヤー左移動時の回転角度
 const float BACK_ROTATION_ANGLE = 0.f;			// プレイヤー後移動時の回転角度
 const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
-const float MAX_HP = 100.f;						// 
+const float MAX_HP = 100.f;						// 最大HP
 const float HEALING_VALUE = 20.f;				// 一度の回復量
 // 以上Player用定数================================================================================================== //
 
@@ -147,6 +140,6 @@ const int WHITE = GetColor(255, 255, 255);		// 白
 const int RED	= GetColor(255,   0,   0);		// 赤
 const int GREEN = GetColor(  0, 255,   0);		// 緑
 #ifdef _DEBUG
-const int BLUE  = GetColor(0, 0, 255);			// 青
+const int BLUE  = GetColor(  0,   0, 255);		// 青
 #endif
 // 以上Color====================================================================================================== //

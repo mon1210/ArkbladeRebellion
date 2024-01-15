@@ -591,7 +591,7 @@ void Player::draw()
     DrawSphere3D(pos, 10.f, 10, BLUE, BLUE, TRUE);
 
     // “–‚½‚è”»’èƒJƒvƒZƒ‹•`‰æ
-    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 #endif
 
 }

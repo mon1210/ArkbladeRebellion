@@ -196,7 +196,7 @@ void Game::draw()
 /**
 * @brief ModelManager‚ðŽæ“¾‚µ‚Ä•Ô‚·
 */
-ModelManager* Game::GetModelManager()
+ModelManager *Game::GetModelManager()
 {
 	return pModelManager;
 }
@@ -250,7 +250,7 @@ Camera *Game::GetCamera()
 /**
 * @brief Enemy‚ðŽæ“¾‚µ‚Ä•Ô‚·
 */
-Enemy* Game::GetEnemy() 
+Enemy *Game::GetEnemy() 
 {
 	return pEnemy;
 }
