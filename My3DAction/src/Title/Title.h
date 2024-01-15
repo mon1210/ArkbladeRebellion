@@ -15,8 +15,8 @@ class Title : public IGameScene
 public:
 	Title(SceneManager *pSystem);
 	~Title();
-	GameSceneResultCode move() override;	// 管理メソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
-	void draw() override;					// 描画メソッド
+	GameSceneResultCode move() override;			// 管理メソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
+	void draw() override;							// 描画メソッド
 
 protected:
 	SceneManager *System = nullptr;
