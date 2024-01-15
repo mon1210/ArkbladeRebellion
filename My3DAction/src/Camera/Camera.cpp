@@ -99,8 +99,6 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 
 	NewPlayerPos = VAdd(player_pos, NewPlayerPos);
 
-	// pCollider->Chara_Collision(&playerPos, pEnemy, &TempMoveVector);
-
 	return NewPlayerPos;
 }
 
