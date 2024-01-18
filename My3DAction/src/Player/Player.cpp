@@ -67,6 +67,9 @@ void Player::initialize(int hit_point)
     // モデルを戻す
     if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
+
+    // OBBColliderインスタンス化   攻撃時使用
+    pOBBCol = new OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 }
 
 
@@ -443,6 +446,18 @@ void Player::attack()
             isThird = false;
         }
     }
+
+    // 当たり判定(剣)設定 ==============================================
+    // アニメーションがアタッチされている必要があるのでここで処理
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
+    // モデルの右手frame取得
+    MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, PLAYER_RIGHT_HAND_FRAME);
+    // 親の行列に合わせる
+    pOBBCol->setParentMatrix(frame_matrix);
+#ifdef _DEBUG
+    // 描画
+    pOBBCol->draw();
+#endif
 
 }
 
