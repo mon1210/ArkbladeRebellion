@@ -76,6 +76,7 @@ const int MAX_ROLL_COOL_TIME = 500;				// Rollのクールタイム
 const int MAX_HEAL_COUNT = 8;					// 最大回復回数
 const int HEAL_COUNT_POS_X = 530;				// 回復回数を表示するX座標
 const int HEAL_COUNT_POS_Y = 40;				// 回復回数を表示するY座標
+const int PLAYER_RIGHT_HAND_FRAME = 41;			// 右手のフレーム番号
 const float PLAYER_START_POS_X = 0.f;			// プレイヤーの初期X座標
 const float PLAYER_START_POS_Y = 0.f;			// プレイヤーの初期Y座標 -250
 const float PLAYER_START_POS_Z = 600.f;			// プレイヤーの初期Z座標
@@ -92,6 +93,9 @@ const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
 const float MAX_HP = 100.f;						// 最大HP
 const float HEALING_VALUE = 20.f;				// 一度の回復量
+const VECTOR SWORD_OBB_SCALE = VGet(105.f, 15.f, 10.f); // 剣の当たり判定OBBの拡縮値
+const VECTOR SWORD_OBB_ANGLE = VGet(18.f, -7.6f, 32.f); // 剣の当たり判定OBBの回転値
+const VECTOR SWORD_OBB_TRANS = VGet(58.f, 42.f, 2.f);	// 剣の当たり判定OBBの移動値
 // 以上Player用定数================================================================================================== //
 
 

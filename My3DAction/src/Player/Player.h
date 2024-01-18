@@ -11,10 +11,12 @@
 #include "..\Enums.h"
 #include "..\Game\Game.h"
 #include "..\GlobalFunctions\GlobalFunctions.h"
+#include "..\OBBCollider\OBBCollider.h"
 
 // クラスの前方宣言
 class CharaBase;
 class Game;
+class OBBCollider;
 
 class Player : public CharaBase
 {
@@ -46,7 +48,8 @@ private:
 	void healing();	// 回復
 	void death();	// 死亡
 protected:
-	Game	*pGame = nullptr;
+	Game		*pGame = nullptr;
+	OBBCollider *pOBBCol = nullptr;
 	int		rollCoolTime = 0;
 	int		healCount = 0;												// 回復可能回数
 	//int		count = 0;
