@@ -12,18 +12,19 @@
 class OBBCollider
 {
 public:
-	OBBCollider(VECTOR& scale_, VECTOR& rotate_, VECTOR& translate_);	// コンストラクタ　クラスごとに定義することで作成する
+	OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_);	// コンストラクタ　クラスごとに定義することで作成する
 	~OBBCollider();
 
-	void changeScaleMatrix(VECTOR& scale_);								// scaleMatrix変更用メソッド
-	void changeRotateMatrix(VECTOR& rotate_);							// rotateMatrix変更用メソッド
-	void changeTranslateMatrix(VECTOR& translate_);						// translateMatrix変更用メソッド
-	void setParentMatrix(MATRIX parent_);								// parentMatrixセット用メソッド
+	void changeScaleMatrix(VECTOR& scale_);							// scaleMatrix変更用メソッド
+	void changeRotateMatrix(VECTOR& rotate_);						// rotateMatrix変更用メソッド
+	void changeTranslateMatrix(VECTOR& translate_);					// translateMatrix変更用メソッド
+	void setParentMatrix(MATRIX parent_);							// parentMatrixセット用メソッド
 private:
-	void update();														// 更新メソッド
+	void update();													// 更新メソッド
 
 #ifdef _DEBUG
-	void draw();														// 描画メソッド
+public:
+	void draw();													// 描画メソッド
 #endif // _DEBUG
 
 private:

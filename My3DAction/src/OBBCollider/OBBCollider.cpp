@@ -4,7 +4,7 @@
 /**
 * @brief OBBColliderのコンストラクタ
 */
-OBBCollider::OBBCollider(VECTOR& scale_, VECTOR& rotate_, VECTOR& translate_)
+OBBCollider::OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_)
 {
 	// 拡縮行列を設定
 	scaleMatrix = MGetIdent();
