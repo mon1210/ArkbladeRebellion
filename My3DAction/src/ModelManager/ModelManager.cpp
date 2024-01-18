@@ -20,7 +20,7 @@ ModelManager::~ModelManager()
 
 /**
 * @brief unordered_map初期化メソッド　	
-* @note  戻り値になる変数を登録
+* @note  登録と同時にZBufferも適用する
 */
 void ModelManager::initializeModelList()
 {
@@ -28,6 +28,13 @@ void ModelManager::initializeModelList()
     modelList[ModelType::PlayerWithSword] = { MV1LoadModel("res\\Player\\PlayerModelWithSword.mv1") };
     modelList[ModelType::Enemy]           = { MV1LoadModel("res\\Enemy\\EnemyModel2.mv1") };
     modelList[ModelType::Tile]            = { MV1LoadModel("res\\test_Tile_model.mv1") };
+
+    // モデルにZBufferを適用する
+    for (auto& entry : modelList)
+    {
+        //「entry」キーを示す  「entry.second」=> MV1LoadModel("");
+        MV1SetUseZBuffer(entry.second, TRUE);
+    }
 }
 
 
