@@ -62,7 +62,7 @@ const int WINDOW_POS_Y = 0;						// 生成時Y座標
 const int WINDOW_WIDTH_SIZE = 640;				// ウィンドウの横幅
 const int WINDOW_HEIGHT_SIZE = 480;				// ウィンドウの縦幅
 const double DOUBLE_ONE = 1.0;					// 倍精度浮動小数点数リテラル
-const float CAMERA_FAR_DISTANCE = 1000.f;		// カメラの可視最長距離
+const float CAMERA_FAR_DISTANCE = 5000.f;		// カメラの可視最長距離
 // 以上My3DAction用定数============================================================================================== //
 
 

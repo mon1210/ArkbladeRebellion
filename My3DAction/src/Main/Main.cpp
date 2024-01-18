@@ -69,7 +69,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	SetWriteZBuffer3D(true);
 
 	// カメラの描画距離   SetCameraNearFar(最短距離,最長距離)
-	SetCameraNearFar(0.f, CAMERA_FAR_DISTANCE);
+	SetCameraNearFar(1.f, CAMERA_FAR_DISTANCE);
 
 	//	ゲームシステム初期化
 	g_pSceneManager = new SceneManager();
