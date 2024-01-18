@@ -27,7 +27,7 @@ private:
 #endif // _DEBUG
 
 private:
-	// 現在の頂点座標　立方体の頂点なのでMAX8
+	// 現在の頂点座標
 	VECTOR currentVertices[MAX_VERTICES]{};
 
 	// MGetIdent()　MATRIXクラスのコンストラクタで、変数を初期化している
