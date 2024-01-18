@@ -147,6 +147,7 @@
     <ClCompile Include="src\BG\BG.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\CharaBase\CharaBase.cpp" />
+    <ClCompile Include="src\Collider\Collider.cpp" />
     <ClCompile Include="src\Collision\Collision.cpp" />
     <ClCompile Include="src\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\BG\BG.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\CharaBase\CharaBase.h" />
+    <ClInclude Include="src\Collider\Collider.h" />
     <ClInclude Include="src\Collision\Collision.h" />
     <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Enemy\Enemy.h" />
