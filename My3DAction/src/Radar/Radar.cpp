@@ -57,7 +57,7 @@ void Radar::draw()
 */
 void Radar::addPoint(float x, float z, eRadar::PointType type_)
 {
-	// 引数の物から要素を構築　push_backとほぼ同義
+	// 引数の物から要素を構築
 	pointList.emplace_back(x, z, type_);
 }
 

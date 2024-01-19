@@ -34,7 +34,7 @@ void RadarPoint::draw(RadarData& param)
 	// ベクトルの長さ
 	float vecLength = sqrt(centerToPointVecX * centerToPointVecX + centerToPointVecZ * centerToPointVecZ);
 
-	// 長さが索敵範囲外になったら終了	ここで止まっている
+	// 長さが索敵範囲外になったら終了
 	if (vecLength >= RADAR_DETECTION_RANGE)
 		return;
 
