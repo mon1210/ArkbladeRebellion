@@ -525,8 +525,10 @@ void Player::death()
         setAnim(animHandle, animNum, animTimer);
     }
 
-    // アニメーション終了後、死亡フラグをtrueに
-    if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+    // アニメーション再生 =======================
+    animTimer += PLAYER_ANIM_F_INCREMENT;
+    // 死亡時はanimTimerをリセットしないのでここで処理     アニメーション終了時にflagON
+    if (animTimer >= animTimes[static_cast<int>(ePlayer::AnimationNum::Dying)])
         isDeath = true;
 }
 // 以上状態管理メソッド ===============================================================================================
