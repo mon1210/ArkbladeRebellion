@@ -360,8 +360,10 @@ void Enemy::death()
 {
     // アニメーションをセット
     setStateAndAnim(EnemyState::Death, eEnemy::AnimationNum::Dying);
-    // アニメーション終了後、死亡フラグをtrueに
-    if (updateAnimation(animTimes[static_cast<int>(eEnemy::AnimationNum::Dying)], &animTimer, ENEMY_ANIM_F_INCREMENT))
+    // アニメーション再生 =======================
+    animTimer += ENEMY_ANIM_F_INCREMENT;
+    // 死亡時はanimTimerをリセットしないのでここで処理     アニメーション終了時にflagON
+    if (animTimer >= animTimes[static_cast<int>(eEnemy::AnimationNum::Dying)])
         isDeath = true;
 }
 // 以上状態管理メソッド ===============================================================================================
