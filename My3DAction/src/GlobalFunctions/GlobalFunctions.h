@@ -6,3 +6,5 @@
 
 // 値を指定された範囲内に収めるメソッド
 int clamp(int value, int min, int max);
+// float用
+float clampF(float value, float min, float max);
