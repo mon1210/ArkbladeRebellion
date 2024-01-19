@@ -181,15 +181,15 @@ void Game::draw()
 	{
 	case StagePhase::STAGE_FADE:
 	case StagePhase::STAGE_DONE:
-	{
 		// フェードアウト処理
-		pSystem->fadeOut();
-	}
+		if (!isFadeStart)
+		{
+			startTime = GetNowCount();
+			isFadeStart = true;
+		}
+		pSystem->fadeOut(startTime);
 		break;
-	default:
-		break;
 	}
-
 }
 
 
