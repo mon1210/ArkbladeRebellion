@@ -60,6 +60,8 @@ protected:
 	Radar		 *pRadar = nullptr;
 	HPBar		 *pHPBar = nullptr;
 	StagePhase	 stagePhase = StagePhase::STAGE_INIT;	// 状態を表す
-	bool		 bPause = false;						// ポーズボタン連打防止フラグ
 	int			 timer = 0;
+	int			 startTime = 0;							// FadeOut開始時間取得用
+	bool		 bPause = false;						// ポーズボタン連打防止フラグ
+	bool		 isFadeStart = false;					// FadeOutが開始したかどうかのflag
 };

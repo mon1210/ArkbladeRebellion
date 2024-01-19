@@ -87,25 +87,21 @@ void SceneManager::doDraw() {
 * @brief シーン遷移時のフェードアウト　Todo 未完成
 * @note  Title => Game , Game => Title に使用
 */
-void SceneManager::fadeOut()
+void SceneManager::fadeOut(int startTime_)
 {
-	int c = 0;
+	// startTimeはフェードアウトが始まる時間で、取得　よりもフレーム数を数えた方が良い
+	// 時間取得は処理が重いから
+	// フレーム数で考える
+	float elapsedFrames = (GetNowCount() - startTime_) * (FRAME / 1) / 1000;  // 経過フレーム数	 / 1000 => 60(f/s)を実装
+	fadeTimer = clampF(elapsedFrames, 0.f, fadeTime);
 
-	//while (1)
-	//{
-	//	if (c >= 0 && c < 256)                    　//cが0～256の時
-	//		SetDrawBright(c, c, c);					//段々あかるく(c= 0->255)
-	//	if (c >= 256 && c < 400)                  　//cが256～400の時
-	//		SetDrawBright(255, 255, 255);			//通常の明るさ
-	//	if (c >= 400 && c < 400 + 256)              //cが400～400+256の時
-	//		SetDrawBright(255 - (c - 400), 255 - (c - 400), 255 - (c - 400));	//段々暗く(c = 255 -> 0)
-
-	//	DrawBox(0, 0, 640, 480, WHITE, TRUE);		//画面全体に白い四角形を描画
-
-	//	c++;										//cをカウントアップ
-
-	//	if (c == 400 + 256) break;                  //暗くなり終わったら終了
-	//}
-
-
+	// フェードアウト処理
+	if (fadeTimer < fadeTime)
+	{
+		// (fadeTimer / fadeTime) を何回やるかで実行
+		int opacity = MAX_OPACITY * (fadeTimer / fadeTime);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, opacity);
+		DrawBox(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 }

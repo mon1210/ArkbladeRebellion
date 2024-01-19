@@ -123,7 +123,7 @@ const int STAGE_FADE_TIMER = 120;				// マップフェードアウト時Phase待機用
 // 以下Title用定数=================================================================================================== //
 const int TITLE_TIMER_INIT = 0;					// タイトル開始時のタイマー初期値
 const int TITLE_DONE_TIME = 0;					// タイトルフェードアウト開始時の初期化値
-const int TITLE_FADEOUT_TIME = 30;				// タイトルフェードアウトに要する時間
+const int TITLE_FADEOUT_TIME = 140;				// タイトルフェードアウトに要する時間
 const int TITLE_LOOP_FRAME = 1516;				// タイトルループ周期
 const int TITLE_LOOP_HALF_FRAME = 758;			// 周期の半分(なめらかな描画ループ)
 const int TITLE_POS_X = 0;						// TitleのX座標
