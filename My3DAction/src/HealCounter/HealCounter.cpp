@@ -21,6 +21,7 @@ HealCounter::~HealCounter()
 */
 void HealCounter::draw()
 {
+    DrawFormatString(HEAL_COUNT_POS_X, HEAL_COUNT_POS_Y, color, "heal : %d", pGame->GetPlayer()->GetHealCount());
 }
 
 
@@ -30,5 +31,14 @@ void HealCounter::draw()
 */
 void HealCounter::update()
 {
+    if (pGame->GetPlayer()->GetHealCount() == 0) 
+    {
+        // 0‚Ì‚ÍÔ
+        color = RED; 
+    } 
+    else
+    {
+        color = GREEN;
+    }
 
 }
