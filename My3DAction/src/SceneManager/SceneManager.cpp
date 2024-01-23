@@ -31,10 +31,9 @@ SceneManager::~SceneManager()
 
 
 /**
-* @brief 全体のアニメートを行う関数
-*
+* @brief ゲーム全体のPhaseをswitchで管理
 */
-void SceneManager::doAnim() {
+void SceneManager::switchPhase() {
 	GameSceneResultCode Rc = GameSceneResultCode::GAMESCENE_DEFAULT;
 
 	switch (GamePhase) {
@@ -73,9 +72,6 @@ void SceneManager::doAnim() {
 * @brief 全体の描画を行う関数
 */
 void SceneManager::doDraw() {
-
-	// 1バイトのビット数(2^8)
-	TCHAR	Str[256];
 
 	//	シーンを描画
 	if (pScene != nullptr)

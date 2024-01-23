@@ -14,7 +14,7 @@ class SceneManager
 public:
 	SceneManager();
 	~SceneManager(void);
-	void doAnim();										// ゲーム全体のアニメート
+	void switchPhase();									// ゲーム全体のPhaseをswitchで管理
 	void doDraw();										// ゲーム全体の描画
 	void fadeOut(int startTime_);						// シーン遷移時のフェードアウト処理　Todo 未完成
 protected:
