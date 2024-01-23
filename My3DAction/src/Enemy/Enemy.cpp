@@ -33,6 +33,8 @@ void Enemy::initialize(int hit_point)
     currentHP = hitPoint;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
+    obbAngle = VGet(0.f, angle, 0.f);
+    obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
     moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
@@ -57,6 +59,12 @@ void Enemy::initialize(int hit_point)
 
     // アニメーションタイマーリセット
     updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
+
+    // OBBColliderインスタンス化   被ダメージ時使用　体
+    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
+
+    // OBBColliderインスタンス化   攻撃時使用　手
+    //pOBBCol = new OBBCollider();
 }
 
 
@@ -101,6 +109,16 @@ void Enemy::update()
 
     // RaderのPointに追加
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
+
+    // 移動時にOBBも移動させる
+    if (isMove)
+    {
+        // モデルの座標・向きをもとに値設定
+        obbAngle = VGet(0.f, angle, 0.f);
+        obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
+        // 再構築
+        pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
+    }
 }
 
 
@@ -136,6 +154,7 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 void Enemy::wait()
 {
     // 行動：何もしない
+    isMove = false;
 
     // 遷移
     /*
@@ -187,6 +206,7 @@ void Enemy::wait()
 void Enemy::move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
+    isMove = true;
     // ベクトル算出
     float Rad = angle * DX_PI_F / 180.f;
     // 三次元ベクトルの生成
@@ -270,6 +290,7 @@ void Enemy::move()
 void Enemy::chase()
 {
     // 行動：視野内のプレイヤーを追いかける
+    isMove = true;
 
     // 距離が0以下の時は何もしない   // ほぼ通らない
     if (vecLength <= 0.f) { return; }
@@ -327,6 +348,7 @@ void Enemy::attack()
 {
     // 行動：攻撃
     DrawString(0, 0, "Attack", RED);// Debug
+    isMove = false;
 
     // 遷移
     /*
@@ -343,7 +365,8 @@ void Enemy::attack()
 * @brief Damage状態の管理メソッド
 */
 void Enemy::damage()
-{    
+{
+    isMove = false;
     // 現在のHP更新
     currentHP = hitPoint;
     // アニメーションをセット
@@ -359,6 +382,7 @@ void Enemy::damage()
 */
 void Enemy::death()
 {
+    isMove = false;
     // アニメーションをセット
     setStateAndAnim(EnemyState::Death, eEnemy::AnimationNum::Dying);
     // アニメーション再生 =======================
@@ -448,6 +472,8 @@ void Enemy::draw()
 
 #ifdef _DEBUG
     // 当たり判定カプセル描画
-    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+    // 描画
+    pOBBCol->draw();
 #endif
 }
