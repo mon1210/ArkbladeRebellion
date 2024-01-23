@@ -34,6 +34,7 @@ protected:
 	float	currentHP = 0.f;						// HPが変化したかを判断する用の変数
 	//float damage
 	bool	isDeath = false;						// 死亡フラグ
+	bool	isMove = false;							// 移動フラグ
 
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };

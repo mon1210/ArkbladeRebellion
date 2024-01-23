@@ -36,6 +36,7 @@ void Enemy::initialize(int hit_point)
     moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
+    isMove = false;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
