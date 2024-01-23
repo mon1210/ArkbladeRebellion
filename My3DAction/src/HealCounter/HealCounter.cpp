@@ -4,14 +4,14 @@
 /**
 * @brief HPCounterのコンストラクタ
 */
-HPCounter::HPCounter(Game *Game_)
+HealCounter::HealCounter(Game *Game_)
 {
     pGame = Game_;
 }
 
 
 // デストラクタ
-HPCounter::~HPCounter()
+HealCounter::~HealCounter()
 {
 }
 
@@ -19,7 +19,7 @@ HPCounter::~HPCounter()
 /**
 * @brief 描画メソッド
 */
-void HPCounter::draw()
+void HealCounter::draw()
 {
 }
 
@@ -28,7 +28,7 @@ void HPCounter::draw()
 * @brief 更新メソッド
 * @note  残り回数に合わせて色変更
 */
-void HPCounter::update()
+void HealCounter::update()
 {
 
 }

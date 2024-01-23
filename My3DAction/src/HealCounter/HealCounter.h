@@ -5,11 +5,11 @@
 // クラスの前方宣言
 class Game;
 
-class HPCounter
+class HealCounter
 {
 public:
-	HPCounter(Game *Game_);
-	~HPCounter();
+	HealCounter(Game *Game_);
+	~HealCounter();
 	void draw();			// 描画メソッド
 	void update();			// 更新メソッド		残り回数に合わせて色変更
 private:
