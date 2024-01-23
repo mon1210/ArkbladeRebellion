@@ -14,6 +14,7 @@
 #include "..\Collision\Collision.h"
 #include "..\Radar\Radar.h"
 #include "..\HPBar\HPBar.h"
+#include "..\HealCounter\HealCounter.h"
 #include "..\Constants.h"
 
 // クラスの前方宣言
@@ -27,6 +28,7 @@ class Grid;
 class Collision;
 class Radar;
 class HPBar;
+class HealCounter;
 
 
 class Game : public IGameScene
@@ -59,6 +61,7 @@ protected:
 	Collision	 *pCollision = nullptr;
 	Radar		 *pRadar = nullptr;
 	HPBar		 *pHPBar = nullptr;
+	HealCounter  *pHealCounter = nullptr;
 	StagePhase	 stagePhase = StagePhase::STAGE_INIT;	// 状態を表す
 	int			 timer = 0;
 	int			 startTime = 0;							// FadeOut開始時間取得用

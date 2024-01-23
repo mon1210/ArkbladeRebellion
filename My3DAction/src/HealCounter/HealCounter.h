@@ -1,3 +1,4 @@
+#pragma once
 #include "DxLib.h"
 #include "..\Constants.h"
 #include "..\Game\Game.h"

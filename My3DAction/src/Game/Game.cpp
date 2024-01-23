@@ -20,6 +20,7 @@ Game::Game(SceneManager* System_)
 	pEnemy = new Enemy(this);
 	pGrid = new Grid();
 	pHPBar = new HPBar(this);
+	pHealCounter = new HealCounter(this);
 }
 
 
@@ -54,6 +55,8 @@ void Game::update()
 		pEnemy->update();
 	if (pHPBar)
 		pHPBar->update();
+	if (pHealCounter)
+		pHealCounter->update();
 }
 
 
@@ -72,6 +75,7 @@ Game::~Game()
 	SAFE_DELETE(pModelManager);
 	SAFE_DELETE(pRadar);
 	SAFE_DELETE(pHPBar);
+	SAFE_DELETE(pHealCounter);
 }
 
 
@@ -175,6 +179,8 @@ void Game::draw()
 		pRadar->draw();
 	if (pHPBar)
 		pHPBar->draw();
+	if (pHealCounter)
+		pHealCounter->draw();
 
 	// フェードアウト描画用
 	switch (stagePhase)

@@ -2,7 +2,7 @@
 
 
 /**
-* @brief HPCounterのコンストラクタ
+* @brief HealCounterのコンストラクタ
 */
 HealCounter::HealCounter(Game *Game_)
 {
