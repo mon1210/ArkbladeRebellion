@@ -134,7 +134,6 @@ GameSceneResultCode Game::move()
 			{
 				stagePhase = StagePhase::STAGE_RUN;
 				bPause = true;
-				break;
 			}
 		}
 		else 
@@ -145,11 +144,10 @@ GameSceneResultCode Game::move()
 		break;
 
 	case StagePhase::STAGE_FADE:
-		if (timer++ < STAGE_FADE_TIMER)
+		if (timer++ >= STAGE_FADE_TIMER)
 		{
-			break;
+			stagePhase = StagePhase::STAGE_DONE;
 		}
-		stagePhase = StagePhase::STAGE_DONE;
 		break;
 
 	case StagePhase::STAGE_DONE:
