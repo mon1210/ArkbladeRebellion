@@ -20,6 +20,7 @@ const float MIN_VERTICAL_ANGLE = 0.f;			// 垂直方向に対するアングル変更の最小値
 const float MAX_HORIZONTAL_ANGLE = 180.f;		// 水平方向に対するアングル変更の最大値
 const float MIN_HORIZONTAL_ANGLE = -180.f;		// 垂直方向に対するアングル変更の最小値
 const float CAMERA_FULL_CIRCLE_DEGREES = 360.f;	// 完全な円の角度
+const float RADAR_CENTER_OFFSET = 350.f;		// RadarPointがRadarの中心に来るように補正する値
 // 以上Camera用定数================================================================================================== //
 
 
@@ -106,7 +107,7 @@ const VECTOR SWORD_OBB_TRANS = VGet(58.f, 42.f, 2.f);	// 剣の当たり判定OBBの移動
 
 
 // 以上RadarPoint用定数============================================================================================== //
-const float RADAR_DETECTION_RANGE = 2000.f;		// Radarの索敵範囲
+const float RADAR_DETECTION_RANGE = 3000.f;		// Radarの索敵範囲
 const float RADAR_POINT_RADIUS = 5.f;			// Pointの半径
 // 以上RadarPoint用定数============================================================================================== //
 

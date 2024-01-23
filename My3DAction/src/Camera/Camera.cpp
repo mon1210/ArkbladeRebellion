@@ -23,9 +23,17 @@ void Camera::update()
 	// 操作メソッド
 	control();
 
-	// カメラの位置算出
 	if (pGame)
+	{
+		// カメラの位置算出
 		setPosition(pGame->GetPlayer()->GetPos());
+
+		// レーダーの中心を今の座標と向きに設定
+		float Rad = hAngle * (DX_PI / 180.0f);
+		float HAngleRadX = -sinf(Rad);
+		float HAngleRadZ = cosf(Rad);
+		pGame->GetRadar()->addCenter(position.x, position.z + RADAR_CENTER_OFFSET, HAngleRadX, HAngleRadZ);
+	}
 
 }
 

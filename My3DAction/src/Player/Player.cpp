@@ -206,14 +206,6 @@ void Player::update()
     // Roll後止まっているときのクールダウン
     if (!rollAble)
         manageRollCooldown();
-
-    // Todo プレイヤーの向きに対する動きがいまいち　以下関数分け
-    // レーダーの中心を今の座標と正面の向きに設定
-    float Rad = angle * (DX_PI / 180.0f);
-    float FrontVecX = -sinf(Rad);
-    float FrontVecZ = -cosf(Rad);
-    VECTOR FrontVector = VGet(FrontVecX, 0.0f, FrontVecZ);
-    pGame->GetRadar()->addCenter(position.x, position.z, FrontVector.x, FrontVector.z);
 }
 
 
