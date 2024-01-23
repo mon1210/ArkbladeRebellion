@@ -36,6 +36,7 @@ private:
 	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
 	void manageRollCooldown();								// Rollのクールダウン管理メソッド
 	void changeAttackToIdle();								// AttackからIdleに戻る際の処理メソッド
+	void updateMoveAndCollision();							// 移動時に座標と当たり判定を設定するメソッド
 	void animateAndMove(ePlayer::AnimationNum num,
 		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
 private:

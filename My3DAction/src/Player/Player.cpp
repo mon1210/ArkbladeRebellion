@@ -139,6 +139,36 @@ bool Player::checkRollKey()
 
 
 /**
+* @brief 
+* @note  
+*/
+void Player::updateMoveAndCollision()
+{
+    if (pGame)
+    {
+        // エネミーとの当たり判定
+        pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
+        // 移動後の座標取得
+        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
+
+        // 当たり判定更新 ------
+        // roll以外のとき(Rollのクールタイムがdefault値の時)
+        if (rollCoolTime == 0)
+            rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
+        // roll中の時
+        else
+        {
+            // 当たり判定更新
+            pGame->GetCollision()->clampToStageBounds(NewPos, position);
+            // Rollのクールダウン
+            manageRollCooldown();
+        }
+    }
+    
+}
+
+
+/**
 * @brief Rollのクールダウン管理メソッド
 * @note  クールタイムを減らし、0になるとRollをできるように
 */
@@ -180,28 +210,6 @@ void Player::update()
 {
     // 今のStateに対応するメソッド呼び出し
     stateFunctionMap[currentState]();
-
-    // 以下移動中処理 -------------------------------------------------------------------------------------------------
-    if (isMove && pGame) {
-        // エネミーとの当たり判定
-        pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
-        // 移動後の座標取得
-        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
-
-        // 当たり判定更新
-        // roll以外のとき(Rollのクールタイムがdefault値の時)
-        if (rollCoolTime == 0)
-            rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
-        // roll中の時
-        else
-        {
-            // 当たり判定更新
-            pGame->GetCollision()->clampToStageBounds(NewPos, position);
-            // Rollのクールダウン
-            manageRollCooldown();
-        }
-    }
-    // 以上移動中処理 -------------------------------------------------------------------------------------------------
 
     // Roll後止まっているときのクールダウン
     if (!rollAble)
@@ -265,6 +273,9 @@ void Player::idle()
 */
 void Player::move()
 {
+    // 
+    updateMoveAndCollision();
+
     if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
     {
         // アニメーション、移動動作をセット
@@ -304,6 +315,9 @@ void Player::move()
 */
 void Player::roll()
 {
+    // 
+    updateMoveAndCollision();
+
     // 前Roll
     if (Key_ForwardRoll && !isRoll)
     {
