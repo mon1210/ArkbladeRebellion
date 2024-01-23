@@ -97,7 +97,7 @@ GameSceneResultCode Game::move()
 		// --------------------- STAGE_RUN START ------------------- //
 
 		//	ポーズ画面呼び出し
-		if (GetAsyncKeyState(0x50))		// P 
+		if (CheckHitKey(KEY_INPUT_P))		// P 
 		{
 			if (!bPause) 
 			{
