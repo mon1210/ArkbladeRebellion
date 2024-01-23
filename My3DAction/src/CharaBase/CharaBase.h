@@ -18,10 +18,11 @@ public:
 	virtual void draw() = 0;						// 描画メソッド
 	virtual void initialize(int hit_point) = 0;		// 初期化メソッド
 	virtual void update() = 0;						// 更新メソッド
-	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
 	// 以下取得用定数===================================================================== //
 	VECTOR GetPos() { return position; };			// 座標を取得して返す
 	// 以上取得用定数===================================================================== //
+protected:
+	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
