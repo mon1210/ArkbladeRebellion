@@ -592,11 +592,6 @@ void Player::draw()
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
-    // 回復回数を表示
-    int Color = GREEN;
-    if (healCount == 0) { Color = RED; } // 0の時は色変更 
-    DrawFormatString(HEAL_COUNT_POS_X, HEAL_COUNT_POS_Y, Color, "heal : %d", healCount);
-
     // 
     MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayerWS::AnimationNum::Slash1), animTimer);
     // 55が右手のBone
@@ -619,5 +614,13 @@ void Player::draw()
 float Player::GetHp()
 {
     return hitPoint;
+}
+
+/**
+* @brief Hpを取得して返す
+*/
+int Player::GetHealCount()
+{
+    return healCount;
 }
 

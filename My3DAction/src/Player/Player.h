@@ -29,6 +29,7 @@ public:
 	void update() override;									// 行動管理メソッド
 	// 以下取得用定数====================================================================== //
 	float	GetHp();										// hitPointを取得して返す
+	int		GetHealCount();									// healCountを取得して返す
 	// 以上取得用定数====================================================================== //
 private:
 	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
