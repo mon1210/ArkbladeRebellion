@@ -152,6 +152,7 @@
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\GlobalFunctions\GlobalFunctions.cpp" />
     <ClCompile Include="src\Grid\Grid.cpp" />
+    <ClCompile Include="src\HealCounter\HealCounter.cpp" />
     <ClCompile Include="src\HPBar\HPBar.cpp" />
     <ClCompile Include="src\IGameScene\IGameScene.cpp" />
     <ClCompile Include="src\Main\Main.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\GlobalFunctions\GlobalFunctions.h" />
     <ClInclude Include="src\Grid\Grid.h" />
+    <ClInclude Include="src\HealCounter\HealCounter.h" />
     <ClInclude Include="src\HPBar\HPBar.h" />
     <ClInclude Include="src\IGameScene\IGameScene.h" />
     <ClInclude Include="src\Main\Main.h" />
