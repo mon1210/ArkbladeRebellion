@@ -15,6 +15,11 @@ ModelManager::ModelManager()
 // デストラクタ
 ModelManager::~ModelManager()
 {
+    // モデルを解放
+    for (auto& entry : modelList)
+    {
+        MV1DeleteModel(entry.second);
+    }
 }
 
 
