@@ -214,6 +214,10 @@ void Player::update()
     // Roll後止まっているときのクールダウン
     if (!rollAble)
         manageRollCooldown();
+
+    // hitPoint0以下でdeathへ
+    if (hitPoint <= 0.f && !isDeath)
+        currentState = PlayerState::Death;
 }
 
 
@@ -547,19 +551,8 @@ void Player::death()
 bool Player::isAlive()
 {
     // hitPointが0以下
-    if (hitPoint <= 0.f)
-    {
-        if (isDeath)
-        {
-            return false;
-        }
-        // 先に入る
-        else
-        {
-            // 死亡状態へ
-            currentState = PlayerState::Death;
-        }
-    }
+    if (hitPoint <= 0.f && isDeath)
+        return false;
 
 #ifdef _DEBUG
     // LでHP減少
