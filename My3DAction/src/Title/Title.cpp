@@ -34,27 +34,13 @@ GameSceneResultCode Title::move()
 	switch (Phase) {
 		// タイトル開始
 	case TitlePhase::TITLE_INIT:
-		titleRunFlag = true;
 		Phase = TitlePhase::TITLE_RUN;
 
 		// タイトル画面
 	case TitlePhase::TITLE_RUN:
-	{	//	これがないと bDone の初期化でエラーがでる
-		bool IsDone = false;
-
+	{
 		if (GetAsyncKeyState(VK_SPACE))
 		{
-			if (!titleRunFlag) {
-				IsDone = true;
-				titleRunFlag = true;
-			}
-		}
-		else	// 何もしていない時
-		{
-			titleRunFlag = false;
-		}
-		// タイトル終了フラグON
-		if (IsDone) {
 			fadeTimer = TITLE_DONE_TIME;
 			Phase = TitlePhase::TITLE_FADE;
 		}
