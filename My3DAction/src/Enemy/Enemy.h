@@ -13,10 +13,12 @@
 #include "..\Constants.h"
 #include "..\Enums.h"
 #include "..\Game\Game.h"
+#include "..\OBBCollider\OBBCollider.h"
 
 // クラスの前方宣言
 class CharaBase;
 class Game;
+class OBBCollider;
 
 class Enemy : public CharaBase
 {
@@ -41,8 +43,11 @@ private:
 	void damage();	// 被ダメージ
 	void death();	// 死亡
 protected:
-	Game	*pGame = nullptr;
+	Game		*pGame = nullptr;
+	OBBCollider *pOBBCol = nullptr;
 	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
+	VECTOR	obbTrans = VGet(0.f, 0.f, 0.f);							// 当たり判定OBBの移動値
+	VECTOR	obbAngle = VGet(0.f, 0.f, 0.f);							// 当たり判定OBBの回転値
 	int		count = 0;												// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;										// ベクトルの長さ保存用
 	float	animTime = 0.f;											// アニメーション時間保存用変数　Enemyは毎フレーム状態変数を通らないので必要
