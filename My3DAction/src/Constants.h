@@ -38,6 +38,7 @@ const float ENEMY_CAP_HEIGHT = 300.f;			// エネミーのカプセルの高さ
 // 以下Enemy用定数=================================================================================================== //
 const int TIME_TO_TRANSITION = 240;				// エネミーの行動遷移タイマー
 const int FULL_CIRCLE_DEGREES = 360;			// 完全な円の角度 rand() % のあとにはint型しかダメなのでCameraと分ける
+const int ENEMY_LEFT_HAND_FRAME = 18;			// 左手のフレーム番号
 const float ENEMY_START_POS_X = 300.f;			// エネミーの初期X座標
 const float ENEMY_START_POS_Y = 0.f;			// エネミーの初期Y座標 -280
 const float ENEMY_START_POS_Z = 900.f;			// エネミーの初期Z座標
@@ -47,9 +48,14 @@ const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメ
 const float ENEMY_MOVE_SPEED = 4.f;				// エネミーの移動距離
 const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
 const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
+
 const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
 const VECTOR ENEMY_OBB_ANGLE = VGet(0.f, ENEMY_START_ROTATE_Y, 0.f);
 const VECTOR ENEMY_OBB_TRANS = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y + ENEMY_OBB_TRANS_Y, ENEMY_START_POS_Z);
+
+const VECTOR HAND_OBB_SCALE = VGet(35.f, 30.f, 20.f);
+const VECTOR HAND_OBB_ANGLE = VGet(0.f, 6.4f, 89.f);
+const VECTOR HAND_OBB_TRANS = VGet(1.f, 19.f, -3.f);
 // 以上Enemy用定数=================================================================================================== //
  
 
