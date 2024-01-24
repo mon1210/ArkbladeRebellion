@@ -254,20 +254,8 @@ void Enemy::move()
     count++;
 
     if (count >= TIME_TO_TRANSITION)     // 遷移タイマーを超えたので状態遷移
-    {
-        // 0 or 1 ランダムな変数取得
-        int RandomStateIndex = rand() % 2;
-        switch (RandomStateIndex)
-        {
-            case 0: // Idleへ
-                setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
-                break;
-            case 1: // Attackへ
-                setStateAndAnim(EnemyState::Attack, eEnemy::AnimationNum::Swiping);
-                isAttack = true;
-                break;
-        }
-    }
+        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
+
     // 視野に入っていたら追跡
     if (isTargetVisible() == true)
     {
