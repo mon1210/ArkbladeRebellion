@@ -54,6 +54,12 @@ protected:
 	* @note  各Stateごとのメソッドを登録
 	*/
 	virtual void initializeStateFunctions() = 0;
+
+	/**
+	* @brief 座標と当たり判定を設定するメソッド
+	* @note  移動時に呼び出し
+	*/
+	virtual void updateMoveAndCollision() = 0;
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
@@ -66,7 +72,6 @@ protected:
 	float	currentHP = 0.f;						// HPが変化したかを判断する用の変数
 	//float damage
 	bool	isDeath = false;						// 死亡フラグ
-	bool	isMove = false;							// 移動フラグ
 
 	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
 };

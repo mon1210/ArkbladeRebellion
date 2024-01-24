@@ -38,7 +38,6 @@ void Player::initialize(int hit_point)
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
     rollCoolTime = 0;
-    isMove = false;
     rollAble = true;
 
     // モデルにIdleアニメーションをセット
@@ -111,7 +110,6 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float
     if (animNum == static_cast<int>(num))
     {
         angle = ROTATE_ANGLE - pGame->GetCamera()->GetHorizontalAngle();
-        isMove = true;
         moveVec.x = move_x;
         moveVec.z = move_z;
     }
@@ -308,7 +306,6 @@ void Player::move()
     else
     {
         currentState = PlayerState::Idle;
-        isMove = false;
     }
 }
 
@@ -355,7 +352,6 @@ void Player::roll()
             currentState = PlayerState::Idle;
             rollAble = false;	
             isRoll = false;
-            isMove = false;
         }
     }
 }

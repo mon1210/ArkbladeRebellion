@@ -96,7 +96,7 @@ private:
 	* @brief 座標と当たり判定を設定するメソッド
 	* @note  移動時に呼び出し
 	*/
-	void updateMoveAndCollision();
+	void updateMoveAndCollision() override;
 
 	/**
 	* @brief 移動時の行動管理

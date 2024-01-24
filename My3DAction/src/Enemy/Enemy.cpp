@@ -38,7 +38,6 @@ void Enemy::initialize(int hit_point)
     moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
-    isMove = false;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
@@ -114,15 +113,6 @@ void Enemy::update()
     // RaderのPointに追加
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
 
-    // 移動時にOBBも移動させる
-    if (isMove)
-    {
-        // モデルの座標・向きをもとに値設定
-        obbAngle = VGet(0.f, angle, 0.f);
-        obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
-        // 再構築
-        pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
-    }
 }
 
 
@@ -150,6 +140,32 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
     animTime = animTimes[static_cast<int>(anim_num)];
 }
 
+/**
+* @brief 座標と当たり判定を設定するメソッド
+* @note  移動時に呼び出し
+*/
+void Enemy::updateMoveAndCollision()
+{
+    // モデルの座標・向きをもとに値設定
+    obbAngle = VGet(0.f, angle, 0.f);
+    obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
+    // 再構築
+    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
+
+    // 移動先までのベクトル取得
+    VECTOR NewPos = VAdd(moveVec, position);
+
+    // 床との当たり判定　当たっていたら入る
+    if (pGame->GetCollision()->clampToStageBounds(NewPos, position))
+    {
+        // 視野に入っていたら追跡        
+        if (isTargetVisible() == true)
+        {
+            currentState = EnemyState::Chase;
+        }
+    }
+}
+
 
 // 以下状態管理メソッド ===============================================================================================
 /**
@@ -158,7 +174,6 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 void Enemy::wait()
 {
     // 行動：何もしない
-    isMove = false;
 
     // 遷移
     /*
@@ -210,7 +225,6 @@ void Enemy::wait()
 void Enemy::move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
-    isMove = true;
     // ベクトル算出
     float Rad = angle * DX_PI_F / 180.f;
     // 三次元ベクトルの生成
@@ -225,18 +239,8 @@ void Enemy::move()
     // プレイヤーとの当たり判定
     pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
 
-    // 移動先までのベクトル取得
-    VECTOR NewPos = VAdd(moveVec, position);
-
-    // 床との当たり判定　当たっていたら入る
-    if (pGame->GetCollision()->clampToStageBounds(NewPos, position))
-    {
-        // 視野に入っていたら追跡        
-        if (isTargetVisible() == true)
-        {
-            currentState = EnemyState::Chase;
-        }
-    }
+    // 座標と当たり判定を設定するメソッド
+    updateMoveAndCollision();
 
     // 遷移：
     /*
@@ -282,7 +286,6 @@ void Enemy::move()
 void Enemy::chase()
 {
     // 行動：視野内のプレイヤーを追いかける
-    isMove = true;
 
     // 距離が0以下の時は何もしない   // ほぼ通らない
     if (vecLength <= 0.f) { return; }
@@ -300,11 +303,8 @@ void Enemy::chase()
     if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS))
         isColHit = true;
 
-    // 移動先までのベクトル取得
-    VECTOR NewPos = VAdd(moveVec, position);
-
-    // 床との当たり判定
-    pGame->GetCollision()->clampToStageBounds(NewPos, position);
+    // 座標と当たり判定を設定するメソッド
+    updateMoveAndCollision();
 
     // 遷移
     /*
@@ -340,7 +340,6 @@ void Enemy::attack()
 {
     // 行動：攻撃
     DrawString(0, 0, "Attack", RED);// Debug
-    isMove = false;
 
     // 遷移
     /*
@@ -358,7 +357,6 @@ void Enemy::attack()
 */
 void Enemy::damage()
 {
-    isMove = false;
     // 現在のHP更新
     currentHP = hitPoint;
     // アニメーションをセット
@@ -374,7 +372,6 @@ void Enemy::damage()
 */
 void Enemy::death()
 {
-    isMove = false;
     // アニメーションをセット
     setStateAndAnim(EnemyState::Death, eEnemy::AnimationNum::Dying);
     // アニメーション再生 =======================
