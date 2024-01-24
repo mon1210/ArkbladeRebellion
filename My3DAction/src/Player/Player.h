@@ -121,8 +121,6 @@ private:
 	Game		*pGame = nullptr;
 	OBBCollider *pOBBCol = nullptr;
 	OBBCollider *pOBBColSword = nullptr;
-	VECTOR	obbTrans = VGet(0.f, 0.f, 0.f);								// “–‚½‚è”»’èOBB‚ÌˆÚ“®’l
-	VECTOR	obbAngle = VGet(0.f, 0.f, 0.f);								// “–‚½‚è”»’èOBB‚Ì‰ñ“]’l
 	int		rollCoolTime = 0;
 	int		healCount = 0;												// ‰ñ•œ‰Â”\‰ñ”
 	//int		count = 0;
