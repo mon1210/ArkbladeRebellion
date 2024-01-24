@@ -26,14 +26,27 @@ public:
 	* @brief Enemyのコンストラクタ
 	*/
 	Enemy(Game *Game_);
+
+	// デストラクタ
 	~Enemy() override;
-	bool isAlive() override;							// 生き死にを結果として返す　true:生存 / false:死亡
-	void draw() override;								// 描画メソッド
+
+	/**
+	* @brief  生き死にを結果として返す
+	* @return true:生存 / false:死亡
+	*/
+	bool isAlive() override;
+
+	/**
+	* @brief 描画メソッド
+	*/
+	void draw() override;
+
 	/**
 	* @brief 初期化メソッド
 	* @param[in] hit_point　キャラのHP　拡張性向上のため
 	*/
 	void initialize(int hit_point) override;
+
 	/**
 	* @brief 行動状態の管理メソッド
 	* @note  毎フレームの処理
@@ -45,16 +58,19 @@ private:
 	* @note  各Stateごとのメソッドを登録
 	*/
 	void initializeStateFunctions() override;
+
 	/**
 	* @brief   エネミーの視野メソッド
 	* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
 	*/
 	bool isTargetVisible();
+
 	/**
 	* @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
 	* @note  毎フレームの処理
 	*/
 	void updateToPlayerVec();
+
 	/**
 	* @brief 状態とアニメーションを設定
 	* @note  状態変更時に使用

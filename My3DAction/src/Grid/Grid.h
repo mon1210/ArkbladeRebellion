@@ -17,8 +17,7 @@ public:
 	Grid();
 	~Grid();
 	/**
-	* @brief 描画関数
-	* @note  Game::draw()で呼び出し
+	* @brief 描画メソッド
 	*/
 	void draw();
 private:

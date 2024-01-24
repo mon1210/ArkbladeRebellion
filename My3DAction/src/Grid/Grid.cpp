@@ -16,7 +16,7 @@ Grid::~Grid()
 
 
 /**
-* @brief 描画関数
+* @brief 描画メソッド
 * @note  Game::draw()で呼び出し
 */
 void Grid::draw()
