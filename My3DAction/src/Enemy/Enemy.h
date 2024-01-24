@@ -95,6 +95,7 @@ private:
 private:
 	Game		*pGame = nullptr;
 	OBBCollider *pOBBCol = nullptr;
+	OBBCollider *pOBBColHand = nullptr;
 	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
 	int		count = 0;												// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;										// ベクトルの長さ保存用

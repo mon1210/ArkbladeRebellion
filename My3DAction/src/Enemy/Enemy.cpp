@@ -19,6 +19,8 @@ Enemy::Enemy(Game *Game_)
 Enemy::~Enemy()
 {
     delete[] animTimes;
+    SAFE_DELETE(pOBBCol);
+    SAFE_DELETE(pOBBColHand);
 }
 
 
@@ -63,7 +65,7 @@ void Enemy::initialize(int hit_point)
     pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
 
     // OBBColliderインスタンス化   攻撃時使用　手
-    //pOBBCol = new OBBCollider();
+    pOBBColHand = new OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 }
 
 
@@ -351,6 +353,19 @@ void Enemy::attack()
     // アニメーションタイマーリセット
     if (updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT))
         setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
+
+
+    // 当たり判定(手)設定 ==============================================
+    // アニメーションがアタッチされている必要があるのでここで処理
+    MV1SetAttachAnimTime(animHandle, 0, animTimer);
+    // モデルの右手frame取得
+    MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, ENEMY_LEFT_HAND_FRAME);
+    // 親の行列に合わせる
+    pOBBColHand->setParentMatrix(frame_matrix);
+#ifdef _DEBUG
+    // 描画
+    pOBBColHand->draw();
+#endif
 }
 
 
@@ -454,6 +469,7 @@ void Enemy::draw()
 #ifdef _DEBUG
     // 当たり判定カプセル描画
     //DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+    
     // 描画
     pOBBCol->draw();
 #endif
