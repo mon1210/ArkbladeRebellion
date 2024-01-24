@@ -441,7 +441,7 @@ void Enemy::draw()
     MV1SetPosition(animHandle, position);
 
     // ƒ‚ƒfƒ‹‚Ì‘å‚«‚³•ÏX
-    MV1SetScale(animHandle, VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+    MV1SetScale(animHandle, VGet(ENEMY_MODEL_SCALE, ENEMY_MODEL_SCALE, ENEMY_MODEL_SCALE));
 
     // ƒ‚ƒfƒ‹‚Ì‰ñ“]
     MV1SetRotationXYZ(animHandle, VGet(0.f, angle * DX_PI_F / 180.f, 0.f));
@@ -451,7 +451,7 @@ void Enemy::draw()
 
 #ifdef _DEBUG
     // “–‚½‚è”»’èƒJƒvƒZƒ‹•`‰æ
-    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
+    //DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
     // •`‰æ
     pOBBCol->draw();
 #endif

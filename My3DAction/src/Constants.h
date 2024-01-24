@@ -29,8 +29,9 @@ const int SPATIAL_PARTITION = 32;				// 空間分割数
 const float CHARA_HEIGHT = 250.f;				// 当たり判定の大きさ
 const float CHARA_HIT_PUSH_POWER = 20.f;		// 当たった際に押し戻される力
 const float PLAYER_CAP_RADIUS = 55.f;			// プレイヤーの当たり判定カプセルの半径
-const float ENEMY_CAP_RADIUS = 100.f;			// エネミーの当たり判定カプセルの半径
+const float ENEMY_CAP_RADIUS = 180.f;			// エネミーの当たり判定カプセルの半径
 const float CAP_HEIGHT = 215.f;					// カプセルの高さ
+const float ENEMY_CAP_HEIGHT = 300.f;			// エネミーのカプセルの高さ
 // 以上Collision用定数=============================================================================================== //
 
 
@@ -41,11 +42,12 @@ const float ENEMY_START_POS_X = 300.f;			// エネミーの初期X座標
 const float ENEMY_START_POS_Y = 0.f;			// エネミーの初期Y座標 -280
 const float ENEMY_START_POS_Z = 900.f;			// エネミーの初期Z座標
 const float ENEMY_START_ROTATE_Y = 0.f;			// エネミーの初期回転Y
+const float ENEMY_MODEL_SCALE = 2.5f;			// エネミーの3Dモデルの拡大率
 const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメーションの増加数
-const float ENEMY_MOVE_SPEED = 2.f;				// エネミーの移動距離
+const float ENEMY_MOVE_SPEED = 4.f;				// エネミーの移動距離
 const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
-const float ENEMY_OBB_TRANS_Y = 150.f;			// エネミーの体の当たり判定OBBの移動値Y		座標Yに加算する
-const VECTOR ENEMY_OBB_SCALE = VGet(150.f, 250.f, 150.f); // エネミーの体の当たり判定OBBの拡縮値
+const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y		座標Yに加算する
+const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f); // エネミーの体の当たり判定OBBの拡縮値
 // 以上Enemy用定数=================================================================================================== //
  
 
