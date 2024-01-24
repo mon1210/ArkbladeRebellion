@@ -60,7 +60,7 @@ void Enemy::initialize(int hit_point)
     updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
 
     // OBBColliderインスタンス化   被ダメージ時使用　体
-    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
+    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
 
     // OBBColliderインスタンス化   攻撃時使用　手
     //pOBBCol = new OBBCollider();
@@ -149,8 +149,10 @@ void Enemy::updateMoveAndCollision()
     // モデルの座標・向きをもとに値設定
     obbAngle = VGet(0.f, angle, 0.f);
     obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
-    // 再構築
-    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, obbAngle, obbTrans);
+
+    // OBB値変更
+    pOBBCol->changeRotateMatrix(obbAngle);      // 回転
+    pOBBCol->changeTranslateMatrix(obbTrans);   // 移動
 
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(moveVec, position);

@@ -46,8 +46,10 @@ const float ENEMY_MODEL_SCALE = 2.5f;			// エネミーの3Dモデルの拡大率
 const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメーションの増加数
 const float ENEMY_MOVE_SPEED = 4.f;				// エネミーの移動距離
 const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
-const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y		座標Yに加算する
-const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f); // エネミーの体の当たり判定OBBの拡縮値
+const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
+const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
+const VECTOR ENEMY_OBB_ANGLE = VGet(0.f, ENEMY_START_ROTATE_Y, 0.f);
+const VECTOR ENEMY_OBB_TRANS = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y + ENEMY_OBB_TRANS_Y, ENEMY_START_POS_Z);
 // 以上Enemy用定数=================================================================================================== //
  
 
