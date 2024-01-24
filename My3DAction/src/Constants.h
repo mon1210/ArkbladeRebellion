@@ -100,6 +100,12 @@ const float BACKWARD_ROTATION_ANGLE = 0.f;		// プレイヤー後退時の回転角度
 const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
 const float MAX_HP = 100.f;						// 最大HP
 const float HEALING_VALUE = 20.f;				// 一度の回復量
+const float PLAYER_OBB_TRANS_Y = 130.f;			// プレイヤーの体の当たり判定OBBの移動値Y　座標Yに加算する
+
+const VECTOR PLAYER_OBB_SCALE = VGet(100.f, 250.f, 100.f);
+const VECTOR PLAYER_OBB_ANGLE = VGet(0.f, PLAYER_START_ROTATE_Y, 0.f);
+const VECTOR PLAYER_OBB_TRANS = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y + PLAYER_OBB_TRANS_Y, PLAYER_START_POS_Z);
+
 const VECTOR SWORD_OBB_SCALE = VGet(105.f, 15.f, 10.f); // 剣の当たり判定OBBの拡縮値
 const VECTOR SWORD_OBB_ANGLE = VGet(18.f, -7.6f, 32.f); // 剣の当たり判定OBBの回転値
 const VECTOR SWORD_OBB_TRANS = VGet(58.f, 42.f, 2.f);	// 剣の当たり判定OBBの移動値
