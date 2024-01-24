@@ -14,16 +14,42 @@ class Game;
 class Camera
 {
 public:
+	/**
+	* @brief Cameraのコンストラクタ
+	*/
 	Camera(Game *Game_);
+
+	// デストラクタ
 	~Camera();
-	void update();												// 更新メソッド	
-	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);	// プレイヤーの位置算出メソッド(return playerPos)
+
+	/**
+	* @brief カメラの更新
+	*/
+	void update();
+
+	/**
+	* @brief   プレイヤーの位置算出メソッド
+	* @note    カメラの角度に合わせるのでCameraクラスで定義
+	* @return  NewPlayerPos
+	*/
+	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);
+
 	// 以下取得用定数===================================================================== //
-	float GetHorizontalAngle();									// カメラ水平角度取得関数	
+	/**
+	* @brief カメラ水平角度を取得して返す
+	*/
+	float GetHorizontalAngle();
 	// 以上取得用定数===================================================================== //
 private:
-	void control();												// カメラ操作メソッド
-	void setPosition(VECTOR player_pos);						// カメラの位置算出メソッド
+	/**
+	* @brief カメラ操作メソッド
+	*/
+	void control();
+
+	/**
+	* @brief 位置算出メソッド
+	*/
+	void setPosition(VECTOR player_pos);
 private:
 	Game	*pGame = nullptr;
 	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標

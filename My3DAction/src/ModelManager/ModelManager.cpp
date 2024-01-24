@@ -3,7 +3,6 @@
 
 /**
 * @brief Modelのコンストラクタ
-*
 */
 ModelManager::ModelManager()
 {

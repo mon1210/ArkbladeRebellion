@@ -1,7 +1,6 @@
 /**
 * @file		Enemy.h
 * @brief	クラス Enemy の宣言
-* @note		当たり判定 () x ()
 */
 #pragma once
 #include "..\CharaBase\CharaBase.h"
@@ -23,18 +22,47 @@ class OBBCollider;
 class Enemy : public CharaBase
 {
 public:
+	/**
+	* @brief Enemyのコンストラクタ
+	*/
 	Enemy(Game *Game_);
 	~Enemy() override;
 	bool isAlive() override;							// 生き死にを結果として返す　true:生存 / false:死亡
 	void draw() override;								// 描画メソッド
-	void initialize(int hit_point) override;			// 初期化メソッド
-	void update() override;								// 状態管理とdraw呼び出し　毎フレーム呼び出される
+	/**
+	* @brief 初期化メソッド
+	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	*/
+	void initialize(int hit_point) override;
+	/**
+	* @brief 行動状態の管理メソッド
+	* @note  毎フレームの処理
+	*/
+	void update() override;
 private:
-	void initializeStateFunctions() override;			// unordered_map初期化メソッド　各Stateごとの関数登録
-	bool isTargetVisible();								// エネミーの視野　true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
-	void updateToPlayerVec();							// enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
-	void setStateAndAnim(EnemyState state,
-					 eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
+	/**
+	* @brief unordered_map初期化メソッド
+	* @note  各Stateごとのメソッドを登録
+	*/
+	void initializeStateFunctions() override;
+	/**
+	* @brief   エネミーの視野メソッド
+	* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
+	*/
+	bool isTargetVisible();
+	/**
+	* @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
+	* @note  毎フレームの処理
+	*/
+	void updateToPlayerVec();
+	/**
+	* @brief 状態とアニメーションを設定
+	* @note  状態変更時に使用
+	* @param[in] state  変更先の状態
+	* @param[in] num    変更先のアニメーション
+	*/
+	void setStateAndAnim(EnemyState state,eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
+
 	// 状態ごとのメソッド
 	void wait();	// 待機
 	void move();	// 移動

@@ -13,16 +13,47 @@
 class CharaBase 
 {
 public:
+	/**
+	* @brief   純粋仮想デストラクタの実体
+	* @details デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
+	*/
 	virtual ~CharaBase();
-	virtual bool isAlive() = 0;						// 生き死にを結果として返す　true:生存 / false:死亡
-	virtual void draw() = 0;						// 描画メソッド
-	virtual void initialize(int hit_point) = 0;		// 初期化メソッド
-	virtual void update() = 0;						// 更新メソッド
+
+	/**
+	* @brief  生き死にを結果として返す
+	* @return true:生存 / false:死亡
+	*/
+	virtual bool isAlive() = 0;
+
+	/**
+	* @brief 描画メソッド
+	*/
+	virtual void draw() = 0;
+
+	/**
+	* @brief 初期化メソッド
+	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	*/
+	virtual void initialize(int hit_point) = 0;
+
+	/**
+	* @brief 行動状態の管理メソッド
+	* @note  毎フレームの処理
+	*/
+	virtual void update() = 0;
+
 	// 以下取得用定数===================================================================== //
-	VECTOR GetPos() { return position; };			// 座標を取得して返す
+	/**
+	* @brief 座標を取得して返す
+	*/
+	VECTOR GetPos() { return position; };
 	// 以上取得用定数===================================================================== //
 protected:
-	virtual void initializeStateFunctions() = 0;	// unordered_map初期化メソッド　各Stateごとの関数登録
+	/**
+	* @brief unordered_map初期化メソッド
+	* @note  各Stateごとのメソッドを登録
+	*/
+	virtual void initializeStateFunctions() = 0;
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル

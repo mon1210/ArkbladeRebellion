@@ -34,10 +34,22 @@ class HealCounter;
 class Game : public IGameScene
 {
 public:
+	/**
+	* @brief Gameのコンストラクタ
+	*/
 	Game(SceneManager* System_);
 	~Game(void);
-	GameSceneResultCode move() override;	// 管理メソッド
-	void draw() override;					// 描画メソッド
+	/**
+	* @brief 管理メソッド
+	* @note
+	* @return GAMESCENE_DEFAULT: 継続 / GAMESCENE_END_FAILURE: ゲームオーバー
+	*/
+	GameSceneResultCode move() override;
+	/**
+	* @brief 描画処理
+	* @note  毎フレーム実行される
+	*/
+	void draw() override;
 	// 以下取得用定数=================================================== //
 	Player			*GetPlayer();			// Playerを取得して返す
 	Enemy			*GetEnemy();			// Enemyを取得して返す
@@ -48,8 +60,17 @@ public:
 	Radar			*GetRadar();			// Radarを取得して返す
 	// 以上取得用定数=================================================== //
 private:
-	void initialize();						// 初期化メソッド
-	void update();							// 更新メソッド
+	/**
+	* @brief 初期化メソッド
+	* @note  別クラスの初期化メソッドを管理
+	*/
+	void initialize();
+	/**
+	* @brief 更新メソッド
+	* @note  毎フレームの処理
+	*		 別クラスの更新メソッドを管理
+	*/
+	void update();
 private:
 	SceneManager *pSystem = nullptr;
 	Player		 *pPlayer = nullptr;

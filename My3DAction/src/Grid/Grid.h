@@ -11,9 +11,16 @@
 class Grid
 {
 public:
+	/**
+	* @brief Gridのコンストラクタ
+	*/
 	Grid();
 	~Grid();
-	void draw();	// 描画メソッド
+	/**
+	* @brief 描画関数
+	* @note  Game::draw()で呼び出し
+	*/
+	void draw();
 private:
 	VECTOR startHorizontal = VGet(0.f, 0.f, 0.f);	// 水平方向の開始地点
 	VECTOR endHorizontal = VGet(0.f, 0.f, 0.f);		// 水平方向の最終地点 

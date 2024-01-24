@@ -24,7 +24,7 @@ Enemy::~Enemy()
 
 /**
 * @brief 初期化メソッド
-* @note
+* @param[in] hit_point　キャラのHP　拡張性向上のため
 */
 void Enemy::initialize(int hit_point)
 {

@@ -8,7 +8,7 @@
 #include "IGameScene.h"
 
 /**
-* @brief 純粋仮想デストラクタの実体
+* @brief 　純粋仮想デストラクタの実体
 * @details デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
 */
 IGameScene::~IGameScene()

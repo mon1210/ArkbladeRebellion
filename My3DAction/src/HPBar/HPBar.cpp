@@ -35,7 +35,7 @@ void HPBar::update()
 
 /*
 * @brief 描画メソッド
-* @note  
+* @note  体力低下でバーの色変更
 */
 void HPBar::draw()
 {

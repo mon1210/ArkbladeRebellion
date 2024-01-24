@@ -13,11 +13,22 @@ class SceneManager;
 class Title : public IGameScene
 {
 public:
+	/**
+	* @brief Titleのコンストラクタ
+	*/
 	Title(SceneManager *pSystem);
 	~Title();
-	GameSceneResultCode move() override;			// 管理メソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
-	void draw() override;							// 描画メソッド
 
+	/**
+	* @brief  管理メソッド
+	* @return GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
+	*/
+	GameSceneResultCode move() override;
+
+	/**
+	* @brief 描画処理
+	*/
+	void draw() override;
 private:
 	SceneManager *System = nullptr;
 	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// 状態を表す

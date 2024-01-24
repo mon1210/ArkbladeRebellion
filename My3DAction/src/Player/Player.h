@@ -1,7 +1,6 @@
 /*
 * @file		Player.h
 * @brief	クラス Player の宣言
-* @note		当たり判定 () x ()
 */
 #pragma once
 #include "..\CharaBase\CharaBase.h"
@@ -21,25 +20,94 @@ class OBBCollider;
 class Player : public CharaBase
 {
 public:
+	/**
+	* @brief Playerのコンストラクタ
+	*/
 	Player(Game *Game_);
+
+	// デストラクタ
 	~Player() override;
-	bool isAlive() override;								// 生き死にを結果として返す　true:生存 / false:死亡
-	void draw() override;									// 描画メソッド
-	void initialize(int hit_point) override;				// 初期化メソッド
-	void update() override;									// 行動管理メソッド
+
+	/**
+	* @brief  生き死にを結果として返す
+	* @return true:生存 / false:死亡
+	*/
+	bool isAlive() override;
+
+	/**
+	* @brief 描画メソッド
+	*/
+	void draw() override;
+
+	/**
+	* @brief 初期化メソッド
+	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	*/
+	void initialize(int hit_point) override;
+
+	/**
+	* @brief 行動状態の管理メソッド
+	* @note  毎フレームの処理
+	*/
+	void update() override;
+
 	// 以下取得用定数====================================================================== //
-	float	GetHp();										// hitPointを取得して返す
-	int		GetHealCount();									// healCountを取得して返す
+	/**
+	* @brief Hpを取得して返す
+	*/
+	float	GetHp();
+
+	/**
+	* @brief healCountを取得して返す
+	*/
+	int		GetHealCount();
 	// 以上取得用定数====================================================================== //
 private:
-	void initializeStateFunctions() override;				// unordered_map初期化メソッド　各Stateごとの関数登録	
-	bool checkMoveKey();									// 移動キーチェック　条件文を簡潔に
-	bool checkRollKey();									// 前転キーチェック　条件文を簡潔に
-	void manageRollCooldown();								// Rollのクールダウン管理メソッド
-	void changeAttackToIdle();								// AttackからIdleに戻る際の処理メソッド
-	void updateMoveAndCollision();							// 移動時に座標と当たり判定を設定するメソッド
-	void animateAndMove(ePlayer::AnimationNum num,
-		float ROTATE_ANGLE, float move_x, float move_z);	// 移動時の行動管理メソッド
+	/**
+	* @brief unordered_map初期化メソッド
+	* @note  各Stateごとのメソッドを登録
+	*/
+	void initializeStateFunctions() override;
+
+	/**
+	* @brief 　移動キーチェック
+	* @details 条件文を簡潔に
+	*/
+	bool checkMoveKey();
+
+	/**
+	* @brief 　回転キーチェック
+	* @details 条件文を簡潔に
+	*/
+	bool checkRollKey();
+
+	/**
+	* @brief Rollのクールダウン管理メソッド
+	* @note  クールタイムを減らし、0になるとRollをできるように
+	*/
+	void manageRollCooldown();
+
+	/**
+	* @brief AttackからIdleに戻る際の処理メソッド
+	*/
+	void changeAttackToIdle();
+
+	/**
+	* @brief 座標と当たり判定を設定するメソッド
+	* @note  移動時に呼び出し
+	*/
+	void updateMoveAndCollision();
+
+	/**
+	* @brief 移動時の行動管理
+	* @note  アニメーションと向きの設定をする
+	*        moveFlagはここでtrueに
+	* @param[in] num　	        アニメーション番号
+	* @param[in] ROTATE_ANGLE　	回転角度
+	* @param[in] move_x　	    x軸方向の移動スピード
+	* @param[in] move_z　	    z軸方向の移動スピード
+	*/
+	void animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);
 private:
 	// 状態ごとのメソッド
 	void idle();	// 待機
@@ -70,8 +138,6 @@ private:
 
 
 // マクロ定義
-#define VECTOR_SCALING	0.70710678118f	// 斜め入力用の各軸の倍率( sin( 45°) )
-#define PadInput GetJoypadInputState( DX_INPUT_KEY_PAD1 ) 
 #define Key_ForwardMove		CheckHitKey(KEY_INPUT_UP)
 #define Key_BackMove		CheckHitKey(KEY_INPUT_DOWN)
 #define Key_RightMove		CheckHitKey(KEY_INPUT_RIGHT)

@@ -64,7 +64,6 @@ GameSceneResultCode Title::move()
 
 /**
 * @brief •`‰æˆ—
-* @note	 
 */
 void Title::draw()
 {

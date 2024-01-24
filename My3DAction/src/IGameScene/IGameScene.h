@@ -9,6 +9,10 @@ enum class GameSceneResultCode;
 class IGameScene
 {
 public:
+	/**
+	* @brief 　純粋仮想デストラクタの実体
+	* @details デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
+	*/
 	virtual ~IGameScene() = 0;
 	virtual GameSceneResultCode move() = 0;
 	virtual void draw() = 0;

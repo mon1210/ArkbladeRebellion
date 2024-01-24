@@ -12,11 +12,29 @@ class IGameScene;	// シーン管理クラス
 class SceneManager
 {
 public:
+	/**
+	* @brief SceneManagerのコンストラクタ
+	*/
 	SceneManager();
+
+	// デストラクタ
 	~SceneManager(void);
-	void switchPhase();									// ゲーム全体のPhaseをswitchで管理
-	void doDraw();										// ゲーム全体の描画
-	void fadeOut(int startTime_);						// シーン遷移時のフェードアウト処理　Todo 未完成
+
+	/**
+	* @brief ゲーム全体のPhaseをswitchで管理
+	*/
+	void switchPhase();
+
+	/**
+	* @brief ゲーム全体の描画を行う関数
+	*/
+	void doDraw();
+
+	/**
+	* @brief シーン遷移時のフェードアウト
+	* @note  Title => Game , Game => Title に使用
+	*/
+	void fadeOut(int startTime_);
 private:
 	IGameScene *pScene = nullptr;						// シーン
 	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	// 状態変数

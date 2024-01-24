@@ -26,7 +26,7 @@ Player::~Player()
 
 /**
 * @brief 初期化メソッド
-* @note
+* @param[in] hit_point　キャラのHP　拡張性向上のため
 */
 void Player::initialize(int hit_point)
 {
@@ -119,8 +119,8 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float
 
 
 /**
-* @brief 移動キーチェック
-* @note  条件文を簡潔に
+* @brief 　移動キーチェック
+* @details 条件文を簡潔に
 */
 bool Player::checkMoveKey()
 {
@@ -129,8 +129,8 @@ bool Player::checkMoveKey()
 
 
 /**
-* @brief 回転キーチェック
-* @note  条件文を簡潔に
+* @brief 　回転キーチェック
+* @details 条件文を簡潔に
 */
 bool Player::checkRollKey()
 {
@@ -139,8 +139,8 @@ bool Player::checkRollKey()
 
 
 /**
-* @brief 
-* @note  
+* @brief 座標と当たり判定を設定するメソッド
+* @note  移動時に呼び出し
 */
 void Player::updateMoveAndCollision()
 {
@@ -280,7 +280,7 @@ void Player::move()
     // 
     updateMoveAndCollision();
 
-    if (Key_ForwardMove || PadInput & PAD_INPUT_UP)
+    if (Key_ForwardMove)
     {
         // アニメーション、移動動作をセット
         animateAndMove(ePlayer::AnimationNum::Run, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
@@ -288,19 +288,19 @@ void Player::move()
         updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Down => Runモーション(3) 下移動
-    else if (Key_BackMove || PadInput & PAD_INPUT_DOWN)
+    else if (Key_BackMove)
     {
         animateAndMove(ePlayer::AnimationNum::Run, BACKWARD_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
         updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Right => Runモーション(3) 右移動
-    else if (Key_RightMove || PadInput & PAD_INPUT_RIGHT)
+    else if (Key_RightMove)
     {
         animateAndMove(ePlayer::AnimationNum::Run, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
         updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
     }
     // Left => Runモーション(3) 左移動
-    else if (Key_Left_Move || PadInput & PAD_INPUT_LEFT)
+    else if (Key_Left_Move)
     {
         animateAndMove(ePlayer::AnimationNum::Run, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
         updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Run)], &animTimer, PLAYER_ANIM_F_INCREMENT);
@@ -585,10 +585,6 @@ void Player::draw()
     // 3Dモデルに座標をセット
     MV1SetPosition(animHandle, position);
 
-    //VECTOR rotate = MV1GetRotationXYZ(anim_handle);
-    //int nRotateY = static_cast<int>(rotate.y);
-    //DrawFormatString(0, 0, GetColor(0, 0, 0), "nRotateY:%d",nRotateY);
-
     // 3Dモデルの描画
     MV1DrawModel(animHandle);
 
@@ -616,8 +612,9 @@ float Player::GetHp()
     return hitPoint;
 }
 
+
 /**
-* @brief Hpを取得して返す
+* @brief healCountを取得して返す
 */
 int Player::GetHealCount()
 {

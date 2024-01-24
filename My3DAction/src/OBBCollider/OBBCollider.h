@@ -1,7 +1,11 @@
+/**
+* @file		OBBCollider.h
+* @brief	クラス OBBCollider の宣言
+*/
+#pragma once
 #include "DxLib.h"
 #include <vector>
 #include "..\Constants.h"
-#pragma once
 
 /*	
 	辺の長さ1の立方体を作る
@@ -12,19 +16,43 @@
 class OBBCollider
 {
 public:
-	OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_);	// コンストラクタ　クラスごとに定義することで作成する
+	/**
+	* @brief OBBColliderのコンストラクタ
+	* @note  引数の値を基に、OBBColliderを作成
+	* @param[in] scale_			拡縮値
+	* @param[in] rotate_		回転値
+	* @param[in] translate_		移動値
+	*/
+	OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_);
 	~OBBCollider();
-
-	void changeScaleMatrix(VECTOR& scale_);							// scaleMatrix変更用メソッド
-	void changeRotateMatrix(VECTOR& rotate_);						// rotateMatrix変更用メソッド
-	void changeTranslateMatrix(VECTOR& translate_);					// translateMatrix変更用メソッド
-	void setParentMatrix(MATRIX parent_);							// parentMatrixセット用メソッド
+	/**
+	* @brief scaleMatrix変更用メソッド
+	*/
+	void changeScaleMatrix(VECTOR& scale_);
+	/**
+	* @brief rotateMatrix変更用メソッド
+	*/
+	void changeRotateMatrix(VECTOR& rotate_);
+	/**
+	* @brief translateMatrix変更用メソッド
+	*/
+	void changeTranslateMatrix(VECTOR& translate_);
+	/**
+	* @brief parentMatrixセット用メソッド
+	*/
+	void setParentMatrix(MATRIX parent_);
 private:
-	void update();													// 更新メソッド
+	/**
+	* @brief 更新メソッド
+	*/
+	void update();
 
 #ifdef _DEBUG
 public:
-	void draw();													// 描画メソッド
+	/**
+	* @brief 描画メソッド
+	*/
+	void draw();
 #endif // _DEBUG
 
 private:

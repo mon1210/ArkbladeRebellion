@@ -69,7 +69,7 @@ void SceneManager::switchPhase() {
 
 
 /**
-* @brief 全体の描画を行う関数
+* @brief ゲーム全体の描画を行う関数
 */
 void SceneManager::doDraw() {
 
@@ -80,14 +80,12 @@ void SceneManager::doDraw() {
 
 
 /**
-* @brief シーン遷移時のフェードアウト　Todo 未完成
+* @brief シーン遷移時のフェードアウト
 * @note  Title => Game , Game => Title に使用
 */
 void SceneManager::fadeOut(int startTime_)
 {
-	// startTimeはフェードアウトが始まる時間で、取得　よりもフレーム数を数えた方が良い
-	// 時間取得は処理が重いから
-	// フレーム数で考える
+	// startTimeはフェードアウトが始まる時間で取得
 	float elapsedFrames = (GetNowCount() - startTime_) * (FRAME / 1) / 1000;  // 経過フレーム数	 / 1000 => 60(f/s)を実装
 	fadeTimer = clampF(elapsedFrames, 0.f, fadeTime);
 

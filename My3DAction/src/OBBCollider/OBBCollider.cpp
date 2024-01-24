@@ -3,6 +3,10 @@
 
 /**
 * @brief OBBColliderのコンストラクタ
+* @note  引数の値を基に、OBBColliderを作成
+* @param[in] scale_			拡縮値
+* @param[in] rotate_		回転値
+* @param[in] translate_		移動値
 */
 OBBCollider::OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_)
 {

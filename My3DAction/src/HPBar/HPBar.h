@@ -11,10 +11,21 @@ class Game;
 class HPBar
 {
 public:
+	/*
+	* @brief HPBarのコンストラクタ
+	*/
 	HPBar(Game *Game_);
 	~HPBar();
-	void update();			// UIの変動用メソッド
-	void draw();			// 描画用メソッド
+	/*
+	* @brief 描画メソッド
+	* @note  体力低下でバーの色変更
+	*/
+	void draw();
+	/*
+	* @brief 変動処理
+	* @note  滑らかなHPの増減を実装
+	*/
+	void update();
 private:
 	Game	*pGame = nullptr;
 	float	hpRatio = 0.f;	// HPバーの表示比率

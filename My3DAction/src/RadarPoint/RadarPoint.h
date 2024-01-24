@@ -1,7 +1,6 @@
 /*
 * @file		RadarPoint.h
 * @brief	クラス RadarPoint の宣言
-* @note		
 */
 #pragma once
 #include <math.h>
@@ -30,9 +29,24 @@ struct RadarData
 class RadarPoint
 {
 public:
+	/**
+	* @brief RadarPointのコンストラクタ
+	* @note  posX, posZ, pointTypeは引数で初期化、呼び出し時に値が代入される
+	* @param[in] x　	x座標
+	* @param[in] z　	z座標
+	* @param[in] type_	Pointの種類　何のPoint表しているか
+	*/
 	RadarPoint(float x, float z, eRadar::PointType type_);
+
+	// デストラクタ
 	~RadarPoint();
-	void draw(RadarData& param);	// 描画メソッド　Radar.cppの中で呼び出す
+
+	/**
+	* @brief 描画メソッド
+	* @note  Radarで呼び出し
+	* @param[in] param　Radarのパラメータを保存した構造体
+	*/
+	void draw(RadarData& param);
 private:
 	float posX = 0.f;				// Pointの座標X
 	float posZ = 0.f;				// Pointの座標Z

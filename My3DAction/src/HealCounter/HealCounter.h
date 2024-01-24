@@ -1,3 +1,7 @@
+/**
+* @file		HealCounter.h
+* @brief	クラス HealCounter の宣言
+*/
 #pragma once
 #include "DxLib.h"
 #include "..\Constants.h"
@@ -9,10 +13,20 @@ class Game;
 class HealCounter
 {
 public:
+	/**
+	* @brief HealCounterのコンストラクタ
+	*/
 	HealCounter(Game *Game_);
 	~HealCounter();
-	void draw();			// 描画メソッド
-	void update();			// 更新メソッド		残り回数に合わせて色変更
+	/**
+	* @brief 描画メソッド
+	*/
+	void draw();
+	/**
+	* @brief 更新メソッド
+	* @note  残り回数に合わせて色変更
+	*/
+	void update();
 private:
 	Game *pGame = nullptr;
 	int	  color = 0;		// UIの色
