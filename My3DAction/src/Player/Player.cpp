@@ -3,7 +3,7 @@
 /**
 * @brief Playerのコンストラクタ
 */
-Player::Player(Game* Game_)
+Player::Player(Game *Game_)
 {
     pGame = Game_;
 
@@ -21,6 +21,8 @@ Player::~Player()
 {
     delete[] animTimes;
     delete[] withSwordAnimTimes;
+    SAFE_DELETE(pOBBCol);
+    SAFE_DELETE(pOBBColSword);
 }
 
 
@@ -67,8 +69,11 @@ void Player::initialize(int hit_point)
     if (pGame)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
 
-    // OBBColliderインスタンス化   攻撃時使用
-    pOBBCol = new OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
+    // 体用 OBBColliderインスタンス化   被ダメージ時使用
+    pOBBCol = new OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
+
+    // 剣用 OBBColliderインスタンス化   攻撃時使用
+    pOBBColSword = new OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 }
 
 
@@ -142,6 +147,14 @@ bool Player::checkRollKey()
 */
 void Player::updateMoveAndCollision()
 {
+    // モデルの座標・向きをもとに値設定
+    obbAngle = VGet(0.f, angle, 0.f);
+    obbTrans = VGet(position.x, position.y + PLAYER_OBB_TRANS_Y, position.z);
+
+    // OBB値変更
+    pOBBCol->changeRotateMatrix(obbAngle);      // 回転
+    pOBBCol->changeTranslateMatrix(obbTrans);   // 移動
+
     if (pGame)
     {
         // エネミーとの当たり判定
@@ -162,7 +175,7 @@ void Player::updateMoveAndCollision()
             manageRollCooldown();
         }
     }
-    
+
 }
 
 
@@ -171,7 +184,7 @@ void Player::updateMoveAndCollision()
 * @note  クールタイムを減らし、0になるとRollをできるように
 */
 void Player::manageRollCooldown()
-{            
+{
     // クールタイムを減らす
     rollCoolTime -= PLAYER_ANIM_F_INCREMENT;
 
@@ -350,7 +363,7 @@ void Player::roll()
         if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
             currentState = PlayerState::Idle;
-            rollAble = false;	
+            rollAble = false;
             isRoll = false;
         }
     }
@@ -366,7 +379,7 @@ void Player::attack()
     if (isFirst)
     {
         //count += PLAYER_ANIM_F_INCREMENT;
-        
+
         // アニメーションをセット
         if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
         {
@@ -436,7 +449,7 @@ void Player::attack()
     }
 
     // 三段目の攻撃 ===================================================================================================================
-    if(isThird)
+    if (isThird)
     {
         if (animNum != (int)ePlayerWS::AnimationNum::Slash3)
         {
@@ -459,10 +472,10 @@ void Player::attack()
     // モデルの右手frame取得
     MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, PLAYER_RIGHT_HAND_FRAME);
     // 親の行列に合わせる
-    pOBBCol->setParentMatrix(frame_matrix);
+    pOBBColSword->setParentMatrix(frame_matrix);
 #ifdef _DEBUG
     // 描画
-    pOBBCol->draw();
+    pOBBColSword->draw();
 #endif
 
 }
@@ -594,7 +607,10 @@ void Player::draw()
     DrawSphere3D(pos, 10.f, 10, BLUE, BLUE, TRUE);
 
     // 当たり判定カプセル描画
-    DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+
+    // 描画
+    pOBBCol->draw();
 #endif
 
 }
@@ -616,4 +632,3 @@ int Player::GetHealCount()
 {
     return healCount;
 }
-
