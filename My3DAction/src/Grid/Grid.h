@@ -14,7 +14,7 @@ public:
 	Grid();
 	~Grid();
 	void draw();	// 描画メソッド
-protected:
+private:
 	VECTOR startHorizontal = VGet(0.f, 0.f, 0.f);	// 水平方向の開始地点
 	VECTOR endHorizontal = VGet(0.f, 0.f, 0.f);		// 水平方向の最終地点 
 	VECTOR startVertical = VGet(0.f, 0.f, 0.f);		// 垂直方向の開始地点

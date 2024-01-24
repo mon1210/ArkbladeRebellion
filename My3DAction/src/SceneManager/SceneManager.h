@@ -17,7 +17,7 @@ public:
 	void switchPhase();									// ゲーム全体のPhaseをswitchで管理
 	void doDraw();										// ゲーム全体の描画
 	void fadeOut(int startTime_);						// シーン遷移時のフェードアウト処理　Todo 未完成
-protected:
+private:
 	IGameScene *pScene = nullptr;						// シーン
 	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	// 状態変数
 	int	  startTime = 0;								// FadeOut開始時間取得用

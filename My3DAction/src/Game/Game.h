@@ -50,7 +50,7 @@ public:
 private:
 	void initialize();						// 初期化メソッド
 	void update();							// 更新メソッド
-protected:
+private:
 	SceneManager *pSystem = nullptr;
 	Player		 *pPlayer = nullptr;
 	Enemy		 *pEnemy = nullptr;

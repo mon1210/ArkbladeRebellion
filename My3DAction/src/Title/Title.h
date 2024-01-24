@@ -18,7 +18,7 @@ public:
 	GameSceneResultCode move() override;			// 管理メソッド　GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
 	void draw() override;							// 描画メソッド
 
-protected:
+private:
 	SceneManager *System = nullptr;
 	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// 状態を表す
 	int		startTime = 0;							// FadeOut開始時間取得用

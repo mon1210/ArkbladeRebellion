@@ -21,6 +21,6 @@ public:
 	// 以上取得用定数===================================================================== //
 private:
 	void initializeModelList();						// unordered_map初期化メソッド　戻り値になる変数を登録	
-protected:
+private:
 	std::unordered_map<ModelType, int> modelList;	// モデルハンドルの入ったunordered_mapを定義
 };

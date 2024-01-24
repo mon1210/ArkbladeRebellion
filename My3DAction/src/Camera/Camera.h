@@ -24,7 +24,7 @@ public:
 private:
 	void control();												// カメラ操作メソッド
 	void setPosition(VECTOR player_pos);						// カメラの位置算出メソッド
-protected:
+private:
 	Game	*pGame = nullptr;
 	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標
 	float	hAngle = 0.f;						// 水平方向の角度

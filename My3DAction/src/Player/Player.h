@@ -49,7 +49,7 @@ private:
 	void damage();	// ”íƒ_ƒ[ƒW
 	void healing();	// ‰ñ•œ
 	void death();	// €–S
-protected:
+private:
 	Game		*pGame = nullptr;
 	OBBCollider *pOBBCol = nullptr;
 	int		rollCoolTime = 0;

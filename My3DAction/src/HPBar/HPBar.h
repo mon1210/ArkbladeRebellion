@@ -16,7 +16,6 @@ public:
 	void update();			// UIの変動用メソッド
 	void draw();			// 描画用メソッド
 private:
-protected:
 	Game	*pGame = nullptr;
 	float	hpRatio = 0.f;	// HPバーの表示比率
 

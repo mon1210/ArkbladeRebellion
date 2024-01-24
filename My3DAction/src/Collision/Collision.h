@@ -20,7 +20,7 @@ public:
 	bool charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2,
 		float cap1_height, float cap2_height, float cap1_radius, float cap2_radius);		// キャラ同士のカプセル当たり判定メソッド
 	bool checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, float attack_area);	// キャラクターが攻撃範囲内にいるか同かを判定するメソッド
-protected:
+private:
 	Game *pGame = nullptr;
 	int tileHandle = 0;		// 床モデル保存用
 

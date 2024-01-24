@@ -42,7 +42,7 @@ private:
 	void attack();	// 攻撃
 	void damage();	// 被ダメージ
 	void death();	// 死亡
-protected:
+private:
 	Game		*pGame = nullptr;
 	OBBCollider *pOBBCol = nullptr;
 	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
