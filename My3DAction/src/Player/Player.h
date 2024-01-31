@@ -61,6 +61,11 @@ public:
 	* @brief healCount‚ğæ“¾‚µ‚Ä•Ô‚·
 	*/
 	int		GetHealCount();
+
+	/**
+	* @brief pOBBCol‚ğæ“¾‚µ‚Ä•Ô‚·
+	*/
+	OBBCollider *GetOBBCol();
 	// ˆÈãæ“¾—p’è”====================================================================== //
 private:
 	/**

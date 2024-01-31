@@ -634,3 +634,12 @@ int Player::GetHealCount()
 {
     return healCount;
 }
+
+
+/*
+* @brief pOBBCol‚ðŽæ“¾‚µ‚Ä•Ô‚·
+*/
+OBBCollider* Player::GetOBBCol()
+{
+    return pOBBCol;
+}
