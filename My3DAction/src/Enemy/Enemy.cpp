@@ -343,7 +343,6 @@ void Enemy::chase()
 void Enemy::attack()
 {
     // s“®FUŒ‚
-    DrawString(0, 0, "Attack", RED);// Debug
 
     // ‘JˆÚ
     /*
@@ -366,6 +365,9 @@ void Enemy::attack()
     // •`‰æ
     pOBBColHand->draw();
 #endif
+
+    // ŽèOBB,ƒvƒŒƒCƒ„[OBB‚Å‚Ì“–‚½‚è”»’è
+    pGame->GetCollision()->checkOBBCol(pOBBColHand, pGame->GetPlayer()->GetOBBCol());
 }
 
 
