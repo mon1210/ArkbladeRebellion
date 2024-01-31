@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation\Animation.h" />
+    <ClInclude Include="src\Axis.h" />
     <ClInclude Include="src\BG\BG.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\CharaBase\CharaBase.h" />
