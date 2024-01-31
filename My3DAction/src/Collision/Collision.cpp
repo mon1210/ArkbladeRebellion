@@ -284,3 +284,60 @@ bool Collision::checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8])
 	return true;
 }
 
+
+/**
+* @brief  二つのOBBポインタで当たり判定をする
+* @note	  OBBポインタ同士の当たり判定をとる
+*		　※bool型戻り値？？
+* @debug  文字描画
+* @param[in] *obb_01　一つ目のOBBポインタ
+* @param[in] *obb_02　二つ目のOBBポインタ
+*/
+void Collision::checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02)
+{
+	Axis Axis_01;
+	Axis Axis_02;
+
+	// ローカル軸取得
+	obb_01->GetAxis(Axis_01);
+	obb_02->GetAxis(Axis_02);
+
+	// 軸リスト作成
+	Axis axisList[2] =
+	{
+		Axis_01,
+		Axis_02
+	};
+
+	// 頂点座標リスト作成
+	VECTOR vectorList[2][8] =
+	{
+		{	// OBB一つ目
+			{obb_01->currentVertices[0]},
+			{obb_01->currentVertices[1]},
+			{obb_01->currentVertices[2]},
+			{obb_01->currentVertices[3]},
+			{obb_01->currentVertices[4]},
+			{obb_01->currentVertices[5]},
+			{obb_01->currentVertices[6]},
+			{obb_01->currentVertices[7]},
+		},
+
+		{	// 二つ目
+			{obb_02->currentVertices[0]},
+			{obb_02->currentVertices[1]},
+			{obb_02->currentVertices[2]},
+			{obb_02->currentVertices[3]},
+			{obb_02->currentVertices[4]},
+			{obb_02->currentVertices[5]},
+			{obb_02->currentVertices[6]},
+			{obb_02->currentVertices[7]},
+		}
+	};
+
+	// 当たっていたら
+	if (checkOBBs(axisList, vectorList))
+	{
+		DrawString(0, 0, "OBB COL HIT!!!", RED, TRUE);
+	}
+}
