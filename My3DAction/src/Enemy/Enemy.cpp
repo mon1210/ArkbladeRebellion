@@ -474,3 +474,12 @@ void Enemy::draw()
     pOBBCol->draw();
 #endif
 }
+
+
+/*
+* @brief pOBBCol‚ðŽæ“¾‚µ‚Ä•Ô‚·
+*/
+OBBCollider* Enemy::GetOBBCol()
+{
+    return pOBBCol;
+}
