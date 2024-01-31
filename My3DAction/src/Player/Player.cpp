@@ -479,7 +479,10 @@ void Player::attack()
 #endif
 
     // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
-    pGame->GetCollision()->checkOBBCol(pOBBColSword, pGame->GetEnemy()->GetOBBCol());
+    if (pGame->GetCollision()->checkOBBCol(pOBBColSword, pGame->GetEnemy()->GetOBBCol()))
+    {
+        DrawString(0, 0, "P->E HIT", RED);
+    }
 }
 
 
