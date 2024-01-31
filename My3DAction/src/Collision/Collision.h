@@ -58,6 +58,18 @@ public:
 	* @param[in] attack_area　	攻撃範囲
 	*/
 	bool checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, float attack_area);
+
+private:
+	/**
+	* @brief  分離軸候補が、分離軸かどうかを判断
+	* @note	  OBBの投影距離と二つの距離比較
+	*
+	* @return true:分離軸である / false:分離軸ではない
+	* @param[in] axis　			分離軸候補
+	* @param[in] obb1_vertices　一つ目のOBBの頂点
+	* @param[in] obb2_vertices　二つ目のOBBの頂点
+	*/
+	bool isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8], VECTOR obb2_vertices[8]);
 private:
 	Game *pGame = nullptr;
 	int tileHandle = 0;		// 床モデル保存用

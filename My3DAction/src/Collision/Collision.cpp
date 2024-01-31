@@ -162,3 +162,69 @@ bool Collision::checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, floa
 
 	return false;
 }
+
+
+/**
+* @brief  分離軸候補が、分離軸かどうかを判断
+* @note	  OBBの投影距離と二つの距離比較
+* 
+* @return true:分離軸である / false:分離軸ではない
+* @param[in] axis　			分離軸候補
+* @param[in] obb1_vertices　一つ目のOBBの頂点
+* @param[in] obb2_vertices　二つ目のOBBの頂点
+*/
+bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8], VECTOR obb2_vertices[8])
+{
+	// 各OBB頂点リスト
+	VECTOR* vertices_list[2] = 
+	{
+		obb1_vertices,
+		obb2_vertices
+	};
+
+	// 射影された頂点の最小値と最大値を管理
+	struct Length
+	{
+		float min = 10000.f;	// 大きな値で初期化しないと更新されない
+		float max = -10000.f;	// 小さな値で初期化しないと更新されない
+	};
+	// 2本分
+	Length length[2];
+
+	// 2 = vertices_list.size
+	for (int i = 0; i < 2; i++)
+	{
+		// 8 = 各OBBの頂点数
+		for (int j = 0; j < 8; j++)
+		{
+			// [0][0] => [一つ目のOBB][一つ目の頂点]
+			VECTOR vertice = vertices_list[i][j];
+			// 軸axisと頂点との内積をとる
+			// (垂線のベクトル)軸に矩形の頂点を射影して最小、最大を求める
+			float dot = axis.x * vertice.x + axis.y * vertice.y + axis.z * vertice.z;
+
+			// 分離軸上で最も遠い頂点までの距離を決める
+
+			// 最小値更新
+			if (length[i].min > dot)
+			{
+				length[i].min = dot;
+			}
+			// 最大値更新
+			if (length[i].max < dot)
+			{
+				length[i].max = dot;
+			}
+		}
+	}
+
+	// 交差しているとき	分離軸ではない
+	if (length[0].min <= length[1].max && length[1].min <= length[0].max)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
