@@ -5,6 +5,7 @@
 #pragma once
 #include "DxLib.h"
 #include <vector>
+#include "..\Axis.h"
 #include "..\Constants.h"
 
 /*	
@@ -24,23 +25,37 @@ public:
 	* @param[in] translate_		移動値
 	*/
 	OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_);
+
+	// デストラクタ
 	~OBBCollider();
+
 	/**
 	* @brief scaleMatrix変更用メソッド
 	*/
 	void changeScaleMatrix(VECTOR& scale_);
+
 	/**
 	* @brief rotateMatrix変更用メソッド
 	*/
 	void changeRotateMatrix(VECTOR& rotate_);
+
 	/**
 	* @brief translateMatrix変更用メソッド
 	*/
 	void changeTranslateMatrix(VECTOR& translate_);
+
 	/**
 	* @brief parentMatrixセット用メソッド
 	*/
 	void setParentMatrix(MATRIX parent_);
+
+	// 以下取得用定数===================================================================== //
+	/**
+	* @brief OBBからローカル軸を取得
+	*/
+	void GetAxis(Axis& axis);
+	void GetAxis(VECTOR& x_axis, VECTOR& y_axis, VECTOR& z_axis);
+	// 以上取得用定数===================================================================== //
 private:
 	/**
 	* @brief 更新メソッド

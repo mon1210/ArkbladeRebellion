@@ -90,6 +90,28 @@ void OBBCollider::setParentMatrix(MATRIX parent_)
 
 
 /**
+* @brief OBBからローカル軸を取得
+*/
+void OBBCollider::GetAxis(Axis& axis)
+{
+	GetAxis(axis.x, axis.y, axis.z);
+}
+
+
+/**
+* @brief OBBからローカル軸を取得
+*/
+void OBBCollider::GetAxis(VECTOR& x_axis, VECTOR& y_axis, VECTOR& z_axis)
+{
+	MATRIX mat = rotateMatrix;
+	// 回転行列から各軸の方向ベクトルを取得
+	x_axis = VGet(mat.m[0][0], mat.m[0][1], mat.m[0][2]);
+	y_axis = VGet(mat.m[1][0], mat.m[1][1], mat.m[1][2]);
+	z_axis = VGet(mat.m[2][0], mat.m[2][1], mat.m[2][2]);
+}
+
+
+/**
 * @brief 更新メソッド
 */
 void OBBCollider::update()
