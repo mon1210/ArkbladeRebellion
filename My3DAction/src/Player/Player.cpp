@@ -478,6 +478,8 @@ void Player::attack()
     pOBBColSword->draw();
 #endif
 
+    // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
+    pGame->GetCollision()->checkOBBCol(pOBBColSword, pGame->GetEnemy()->GetOBBCol());
 }
 
 
