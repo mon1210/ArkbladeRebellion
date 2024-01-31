@@ -367,7 +367,10 @@ void Enemy::attack()
 #endif
 
     // ŽèOBB,ƒvƒŒƒCƒ„[OBB‚Å‚Ì“–‚½‚è”»’è
-    pGame->GetCollision()->checkOBBCol(pOBBColHand, pGame->GetPlayer()->GetOBBCol());
+    if (pGame->GetCollision()->checkOBBCol(pOBBColHand, pGame->GetPlayer()->GetOBBCol()))
+    {
+        DrawString(0, 20, "E->P HIT", GREEN);
+    }
 }
 
 
