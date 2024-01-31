@@ -478,6 +478,8 @@ void Player::attack()
     pOBBColSword->draw();
 #endif
 
+    // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
+    pGame->GetCollision()->checkOBBCol(pOBBColSword, pGame->GetEnemy()->GetOBBCol());
 }
 
 
@@ -631,4 +633,13 @@ float Player::GetHp()
 int Player::GetHealCount()
 {
     return healCount;
+}
+
+
+/*
+* @brief pOBBCol‚ðŽæ“¾‚µ‚Ä•Ô‚·
+*/
+OBBCollider* Player::GetOBBCol()
+{
+    return pOBBCol;
 }
