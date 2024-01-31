@@ -70,10 +70,11 @@ public:
 	void draw();
 #endif // _DEBUG
 
-private:
+public:
 	// 現在の頂点座標
 	VECTOR currentVertices[MAX_VERTICES]{};
 
+private:
 	// MGetIdent()　MATRIXクラスのコンストラクタで、変数を初期化している
 	MATRIX scaleMatrix	  { MGetIdent() };		// 拡縮行列
 	MATRIX rotateMatrix	  { MGetIdent() };		// 回転行列
