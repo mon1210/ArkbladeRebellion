@@ -228,3 +228,59 @@ bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8]
 }
 
 
+/**
+* @brief  OBB同士が衝突しているかどうかを判断する
+* @note	  それぞれの辺に対する3方向のベクトル * 2(OBBの数) + 外積分離軸(3 * 3 = 9) = 15で判定
+*		　分離軸判定関数を用いて、全ての軸候補で判断
+*		  「分離軸である」 => 「衝突していない」
+* @return true:衝突している / false:衝突していない
+* @param[in] axis_list　	分離軸の配列[OBBの数]
+* @param[in] vertices_list　OBBの頂点配列[OBBの数][頂点の数]
+*/
+bool Collision::checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8])
+{
+	// OBB一つ目
+	if (isFindSeparatingAxis(axis_list[0].x, vertices_list[0], vertices_list[1]))return false;	// x
+	if (isFindSeparatingAxis(axis_list[0].y, vertices_list[0], vertices_list[1]))return false;	// y
+	if (isFindSeparatingAxis(axis_list[0].z, vertices_list[0], vertices_list[1]))return false;	// z
+
+	// 二つ目
+	if (isFindSeparatingAxis(axis_list[1].x, vertices_list[0], vertices_list[1]))return false;	// x
+	if (isFindSeparatingAxis(axis_list[1].y, vertices_list[0], vertices_list[1]))return false;	// y
+	if (isFindSeparatingAxis(axis_list[1].z, vertices_list[0], vertices_list[1]))return false;	// z
+
+	// 分離軸同士の外積を比較
+	VECTOR CrossVec;
+	//[0]x cross [1]x
+	CrossVec = cross(axis_list[0].x, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]x cross [1]y
+	CrossVec = cross(axis_list[0].x, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]x cross [1]z
+	CrossVec = cross(axis_list[0].x, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	//[0]y cross [1]x
+	CrossVec = cross(axis_list[0].y, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]y cross [1]y
+	CrossVec = cross(axis_list[0].y, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]y cross [1]z
+	CrossVec = cross(axis_list[0].y, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	//[0]z cross [1]x
+	CrossVec = cross(axis_list[0].z, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]z cross [1]y
+	CrossVec = cross(axis_list[0].z, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]z cross [1]z 
+	CrossVec = cross(axis_list[0].z, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	return true;
+}
+

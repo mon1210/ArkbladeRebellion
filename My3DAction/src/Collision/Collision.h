@@ -6,6 +6,7 @@
 #pragma once
 #include "DxLib.h"
 #include "..\Game\Game.h"
+#include "..\GlobalFunctions\GlobalFunctions.h"
 
 // クラスの前方宣言
 class Game;
@@ -70,6 +71,17 @@ private:
 	* @param[in] obb2_vertices　二つ目のOBBの頂点
 	*/
 	bool isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8], VECTOR obb2_vertices[8]);
+
+	/**
+	* @brief  OBB同士が衝突しているかどうかを判断する
+	* @note	  それぞれの辺に対する3方向のベクトル * 2(OBBの数) + 外積分離軸(3 * 3 = 9) = 15で判定
+	*		　分離軸判定関数を用いて、全ての軸候補で判断
+	*		  「分離軸である」 => 「衝突していない」
+	* @return true:衝突している / false:衝突していない
+	* @param[in] axis_list　	分離軸の配列[OBBの数]
+	* @param[in] vertices_list　OBBの頂点配列[OBBの数][頂点の数]
+	*/
+	bool checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8]);
 private:
 	Game *pGame = nullptr;
 	int tileHandle = 0;		// 床モデル保存用
