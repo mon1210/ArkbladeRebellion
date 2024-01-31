@@ -185,8 +185,8 @@ bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8]
 	// 射影された頂点の最小値と最大値を管理
 	struct Length
 	{
-		float min = 10000.f;	// 大きな値で初期化しないと更新されない
-		float max = -10000.f;	// 小さな値で初期化しないと更新されない
+		float min = MAX_INITIAL_VALUE;	// 大きな値で初期化しないと更新されない
+		float max = MIN_INITIAL_VALUE;	// 小さな値で初期化しないと更新されない
 	};
 	// 2本分
 	Length length[2];

@@ -32,6 +32,8 @@ const float PLAYER_CAP_RADIUS = 55.f;			// プレイヤーの当たり判定カプセルの半径
 const float ENEMY_CAP_RADIUS = 180.f;			// エネミーの当たり判定カプセルの半径
 const float CAP_HEIGHT = 215.f;					// カプセルの高さ
 const float ENEMY_CAP_HEIGHT = 300.f;			// エネミーのカプセルの高さ
+const float MAX_INITIAL_VALUE = 10000.f;		// 最小値初期化のための限りなく大きな値
+const float MIN_INITIAL_VALUE = -10000.f;		// 最大値初期化のための限りなく小さな値
 // 以上Collision用定数=============================================================================================== //
 
 
