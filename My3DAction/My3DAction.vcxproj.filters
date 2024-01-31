@@ -209,5 +209,8 @@
     <ClInclude Include="src\targetver.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Axis.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
