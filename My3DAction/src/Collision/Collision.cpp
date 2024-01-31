@@ -162,3 +162,182 @@ bool Collision::checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, floa
 
 	return false;
 }
+
+
+/**
+* @brief  分離軸候補が、分離軸かどうかを判断
+* @note	  OBBの投影距離と二つの距離比較
+* 
+* @return true:分離軸である / false:分離軸ではない
+* @param[in] axis　			分離軸候補
+* @param[in] obb1_vertices　一つ目のOBBの頂点
+* @param[in] obb2_vertices　二つ目のOBBの頂点
+*/
+bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8], VECTOR obb2_vertices[8])
+{
+	// 各OBB頂点リスト
+	VECTOR* vertices_list[2] = 
+	{
+		obb1_vertices,
+		obb2_vertices
+	};
+
+	// 射影された頂点の最小値と最大値を管理
+	struct Length
+	{
+		float min = 10000.f;	// 大きな値で初期化しないと更新されない
+		float max = -10000.f;	// 小さな値で初期化しないと更新されない
+	};
+	// 2本分
+	Length length[2];
+
+	// 2 = vertices_list.size
+	for (int i = 0; i < 2; i++)
+	{
+		// 8 = 各OBBの頂点数
+		for (int j = 0; j < 8; j++)
+		{
+			// [0][0] => [一つ目のOBB][一つ目の頂点]
+			VECTOR vertice = vertices_list[i][j];
+			// 軸axisと頂点との内積をとる
+			// (垂線のベクトル)軸に矩形の頂点を射影して最小、最大を求める
+			float dot = axis.x * vertice.x + axis.y * vertice.y + axis.z * vertice.z;
+
+			// 分離軸上で最も遠い頂点までの距離を決める
+
+			// 最小値更新
+			if (length[i].min > dot)
+			{
+				length[i].min = dot;
+			}
+			// 最大値更新
+			if (length[i].max < dot)
+			{
+				length[i].max = dot;
+			}
+		}
+	}
+
+	// 交差しているとき	分離軸ではない
+	if (length[0].min <= length[1].max && length[1].min <= length[0].max)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
+/**
+* @brief  OBB同士が衝突しているかどうかを判断する
+* @note	  それぞれの辺に対する3方向のベクトル * 2(OBBの数) + 外積分離軸(3 * 3 = 9) = 15で判定
+*		　分離軸判定関数を用いて、全ての軸候補で判断
+*		  「分離軸である」 => 「衝突していない」
+* @return true:衝突している / false:衝突していない
+* @param[in] axis_list　	分離軸の配列[OBBの数]
+* @param[in] vertices_list　OBBの頂点配列[OBBの数][頂点の数]
+*/
+bool Collision::checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8])
+{
+	// OBB一つ目
+	if (isFindSeparatingAxis(axis_list[0].x, vertices_list[0], vertices_list[1]))return false;	// x
+	if (isFindSeparatingAxis(axis_list[0].y, vertices_list[0], vertices_list[1]))return false;	// y
+	if (isFindSeparatingAxis(axis_list[0].z, vertices_list[0], vertices_list[1]))return false;	// z
+
+	// 二つ目
+	if (isFindSeparatingAxis(axis_list[1].x, vertices_list[0], vertices_list[1]))return false;	// x
+	if (isFindSeparatingAxis(axis_list[1].y, vertices_list[0], vertices_list[1]))return false;	// y
+	if (isFindSeparatingAxis(axis_list[1].z, vertices_list[0], vertices_list[1]))return false;	// z
+
+	// 分離軸同士の外積を比較
+	VECTOR CrossVec;
+	//[0]x cross [1]x
+	CrossVec = cross(axis_list[0].x, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]x cross [1]y
+	CrossVec = cross(axis_list[0].x, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]x cross [1]z
+	CrossVec = cross(axis_list[0].x, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	//[0]y cross [1]x
+	CrossVec = cross(axis_list[0].y, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]y cross [1]y
+	CrossVec = cross(axis_list[0].y, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]y cross [1]z
+	CrossVec = cross(axis_list[0].y, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	//[0]z cross [1]x
+	CrossVec = cross(axis_list[0].z, axis_list[1].x);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]z cross [1]y
+	CrossVec = cross(axis_list[0].z, axis_list[1].y);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+	//[0]z cross [1]z 
+	CrossVec = cross(axis_list[0].z, axis_list[1].z);
+	if (isFindSeparatingAxis(CrossVec, vertices_list[0], vertices_list[1]))return false;
+
+	return true;
+}
+
+
+/**
+* @brief  二つのOBBポインタで当たり判定をする
+* @note	  OBBポインタ同士の当たり判定をとる
+*		　※bool型戻り値？？
+* @debug  文字描画
+* @param[in] *obb_01　一つ目のOBBポインタ
+* @param[in] *obb_02　二つ目のOBBポインタ
+*/
+void Collision::checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02)
+{
+	Axis Axis_01;
+	Axis Axis_02;
+
+	// ローカル軸取得
+	obb_01->GetAxis(Axis_01);
+	obb_02->GetAxis(Axis_02);
+
+	// 軸リスト作成
+	Axis axisList[2] =
+	{
+		Axis_01,
+		Axis_02
+	};
+
+	// 頂点座標リスト作成
+	VECTOR vectorList[2][8] =
+	{
+		{	// OBB一つ目
+			{obb_01->currentVertices[0]},
+			{obb_01->currentVertices[1]},
+			{obb_01->currentVertices[2]},
+			{obb_01->currentVertices[3]},
+			{obb_01->currentVertices[4]},
+			{obb_01->currentVertices[5]},
+			{obb_01->currentVertices[6]},
+			{obb_01->currentVertices[7]},
+		},
+
+		{	// 二つ目
+			{obb_02->currentVertices[0]},
+			{obb_02->currentVertices[1]},
+			{obb_02->currentVertices[2]},
+			{obb_02->currentVertices[3]},
+			{obb_02->currentVertices[4]},
+			{obb_02->currentVertices[5]},
+			{obb_02->currentVertices[6]},
+			{obb_02->currentVertices[7]},
+		}
+	};
+
+	// 当たっていたら
+	if (checkOBBs(axisList, vectorList))
+	{
+		DrawString(0, 0, "OBB COL HIT!!!", RED, TRUE);
+	}
+}
