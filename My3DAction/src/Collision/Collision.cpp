@@ -288,12 +288,11 @@ bool Collision::checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8])
 /**
 * @brief  二つのOBBポインタで当たり判定をする
 * @note	  OBBポインタ同士の当たり判定をとる
-*		　※bool型戻り値？？
-* @debug  文字描画
+* @return true:当たっている / false:当たっていない
 * @param[in] *obb_01　一つ目のOBBポインタ
 * @param[in] *obb_02　二つ目のOBBポインタ
 */
-void Collision::checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02)
+bool Collision::checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02)
 {
 	Axis Axis_01;
 	Axis Axis_02;
@@ -337,7 +336,7 @@ void Collision::checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02)
 
 	// 当たっていたら
 	if (checkOBBs(axisList, vectorList))
-	{
-		DrawString(0, 0, "OBB COL HIT!!!", RED, TRUE);
-	}
+		return true;
+
+	return false;
 }
