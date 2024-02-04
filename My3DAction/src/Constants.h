@@ -110,6 +110,7 @@ const float MODEL_SCALE = 1.5f;					// 3Dモデルの拡大率
 const float MAX_HP = 100.f;						// 最大HP
 const float HEALING_VALUE = 20.f;				// 一度の回復量
 const float PLAYER_OBB_TRANS_Y = 130.f;			// プレイヤーの体の当たり判定OBBの移動値Y　座標Yに加算する
+const float ENEMY_ATTACK = 0.05f;				// エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
 
 const VECTOR PLAYER_OBB_SCALE = VGet(100.f, 250.f, 100.f);
 const VECTOR PLAYER_OBB_ANGLE = VGet(0.f, PLAYER_START_ROTATE_Y, 0.f);
