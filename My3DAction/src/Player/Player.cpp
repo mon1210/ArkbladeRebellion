@@ -39,6 +39,7 @@ void Player::initialize(float hit_point)
     moveVec = VGet(0.f, 0.f, 0.f);
     rollCoolTime = 0.f;
     rollAble = true;
+    isAttackHit = false;
 
     // モデルにIdleアニメーションをセット
     MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
@@ -238,6 +239,8 @@ void Player::idle()
 {
     // 移動ベクトルを初期化
     moveVec = VGet(0.f, 0.f, 0.f);
+    // 攻撃ヒットフラグを折る
+    isAttackHit = false;
 
     // アニメーションをセット
     if (animNum != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
@@ -481,8 +484,6 @@ void Player::attack()
     {
         isAttackHit = true;
     }
-    else
-        isAttackHit = false;
 }
 
 
