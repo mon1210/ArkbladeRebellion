@@ -93,8 +93,8 @@ void SceneManager::fadeOut(int startTime_)
 	if (fadeTimer < fadeTime)
 	{
 		// (fadeTimer / fadeTime) ‚ð‰½‰ñ‚â‚é‚©‚ÅŽÀs
-		int opacity = MAX_OPACITY * (fadeTimer / fadeTime);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, opacity);
+		float opacity = MAX_OPACITY * (fadeTimer / fadeTime);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(opacity));
 		DrawBox(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, BLACK, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}

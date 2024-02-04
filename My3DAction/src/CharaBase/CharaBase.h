@@ -34,7 +34,7 @@ public:
 	* @brief 初期化メソッド
 	* @param[in] hit_point　キャラのHP　拡張性向上のため
 	*/
-	virtual void initialize(int hit_point) = 0;
+	virtual void initialize(float hit_point) = 0;
 
 	/**
 	* @brief 行動状態の管理メソッド

@@ -26,7 +26,7 @@ Enemy::~Enemy()
 * @brief 初期化メソッド
 * @param[in] hit_point　キャラのHP　拡張性向上のため
 */
-void Enemy::initialize(int hit_point)
+void Enemy::initialize(float hit_point)
 {
     // 変数初期化
     hitPoint = hit_point;
@@ -188,7 +188,7 @@ void Enemy::wait()
         // Moveへ
         else
         {
-            angle = (rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
+            angle = static_cast<float>(rand() % FULL_CIRCLE_DEGREES);  // ランダムな角度を取得
             setStateAndAnim(EnemyState::Move, eEnemy::AnimationNum::Run);
         }
 
@@ -431,7 +431,7 @@ bool Enemy::isAlive()
 #ifdef _DEBUG
     // LでHP減少
     if (CheckHitKey(KEY_INPUT_U)) {
-        hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
+        hitPoint = clampF(hitPoint, 0, MAX_HP); // 最大最小を決定
         hitPoint -= HP_CHANGE_AMOUNT;
     }
 #endif

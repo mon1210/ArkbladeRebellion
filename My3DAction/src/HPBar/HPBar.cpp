@@ -49,7 +49,7 @@ void HPBar::draw()
 
 	// HPƒo[•`‰æ	‰¡•‚ÉŠ„‡‚ð‚©‚¯‚Ä‘Œ¸‚ð•\Œ»
 	DrawBox(HP_BAR_POS_X, HP_BAR_POS_Y,
-			HP_BAR_POS_X + (HP_BAR_WIDTH * Ratio), HP_BAR_POS_Y + HP_BAR_HEIGHT,
+			HP_BAR_POS_X + static_cast<int>(HP_BAR_WIDTH * Ratio), HP_BAR_POS_Y + HP_BAR_HEIGHT,
 			BarColor, TRUE);
 	// ‘Œ¸‚ª‚í‚©‚è‚â‚·‚¢‚æ‚¤‚É‰‚à•`‰æ
 	DrawBox(HP_BAR_POS_X, HP_BAR_POS_Y,

@@ -28,7 +28,7 @@ Player::~Player()
 * @brief 初期化メソッド
 * @param[in] hit_point　キャラのHP　拡張性向上のため
 */
-void Player::initialize(int hit_point)
+void Player::initialize(float hit_point)
 {
     // 変数初期化
     hitPoint = hit_point;
@@ -525,7 +525,7 @@ void Player::healing()
         // ここでHP回復
         hitPoint += HEALING_VALUE;
         // 最大最小を決定
-        hitPoint = clamp(hitPoint, 0, MAX_HP);
+        hitPoint = clampF(hitPoint, 0, MAX_HP);
         // 回復可能回数を減らす
         healCount--;
         // Idleへ
@@ -569,7 +569,7 @@ bool Player::isAlive()
 #ifdef _DEBUG
     // LでHP減少
     if (CheckHitKey(KEY_INPUT_H)) {
-        hitPoint = clamp(hitPoint, 0, MAX_HP); // 最大最小を決定
+        hitPoint = clampF(hitPoint, 0, MAX_HP); // 最大最小を決定
         hitPoint -= HP_CHANGE_AMOUNT;
     }
 #endif

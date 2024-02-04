@@ -50,7 +50,7 @@ public:
 	* @brief 初期化メソッド
 	* @param[in] hit_point　キャラのHP　拡張性向上のため
 	*/
-	void initialize(int hit_point) override;
+	void initialize(float hit_point) override;
 
 	/**
 	* @brief 行動状態の管理メソッド
