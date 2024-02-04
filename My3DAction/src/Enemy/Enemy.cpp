@@ -105,6 +105,9 @@ void Enemy::update()
     // Rader‚ÌPoint‚É’Ç‰Á
     pGame->GetRadar()->addPoint(position.x, position.z, eRadar::PointType::Enemy);
 
+    // UŒ‚‚ðŽó‚¯‚½Žž
+    if (pGame->GetPlayer()->GetIsHitFlag())
+        hitPoint -= PLAYER_ATTACK;
 }
 
 
@@ -168,6 +171,8 @@ void Enemy::updateMoveAndCollision()
 void Enemy::wait()
 {
     // s“®F‰½‚à‚µ‚È‚¢
+    // UŒ‚ƒqƒbƒgƒtƒ‰ƒO‚ðÜ‚é
+    isAttackHit = false;
 
     // ‘JˆÚ
     /*
@@ -349,7 +354,7 @@ void Enemy::attack()
     // ŽèOBB,ƒvƒŒƒCƒ„[OBB‚Å‚Ì“–‚½‚è”»’è
     if (pGame->GetCollision()->checkOBBCol(mOBBColHand, pGame->GetPlayer()->GetOBBCol()))
     {
-        DrawString(0, 20, "E->P HIT", GREEN);
+        isAttackHit = true;
     }
 
     // ‘JˆÚ
