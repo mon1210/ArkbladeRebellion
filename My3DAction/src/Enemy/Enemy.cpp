@@ -19,8 +19,6 @@ Enemy::Enemy(Game *Game_)
 Enemy::~Enemy()
 {
     delete[] animTimes;
-    SAFE_DELETE(pOBBCol);
-    SAFE_DELETE(pOBBColHand);
 }
 
 
@@ -58,12 +56,6 @@ void Enemy::initialize(int hit_point)
 
     // アニメーションタイマーリセット
     updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
-
-    // OBBColliderインスタンス化   被ダメージ時使用　体
-    pOBBCol = new OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
-
-    // OBBColliderインスタンス化   攻撃時使用　手
-    pOBBColHand = new OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 }
 
 
@@ -88,7 +80,7 @@ void Enemy::initializeStateFunctions()
     stateFunctionMap[EnemyState::Move]      = [this]() { move();   };
     stateFunctionMap[EnemyState::Chase]     = [this]() { chase();  };
     stateFunctionMap[EnemyState::Attack]    = [this]() { attack(); };
-    stateFunctionMap[EnemyState::Damage]    = [this]() { damage(); };  
+    stateFunctionMap[EnemyState::Damage]    = [this]() { damage(); };
     stateFunctionMap[EnemyState::Death]     = [this]() { death();  };
 
 }
@@ -151,8 +143,8 @@ void Enemy::updateMoveAndCollision()
     VECTOR ObbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
 
     // OBB値変更
-    pOBBCol->changeRotateMatrix(ObbAngle);      // 回転
-    pOBBCol->changeTranslateMatrix(ObbTrans);   // 移動
+    mOBBCol.changeRotateMatrix(ObbAngle);      // 回転
+    mOBBCol.changeTranslateMatrix(ObbTrans);   // 移動
 
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(moveVec, position);
@@ -341,21 +333,21 @@ void Enemy::chase()
 void Enemy::attack()
 {
     // 行動：攻撃
-    
+
     // 当たり判定(手)設定 
     // アニメーションがアタッチされている必要があるのでここで処理
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
     // モデルの右手frame取得
     MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, ENEMY_LEFT_HAND_FRAME);
     // 親の行列に合わせる
-    pOBBColHand->setParentMatrix(frame_matrix);
+    mOBBColHand.setParentMatrix(frame_matrix);
 #ifdef _DEBUG
     // 描画
-    pOBBColHand->draw();
+    mOBBColHand.draw();
 #endif
 
     // 手OBB,プレイヤーOBBでの当たり判定
-    if (pGame->GetCollision()->checkOBBCol(pOBBColHand, pGame->GetPlayer()->GetOBBCol()))
+    if (pGame->GetCollision()->checkOBBCol(mOBBColHand, pGame->GetPlayer()->GetOBBCol()))
     {
         DrawString(0, 20, "E->P HIT", GREEN);
     }
@@ -472,17 +464,17 @@ void Enemy::draw()
 #ifdef _DEBUG
     // 当たり判定カプセル描画
     //DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
-    
+
     // 描画
-    pOBBCol->draw();
+    mOBBCol.draw();
 #endif
 }
 
 
 /*
-* @brief pOBBColを取得して返す
+* @brief mOBBColを取得して返す
 */
-OBBCollider* Enemy::GetOBBCol()
+OBBCollider Enemy::GetOBBCol()
 {
-    return pOBBCol;
+    return mOBBCol;
 }

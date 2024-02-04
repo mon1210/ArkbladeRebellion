@@ -21,6 +21,13 @@ class OBBCollider;
 
 class Enemy : public CharaBase
 {
+	// ※コンストラクタよりも先に書かないとエラーになる
+private:
+	// OBBColliderインスタンス化   被ダメージ時使用　体
+	OBBCollider mOBBCol = OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
+
+	// OBBColliderインスタンス化   攻撃時使用　手
+	OBBCollider mOBBColHand = OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 public:
 	/**
 	* @brief Enemyのコンストラクタ
@@ -55,9 +62,9 @@ public:
 
 	// 以下取得用定数===================================================================== //
 	/**
-	* @brief pOBBColを取得して返す
+	* @brief mOBBColを取得して返す
 	*/
-	OBBCollider *GetOBBCol();
+	OBBCollider GetOBBCol();
 	// 以上取得用定数===================================================================== //
 private:
 	/**
@@ -84,7 +91,7 @@ private:
 	* @param[in] state  変更先の状態
 	* @param[in] num    変更先のアニメーション
 	*/
-	void setStateAndAnim(EnemyState state,eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
+	void setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
 
 	/**
 	* @brief 座標と当たり判定を設定するメソッド
@@ -100,9 +107,7 @@ private:
 	void damage();	// 被ダメージ
 	void death();	// 死亡
 private:
-	Game		*pGame = nullptr;
-	OBBCollider *pOBBCol = nullptr;
-	OBBCollider *pOBBColHand = nullptr;
+	Game	*pGame = nullptr;
 	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
 	int		count = 0;												// フレーム計測用　行動遷移, で使用 
 	float   vecLength = 0.f;										// ベクトルの長さ保存用
