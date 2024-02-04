@@ -148,12 +148,12 @@ bool Player::checkRollKey()
 void Player::updateMoveAndCollision()
 {
     // モデルの座標・向きをもとに値設定
-    obbAngle = VGet(0.f, angle, 0.f);
-    obbTrans = VGet(position.x, position.y + PLAYER_OBB_TRANS_Y, position.z);
+    VECTOR ObbAngle = VGet(0.f, angle, 0.f);
+    VECTOR ObbTrans = VGet(position.x, position.y + PLAYER_OBB_TRANS_Y, position.z);
 
     // OBB値変更
-    pOBBCol->changeRotateMatrix(obbAngle);      // 回転
-    pOBBCol->changeTranslateMatrix(obbTrans);   // 移動
+    pOBBCol->changeRotateMatrix(ObbAngle);      // 回転
+    pOBBCol->changeTranslateMatrix(ObbTrans);   // 移動
 
     if (pGame)
     {

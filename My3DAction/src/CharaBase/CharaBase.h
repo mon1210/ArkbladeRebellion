@@ -63,8 +63,6 @@ protected:
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
-	VECTOR	obbTrans = VGet(0.f, 0.f, 0.f);			// 当たり判定OBBの移動値
-	VECTOR	obbAngle = VGet(0.f, 0.f, 0.f);			// 当たり判定OBBの回転値
 	int		animHandle = 0;							// モデルハンドル
 	int		animNum = 0;							// アニメーション番号
 	float   *animTimes = 0;							// アニメーションの総再生時間

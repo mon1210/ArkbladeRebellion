@@ -35,8 +35,6 @@ void Enemy::initialize(int hit_point)
     currentHP = hitPoint;
     angle = ENEMY_START_ROTATE_Y;
     position = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y, ENEMY_START_POS_Z);
-    obbAngle = VGet(0.f, angle, 0.f);
-    obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
     moveVec = VGet(0.f, 0.f, 0.f);
     count = 0;
     toPlayerVec = VGet(0.f, 0.f, 0.f);
@@ -149,12 +147,12 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 void Enemy::updateMoveAndCollision()
 {
     // モデルの座標・向きをもとに値設定
-    obbAngle = VGet(0.f, angle, 0.f);
-    obbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
+    VECTOR ObbAngle = VGet(0.f, angle, 0.f);
+    VECTOR ObbTrans = VGet(position.x, position.y + ENEMY_OBB_TRANS_Y, position.z);
 
     // OBB値変更
-    pOBBCol->changeRotateMatrix(obbAngle);      // 回転
-    pOBBCol->changeTranslateMatrix(obbTrans);   // 移動
+    pOBBCol->changeRotateMatrix(ObbAngle);      // 回転
+    pOBBCol->changeTranslateMatrix(ObbTrans);   // 移動
 
     // 移動先までのベクトル取得
     VECTOR NewPos = VAdd(moveVec, position);
