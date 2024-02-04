@@ -225,6 +225,10 @@ void Player::update()
     if (!rollAble)
         manageRollCooldown();
 
+    // UŒ‚‚ðŽó‚¯‚½Žž
+    if (pGame->GetEnemy()->GetIsHitFlag())
+        hitPoint -= ENEMY_ATTACK;
+
     // hitPoint0ˆÈ‰º‚Ådeath‚Ö
     if (hitPoint <= 0.f && !isDeath)
         currentState = PlayerState::Death;
