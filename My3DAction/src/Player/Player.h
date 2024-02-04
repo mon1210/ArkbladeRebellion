@@ -139,7 +139,7 @@ private:
 
 	PlayerState currentState = PlayerState::Idle;						// ó‘Ô‚ğ•\‚·
 
-	std::unordered_map<PlayerState, StateFunction> stateFunctionMap;	// ŠÖ”‚Ì“ü‚Á‚½unordered_map‚ğ’è‹`
+	std::unordered_map<PlayerState, stateFunction> stateFunctionMap;	// ŠÖ”‚Ì“ü‚Á‚½unordered_map‚ğ’è‹`
 };
 
 

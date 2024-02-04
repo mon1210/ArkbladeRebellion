@@ -75,5 +75,5 @@ protected:
 	//float damage
 	bool	isDeath = false;						// 死亡フラグ
 
-	typedef std::function<void()> StateFunction;	// 関数ポインタの型を定義
+	typedef std::function<void()> stateFunction;	// 関数ポインタの型を定義
 };
