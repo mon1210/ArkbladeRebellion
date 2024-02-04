@@ -131,9 +131,9 @@ private:
 	void death();	// 死亡
 private:
 	Game	*pGame = nullptr;
-	int		rollCoolTime = 0;
 	int		healCount = 0;												// 回復可能回数
 	//int		count = 0;
+	float	rollCoolTime = 0.f;
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ

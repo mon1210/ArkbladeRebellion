@@ -37,7 +37,7 @@ void Player::initialize(int hit_point)
     angle = PLAYER_START_ROTATE_Y;
     position = VGet(PLAYER_START_POS_X, PLAYER_START_POS_Y, PLAYER_START_POS_Z);
     moveVec = VGet(0.f, 0.f, 0.f);
-    rollCoolTime = 0;
+    rollCoolTime = 0.f;
     rollAble = true;
 
     // モデルにIdleアニメーションをセット
@@ -81,13 +81,13 @@ void Player::initialize(int hit_point)
 */
 void Player::initializeStateFunctions()
 {
-    stateFunctionMap[PlayerState::Idle] = [this]() { idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move] = [this]() { move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll] = [this]() { roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack] = [this]() { attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage] = [this]() { damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing] = [this]() { healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death] = [this]() { death();   };  // 死亡
+    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
 }
 
 
@@ -162,7 +162,7 @@ void Player::updateMoveAndCollision()
 
         // 当たり判定更新 ------
         // roll以外のとき(Rollのクールタイムがdefault値の時)
-        if (rollCoolTime == 0)
+        if (rollCoolTime <= 0)
             rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
         // roll中の時
         else
