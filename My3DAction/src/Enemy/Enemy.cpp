@@ -341,18 +341,8 @@ void Enemy::chase()
 void Enemy::attack()
 {
     // 行動：攻撃
-
-    // 遷移
-    /*
-        待機：
-            条件：アニメーションの終了
-    */
-    // アニメーションタイマーリセット
-    if (updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT))
-        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
-
-
-    // 当たり判定(手)設定 ==============================================
+    
+    // 当たり判定(手)設定 
     // アニメーションがアタッチされている必要があるのでここで処理
     MV1SetAttachAnimTime(animHandle, 0, animTimer);
     // モデルの右手frame取得
@@ -369,6 +359,16 @@ void Enemy::attack()
     {
         DrawString(0, 20, "E->P HIT", GREEN);
     }
+
+    // 遷移
+    /*
+        待機：
+            条件：アニメーションの終了
+    */
+    // アニメーションタイマーリセット
+    if (updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT))
+        setStateAndAnim(EnemyState::Wait, eEnemy::AnimationNum::Idle);
+
 }
 
 
