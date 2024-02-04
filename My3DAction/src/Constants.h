@@ -50,6 +50,7 @@ const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメ
 const float ENEMY_MOVE_SPEED = 4.f;				// エネミーの移動距離
 const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
 const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
+const float PLAYER_ATTACK = 0.05f;				// プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
 
 const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
 const VECTOR ENEMY_OBB_ANGLE = VGet(0.f, ENEMY_START_ROTATE_Y, 0.f);
