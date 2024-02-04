@@ -98,12 +98,12 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 	// カメラの角度に合わせて移動ベクトルを回転してから加算
 
 	// カメラの水平角度に対するsin, cos値を算出
-	float sinParam = sin(hAngle / 180.0f * DX_PI_F);
-	float cosParam = cos(hAngle / 180.0f * DX_PI_F);
+	float SinParam = sin(hAngle / 180.0f * DX_PI_F);
+	float CosParam = cos(hAngle / 180.0f * DX_PI_F);
 	// 移動ベクトルを水平方向に回転して保存
-	NewPlayerPos.x = move_vec.x * cosParam - move_vec.z * sinParam;
+	NewPlayerPos.x = move_vec.x * CosParam - move_vec.z * SinParam;
 	NewPlayerPos.y = 0.0f;	// 上下は無視
-	NewPlayerPos.z = move_vec.x * sinParam + move_vec.z * cosParam;
+	NewPlayerPos.z = move_vec.x * SinParam + move_vec.z * CosParam;
 
 	NewPlayerPos = VAdd(player_pos, NewPlayerPos);
 
@@ -127,18 +127,18 @@ void Camera::setPosition(VECTOR player_pos)
 	// カメラの位置はカメラの水平角度と垂直角度から算出
 
 	// 最初に垂直角度を反映した位置を算出
-	float sinParam = sin(vAngle / 180.0f * DX_PI_F);
-	float cosParam = cos(vAngle / 180.0f * DX_PI_F);
+	float SinParam = sin(vAngle / 180.0f * DX_PI_F);
+	float CosParam = cos(vAngle / 180.0f * DX_PI_F);
 	VerticalAnglePos.x = 0.0f;
-	VerticalAnglePos.y = sinParam * CAMERA_LOOK_AT_DISTANCE;
-	VerticalAnglePos.z = -cosParam * CAMERA_LOOK_AT_DISTANCE;
+	VerticalAnglePos.y = SinParam * CAMERA_LOOK_AT_DISTANCE;
+	VerticalAnglePos.z = -CosParam * CAMERA_LOOK_AT_DISTANCE;
 
 	// 次に水平角度を反映した位置を算出
-	sinParam = sin(hAngle / 180.0f * DX_PI_F);
-	cosParam = cos(hAngle / 180.0f * DX_PI_F);
-	HorizontalAnglePos.x = cosParam * VerticalAnglePos.x - sinParam * VerticalAnglePos.z;
+	SinParam = sin(hAngle / 180.0f * DX_PI_F);
+	CosParam = cos(hAngle / 180.0f * DX_PI_F);
+	HorizontalAnglePos.x = CosParam * VerticalAnglePos.x - SinParam * VerticalAnglePos.z;
 	HorizontalAnglePos.y = VerticalAnglePos.y;
-	HorizontalAnglePos.z = sinParam * VerticalAnglePos.x + cosParam * VerticalAnglePos.z;
+	HorizontalAnglePos.z = SinParam * VerticalAnglePos.x + CosParam * VerticalAnglePos.z;
 
 	// 算出した座標に注視点の位置を加算したものがカメラの位置
 	position = VAdd(HorizontalAnglePos, CameraLookAtPos);
