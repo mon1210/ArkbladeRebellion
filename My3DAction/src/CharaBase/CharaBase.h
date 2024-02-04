@@ -46,7 +46,12 @@ public:
 	/**
 	* @brief 座標を取得して返す
 	*/
-	VECTOR GetPos() { return position; };
+	VECTOR GetPos() { return position; }
+
+	/**
+	* @brief 攻撃ヒット判定フラグを取得して返す
+	*/
+	bool GetIsHitFlag() { return isAttackHit; }
 	// 以上取得用定数===================================================================== //
 protected:
 	/**
@@ -72,6 +77,7 @@ protected:
 	float	currentHP = 0.f;						// HPが変化したかを判断する用の変数
 	//float damage
 	bool	isDeath = false;						// 死亡フラグ
+	bool	isAttackHit = false;					// 自身の攻撃が当たったかのフラグ
 
 	typedef std::function<void()> stateFunction;	// 関数ポインタの型を定義
 };
