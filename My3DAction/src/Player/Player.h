@@ -19,11 +19,18 @@ class OBBCollider;
 
 class Player : public CharaBase
 {
+	// ※コンストラクタよりも先に書かないとエラーになる
+private:
+	// 体用 OBBColliderインスタンス化   被ダメージ時使用
+	OBBCollider mOBBCol = OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
+
+	// 剣用 OBBColliderインスタンス化   攻撃時使用
+	OBBCollider mOBBColSword = OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 public:
 	/**
 	* @brief Playerのコンストラクタ
 	*/
-	Player(Game *Game_);
+	Player(Game* Game_);
 
 	// デストラクタ
 	~Player() override;
@@ -63,9 +70,9 @@ public:
 	int		GetHealCount();
 
 	/**
-	* @brief pOBBColを取得して返す
+	* @brief mOBBColを取得して返す
 	*/
-	OBBCollider *GetOBBCol();
+	OBBCollider GetOBBCol();
 	// 以上取得用定数====================================================================== //
 private:
 	/**
@@ -123,13 +130,11 @@ private:
 	void healing();	// 回復
 	void death();	// 死亡
 private:
-	Game		*pGame = nullptr;
-	OBBCollider *pOBBCol = nullptr;
-	OBBCollider *pOBBColSword = nullptr;
+	Game* pGame = nullptr;
 	int		rollCoolTime = 0;
 	int		healCount = 0;												// 回復可能回数
 	//int		count = 0;
-	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
+	float* withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ
 	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ

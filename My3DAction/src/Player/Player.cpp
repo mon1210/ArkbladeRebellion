@@ -21,8 +21,6 @@ Player::~Player()
 {
     delete[] animTimes;
     delete[] withSwordAnimTimes;
-    SAFE_DELETE(pOBBCol);
-    SAFE_DELETE(pOBBColSword);
 }
 
 
@@ -70,10 +68,10 @@ void Player::initialize(int hit_point)
         animHandle = pGame->GetModelManager()->GetHandle(ModelType::Player);
 
     // 体用 OBBColliderインスタンス化   被ダメージ時使用
-    pOBBCol = new OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
+    mOBBCol = OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
 
     // 剣用 OBBColliderインスタンス化   攻撃時使用
-    pOBBColSword = new OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
+    mOBBColSword = OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 }
 
 
@@ -83,13 +81,13 @@ void Player::initialize(int hit_point)
 */
 void Player::initializeStateFunctions()
 {
-    stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
-    stateFunctionMap[PlayerState::Move]     = [this]() { move();    };  // 移動
-    stateFunctionMap[PlayerState::Roll]     = [this]() { roll();    };  // 前転(回避)
-    stateFunctionMap[PlayerState::Attack]   = [this]() { attack();  };  // 攻撃
-    stateFunctionMap[PlayerState::Damage]   = [this]() { damage();  };  // 被ダメージ
-    stateFunctionMap[PlayerState::Healing]  = [this]() { healing(); };  // 回復
-    stateFunctionMap[PlayerState::Death]    = [this]() { death();   };  // 死亡
+    stateFunctionMap[PlayerState::Idle] = [this]() { idle();    };  // 待機
+    stateFunctionMap[PlayerState::Move] = [this]() { move();    };  // 移動
+    stateFunctionMap[PlayerState::Roll] = [this]() { roll();    };  // 前転(回避)
+    stateFunctionMap[PlayerState::Attack] = [this]() { attack();  };  // 攻撃
+    stateFunctionMap[PlayerState::Damage] = [this]() { damage();  };  // 被ダメージ
+    stateFunctionMap[PlayerState::Healing] = [this]() { healing(); };  // 回復
+    stateFunctionMap[PlayerState::Death] = [this]() { death();   };  // 死亡
 }
 
 
@@ -152,8 +150,8 @@ void Player::updateMoveAndCollision()
     VECTOR ObbTrans = VGet(position.x, position.y + PLAYER_OBB_TRANS_Y, position.z);
 
     // OBB値変更
-    pOBBCol->changeRotateMatrix(ObbAngle);      // 回転
-    pOBBCol->changeTranslateMatrix(ObbTrans);   // 移動
+    mOBBCol.changeRotateMatrix(ObbAngle);      // 回転
+    mOBBCol.changeTranslateMatrix(ObbTrans);   // 移動
 
     if (pGame)
     {
@@ -472,14 +470,14 @@ void Player::attack()
     // モデルの右手frame取得
     MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, PLAYER_RIGHT_HAND_FRAME);
     // 親の行列に合わせる
-    pOBBColSword->setParentMatrix(frame_matrix);
+    mOBBColSword.setParentMatrix(frame_matrix);
 #ifdef _DEBUG
     // 描画
-    pOBBColSword->draw();
+    mOBBColSword.draw();
 #endif
 
     // 武器OBB,敵OBBでの当たり判定
-    if (pGame->GetCollision()->checkOBBCol(pOBBColSword, pGame->GetEnemy()->GetOBBCol()))
+    if (pGame->GetCollision()->checkOBBCol(mOBBColSword, pGame->GetEnemy()->GetOBBCol()))
     {
         DrawString(0, 0, "P->E HIT", RED);
     }
@@ -615,7 +613,7 @@ void Player::draw()
     //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 
     // 描画
-    pOBBCol->draw();
+    mOBBCol.draw();
 #endif
 
 }
@@ -640,9 +638,9 @@ int Player::GetHealCount()
 
 
 /*
-* @brief pOBBColを取得して返す
+* @brief mOBBColを取得して返す
 */
-OBBCollider* Player::GetOBBCol()
+OBBCollider Player::GetOBBCol()
 {
-    return pOBBCol;
+    return mOBBCol;
 }
