@@ -76,10 +76,10 @@ public:
 
 private:
 	// MGetIdent()　MATRIXクラスのコンストラクタで、変数を初期化している
-	MATRIX scaleMatrix	  { MGetIdent() };		// 拡縮行列
-	MATRIX rotateMatrix	  { MGetIdent() };		// 回転行列
-	MATRIX translateMatrix{ MGetIdent() };		// 平行移動行列
-	MATRIX parentMatrix	  { MGetIdent() };		// 親の変換行列
+	MATRIX scaleMatrix		= MGetIdent();	// 拡縮行列
+	MATRIX rotateMatrix		= MGetIdent();	// 回転行列
+	MATRIX translateMatrix	= MGetIdent();	// 平行移動行列
+	MATRIX parentMatrix		= MGetIdent();	// 親の変換行列
 
-	MATRIX transformMatrix{ MGetIdent() };		// 変換行列　上記の行列をまとめて保存する
+	MATRIX transformMatrix	= MGetIdent();	// 変換行列　上記の行列をまとめて保存する
 };
