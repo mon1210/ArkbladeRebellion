@@ -27,6 +27,8 @@ void setAnim(int handle, int anim_num, float& anim_timer)
 */
 bool updateAnimation(float anim_time, float* anim_timer, float ANIM_F_INCREMENT)
 {
+    if (!anim_timer) { return false; }
+
     *anim_timer += ANIM_F_INCREMENT;
     // アニメーション時間を過ぎたらリセット
     if (*anim_timer >= anim_time)
