@@ -110,7 +110,7 @@ GameSceneResultCode Game::move()
 			bPause = false;
 		}
 
-		if (pPlayer)
+		if (pPlayer && pEnemy)
 		{
 			if (!pPlayer->isAlive() || !pEnemy->isAlive())
 			{
