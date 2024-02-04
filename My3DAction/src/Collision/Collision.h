@@ -61,13 +61,13 @@ public:
 	bool checkAttackArea(VECTOR attack_ch_pos, VECTOR damage_ch_pos, float attack_area);
 
 	/**
-	* @brief  二つのOBBポインタで当たり判定をする
-	* @note	  OBBポインタ同士の当たり判定をとる
+	* @brief  二つのOBBオブジェクトで当たり判定をする
+	* @note	  OBB同士の当たり判定をとる
 	* @return true:当たっている / false:当たっていない
-	* @param[in] *obb_01　一つ目のOBBポインタ
-	* @param[in] *obb_02　二つ目のOBBポインタ
+	* @param[in] obb_01　一つ目のOBB
+	* @param[in] obb_02　二つ目のOBB
 	*/
-	bool checkOBBCol(OBBCollider *obb_01, OBBCollider *obb_02);
+	bool checkOBBCol(OBBCollider obb_01, OBBCollider obb_02);
 private:
 	/**
 	* @brief  分離軸候補が、分離軸かどうかを判断
