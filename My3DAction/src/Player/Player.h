@@ -30,7 +30,7 @@ public:
 	/**
 	* @brief Playerのコンストラクタ
 	*/
-	Player(Game* Game_);
+	Player(Game *Game_);
 
 	// デストラクタ
 	~Player() override;
@@ -130,11 +130,11 @@ private:
 	void healing();	// 回復
 	void death();	// 死亡
 private:
-	Game* pGame = nullptr;
+	Game	*pGame = nullptr;
 	int		rollCoolTime = 0;
 	int		healCount = 0;												// 回復可能回数
 	//int		count = 0;
-	float* withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
+	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ
 	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ
