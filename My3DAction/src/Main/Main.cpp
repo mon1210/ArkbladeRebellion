@@ -89,7 +89,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		//	‚±‚Ì’†‚É•`‰æˆ—‚ð‘‚­
 
 		if (g_pSceneManager)
-			g_pSceneManager->switchPhase();
+			g_pSceneManager->switchSceneAndPhase();
 
 		if (g_pSceneManager)
 			g_pSceneManager->doDraw();
