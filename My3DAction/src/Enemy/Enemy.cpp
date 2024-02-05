@@ -208,10 +208,10 @@ void Enemy::wait()
         isAttack = true;
     }
 
-    // HP減少時　Damageへ    HPが0以下の際には通らずDeathへ
-    if (hitPoint < currentHP && hitPoint > 0) {
-        currentState = EnemyState::Damage;
-    }
+    //// HP減少時　Damageへ    HPが0以下の際には通らずDeathへ
+    //if (hitPoint < currentHP && hitPoint > 0) {
+    //    currentState = EnemyState::Damage;
+    //}
 
     // アニメーションタイマーリセット
     updateAnimation(animTime, &animTimer, ENEMY_ANIM_F_INCREMENT);
