@@ -49,6 +49,11 @@ public:
 	VECTOR GetPos() { return position; }
 
 	/**
+	* @brief Hpを取得して返す
+	*/
+	float	GetHp() { return hitPoint; }
+
+	/**
 	* @brief 攻撃ヒット判定フラグを取得して返す
 	*/
 	bool GetIsHitFlag() { return isAttackHit; }
