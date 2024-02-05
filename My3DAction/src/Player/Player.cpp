@@ -633,15 +633,6 @@ void Player::draw()
 
 
 /**
-* @brief Hp‚ðŽæ“¾‚µ‚Ä•Ô‚·
-*/
-float Player::GetHp()
-{
-    return hitPoint;
-}
-
-
-/**
 * @brief healCount‚ðŽæ“¾‚µ‚Ä•Ô‚·
 */
 int Player::GetHealCount()
