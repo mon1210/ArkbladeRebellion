@@ -108,7 +108,7 @@ void Enemy::update()
     // UŒ‚‚ğó‚¯‚½
     if (pGame->GetPlayer()->GetIsHitFlag())
     {
-        hitPoint = clampF(hitPoint, 0, MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
+        hitPoint = clampF(hitPoint, 0, ENEMY_MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
         hitPoint -= PLAYER_ATTACK;
     }
 }
@@ -440,7 +440,7 @@ bool Enemy::isAlive()
 #ifdef _DEBUG
     // L‚ÅHPŒ¸­
     if (CheckHitKey(KEY_INPUT_U)) {
-        hitPoint = clampF(hitPoint, 0, MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
+        hitPoint = clampF(hitPoint, 0, ENEMY_MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
         hitPoint -= HP_CHANGE_AMOUNT;
     }
 #endif
