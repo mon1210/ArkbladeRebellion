@@ -107,7 +107,10 @@ void Enemy::update()
 
     // 攻撃を受けた時
     if (pGame->GetPlayer()->GetIsHitFlag())
+    {
+        hitPoint = clampF(hitPoint, 0, MAX_HP); // 最大最小を決定
         hitPoint -= PLAYER_ATTACK;
+    }
 }
 
 
@@ -134,6 +137,7 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
     // 現在のアニメーションの再生時間を取得
     animTime = animTimes[static_cast<int>(anim_num)];
 }
+
 
 /**
 * @brief 座標と当たり判定を設定するメソッド
