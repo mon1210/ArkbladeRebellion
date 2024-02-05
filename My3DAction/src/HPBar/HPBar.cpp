@@ -22,13 +22,22 @@ HPBar::~HPBar()
 */
 void HPBar::update()
 {
+	// Player -------------
 	// HPバーの表示比率がHP以上の時
-	if (hpRatio > pGame->GetPlayer()->GetHp()) {
-		hpRatio -= HP_CHANGE_AMOUNT;
+	if (playerHpRatio > pGame->GetPlayer()->GetHp()) {
+		playerHpRatio -= HP_CHANGE_AMOUNT;
 	}
 	// HPバーの表示比率がHP以下の時
-	else if (hpRatio < pGame->GetPlayer()->GetHp()) {
-		hpRatio += HP_CHANGE_AMOUNT;
+	else if (playerHpRatio < pGame->GetPlayer()->GetHp()) {
+		playerHpRatio += HP_CHANGE_AMOUNT;
+	}
+
+	// Enemy --------------
+	if (enemyHpRatio > pGame->GetEnemy()->GetHp()) {
+		enemyHpRatio -= HP_CHANGE_AMOUNT;
+	}
+	else if (enemyHpRatio < pGame->GetEnemy()->GetHp()) {
+		enemyHpRatio += HP_CHANGE_AMOUNT;
 	}
 }
 
@@ -40,7 +49,7 @@ void HPBar::update()
 void HPBar::draw()
 {
 	// HPの割合を求める
-	float Ratio = hpRatio / MAX_HP;
+	float Ratio = playerHpRatio / MAX_HP;
 
 	// バーの色指定
 	int BarColor = GREEN;
@@ -55,4 +64,17 @@ void HPBar::draw()
 	DrawBox(HP_BAR_POS_X, HP_BAR_POS_Y,
 			HP_BAR_POS_X + HP_BAR_WIDTH, HP_BAR_POS_Y + HP_BAR_HEIGHT, 
 			WHITE, FALSE);
+
+	// Enemy ----------------------------------
+	float EHPRatio = enemyHpRatio / ENEMY_MAX_HP;
+	// HPバー描画	横幅に割合をかけて増減を表現
+	DrawBox(ENEMY_HP_BAR_POS_X, ENEMY_HP_BAR_POS_Y,
+		ENEMY_HP_BAR_POS_X + static_cast<int>(ENEMY_HP_BAR_WIDTH * EHPRatio), ENEMY_HP_BAR_POS_Y + ENEMY_HP_BAR_HEIGHT,
+		RED, TRUE);
+	// 増減がわかりやすいように縁も描画
+	DrawBox(ENEMY_HP_BAR_POS_X, ENEMY_HP_BAR_POS_Y,
+		ENEMY_HP_BAR_POS_X + ENEMY_HP_BAR_WIDTH, ENEMY_HP_BAR_POS_Y + ENEMY_HP_BAR_HEIGHT,
+		BLACK, FALSE);
+	// Enemy 名前表示
+	DrawString(ENEMY_HP_BAR_POS_X, ENEMY_HP_BAR_POS_Y - ENEMY_NAME_POS_Y, "Enemy:", BLACK);
 }
