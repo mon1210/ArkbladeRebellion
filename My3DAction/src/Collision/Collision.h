@@ -46,9 +46,11 @@ public:
 	* @param[in] cap2_height　	pos2のカプセルの高さ
 	* @param[in] cap1_radius　	pos1のカプセルの半径
 	* @param[in] cap2_radius　	pos2のカプセルの半径
+	* @param[in] push_power　	当たった際の押し戻しの力
 	*/
 	bool charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2,
-		float cap1_height, float cap2_height, float cap1_radius, float cap2_radius);
+		float cap1_height, float cap2_height, float cap1_radius, float cap2_radius,
+		float push_power);
 
 	/**
 	* @brief  キャラクターが攻撃範囲内にいるか同かを判定するメソッド

@@ -82,8 +82,9 @@ bool Collision::clampToStageBounds(VECTOR& new_pos, VECTOR& pos)
 * @param[in] cap2_height　	pos2のカプセルの高さ
 * @param[in] cap1_radius　	pos1のカプセルの半径
 * @param[in] cap2_radius　	pos2のカプセルの半径
+* @param[in] push_power　	当たった際の押し戻しの力
 */
-bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius)
+bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2, float cap1_height, float cap2_height, float cap1_radius, float cap2_radius, float push_power)
 {
 	// 移動後の ch の座標を算出
 	VECTOR NewPos1 = VAdd(pos1, pos1_move_vec);
@@ -107,7 +108,7 @@ bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2, fl
 
 		// 押し出す距離を算出 ------
 		// 二人の距離から二人の大きさを引いた値に押し出し力を足しても離れてしまう場合は、ぴったりくっつく距離に移動する
-		if (Length - (cap2_radius * 2.f) + CHARA_HIT_PUSH_POWER > 0.f)	// * 2.f => 直径を求める
+		if (Length - (cap2_radius * 2.f) + push_power > 0.f)	// * 2.f => 直径を求める
 		{
 			float TempY;		// コピー用
 
@@ -122,7 +123,7 @@ bool Collision::charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2, fl
 		else
 		{
 			// 押し出し
-			NewPos1 = VAdd(NewPos1, VScale(PushVec, CHARA_HIT_PUSH_POWER));
+			NewPos1 = VAdd(NewPos1, VScale(PushVec, push_power));
 			// 当たり判定処理後の移動ベクトルをセット
 			pos1_move_vec = VSub(NewPos1, pos1);
 		}

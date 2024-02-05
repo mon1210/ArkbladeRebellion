@@ -236,7 +236,7 @@ void Enemy::move()
     moveVec = VScale(moveVec, ENEMY_MOVE_SPEED);
 
     // プレイヤーとの当たり判定
-    pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS);
+    pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
 
     // 座標と当たり判定を設定するメソッド
     updateMoveAndCollision();
@@ -299,7 +299,7 @@ void Enemy::chase()
     angle = atan2f(-moveVec.x, -moveVec.z) * 180.f / DX_PI_F;
 
     // プレイヤーとの当たり判定
-    if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS))
+    if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER))
         isColHit = true;
 
     // 座標と当たり判定を設定するメソッド
