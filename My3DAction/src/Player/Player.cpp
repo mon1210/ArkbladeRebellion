@@ -225,8 +225,8 @@ void Player::update()
     if (!rollAble)
         manageRollCooldown();
 
-    // UŒ‚‚ðŽó‚¯‚½Žž
-    if (pGame->GetEnemy()->GetIsHitFlag())
+    // UŒ‚‚ðŽó‚¯‚½Žž      Roll’†‚Í–³“G
+    if (pGame->GetEnemy()->GetIsHitFlag() && !isRoll)
         hitPoint -= ENEMY_ATTACK;
 
     // hitPoint0ˆÈ‰º‚Ådeath‚Ö
