@@ -49,6 +49,7 @@ const float ENEMY_MODEL_SCALE = 2.5f;			// エネミーの3Dモデルの拡大率
 const float ENEMY_ANIM_F_INCREMENT = 0.25f;		// エネミーの毎フレームごとのアニメーションの増加数
 const float ENEMY_MOVE_SPEED = 4.f;				// エネミーの移動距離
 const float ENEMY_VIEW_RADIUS = 1500.f;			// エネミーの視野円の半径
+const float ENEMY_MAX_HP = 150.f;				// エネミーの最大HP
 const float ENEMY_OBB_TRANS_Y = 250.f;			// エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float PLAYER_ATTACK = 0.05f;				// プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
 
@@ -156,14 +157,19 @@ const int TITLE_PS_POS_Y = 240;					// PressSpaceのY座標
 // 以上Title用定数=================================================================================================== //
 
 
-// 以下UI用定数====================================================================================================== //
+// 以下HPBar用定数====================================================================================================== //
 const int LOW_HP = 30;							// この数値以下でゲージの色変更
 const int HP_BAR_POS_X = 250;					// HPバーのX座標
 const int HP_BAR_POS_Y = 20;					// HPバーのY座標
 const int HP_BAR_WIDTH = 350;					// HPバーの横幅
 const int HP_BAR_HEIGHT = 13;					// HPバーの高さ
+const int ENEMY_HP_BAR_POS_X = 50;				// エネミーのHPバーのX座標
+const int ENEMY_HP_BAR_POS_Y = 370;				// エネミーのHPバーのY座標
+const int ENEMY_HP_BAR_WIDTH = 525;				// エネミーのHPバーの横幅
+const int ENEMY_HP_BAR_HEIGHT = 25;				// エネミーのHPバーの高さ
+const int ENEMY_NAME_POS_Y = 20.f;				// 
 const float HP_CHANGE_AMOUNT = 0.5f;			// HPの変化量　バーの増減速度
-// 以上UI用定数====================================================================================================== //
+// 以上HPBar用定数====================================================================================================== //
 
 
 // 以下Color====================================================================================================== //

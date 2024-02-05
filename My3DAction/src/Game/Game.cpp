@@ -33,7 +33,7 @@ void Game::initialize()
 	if (pPlayer)
 		pPlayer->initialize(MAX_HP);
 	if (pEnemy)
-		pEnemy->initialize(MAX_HP);
+		pEnemy->initialize(ENEMY_MAX_HP);
 	if (pCollision && pBG)
 		pCollision->initialize(pBG->GetModelHandle());
 
