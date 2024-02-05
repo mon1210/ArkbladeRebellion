@@ -156,18 +156,24 @@ void Player::updateMoveAndCollision()
 
     if (pGame)
     {
-        // エネミーとの当たり判定
-        pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS);
-        // 移動後の座標取得
-        VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
-
         // 当たり判定更新 ------
-        // roll以外のとき(Rollのクールタイムがdefault値の時)
-        if (rollCoolTime <= 0)
+        // roll以外のとき(ゲーム開始時)
+        if (!isRoll)
+        {            
+            // エネミーとの当たり判定
+            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
+            // 移動後の座標取得
+            VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
+            // 地面との判定があるときはRoll可能
             rollAble = pGame->GetCollision()->clampToStageBounds(NewPos, position);
+        }
         // roll中の時
         else
         {
+            // エネミーとの当たり判定
+            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, 0.f);
+            // 移動後の座標取得
+            VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
             // 当たり判定更新
             pGame->GetCollision()->clampToStageBounds(NewPos, position);
             // Rollのクールダウン
