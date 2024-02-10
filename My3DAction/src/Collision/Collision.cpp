@@ -192,11 +192,11 @@ bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8]
 	// 2本分
 	Length length[2];
 
-	// 2 = vertices_list.size
-	for (int i = 0; i < 2; i++)
+	// vertices_list.size = 2
+	for (int i = 0; i < VERTICES_LIST_SIZE; i++)
 	{
-		// 8 = 各OBBの頂点数
-		for (int j = 0; j < 8; j++)
+		// 各OBBの頂点数 = 8
+		for (int j = 0; j < OBB_VERTICES; j++)
 		{
 			// [0][0] => [一つ目のOBB][一つ目の頂点]
 			VECTOR vertice = vertices_list[i][j];
@@ -219,7 +219,7 @@ bool Collision::isFindSeparatingAxis(const VECTOR& axis, VECTOR obb1_vertices[8]
 		}
 	}
 
-	// 交差しているとき	分離軸ではない
+	// 各OBBの射影された頂点の範囲が交差しているとき	分離軸ではない
 	if (length[0].min <= length[1].max && length[1].min <= length[0].max)
 	{
 		return false;
