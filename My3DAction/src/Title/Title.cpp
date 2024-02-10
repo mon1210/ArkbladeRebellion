@@ -15,7 +15,7 @@
 */
 Title::Title(SceneManager *pSystem)
 {
-	System = pSystem;	//---Select
+	System = pSystem;
 }
 
 
