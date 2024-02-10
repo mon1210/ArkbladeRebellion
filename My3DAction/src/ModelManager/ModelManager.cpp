@@ -53,5 +53,5 @@ int ModelManager::GetHandle(ModelType type_)
         return modelList[type_];
     }
 
-    return modelList[ModelType::No];
+    return modelList[ModelType::Default];
 }
