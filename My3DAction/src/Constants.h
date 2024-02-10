@@ -59,9 +59,9 @@ const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
 const VECTOR ENEMY_OBB_ANGLE = VGet(0.f, ENEMY_START_ROTATE_Y, 0.f);
 const VECTOR ENEMY_OBB_TRANS = VGet(ENEMY_START_POS_X, ENEMY_START_POS_Y + ENEMY_OBB_TRANS_Y, ENEMY_START_POS_Z);
 
-const VECTOR HAND_OBB_SCALE = VGet(35.f, 30.f, 20.f);
-const VECTOR HAND_OBB_ANGLE = VGet(0.f, 6.4f, 89.f);
-const VECTOR HAND_OBB_TRANS = VGet(1.f, 19.f, -3.f);
+const VECTOR HAND_OBB_SCALE = VGet(35.f, 30.f, 20.f);	// 手の当たり判定OBBの拡縮値
+const VECTOR HAND_OBB_ANGLE = VGet(0.f, 6.4f, 89.f);	// 手の当たり判定OBBの回転値
+const VECTOR HAND_OBB_TRANS = VGet(1.f, 19.f, -3.f);	// 手の当たり判定OBBの移動値
 // 以上Enemy用定数=================================================================================================== //
  
 
@@ -169,7 +169,7 @@ const int ENEMY_HP_BAR_POS_X = 50;				// エネミーのHPバーのX座標
 const int ENEMY_HP_BAR_POS_Y = 370;				// エネミーのHPバーのY座標
 const int ENEMY_HP_BAR_WIDTH = 525;				// エネミーのHPバーの横幅
 const int ENEMY_HP_BAR_HEIGHT = 25;				// エネミーのHPバーの高さ
-const int ENEMY_NAME_POS_Y = 20.f;				// 
+const int ENEMY_NAME_POS_Y = 20.f;				// エネミーの名前表示Y座標
 const float HP_CHANGE_AMOUNT = 0.5f;			// HPの変化量　バーの増減速度
 // 以上HPBar用定数====================================================================================================== //
 
