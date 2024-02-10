@@ -26,6 +26,8 @@ const float RADAR_CENTER_OFFSET = 350.f;		// RadarPointがRadarの中心に来るように
 
 // 以下Collision用定数=============================================================================================== //
 const int SPATIAL_PARTITION = 32;				// 空間分割数
+const int VERTICES_LIST_SIZE = 2;				// 頂点リストのサイズ
+const int OBB_VERTICES = 8;						// OBBの頂点の数
 const float CHARA_HEIGHT = 250.f;				// 当たり判定の大きさ
 const float CHARA_HIT_PUSH_POWER = 20.f;		// 当たった際に押し戻される力
 const float PLAYER_CAP_RADIUS = 55.f;			// プレイヤーの当たり判定カプセルの半径
