@@ -302,7 +302,7 @@ void Player::idle()
 */
 void Player::move()
 {
-    // 
+    // À•W‚Æ“–‚½‚è”»’è‚ğİ’è
     updateMoveAndCollision();
 
     if (Key_ForwardMove)
@@ -343,7 +343,7 @@ void Player::move()
 */
 void Player::roll()
 {
-    // 
+    // À•W‚Æ“–‚½‚è”»’è‚ğİ’è
     updateMoveAndCollision();
 
     // ‘ORoll
