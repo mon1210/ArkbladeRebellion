@@ -1,7 +1,7 @@
 /**
 * @file		My3DAction.cpp
 * @author	R.Monda
-* @date		..2023
+* @date		2.1.2024
 * @brief	シーン管理クラス		: SceneManager	(SceneManager.h)
 *			ゲームシーンクラス		: Game			(Game.h)
 *			プレイヤークラス		: Player		(Player.h)
