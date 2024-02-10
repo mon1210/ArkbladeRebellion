@@ -163,7 +163,6 @@
     <ClCompile Include="src\Radar\Radar.cpp" />
     <ClCompile Include="src\SceneManager\SceneManager.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
-    <ClCompile Include="src\test.cpp" />
     <ClCompile Include="src\Title\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
