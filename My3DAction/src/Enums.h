@@ -46,7 +46,7 @@ enum class StagePhase
 // モデルの種類
 enum class ModelType
 {
-	No = -1,			// -1代入用
+	Default = -1,			// -1代入用
 	Player,
 	PlayerWithSword,	// 武器を持ったプレイヤー
 	Enemy,
@@ -101,7 +101,7 @@ namespace eEnemy
 // プレイヤーの状態を表す
 enum class PlayerState
 {
-	None = -1,		// -1代入用
+	Default = -1,		// -1代入用
 	Idle,
 	Move,
 	Roll,
