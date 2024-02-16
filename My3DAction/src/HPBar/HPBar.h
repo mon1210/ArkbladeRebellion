@@ -28,7 +28,7 @@ public:
 	void update();
 private:
 	Game	*pGame = nullptr;
-	float	playerHpRatio = 0.f;	// HPバーの表示比率
-	float	enemyHpRatio = 0.f;		// HPバーの表示比率
+	float	currnetPlayerHp = 0.f;	// 現在のPlayerのHP
+	float	currnetEnemyHp = 0.f;	// 現在のEnemyのHP
 
 };
