@@ -126,7 +126,6 @@ private:
 private:
 	Game	*pGame = nullptr;
 	int		healCount = 0;												// 回復可能回数
-	//int		count = 0;
 	float	rollCoolTime = 0.f;
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	rollAble = true;											// Roll可能フラグ
