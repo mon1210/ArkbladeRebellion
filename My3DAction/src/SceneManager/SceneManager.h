@@ -18,7 +18,7 @@ public:
 	SceneManager();
 
 	// デストラクタ
-	~SceneManager(void);
+	~SceneManager();
 
 	/**
 	* @brief ゲーム全体のシーンとPhaseを管理
