@@ -16,7 +16,7 @@ public:
 	/**
 	* @brief BGのコンストラクタ
 	*/
-	BG(Game *Game_);
+	BG(Game *Game);
 
 	// デストラクタ
 	~BG();

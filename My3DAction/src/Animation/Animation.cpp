@@ -23,13 +23,13 @@ void setAnim(int handle, int anim_num, float& anim_timer)
 * @return  true:アニメーション終了 / false:何もしない
 * @param[in] anim_time          アニメーションの総再生時間
 * @param[in] anim_timer         アニメーションの現在の経過時間
-* @param[in] ANIM_F_INCREMENT   1フレームのアニメーション増加量
+* @param[in] anim_f_increment   1フレームのアニメーション増加量
 */
-bool updateAnimation(float anim_time, float* anim_timer, float ANIM_F_INCREMENT)
+bool updateAnimation(float anim_time, float* anim_timer, float anim_f_increment)
 {
     if (!anim_timer) { return false; }
 
-    *anim_timer += ANIM_F_INCREMENT;
+    *anim_timer += anim_f_increment;
     // アニメーション時間を過ぎたらリセット
     if (*anim_timer >= anim_time)
     {

@@ -8,8 +8,8 @@
 * @param[in] z　	z座標
 * @param[in] type_	Pointの種類　何のPoint表しているか
 */
-RadarPoint::RadarPoint(float x, float z, eRadar::PointType type_) 
-	: posX(x), posZ(z), pointType(type_)
+RadarPoint::RadarPoint(float x, float z, eRadar::PointType type) 
+	: posX(x), posZ(z), pointType(type)
 {
 }
 

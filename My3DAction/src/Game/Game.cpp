@@ -6,9 +6,9 @@
 /**
 * @brief Gameのコンストラクタ
 */
-Game::Game(SceneManager* System_)
+Game::Game(SceneManager *System)
 {
-	pSystem = System_;
+	pSystem = System;
 
 	// インスタンス化
 	pModelManager = new ModelManager();

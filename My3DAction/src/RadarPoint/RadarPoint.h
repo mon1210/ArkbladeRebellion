@@ -36,7 +36,7 @@ public:
 	* @param[in] z　	z座標
 	* @param[in] type_	Pointの種類　何のPoint表しているか
 	*/
-	RadarPoint(float x, float z, eRadar::PointType type_);
+	RadarPoint(float x, float z, eRadar::PointType type);
 
 	// デストラクタ
 	~RadarPoint();

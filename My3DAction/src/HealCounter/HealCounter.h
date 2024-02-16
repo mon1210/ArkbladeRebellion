@@ -16,7 +16,7 @@ public:
 	/**
 	* @brief HealCounterのコンストラクタ
 	*/
-	HealCounter(Game *Game_);
+	HealCounter(Game *Game);
 	~HealCounter();
 	/**
 	* @brief 描画メソッド

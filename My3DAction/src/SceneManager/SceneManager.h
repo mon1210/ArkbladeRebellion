@@ -34,7 +34,7 @@ public:
 	* @brief シーン遷移時のフェードアウト
 	* @note  Title => Game , Game => Title に使用
 	*/
-	void fadeOut(int startTime_);
+	void fadeOut(int start_time);
 private:
 	IGameScene *pScene = nullptr;						// シーン
 	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	// 状態変数

@@ -45,12 +45,12 @@ void ModelManager::initializeModelList()
 /**
 * @brief ƒ‚ƒfƒ‹‚ðŽæ“¾‚µ‚Ä•Ô‚·
 */
-int ModelManager::GetHandle(ModelType type_)
+int ModelManager::GetHandle(ModelType type)
 {
     // ƒŠƒXƒg‚ª‹ó‚Å‚È‚¢‚Æ‚«
-    if (modelList.count(type_) > 0)
+    if (modelList.count(type) > 0)
     {
-        return modelList[type_];
+        return modelList[type];
     }
 
     return -1;

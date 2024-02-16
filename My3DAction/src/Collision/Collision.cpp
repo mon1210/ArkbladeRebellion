@@ -3,9 +3,9 @@
 /**
 * @brief Collisionのコンストラクタ
 */
-Collision::Collision(Game *Game_)
+Collision::Collision(Game *Game)
 {
-	pGame = Game_;
+	pGame = Game;
 
 	if (pGame)
 		tileHandle = pGame->GetBG()->GetModelHandle();

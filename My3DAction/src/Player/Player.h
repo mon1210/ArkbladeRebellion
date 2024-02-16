@@ -23,7 +23,7 @@ public:
 	/**
 	* @brief Playerのコンストラクタ
 	*/
-	Player(Game *Game_);
+	Player(Game *Game);
 
 	// デストラクタ
 	~Player() override;
@@ -103,11 +103,11 @@ private:
 	* @note  アニメーションと向きの設定をする
 	*        moveFlagはここでtrueに
 	* @param[in] num　	        アニメーション番号
-	* @param[in] ROTATE_ANGLE　	回転角度
+	* @param[in] rotate_angle　	回転角度
 	* @param[in] move_x　	    x軸方向の移動スピード
 	* @param[in] move_z　	    z軸方向の移動スピード
 	*/
-	void animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z);
+	void animateAndMove(ePlayer::AnimationNum num, float rotate_angle, float move_x, float move_z);
 private:
 	// 状態ごとのメソッド
 	void idle();	// 待機

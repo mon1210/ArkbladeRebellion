@@ -4,9 +4,9 @@
 /**
 * @brief Enemyのコンストラクタ
 */
-Enemy::Enemy(Game *Game_)
+Enemy::Enemy(Game *Game)
 {
-    pGame = Game_;
+    pGame = Game;
 
     // モデル取得
     if (pGame)

@@ -3,9 +3,9 @@
 /**
 * @brief Cameraのコンストラクタ
 */
-Camera::Camera(Game *Game_)
+Camera::Camera(Game *Game)
 {
-	pGame = Game_;
+	pGame = Game;
 }
 
 

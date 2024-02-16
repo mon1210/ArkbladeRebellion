@@ -4,24 +4,24 @@
 /**
 * @brief OBBColliderのコンストラクタ
 * @note  引数の値を基に、OBBColliderを作成
-* @param[in] scale_			拡縮値
-* @param[in] rotate_		回転値
-* @param[in] translate_		移動値
+* @param[in] scale			拡縮値
+* @param[in] rotate			回転値
+* @param[in] translate		移動値
 */
-OBBCollider::OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_)
+OBBCollider::OBBCollider(VECTOR scale, VECTOR rotate, VECTOR translate)
 {
 	// 拡縮行列を設定
 	scaleMatrix = MGetIdent();
-	CreateScalingMatrix(&scaleMatrix, scale_.x, scale_.y, scale_.z);
+	CreateScalingMatrix(&scaleMatrix, scale.x, scale.y, scale.z);
 
 	// 回転行列を設定
-	VECTOR rotate_rad = VScale(rotate_, DX_PI / 180.f);
+	VECTOR rotate_rad = VScale(rotate, DX_PI / 180.f);
 	rotateMatrix = MGetIdent();
 	CreateRotationXYZMatrix(&rotateMatrix, rotate_rad.x, rotate_rad.y, rotate_rad.z);
 
 	// 移動行列を設定
 	translateMatrix = MGetIdent();
-	CreateTranslationMatrix(&translateMatrix, translate_.x, translate_.y, translate_.z);
+	CreateTranslationMatrix(&translateMatrix, translate.x, translate.y, translate.z);
 
 	// 更新
 	update();
@@ -37,12 +37,12 @@ OBBCollider::~OBBCollider()
 /**
 * @brief scaleMatrix変更用メソッド
 */
-void OBBCollider::changeScaleMatrix(VECTOR& scale_)
+void OBBCollider::changeScaleMatrix(VECTOR& scale)
 {
 	// 初期化
 	scaleMatrix = MGetIdent();
 	// 拡縮行列作成し、代入
-	CreateScalingMatrix(&scaleMatrix, scale_.x, scale_.y, scale_.z);
+	CreateScalingMatrix(&scaleMatrix, scale.x, scale.y, scale.z);
 	// 更新
 	update();
 }
@@ -51,10 +51,10 @@ void OBBCollider::changeScaleMatrix(VECTOR& scale_)
 /**
 * @brief rotateMatrix変更用メソッド
 */
-void OBBCollider::changeRotateMatrix(VECTOR& rotate_)
+void OBBCollider::changeRotateMatrix(VECTOR& rotate)
 {
 	// x, y, z成分をそれぞれ弧度法に変換して保存
-	VECTOR rotate_rad = VScale(rotate_, DX_PI / 180.f);
+	VECTOR rotate_rad = VScale(rotate, DX_PI / 180.f);
 	// 初期化
 	rotateMatrix = MGetIdent();
 	// 回転行列を作成し、代入
@@ -67,12 +67,12 @@ void OBBCollider::changeRotateMatrix(VECTOR& rotate_)
 /**
 * @brief translateMatrix変更用メソッド
 */
-void OBBCollider::changeTranslateMatrix(VECTOR& translate_)
+void OBBCollider::changeTranslateMatrix(VECTOR& translate)
 {
 	// 初期化
 	translateMatrix = MGetIdent();
 	// 移動行列を作成し、代入
-	CreateTranslationMatrix(&translateMatrix, translate_.x, translate_.y, translate_.z);
+	CreateTranslationMatrix(&translateMatrix, translate.x, translate.y, translate.z);
 	// 更新
 	update();
 }
@@ -81,9 +81,9 @@ void OBBCollider::changeTranslateMatrix(VECTOR& translate_)
 /**
 * @brief parentMatrixセット用メソッド
 */
-void OBBCollider::setParentMatrix(MATRIX parent_)
+void OBBCollider::setParentMatrix(MATRIX parent)
 {
-	parentMatrix = parent_;
+	parentMatrix = parent;
 
 	update();
 }

@@ -4,9 +4,9 @@
 /**
 * @brief HealCounterのコンストラクタ
 */
-HealCounter::HealCounter(Game *Game_)
+HealCounter::HealCounter(Game *Game)
 {
-    pGame = Game_;
+    pGame = Game;
 }
 
 

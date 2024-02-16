@@ -3,10 +3,10 @@
 /**
 * @brief BGのコンストラクタ
 */
-BG::BG(Game *Game_)
+BG::BG(Game *Game)
 {
-	if (Game_)
-		tileHandle = Game_->GetModelManager()->GetHandle(ModelType::Tile);
+	if (Game)
+		tileHandle = Game->GetModelManager()->GetHandle(ModelType::Tile);
 }
 
 

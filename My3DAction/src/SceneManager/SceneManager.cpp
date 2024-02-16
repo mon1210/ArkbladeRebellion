@@ -83,10 +83,10 @@ void SceneManager::doDraw() {
 * @brief シーン遷移時のフェードアウト
 * @note  Title => Game , Game => Title に使用
 */
-void SceneManager::fadeOut(int startTime_)
+void SceneManager::fadeOut(int start_time)
 {
 	// startTimeはフェードアウトが始まる時間で取得
-	float elapsedFrames = (GetNowCount() - startTime_) * (FRAME / 1) / 1000;  // 経過フレーム数	 / 1000 => 60(f/s)を実装
+	float elapsedFrames = (GetNowCount() - start_time) * (FRAME / 1) / 1000;  // 経過フレーム数	 / 1000 => 60(f/s)を実装
 	fadeTimer = clampF(elapsedFrames, 0.f, fadeTime);
 
 	// フェードアウト処理

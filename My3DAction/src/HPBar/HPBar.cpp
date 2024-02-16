@@ -4,9 +4,9 @@
 /*
 * @brief HPBarのコンストラクタ
 */
-HPBar::HPBar(Game* Game_)
+HPBar::HPBar(Game* Game)
 {
-	pGame = Game_;
+	pGame = Game;
 }
 
 

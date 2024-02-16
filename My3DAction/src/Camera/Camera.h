@@ -17,7 +17,7 @@ public:
 	/**
 	* @brief Cameraのコンストラクタ
 	*/
-	Camera(Game *Game_);
+	Camera(Game *Game);
 
 	// デストラクタ
 	~Camera();

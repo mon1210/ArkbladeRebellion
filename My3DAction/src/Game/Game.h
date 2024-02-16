@@ -37,7 +37,9 @@ public:
 	/**
 	* @brief Gameのコンストラクタ
 	*/
-	Game(SceneManager* System_);
+	Game(SceneManager *System);
+
+	// デストラクタ
 	~Game(void);
 	/**
 	* @brief 管理メソッド

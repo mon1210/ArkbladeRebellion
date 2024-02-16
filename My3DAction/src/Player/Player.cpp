@@ -3,9 +3,9 @@
 /**
 * @brief Playerのコンストラクタ
 */
-Player::Player(Game *Game_)
+Player::Player(Game *Game)
 {
-    pGame = Game_;
+    pGame = Game;
 
     // モデル取得
     if (pGame)
@@ -97,11 +97,11 @@ void Player::initializeStateFunctions()
 * @note  アニメーションと向きの設定をする
 *        moveFlagはここでtrueに
 * @param[in] num　	        アニメーション番号
-* @param[in] ROTATE_ANGLE　	回転角度
+* @param[in] rotate_angle　	回転角度
 * @param[in] move_x　	    x軸方向の移動スピード
 * @param[in] move_z　	    z軸方向の移動スピード
 */
-void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float move_x, float move_z)
+void Player::animateAndMove(ePlayer::AnimationNum num, float rotate_angle, float move_x, float move_z)
 {
     // アニメーションをセット
     if (animNum != static_cast<int>(num))  // ここがないとanimTimerがうまくリセットされない
@@ -113,7 +113,7 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float ROTATE_ANGLE, float
     // 移動する向きと速度を設定
     if (animNum == static_cast<int>(num))
     {
-        angle = ROTATE_ANGLE - pGame->GetCamera()->GetHorizontalAngle();
+        angle = rotate_angle - pGame->GetCamera()->GetHorizontalAngle();
         moveVec.x = move_x;
         moveVec.z = move_z;
     }

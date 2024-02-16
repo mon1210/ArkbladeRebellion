@@ -22,7 +22,7 @@ public:
 	/**
 	* @brief ƒ‚ƒfƒ‹‚ğæ“¾‚µ‚Ä•Ô‚·
 	*/
-	int GetHandle(ModelType type_);
+	int GetHandle(ModelType type);
 	// ˆÈãæ“¾—p’è”===================================================================== //
 private:
 	/**

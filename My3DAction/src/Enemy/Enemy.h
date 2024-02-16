@@ -25,7 +25,7 @@ public:
 	/**
 	* @brief Enemyのコンストラクタ
 	*/
-	Enemy(Game *Game_);
+	Enemy(Game *Game);
 
 	// デストラクタ
 	~Enemy() override;

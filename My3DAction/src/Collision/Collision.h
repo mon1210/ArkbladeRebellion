@@ -17,7 +17,7 @@ public:
 	/**
 	* @brief Collisionのコンストラクタ
 	*/
-	Collision(Game *Game_);
+	Collision(Game *Game);
 
 	// デストラクタ
 	~Collision();

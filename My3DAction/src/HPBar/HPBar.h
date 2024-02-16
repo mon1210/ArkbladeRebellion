@@ -14,7 +14,7 @@ public:
 	/*
 	* @brief HPBarのコンストラクタ
 	*/
-	HPBar(Game *Game_);
+	HPBar(Game *Game);
 	~HPBar();
 	/*
 	* @brief 描画メソッド

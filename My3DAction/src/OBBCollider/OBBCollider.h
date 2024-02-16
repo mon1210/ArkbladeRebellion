@@ -20,11 +20,11 @@ public:
 	/**
 	* @brief OBBColliderのコンストラクタ
 	* @note  引数の値を基に、OBBColliderを作成
-	* @param[in] scale_			拡縮値
-	* @param[in] rotate_		回転値
-	* @param[in] translate_		移動値
+	* @param[in] scale			拡縮値
+	* @param[in] rotate			回転値
+	* @param[in] translate		移動値
 	*/
-	OBBCollider(VECTOR scale_, VECTOR rotate_, VECTOR translate_);
+	OBBCollider(VECTOR scale, VECTOR rotate, VECTOR translate);
 
 	// デストラクタ
 	~OBBCollider();
@@ -32,22 +32,22 @@ public:
 	/**
 	* @brief scaleMatrix変更用メソッド
 	*/
-	void changeScaleMatrix(VECTOR& scale_);
+	void changeScaleMatrix(VECTOR& scale);
 
 	/**
 	* @brief rotateMatrix変更用メソッド
 	*/
-	void changeRotateMatrix(VECTOR& rotate_);
+	void changeRotateMatrix(VECTOR& rotate);
 
 	/**
 	* @brief translateMatrix変更用メソッド
 	*/
-	void changeTranslateMatrix(VECTOR& translate_);
+	void changeTranslateMatrix(VECTOR& translate);
 
 	/**
 	* @brief parentMatrixセット用メソッド
 	*/
-	void setParentMatrix(MATRIX parent_);
+	void setParentMatrix(MATRIX parent);
 
 	// 以下取得用定数===================================================================== //
 	/**

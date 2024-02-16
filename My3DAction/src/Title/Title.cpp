@@ -13,9 +13,9 @@
 /**
 * @brief Titleのコンストラクタ
 */
-Title::Title(SceneManager *pSystem)
+Title::Title(SceneManager *System)
 {
-	System = pSystem;
+	pSystem = System;
 }
 
 
@@ -81,7 +81,7 @@ void Title::draw()
 			startTime = GetNowCount(); 
 			isFadeStart = true; 
 		}
-		System->fadeOut(startTime);
+		pSystem->fadeOut(startTime);
 		break;
 	}
 

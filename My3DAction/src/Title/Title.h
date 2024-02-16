@@ -16,7 +16,7 @@ public:
 	/**
 	* @brief Titleのコンストラクタ
 	*/
-	Title(SceneManager *pSystem);
+	Title(SceneManager *System);
 	~Title();
 
 	/**
@@ -30,7 +30,7 @@ public:
 	*/
 	void draw() override;
 private:
-	SceneManager *System = nullptr;
+	SceneManager *pSystem = nullptr;
 	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// 状態を表す
 	int		startTime = 0;							// FadeOut開始時間取得用
 	int		fadeTimer = 0;
