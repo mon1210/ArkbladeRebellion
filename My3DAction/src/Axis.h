@@ -8,7 +8,7 @@
 
 struct Axis
 {
-	VECTOR x{ VGet(0.f, 0.f,0.f) };
-	VECTOR y{ VGet(0.f, 0.f,0.f) };
-	VECTOR z{ VGet(0.f, 0.f,0.f) };
+	VECTOR x = VGet(0.f, 0.f, 0.f);
+	VECTOR y = VGet(0.f, 0.f, 0.f);
+	VECTOR z = VGet(0.f, 0.f, 0.f);
 };
