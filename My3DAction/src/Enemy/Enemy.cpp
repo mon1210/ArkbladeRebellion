@@ -140,10 +140,10 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 
 
 /**
-* @brief 座標と当たり判定を設定するメソッド
+* @brief 移動後の座標を設定する
 * @note  移動時に呼び出し
 */
-void Enemy::updateMoveAndCollision()
+void Enemy::moveHandle()
 {
     // モデルの座標・向きをもとに値設定
     VECTOR ObbAngle = VGet(0.f, angle, 0.f);
@@ -242,8 +242,8 @@ void Enemy::move()
     // プレイヤーとの当たり判定
     pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
 
-    // 座標と当たり判定を設定するメソッド
-    updateMoveAndCollision();
+    // 移動後の座標を設定
+    moveHandle();
 
     // 遷移：
     /*
@@ -306,8 +306,8 @@ void Enemy::chase()
     if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER))
         isColHit = true;
 
-    // 座標と当たり判定を設定するメソッド
-    updateMoveAndCollision();
+    // 移動後の座標を設定
+    moveHandle();
 
     // 遷移
     /*
