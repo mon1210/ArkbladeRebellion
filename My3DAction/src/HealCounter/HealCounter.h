@@ -29,6 +29,6 @@ public:
 	void update();
 private:
 	Game *pGame = nullptr;
-	int	  color = 0;		// UI‚ÌF
+	unsigned int color = 0;		// UI‚ÌF
 };
 
