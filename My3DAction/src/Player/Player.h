@@ -126,7 +126,7 @@ private:
 private:
 	Game	*pGame = nullptr;
 	int		healCount = 0;												// 回復可能回数
-	float	rollCoolTime = 0.f;
+	float	rollCoolTime = 0.f;											// 回転のクールタイム管理変数
 	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
 	bool	rollAble = true;											// Roll可能フラグ
 	bool	isRoll = false;												// 回転中フラグ
