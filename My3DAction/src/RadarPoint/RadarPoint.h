@@ -48,9 +48,9 @@ public:
 	*/
 	void draw(RadarData& param);
 private:
-	float posX = 0.f;				// Pointの座標X
-	float posZ = 0.f;				// Pointの座標Z
+	float posX = 0.f;											// Pointの座標X
+	float posZ = 0.f;											// Pointの座標Z
 
-	eRadar::PointType pointType;	// 種類
+	eRadar::PointType pointType = eRadar::PointType::Default;	// 種類
 };
 
