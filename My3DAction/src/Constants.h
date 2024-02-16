@@ -175,11 +175,11 @@ const float HP_CHANGE_AMOUNT = 0.5f;			// HPの変化量　バーの増減速度
 
 
 // 以下Color====================================================================================================== //
-const int BLACK = GetColor(	 0,	  0,   0);		// 黒
-const int WHITE = GetColor(255, 255, 255);		// 白
-const int RED	= GetColor(255,   0,   0);		// 赤
-const int GREEN = GetColor(  0, 255,   0);		// 緑
+const unsigned int BLACK = GetColor(  0,   0,   0);		// 黒
+const unsigned int WHITE = GetColor(255, 255, 255);		// 白
+const unsigned int RED	 = GetColor(255,   0,   0);		// 赤
+const unsigned int GREEN = GetColor(  0, 255,   0);		// 緑
 #ifdef _DEBUG
-const int BLUE  = GetColor(  0,   0, 255);		// 青
+const unsigned int BLUE  = GetColor(  0,   0, 255);		// 青
 #endif
 // 以上Color====================================================================================================== //
