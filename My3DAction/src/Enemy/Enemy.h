@@ -21,13 +21,6 @@ class OBBCollider;
 
 class Enemy : public CharaBase
 {
-	// ※コンストラクタよりも先に書かないとエラーになる
-private:
-	// OBBColliderインスタンス化   被ダメージ時使用　体
-	OBBCollider mOBBCol = OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
-
-	// OBBColliderインスタンス化   攻撃時使用　手
-	OBBCollider mOBBColHand = OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 public:
 	/**
 	* @brief Enemyのコンストラクタ
@@ -106,6 +99,12 @@ private:
 	void attack();	// 攻撃
 	void damage();	// 被ダメージ
 	void death();	// 死亡
+private:
+	// OBBColliderインスタンス化   被ダメージ時使用　体
+	OBBCollider mOBBCol = OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
+
+	// OBBColliderインスタンス化   攻撃時使用　手
+	OBBCollider mOBBColHand = OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 private:
 	Game	*pGame = nullptr;
 	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
