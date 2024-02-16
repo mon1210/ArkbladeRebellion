@@ -31,9 +31,9 @@ SceneManager::~SceneManager()
 
 
 /**
-* @brief ゲーム全体のシーンとPhaseをswitchで管理
+* @brief ゲーム全体のシーンとPhaseを管理
 */
-void SceneManager::switchSceneAndPhase() {
+void SceneManager::manageSceneAndPhase() {
 	GameSceneResultCode Rc = GameSceneResultCode::GAMESCENE_DEFAULT;
 
 	switch (GamePhase) {

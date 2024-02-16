@@ -21,9 +21,9 @@ public:
 	~SceneManager(void);
 
 	/**
-	* @brief ゲーム全体のシーンとPhaseをswitchで管理
+	* @brief ゲーム全体のシーンとPhaseを管理
 	*/
-	void switchSceneAndPhase();
+	void manageSceneAndPhase();
 
 	/**
 	* @brief ゲーム全体の描画を行う関数
