@@ -427,7 +427,7 @@ void Player::attack()
     }
 
     // ìÒíiñ⁄ÇÃçUåÇ ===================================================================================================================
-    if (isSecond)
+    else if (isSecond)
     {
         //count += PLAYER_ANIM_F_INCREMENT
 
@@ -463,7 +463,7 @@ void Player::attack()
     }
 
     // éOíiñ⁄ÇÃçUåÇ ===================================================================================================================
-    if (isThird)
+    else if (isThird)
     {
         if (animNum != (int)ePlayerWS::AnimationNum::Slash3)
         {
