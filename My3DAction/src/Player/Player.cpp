@@ -141,10 +141,10 @@ bool Player::checkRollKey()
 
 
 /**
-* @brief 座標と当たり判定を設定するメソッド
+* @brief 移動後の座標を設定する
 * @note  移動時に呼び出し
 */
-void Player::updateMoveAndCollision()
+void Player::moveHandle()
 {
     // モデルの座標・向きをもとに値設定
     VECTOR ObbAngle = VGet(0.f, angle, 0.f);
@@ -302,8 +302,8 @@ void Player::idle()
 */
 void Player::move()
 {
-    // 座標と当たり判定を設定
-    updateMoveAndCollision();
+    // 移動後の座標を設定
+    moveHandle();
 
     if (Key_ForwardMove)
     {
@@ -343,8 +343,8 @@ void Player::move()
 */
 void Player::roll()
 {
-    // 座標と当たり判定を設定
-    updateMoveAndCollision();
+    // 移動後の座標を設定
+    moveHandle();
 
     // 前Roll
     if (Key_ForwardRoll && !isRoll)
