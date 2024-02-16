@@ -66,10 +66,10 @@ protected:
 	virtual void initializeStateFunctions() = 0;
 
 	/**
-	* @brief 座標と当たり判定を設定するメソッド
+	* @brief 移動後の座標を設定する
 	* @note  移動時に呼び出し
 	*/
-	virtual void updateMoveAndCollision() = 0;
+	virtual void moveHandle() = 0;
 protected:
 	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
 	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
