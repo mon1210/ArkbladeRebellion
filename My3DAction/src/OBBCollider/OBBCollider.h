@@ -72,7 +72,7 @@ public:
 
 public:
 	// 現在の頂点座標
-	VECTOR currentVertices[MAX_VERTICES]{};
+	VECTOR currentVertices[MAX_VERTICES] = { VGet(0.f, 0.f, 0.f) };
 
 private:
 	// MGetIdent()　MATRIXクラスのコンストラクタで、変数を初期化している
