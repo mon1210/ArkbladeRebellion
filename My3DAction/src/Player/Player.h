@@ -19,13 +19,6 @@ class OBBCollider;
 
 class Player : public CharaBase
 {
-	// ※コンストラクタよりも先に書かないとエラーになる
-private:
-	// 体用 OBBColliderインスタンス化   被ダメージ時使用
-	OBBCollider mOBBCol = OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
-
-	// 剣用 OBBColliderインスタンス化   攻撃時使用
-	OBBCollider mOBBColSword = OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 public:
 	/**
 	* @brief Playerのコンストラクタ
@@ -124,6 +117,12 @@ private:
 	void damage();	// 被ダメージ
 	void healing();	// 回復
 	void death();	// 死亡
+private:
+	// 体用 OBBColliderインスタンス化   被ダメージ時使用
+	OBBCollider mOBBCol = OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
+
+	// 剣用 OBBColliderインスタンス化   攻撃時使用
+	OBBCollider mOBBColSword = OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 private:
 	Game	*pGame = nullptr;
 	int		healCount = 0;												// 回復可能回数
