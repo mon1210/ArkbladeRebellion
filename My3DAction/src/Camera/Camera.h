@@ -32,7 +32,9 @@ public:
 	/**
 	* @brief   プレイヤーの位置算出メソッド
 	* @note    カメラの角度に合わせるのでCameraクラスで定義
-	* @return  NewPlayerPos
+	* @return  VECTOR 新しいプレイヤー座標
+	* @param[in] move_vec		プレイヤーの移動ベクトル
+	* @param[in] player_pos		プレイヤーの座標
 	*/
 	VECTOR moveAlongHAngle(VECTOR move_vec, VECTOR player_pos);
 
@@ -50,6 +52,8 @@ private:
 
 	/**
 	* @brief 位置算出メソッド
+	* @note	 プレイヤーの座標を基に位置を算出
+	* @param[in] プレイヤーの座標
 	*/
 	void setPosition(VECTOR player_pos);
 private:

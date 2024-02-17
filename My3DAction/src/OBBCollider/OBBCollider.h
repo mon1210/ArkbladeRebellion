@@ -56,10 +56,15 @@ public:
 	// 以下取得用定数===================================================================== //
 	/**
 	* @brief OBBからローカル軸を取得
+	* @note  関数のオーバーロード
+	* @param[in,out] axis Axis構造体
 	*/
 	void GetAxis(Axis& axis);
 	/**
 	* @brief OBBからローカル軸を取得
+	* @param[in,out] x_axis Axis構造体のX成分
+	* @param[in,out] y_axis Axis構造体のY成分
+	* @param[in,out] z_axis Axis構造体のZ成分
 	*/
 	void GetAxis(VECTOR& x_axis, VECTOR& y_axis, VECTOR& z_axis);
 	// 以上取得用定数===================================================================== //

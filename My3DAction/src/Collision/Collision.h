@@ -27,6 +27,7 @@ public:
 	/**
 	* @brief 当たり判定初期化
 	* @note  床に当たり判定付与
+	* @param[in] handle 床モデルハンドル
 	*/
 	void initialize(int handle);
 
@@ -34,6 +35,8 @@ public:
 	* @brief  移動時のステージとの当たり判定メソッド
 	* @note   移動範囲を制限している
 	* @return true:判定あり、移動可 / false:判定なし、移動不可
+	* @param[in,out] new_pos	移動後の新しい座標
+	* @param[in,out] pos		座標
 	*/
 	bool clampToStageBounds(VECTOR& new_pos, VECTOR& pos);
 
@@ -41,14 +44,14 @@ public:
 	* @brief  キャラ同士のカプセル当たり判定メソッド
 	* @note   キャラの移動時に呼び出している
 	* @return true:当たっている / false:当たっていない
-	* @param[in] pos1　			移動しているキャラの座標
-	* @param[in] pos1_move_vec　移動しているキャラの移動ベクトル
-	* @param[in] pos2　			当たられる側の座標
-	* @param[in] cap1_height　	pos1のカプセルの高さ
-	* @param[in] cap2_height　	pos2のカプセルの高さ
-	* @param[in] cap1_radius　	pos1のカプセルの半径
-	* @param[in] cap2_radius　	pos2のカプセルの半径
-	* @param[in] push_power　	当たった際の押し戻しの力
+	* @param[in,out] pos1　			移動しているキャラの座標
+	* @param[in,out] pos1_move_vec　移動しているキャラの移動ベクトル
+	* @param[in]	 pos2　			当たられる側の座標
+	* @param[in]	 cap1_height　	pos1のカプセルの高さ
+	* @param[in]	 cap2_height　	pos2のカプセルの高さ
+	* @param[in]	 cap1_radius　	pos1のカプセルの半径
+	* @param[in]	 cap2_radius　	pos2のカプセルの半径
+	* @param[in]	 push_power　	当たった際の押し戻しの力
 	*/
 	bool charaCapCol(VECTOR& pos1, VECTOR& pos1_move_vec, VECTOR pos2,
 		float cap1_height, float cap2_height, float cap1_radius, float cap2_radius,
@@ -90,8 +93,8 @@ private:
 	*		　分離軸判定関数を用いて、全ての軸候補で判断
 	*		  「分離軸である」 => 「衝突していない」
 	* @return true:衝突している / false:衝突していない
-	* @param[in] axis_list　	分離軸の配列[OBBの数]
-	* @param[in] vertices_list　OBBの頂点配列[OBBの数][頂点の数]
+	* @param[in] axis_list[]　		分離軸の配列[OBBの数]
+	* @param[in] vertices_list[][]　OBBの頂点配列[OBBの数][頂点の数]
 	*/
 	bool checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8]);
 private:

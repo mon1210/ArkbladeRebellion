@@ -35,6 +35,7 @@ public:
 	/**
 	* @brief シーン遷移時のフェードアウト
 	* @note  Title => Game , Game => Title に使用
+	* @param[in] start_time フェードアウト開始時間
 	*/
 	void fadeOut(int start_time);
 private:
