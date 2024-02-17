@@ -1,9 +1,7 @@
 #include "ModelManager.h"
 
 
-/**
-* @brief Modelのコンストラクタ
-*/
+// コンストラクタ
 ModelManager::ModelManager()
 {
     // unordered_map初期化
@@ -22,10 +20,7 @@ ModelManager::~ModelManager()
 }
 
 
-/**
-* @brief unordered_map初期化メソッド　	
-* @note  登録と同時にZBufferも適用する
-*/
+// unordered_map初期化メソッド
 void ModelManager::initializeModelList()
 {
     modelList[ModelType::Player]          = { MV1LoadModel("res\\Player\\PlayerModel.mv1") };
@@ -42,9 +37,7 @@ void ModelManager::initializeModelList()
 }
 
 
-/**
-* @brief モデルを取得して返す
-*/
+// モデルを取得して返す
 int ModelManager::GetHandle(ModelType type)
 {
     // リストが空でないとき

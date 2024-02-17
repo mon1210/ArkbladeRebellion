@@ -1,9 +1,7 @@
 #include "HealCounter.h"
 
 
-/**
-* @brief HealCounterのコンストラクタ
-*/
+// コンストラクタ
 HealCounter::HealCounter(Game *Game)
 {
     pGame = Game;
@@ -16,19 +14,14 @@ HealCounter::~HealCounter()
 }
 
 
-/**
-* @brief 描画メソッド
-*/
+// 描画メソッド
 void HealCounter::draw()
 {
     DrawFormatString(HEAL_COUNT_POS_X, HEAL_COUNT_POS_Y, color, "heal : %d", pGame->GetPlayer()->GetHealCount());
 }
 
 
-/**
-* @brief 更新メソッド
-* @note  残り回数に合わせて色変更
-*/
+// 更新メソッド
 void HealCounter::update()
 {
     if (pGame->GetPlayer()->GetHealCount() == 0) 

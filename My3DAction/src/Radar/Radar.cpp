@@ -1,9 +1,7 @@
 #include "Radar.h"
 
 
-/**
-* @brief Radarのコンストラクタ
-*/
+// コンストラクタ
 Radar::Radar()
 {
 }
@@ -15,9 +13,7 @@ Radar::~Radar()
 }
 
 
-/**
-* @brief 描画メソッド
-*/
+// 描画メソッド
 void Radar::draw()
 {
 	// Rader表示
@@ -47,14 +43,7 @@ void Radar::draw()
 }
 
 
-/**
-* @brief Pointを追加するメソッド
-* @note  座標取得が必要なので毎フレーム呼び出し
-*		 RadarPointのコンストラクタ呼び出し
-* @param[in] x　	x座標
-* @param[in] z　	z座標
-* @param[in] type_	Pointの種類　何のPoint表しているか
-*/
+// Pointを追加するメソッド
 void Radar::addPoint(float x, float z, eRadar::PointType type_)
 {
 	// 引数の物から要素を構築
@@ -62,15 +51,7 @@ void Radar::addPoint(float x, float z, eRadar::PointType type_)
 }
 
 
-/**
-* @brief Radarの中心物体を設定するメソッド
-* @note  座標取得が必要なので毎フレーム呼び出し
-*		 Playerが中心なのでPlayerで呼び出している
-* @param[in] x　			中心物体のx座標
-* @param[in] z　			中心物体のz座標
-* @param[in] front_vec_x	中心物体の前方ベクトルX
-* @param[in] front_vec_z	中心物体の前方ベクトルZ
-*/
+// Radarの中心物体を設定する
 void Radar::addCenter(float x, float z, float front_vec_x, float front_vec_z)
 {
 	centerX = x;
@@ -81,10 +62,7 @@ void Radar::addCenter(float x, float z, float front_vec_x, float front_vec_z)
 }
 
 
-/**
-* @brief PointのListを初期化するメソッド
-* @note  毎フレーム最初に呼び出し
-*/
+// PointのListを初期化するメソッド
 void Radar::listReset()
 {
 	// リスト内の要素を削除

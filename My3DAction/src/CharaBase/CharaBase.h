@@ -14,8 +14,8 @@ class CharaBase
 {
 public:
 	/**
-	* @brief   純粋仮想デストラクタの実体
-	* @details デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
+	* @brief 純粋仮想デストラクタの実体
+	* @note  デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
 	*/
 	virtual ~CharaBase();
 

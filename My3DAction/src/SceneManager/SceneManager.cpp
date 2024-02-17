@@ -1,18 +1,7 @@
-// Windowsアプリケーション開発用の共通ヘッダファイル
-#include "..\stdafx.h"
-// ゲームシーンとセレクターの管理に関連するヘッダファイル
 #include "SceneManager.h"
-// 定数値を定めたヘッダファイル
-#include "..\Constants.h"
-// タイトル画面のゲームシーンを管理するヘッダファイル
-#include "..\Title\Title.h"
-// ゲーム内のステージ関連クラスと列挙型の定義
-#include "..\Game\Game.h"
 
 
-/**
-* @brief SceneManagerのコンストラクタ
-*/
+// コンストラクタ
 SceneManager::SceneManager()
 {
 	startTime = GetNowCount();
@@ -26,9 +15,7 @@ SceneManager::~SceneManager()
 }
 
 
-/**
-* @brief ゲーム全体のシーンとPhaseを管理
-*/
+// ゲーム全体のシーンとPhaseを管理
 void SceneManager::manageSceneAndPhase() {
 	GameSceneResultCode Rc = GameSceneResultCode::GAMESCENE_DEFAULT;
 
@@ -64,9 +51,7 @@ void SceneManager::manageSceneAndPhase() {
 }
 
 
-/**
-* @brief ゲーム全体の描画を行う関数
-*/
+// ゲーム全体の描画を行う
 void SceneManager::doDraw() {
 
 	//	シーンを描画
@@ -75,9 +60,9 @@ void SceneManager::doDraw() {
 }
 
 
-/**
-* @brief シーン遷移時のフェードアウト
-* @note  Title => Game , Game => Title に使用
+/*
+	シーン遷移時のフェードアウト
+	Title => Game , Game => Title で使用
 */
 void SceneManager::fadeOut(int start_time)
 {

@@ -1,9 +1,7 @@
 #include "HPBar.h"
 
 
-/*
-* @brief HPBarのコンストラクタ
-*/
+// コンストラクタ
 HPBar::HPBar(Game* Game)
 {
 	pGame = Game;
@@ -16,10 +14,7 @@ HPBar::~HPBar()
 }
 
 
-/*
-* @brief 変動処理
-* @note  滑らかなHPの増減を実装
-*/
+// 変動処理
 void HPBar::update()
 {
 	// Player -------------
@@ -42,10 +37,7 @@ void HPBar::update()
 }
 
 
-/*
-* @brief 描画メソッド
-* @note  体力低下でバーの色変更
-*/
+// 描画メソッド
 void HPBar::draw()
 {
 	// HPの割合を求める

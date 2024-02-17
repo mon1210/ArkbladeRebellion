@@ -1,9 +1,7 @@
 #include "Grid.h"
 
 
-/**
-* @brief Gridのコンストラクタ
-*/
+// コンストラクタ
 Grid::Grid()
 {
 }
@@ -15,10 +13,7 @@ Grid::~Grid()
 }
 
 
-/**
-* @brief 描画メソッド
-* @note  Game::draw()で呼び出し
-*/
+// 描画メソッド
 void Grid::draw()
 {
     // Zバッファを使用する

@@ -1,13 +1,7 @@
 #include "RadarPoint.h"
 
 
-/**
-* @brief RadarPointのコンストラクタ
-* @note  posX, posZ, pointTypeは引数で初期化、呼び出し時に値が代入される
-* @param[in] x　	x座標
-* @param[in] z　	z座標
-* @param[in] type_	Pointの種類　何のPoint表しているか
-*/
+// コンストラクタ
 RadarPoint::RadarPoint(float x, float z, eRadar::PointType type) 
 	: posX(x), posZ(z), pointType(type)
 {
@@ -20,11 +14,7 @@ RadarPoint::~RadarPoint()
 }
 
 
-/**
-* @brief 描画メソッド
-* @note  Radarで呼び出し
-* @param[in] param　Radarのパラメータを保存した構造体
-*/
+// 描画メソッド
 void RadarPoint::draw(RadarData& param)
 {
 	// center => Pointの座標でのベクトル

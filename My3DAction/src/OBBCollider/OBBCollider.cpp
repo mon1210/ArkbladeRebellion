@@ -1,13 +1,7 @@
 #include "OBBCollider.h"
 
 
-/**
-* @brief OBBColliderのコンストラクタ
-* @note  引数の値を基に、OBBColliderを作成
-* @param[in] scale			拡縮値
-* @param[in] rotate			回転値
-* @param[in] translate		移動値
-*/
+// コンストラクタ
 OBBCollider::OBBCollider(VECTOR scale, VECTOR rotate, VECTOR translate)
 {
 	// 拡縮行列を設定
@@ -34,9 +28,7 @@ OBBCollider::~OBBCollider()
 }
 
 
-/**
-* @brief scaleMatrix変更用メソッド
-*/
+// scaleMatrix変更用メソッド
 void OBBCollider::changeScaleMatrix(VECTOR& scale)
 {
 	// 初期化
@@ -48,9 +40,7 @@ void OBBCollider::changeScaleMatrix(VECTOR& scale)
 }
 
 
-/**
-* @brief rotateMatrix変更用メソッド
-*/
+// rotateMatrix変更用メソッド
 void OBBCollider::changeRotateMatrix(VECTOR& rotate)
 {
 	// x, y, z成分をそれぞれ弧度法に変換して保存
@@ -64,9 +54,7 @@ void OBBCollider::changeRotateMatrix(VECTOR& rotate)
 }
 
 
-/**
-* @brief translateMatrix変更用メソッド
-*/
+// translateMatrix変更用メソッド
 void OBBCollider::changeTranslateMatrix(VECTOR& translate)
 {
 	// 初期化
@@ -78,9 +66,7 @@ void OBBCollider::changeTranslateMatrix(VECTOR& translate)
 }
 
 
-/**
-* @brief parentMatrixセット用メソッド
-*/
+// parentMatrixセット用メソッド
 void OBBCollider::setParentMatrix(MATRIX parent)
 {
 	parentMatrix = parent;
@@ -89,18 +75,17 @@ void OBBCollider::setParentMatrix(MATRIX parent)
 }
 
 
-/**
-* @brief OBBからローカル軸を取得
-*/
+/* 
+	OBBからローカル軸を取得
+	関数のオーバーロード
+*/ 
 void OBBCollider::GetAxis(Axis& axis)
 {
 	GetAxis(axis.x, axis.y, axis.z);
 }
 
 
-/**
-* @brief OBBからローカル軸を取得
-*/
+// OBBからローカル軸を取得
 void OBBCollider::GetAxis(VECTOR& x_axis, VECTOR& y_axis, VECTOR& z_axis)
 {
 	MATRIX mat = rotateMatrix;
@@ -111,9 +96,7 @@ void OBBCollider::GetAxis(VECTOR& x_axis, VECTOR& y_axis, VECTOR& z_axis)
 }
 
 
-/**
-* @brief 更新メソッド
-*/
+// 更新メソッド
 void OBBCollider::update()
 {
 	// 中心から八つの頂点に対しての座標を定義    時計回り
@@ -157,9 +140,7 @@ void OBBCollider::update()
 
 
 #ifdef _DEBUG
-/**
-* @brief 描画メソッド
-*/
+// 描画メソッド
 void OBBCollider::draw()
 {
 	// currentVerticesを使って立方体を書く

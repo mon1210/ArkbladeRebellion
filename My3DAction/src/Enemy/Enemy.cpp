@@ -1,9 +1,8 @@
 #include <math.h>
 #include "Enemy.h"
 
-/**
-* @brief Enemyのコンストラクタ
-*/
+
+// コンストラクタ
 Enemy::Enemy(Game *Game)
 {
     pGame = Game;
@@ -22,11 +21,7 @@ Enemy::~Enemy()
 }
 
 
-/**
-* @brief 初期化メソッド
-* @note  拡張性を考慮し引数にHPを指定
-* @param[in] hit_point  キャラのHP
-*/
+// 初期化メソッド
 void Enemy::initialize(float hit_point)
 {
     // 変数初期化
@@ -60,10 +55,7 @@ void Enemy::initialize(float hit_point)
 }
 
 
-/**
-* @brief enemyToPlayerの更新・長さを算出　毎フレーム呼び出す
-* @note  毎フレームの処理
-*/
+// enemyToPlayerの更新・長さを算出
 void Enemy::updateToPlayerVec()
 {
     toPlayerVec = VSub(pGame->GetPlayer()->GetPos(), position);                         // エネミーからプレイヤーの距離ベクトルを求める
@@ -71,10 +63,7 @@ void Enemy::updateToPlayerVec()
 }
 
 
-/**
-* @brief unordered_map初期化メソッド
-* @note  各Stateごとのメソッドを登録
-*/
+// unordered_map初期化
 void Enemy::initializeStateFunctions()
 {
     stateFunctionMap[EnemyState::Wait]      = [this]() { wait();   };
@@ -87,10 +76,7 @@ void Enemy::initializeStateFunctions()
 }
 
 
-/**
-* @brief 行動状態の管理メソッド
-* @note  毎フレームの処理
-*/
+// 行動状態の管理
 void Enemy::update()
 {
     // 今のStateに対応するメソッド呼び出し
@@ -115,12 +101,7 @@ void Enemy::update()
 }
 
 
-/**
-* @brief 状態とアニメーションを設定
-* @note  状態変更時に使用
-* @param[in] state  変更先の状態
-* @param[in] num    変更先のアニメーション
-*/
+// 状態とアニメーションを設定
 void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 {
     // カウントリセット
@@ -140,10 +121,7 @@ void Enemy::setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num)
 }
 
 
-/**
-* @brief 移動後の座標を設定する
-* @note  移動時に呼び出し
-*/
+// 移動後の座標を設定
 void Enemy::moveHandle()
 {
     // モデルの座標・向きをもとに値設定
@@ -170,9 +148,7 @@ void Enemy::moveHandle()
 
 
 // 以下状態管理メソッド ===============================================================================================
-/**
-* @brief Wait状態の管理メソッド
-*/
+// Wait状態の管理
 void Enemy::wait()
 {
     // 行動：何もしない
@@ -223,9 +199,7 @@ void Enemy::wait()
 }
 
 
-/**
-* @brief Move状態の管理メソッド
-*/
+// Move状態の管理
 void Enemy::move()
 {
     // 行動：まっすぐ進む(ステージ上の時)
@@ -284,9 +258,7 @@ void Enemy::move()
 }
 
 
-/**
-* @brief Chase状態の管理メソッド
-*/
+// Chase状態の管理
 void Enemy::chase()
 {
     // 行動：視野内のプレイヤーを追いかける
@@ -337,9 +309,7 @@ void Enemy::chase()
 }
 
 
-/**
-* @brief Attack状態の管理メソッド
-*/
+// Attack状態の管理
 void Enemy::attack()
 {
     // 行動：攻撃
@@ -374,9 +344,7 @@ void Enemy::attack()
 }
 
 
-/**
-* @brief Damage状態の管理メソッド
-*/
+// Damage状態の管理
 void Enemy::damage()
 {
     // 現在のHP更新
@@ -389,9 +357,7 @@ void Enemy::damage()
 }
 
 
-/**
-* @brief Death状態の管理メソッド
-*/
+// Death状態の管理
 void Enemy::death()
 {
     // アニメーションをセット
@@ -405,10 +371,7 @@ void Enemy::death()
 // 以上状態管理メソッド ===============================================================================================
 
 
-/**
-* @brief   エネミーの視野メソッド
-* @return  true : 視野内にプレイヤーがいる / false : 視野外にプレイヤーがいる
-*/
+// エネミーの視野メソッド
 bool Enemy::isTargetVisible()
 {
     /*
@@ -428,10 +391,7 @@ bool Enemy::isTargetVisible()
 }
 
 
-/**
-* @brief  生き死にを結果として返す
-* @return true:生存 / false:死亡
-*/
+// 生き死にを結果として返す
 bool Enemy::isAlive()
 {
     // hitPointが0以下
@@ -450,9 +410,7 @@ bool Enemy::isAlive()
 }
 
 
-/**
-* @brief 描画メソッド
-*/
+// 描画メソッド
 void Enemy::draw()
 {
     // モデルにタイマーセット
@@ -481,9 +439,7 @@ void Enemy::draw()
 }
 
 
-/*
-* @brief mOBBColを取得して返す
-*/
+// mOBBColを取得して返す
 OBBCollider Enemy::GetOBBCol()
 {
     return mOBBCol;

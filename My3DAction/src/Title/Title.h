@@ -5,6 +5,7 @@
 #pragma once
 #include "..\Constants.h"
 #include "..\Enums.h"
+#include "..\SceneManager\SceneManager.h"
 #include "..\IGameScene\IGameScene.h"
 
 //! ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾

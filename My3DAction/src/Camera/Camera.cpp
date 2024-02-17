@@ -1,8 +1,7 @@
 #include "Camera.h"
 
-/**
-* @brief Cameraのコンストラクタ
-*/
+
+// コンストラクタ
 Camera::Camera(Game *Game)
 {
 	pGame = Game;
@@ -15,9 +14,7 @@ Camera::~Camera()
 }
 
 
-/**
-* @brief カメラの更新
-*/
+// 更新
 void Camera::update()
 {
 	// 操作メソッド
@@ -38,9 +35,7 @@ void Camera::update()
 }
 
 
-/**
-* @brief カメラ操作メソッド
-*/
+// 操作メソッド
 void Camera::control()
 {
 	// カメラの垂直角度を上に回転
@@ -87,10 +82,7 @@ void Camera::control()
 }
 
 
-/**
-* @brief プレイヤーの位置算出メソッド
-* @note  カメラの角度に合わせるのでCameraクラスで定義
-*/
+// プレイヤーの位置算出
 VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 {
 	VECTOR NewPlayerPos;
@@ -111,9 +103,7 @@ VECTOR Camera::moveAlongHAngle(VECTOR move_vec, VECTOR player_pos)
 }
 
 
-/**
-* @brief 位置算出メソッド
-*/
+// 位置算出
 void Camera::setPosition(VECTOR player_pos)
 {
 	VECTOR VerticalAnglePos;	// 垂直角度を反映した位置
@@ -149,9 +139,7 @@ void Camera::setPosition(VECTOR player_pos)
 }
 
 
-/**
-* @brief カメラ水平角度を取得して返す
-*/
+// カメラ水平角度を取得して返す
 float Camera::GetHorizontalAngle()
 {
 	return hAngle;

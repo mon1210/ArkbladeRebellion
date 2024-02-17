@@ -1,8 +1,7 @@
 #include "BG.h"
 
-/**
-* @brief BGのコンストラクタ
-*/
+
+// コンストラクタ
 BG::BG(Game *Game)
 {
 	if (Game)
@@ -16,19 +15,14 @@ BG::~BG()
 }
 
 
-/**
-* @brief 床モデルを取得して返す
-*/
+// 床モデルを取得して返す
 int BG::GetModelHandle()
 {
 	return tileHandle;
 }
 
 
-/**
-* @brief 描画メソッド
-* @note  画面上に見えている部分のみ描画
-*/
+// 描画メソッド
 void BG::draw() 
 {
 	// 3Dモデルに座標をセット

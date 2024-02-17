@@ -10,8 +10,8 @@ class IGameScene
 {
 public:
 	/**
-	* @brief 　純粋仮想デストラクタの実体
-	* @details デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
+	* @brief 純粋仮想デストラクタの実体
+	* @note  デストラクタだけは用意しなければ、サブクラスがデストラクタを呼べない
 	*/
 	virtual ~IGameScene() = 0;
 	virtual GameSceneResultCode move() = 0;

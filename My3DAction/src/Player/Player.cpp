@@ -1,8 +1,7 @@
 #include "Player.h"
 
-/**
-* @brief Playerのコンストラクタ
-*/
+
+// コンストラクタ
 Player::Player(Game *Game)
 {
     pGame = Game;
@@ -13,22 +12,18 @@ Player::Player(Game *Game)
 }
 
 
-/**
-* @brief デストラクタ
-* @note  ポインタpGameのDeleteはGameクラスでしているので、記述の必要なし
+/*
+    デストラクタ
+    ポインタpGameのDeleteはGameクラスでしているので、記述の必要なし
 */
 Player::~Player()
 {
-    delete[] animTimes;
-    delete[] withSwordAnimTimes;
+    SAFE_DELETE_ARRAY(animTimes);
+    SAFE_DELETE_ARRAY(withSwordAnimTimes);
 }
 
 
-/**
-* @brief 初期化メソッド
-* @note  拡張性を考慮し引数にHPを指定
-* @param[in] hit_point  キャラのHP
-*/
+// 初期化メソッド
 void Player::initialize(float hit_point)
 {
     // 変数初期化
@@ -77,10 +72,7 @@ void Player::initialize(float hit_point)
 }
 
 
-/**
-* @brief unordered_map初期化メソッド
-* @note  各Stateごとのメソッドを登録
-*/
+// unordered_map初期化メソッド
 void Player::initializeStateFunctions()
 {
     stateFunctionMap[PlayerState::Idle]     = [this]() { idle();    };  // 待機
@@ -93,15 +85,7 @@ void Player::initializeStateFunctions()
 }
 
 
-/**
-* @brief 移動時の行動管理
-* @note  アニメーションと向きの設定をする
-*        moveFlagはここでtrueに
-* @param[in] num　	        アニメーション番号
-* @param[in] rotate_angle　	回転角度
-* @param[in] move_x　	    x軸方向の移動スピード
-* @param[in] move_z　	    z軸方向の移動スピード
-*/
+// 移動時の行動管理
 void Player::animateAndMove(ePlayer::AnimationNum num, float rotate_angle, float move_x, float move_z)
 {
     // アニメーションをセット
@@ -121,30 +105,21 @@ void Player::animateAndMove(ePlayer::AnimationNum num, float rotate_angle, float
 }
 
 
-/**
-* @brief 　移動キーチェック
-* @details 条件文を簡潔に
-*/
+// 移動キーチェック
 bool Player::checkMoveKey()
 {
     return Key_ForwardMove || Key_BackMove || Key_Left_Move || Key_RightMove;
 }
 
 
-/**
-* @brief 　回転キーチェック
-* @details 条件文を簡潔に
-*/
+// 回転キーチェック
 bool Player::checkRollKey()
 {
     return Key_ForwardRoll || Key_LeftRoll || Key_RightRoll || Key_BackRoll && rollAble;
 }
 
 
-/**
-* @brief 移動後の座標を設定する
-* @note  移動時に呼び出し
-*/
+// 移動後の座標を設定する
 void Player::moveHandle()
 {
     // モデルの座標・向きをもとに値設定
@@ -185,10 +160,7 @@ void Player::moveHandle()
 }
 
 
-/**
-* @brief Rollのクールダウン管理メソッド
-* @note  クールタイムを減らし、0になるとRollをできるように
-*/
+// Rollのクールダウン管理メソッド
 void Player::manageRollCooldown()
 {
     // クールタイムを減らす
@@ -205,9 +177,7 @@ void Player::manageRollCooldown()
 }
 
 
-/**
-* @brief AttackからIdleに戻る際の処理メソッド
-*/
+// AttackからIdleに戻る際の処理メソッド
 void Player::changeAttackToIdle()
 {
     // モデルを戻す
@@ -219,10 +189,7 @@ void Player::changeAttackToIdle()
 }
 
 
-/**
-* @brief 状態管理メソッド
-* @note  毎フレームの処理
-*/
+// 状態管理メソッド
 void Player::update()
 {
     // 今のStateに対応するメソッド呼び出し
@@ -246,9 +213,7 @@ void Player::update()
 
 
 // 以下状態管理メソッド ===============================================================================================
-/**
-* @brief Idle状態の管理メソッド
-*/
+// Idle状態の管理
 void Player::idle()
 {
     // 移動ベクトルを初期化
@@ -297,10 +262,7 @@ void Player::idle()
 }
 
 
-/**
-* @brief Move状態の管理メソッド
-* @note  移動キーを話すとIdle
-*/
+// Move状態の管理
 void Player::move()
 {
     // 移動後の座標を設定
@@ -338,10 +300,7 @@ void Player::move()
 }
 
 
-/**
-* @brief Roll状態の管理メソッド
-* @note  アニメーション終了時にIdle
-*/
+// Roll状態の管理
 void Player::roll()
 {
     // 移動後の座標を設定
@@ -385,9 +344,7 @@ void Player::roll()
 }
 
 
-/**
-* @brief Attack状態の管理メソッド
-*/
+// Attack状態の管理
 void Player::attack()
 {
     // 一段目の攻撃 ===================================================================================================================
@@ -501,10 +458,7 @@ void Player::attack()
 }
 
 
-/**
-* @brief Damage状態の管理メソッド
-* @norte HPの減少
-*/
+// Damage状態の管理
 void Player::damage()
 {
     // 現在のHP更新
@@ -523,10 +477,7 @@ void Player::damage()
 }
 
 
-/**
-* @brief Healing状態の管理メソッド
-* @note  HPの回復　アニメーション終了時にIdle
-*/
+// Healing状態の管理
 void Player::healing()
 {
     // アニメーションをセット
@@ -551,9 +502,10 @@ void Player::healing()
 }
 
 
-/**
-* @brief Death状態の管理メソッド
-* @note  HPが0でここ　アニメーション終了時、ゲーム終了
+/*
+    Death状態の管理
+    HPが0でここに入る
+    アニメーション終了時、ゲーム終了
 */
 void Player::death()
 {
@@ -573,10 +525,7 @@ void Player::death()
 // 以上状態管理メソッド ===============================================================================================
 
 
-/**
-* @brief  生き死にを結果として返す
-* @return true:生存 / false:死亡
-*/
+// 生き死にを結果として返す
 bool Player::isAlive()
 {
     // hitPointが0以下
@@ -595,10 +544,7 @@ bool Player::isAlive()
 }
 
 
-/**
-* @brief 描画メソッド
-* @note  プレイヤーを追従するためカメラ用関数はここで呼び出す
-*/
+// 描画メソッド
 void Player::draw()
 {
     // モデルにタイマーセット
@@ -636,18 +582,14 @@ void Player::draw()
 }
 
 
-/**
-* @brief healCountを取得して返す
-*/
+// healCountを取得して返す
 int Player::GetHealCount()
 {
     return healCount;
 }
 
 
-/*
-* @brief mOBBColを取得して返す
-*/
+// mOBBColを取得して返す 
 OBBCollider Player::GetOBBCol()
 {
     return mOBBCol;

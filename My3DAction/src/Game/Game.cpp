@@ -3,9 +3,7 @@
 #include "Game.h"
 
 
-/**
-* @brief Gameのコンストラクタ
-*/
+// コンストラクタ
 Game::Game(SceneManager *System)
 {
 	pSystem = System;
@@ -24,10 +22,7 @@ Game::Game(SceneManager *System)
 }
 
 
-/**
-* @brief 初期化メソッド
-* @note  別クラスの初期化メソッドを管理
-*/
+// 初期化メソッド
 void Game::initialize()
 {
 	if (pPlayer)
@@ -40,11 +35,7 @@ void Game::initialize()
 }
 
 
-/**
-* @brief 更新メソッド
-* @note  毎フレームの処理
-*		 別クラスの更新メソッドを管理
-*/
+// 更新メソッド
 void Game::update()
 {
 	if (pPlayer)
@@ -60,10 +51,7 @@ void Game::update()
 }
 
 
-/**
-* @brief デストラクタ
-* @note	 すべてのポインタをここでDelete
-*/
+// デストラクタ
 Game::~Game()
 {
 	SAFE_DELETE(pCollision);
@@ -79,11 +67,7 @@ Game::~Game()
 }
 
 
-/**
-* @brief 管理メソッド
-* @note 
-* @return GAMESCENE_DEFAULT: 継続 / GAMESCENE_END_FAILURE: ゲームオーバー
-*/
+// 管理メソッド
 GameSceneResultCode Game::move()
 {
 	switch (stagePhase)
@@ -159,10 +143,7 @@ GameSceneResultCode Game::move()
 }
 
 
-/**
-* @brief 描画処理
-* @note  毎フレーム実行される
-*/
+// 描画処理
 void Game::draw()
 {
 	if (pBG)
@@ -197,9 +178,7 @@ void Game::draw()
 }
 
 
-/**
-* @brief ModelManagerを取得して返す
-*/
+// ModelManagerを取得して返す
 ModelManager *Game::GetModelManager()
 {
 	if (!pModelManager)
@@ -211,9 +190,7 @@ ModelManager *Game::GetModelManager()
 }
 
 
-/**
-* @brief Collisionを取得して返す
-*/
+// Collisionを取得して返す
 Collision *Game::GetCollision()
 {
 	if (!pCollision)
@@ -225,9 +202,7 @@ Collision *Game::GetCollision()
 }
 
 
-/**
-* @brief Radarを取得して返す
-*/
+// Radarを取得して返す
 Radar *Game::GetRadar()
 {
 	if (!pRadar)
@@ -239,9 +214,7 @@ Radar *Game::GetRadar()
 }
 
 
-/**
-* @brief BGを取得して返す
-*/
+// BGを取得して返す
 BG *Game::GetBG()
 {
 	if (!pBG)
@@ -253,9 +226,7 @@ BG *Game::GetBG()
 }
 
 
-/**
-* @brief Playerを取得して返す
-*/
+// Playerを取得して返す
 Player *Game::GetPlayer()
 {
 	if (!pPlayer)
@@ -267,9 +238,7 @@ Player *Game::GetPlayer()
 }
 
 
-/**
-* @brief Cameraを取得して返す
-*/
+// Cameraを取得して返す
 Camera *Game::GetCamera()
 {
 	if (!pCamera)
@@ -281,9 +250,7 @@ Camera *Game::GetCamera()
 }
 
 
-/**
-* @brief Enemyを取得して返す
-*/
+// Enemyを取得して返す
 Enemy *Game::GetEnemy() 
 {
 	if (!pEnemy)

@@ -1,14 +1,7 @@
-// Windowsアプリケーション開発用の共通ヘッダファイル
-#include "..\stdafx.h"
-// ゲームシーンとセレクターの管理に関連するヘッダファイル
-#include "..\SceneManager\SceneManager.h"
-// タイトル画面のゲームシーンを管理するヘッダファイル
 #include "Title.h"
 
 
-/**
-* @brief Titleのコンストラクタ
-*/
+// コンストラクタ
 Title::Title(SceneManager *System)
 {
 	pSystem = System;
@@ -21,10 +14,7 @@ Title::~Title()
 }
 
 
-/**
-* @brief  管理メソッド
-* @return GAMESCENE_DEFAULT:継続 / GAMESCENE_END_OK:ゲーム開始
-*/
+// 管理メソッド
 GameSceneResultCode Title::move()
 {
 	switch (Phase) {
@@ -58,9 +48,7 @@ GameSceneResultCode Title::move()
 }
 
 
-/**
-* @brief 描画処理
-*/
+// 描画処理
 void Title::draw()
 {
 	// Title

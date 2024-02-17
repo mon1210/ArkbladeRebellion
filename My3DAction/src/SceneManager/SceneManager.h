@@ -5,6 +5,9 @@
 #pragma once
 #include "..\IGameScene\IGameScene.h"
 #include "..\Enums.h"
+#include "..\Constants.h"
+#include "..\Title\Title.h"
+#include "..\Game\Game.h"
 #include "..\GlobalFunctions\GlobalFunctions.h"
 
 class IGameScene;	// シーン管理クラス
@@ -28,13 +31,13 @@ public:
 	void manageSceneAndPhase();
 
 	/**
-	* @brief ゲーム全体の描画を行う関数
+	* @brief ゲーム全体の描画を行うメソッド
 	*/
 	void doDraw();
 
 	/**
 	* @brief シーン遷移時のフェードアウト
-	* @note  Title => Game , Game => Title に使用
+	* @note  Title => Game , Game => Title で使用
 	* @param[in] start_time フェードアウト開始時間
 	*/
 	void fadeOut(int start_time);
