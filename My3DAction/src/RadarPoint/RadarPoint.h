@@ -1,4 +1,4 @@
-/*
+/**
 * @file		RadarPoint.h
 * @brief	クラス RadarPoint の宣言
 */
@@ -13,16 +13,23 @@
 // Radarクラスで中身代入、このクラスで使用
 struct RadarData
 {
-	float uiCenterX;	// UIの中心座標(XY)
+	//! UIの中心座標X
+	float uiCenterX;
+	//! UIの中心座標Y
 	float uiCenterY;
 
-	float centerX;		// Radarの中心座標(XZ)
+	//! Radarの中心座標X
+	float centerX;
+	//! Radarの中心座標Z
 	float centerZ;
 
-	float frontVecX;	// 正面ベクトル(XZ)
+	//! 正面ベクトルX
+	float frontVecX;
+	//! 正面ベクトルZ
 	float frontVecZ;
 
-	float raderRadius;	// Radarの半径
+	//! Radarの半径
+	float raderRadius;
 };
 
 
@@ -38,7 +45,9 @@ public:
 	*/
 	RadarPoint(float x, float z, eRadar::PointType type);
 
-	// デストラクタ
+	/**
+	* @brief RadarPointのデストラクタ
+	*/
 	~RadarPoint();
 
 	/**
@@ -48,9 +57,12 @@ public:
 	*/
 	void draw(RadarData& param);
 private:
-	float posX = 0.f;											// Pointの座標X
-	float posZ = 0.f;											// Pointの座標Z
+	//! Pointの座標X
+	float posX = 0.f;
+	//! Pointの座標Z
+	float posZ = 0.f;
 
-	eRadar::PointType pointType = eRadar::PointType::Default;	// 種類
+	//! 種類
+	eRadar::PointType pointType = eRadar::PointType::Default;
 };
 

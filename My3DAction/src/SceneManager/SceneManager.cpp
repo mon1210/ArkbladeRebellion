@@ -1,7 +1,3 @@
-/**
-* @file SceneManager.cpp
-* @brief クラスSceneManagerの実装ファイル
-*/
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "..\stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル

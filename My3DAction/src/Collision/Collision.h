@@ -8,7 +8,7 @@
 #include "..\Game\Game.h"
 #include "..\GlobalFunctions\GlobalFunctions.h"
 
-// クラスの前方宣言
+//! クラスの前方宣言
 class Game;
 
 class Collision
@@ -19,7 +19,9 @@ public:
 	*/
 	Collision(Game *Game);
 
-	// デストラクタ
+	/**
+	* @brief Collisionのデストラクタ
+	*/
 	~Collision();
 
 	/**
@@ -94,6 +96,7 @@ private:
 	bool checkOBBs(Axis axis_list[2], VECTOR vertices_list[2][8]);
 private:
 	Game *pGame = nullptr;
-	int tileHandle = 0;		// 床モデル保存用
+	//! 床モデル保存用
+	int tileHandle = 0;
 
 };

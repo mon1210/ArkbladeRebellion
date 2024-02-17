@@ -1,6 +1,6 @@
-/*
+/**
 * @file		Animation.h
-* @brief	アニメーションに関するメソッドの定義
+* @brief	アニメーションに関するメソッド の宣言
 */
 #pragma once
 #include "DxLib.h"

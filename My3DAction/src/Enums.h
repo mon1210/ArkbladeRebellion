@@ -1,11 +1,11 @@
-/*
+/**
 * @file		Enums.h
-* @brief	eunm変数宣言用ヘッダファイル
+* @brief	eunm変数 の宣言
 * @note		クラス名と被るためnamespaceにはプレフィクス付与
 */
 #pragma once
 
-// ゲームの状態を表す
+//! ゲームの状態を表す
 enum class GamePhase 
 {
 	GAMEPHASE_INIT = 0,
@@ -15,7 +15,7 @@ enum class GamePhase
 	GAMEPHASE_GAMEOVER = 0x200
 };
 
-// シーンの状態を管理
+//! シーンの状態を管理
 enum class GameSceneResultCode 
 {
 	GAMESCENE_DEFAULT = 0,
@@ -24,7 +24,7 @@ enum class GameSceneResultCode
 	GAMESCENE_END_FAILURE = 3
 };
 
-// タイトルの状態を表す
+//! タイトルの状態を表す
 enum class TitlePhase 
 {
 	TITLE_INIT = 0,
@@ -33,7 +33,7 @@ enum class TitlePhase
 	TITLE_DONE = 3
 };
 
-// ステージの状態を表す
+//! ステージの状態を表す
 enum class StagePhase 
 {
 	STAGE_INIT = 0,
@@ -43,65 +43,65 @@ enum class StagePhase
 	STAGE_DONE = 4,
 };
 
-// モデルの種類
+//! モデルの種類
 enum class ModelType
 {
-	Default = -1,			// -1代入用
+	Default = -1,
 	Player,
-	PlayerWithSword,	// 武器を持ったプレイヤー
+	PlayerWithSword,
 	Enemy,
-	Tile				// 床
+	Tile
 
 };
 
-// プレイヤーモデルのアニメーション番号
+//! プレイヤーモデルのアニメーション番号
 namespace ePlayer
 {
 	enum class AnimationNum
 	{
-		Default = -1,	// -1代入用
+		Default = -1,
 		Idle = 1,
 		Run,
-		NoMoveRoll,		// その場で
+		NoMoveRoll,
 		Roll,
-		SpeedRoll,		// 素早い
+		SpeedRoll,
 		Damage = 9,
-		Drinking,		// 回復
+		Drinking,
 		Dying, 
 	};
 }
 
-// 武器を持ったプレイヤーモデルのアニメーション番号
+//! 武器を持ったプレイヤーモデルのアニメーション番号
 namespace ePlayerWS
 {
 	enum class AnimationNum
 	{
-		Default = -1,	// -1代入用
+		Default = -1,
 		Idle = 0,
-		Slash1,			// 攻撃 一段目
-		Slash2,			// 二段目
-		Slash3,			// 三段目
+		Slash1,
+		Slash2,
+		Slash3,
 	};
 }
 
-// エネミーモデルのアニメーション番号
+//! エネミーモデルのアニメーション番号
 namespace eEnemy
 {
 	enum class AnimationNum
 	{
-		Default = -1,	// -1代入用
+		Default = -1,
 		Idle = 1,
 		Run,
-		Swiping,		// 攻撃
+		Swiping,
 		Damage,
 		Dying
 	};
 }
 
-// プレイヤーの状態を表す
+//! プレイヤーの状態を表す
 enum class PlayerState
 {
-	Default = -1,		// -1代入用
+	Default = -1,
 	Idle,
 	Move,
 	Roll,
@@ -112,10 +112,10 @@ enum class PlayerState
 
 };
 
-// エネミーの状態を表す
+//! エネミーの状態を表す
 enum class EnemyState
 {
-	Default = -1,	// -1代入用
+	Default = -1,
 	Wait,
 	Move, 
 	Chase,
@@ -125,12 +125,12 @@ enum class EnemyState
 
 };
 
-// Radarに映るPointの種類
+//! Radarに映るPointの種類
 namespace eRadar
 {
 	enum class PointType
 	{
-		Default = -1,	// -1代入用
+		Default = -1,
 		Enemy,
 	};
 }

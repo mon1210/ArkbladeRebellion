@@ -1,6 +1,6 @@
 /**
 * @file		SceneManager.h
-* @brief	クラスSceneManagerの宣言ファイル
+* @brief	クラス SceneManager の宣言
 */
 #pragma once
 #include "..\IGameScene\IGameScene.h"
@@ -17,7 +17,9 @@ public:
 	*/
 	SceneManager();
 
-	// デストラクタ
+	/**
+	* @brief SceneManagerのデストラクタ
+	*/
 	~SceneManager();
 
 	/**
@@ -36,10 +38,15 @@ public:
 	*/
 	void fadeOut(int start_time);
 private:
-	IGameScene *pScene = nullptr;						// シーン
-	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;	// 状態変数
-	int	  startTime = 0;								// FadeOut開始時間取得用
-	float fadeTimer = 0.f;								// フェードタイマー
-	float fadeTime = 60.f;								// フェード時間（フレーム）
+	//! シーン
+	IGameScene *pScene = nullptr;
+	//! 状態変数
+	GamePhase GamePhase = GamePhase::GAMEPHASE_INIT;
+	//! FadeOut開始時間取得用
+	int	  startTime = 0;
+	//! フェードタイマー
+	float fadeTimer = 0.f;
+	//! フェード時間（フレーム
+	float fadeTime = 60.f;
 };
 

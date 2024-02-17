@@ -7,7 +7,7 @@
 #include "..\Enums.h"
 #include "..\IGameScene\IGameScene.h"
 
-// クラスの前方宣言
+//! クラスの前方宣言
 class SceneManager;
 
 class Title : public IGameScene
@@ -17,6 +17,10 @@ public:
 	* @brief Titleのコンストラクタ
 	*/
 	Title(SceneManager *System);
+
+	/**
+	* @brief Titleのデストラクタ
+	*/
 	~Title();
 
 	/**
@@ -31,9 +35,13 @@ public:
 	void draw() override;
 private:
 	SceneManager *pSystem = nullptr;
-	TitlePhase	Phase = TitlePhase::TITLE_INIT;		// 状態を表す
-	int		startTime = 0;							// FadeOut開始時間取得用
+	//! 状態を表す
+	TitlePhase	Phase = TitlePhase::TITLE_INIT;
+	//! FadeOut開始時間取得用
+	int		startTime = 0;
+	//! FadeOut経過時間
 	int		fadeTimer = 0;
-	bool	isFadeStart = false;					// FadeOutが開始したかどうかのflag
+	//! FadeOutが開始したかどうかのflag
+	bool	isFadeStart = false;
 };
 

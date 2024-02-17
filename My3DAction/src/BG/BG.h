@@ -1,4 +1,4 @@
-/*
+/**
 * @file		BG.h
 * @brief	クラス BG の宣言
 * @note		床はここで管理
@@ -18,7 +18,9 @@ public:
 	*/
 	BG(Game *Game);
 
-	// デストラクタ
+	/**
+	* @brief BGのデストラクタ
+	*/
 	~BG();
 
 	/**
@@ -34,6 +36,8 @@ public:
 	int  GetModelHandle();
 	// 以上取得用定数===================================================================== //
 private:
-	VECTOR	position = VGet(0.f, 0.f, 0.f);	// 座標
-	int		tileHandle = 0;					// 床モデル保存用
+	//! 座標
+	VECTOR	position = VGet(0.f, 0.f, 0.f);
+	//! 床モデル保存用
+	int		tileHandle = 0;
 };

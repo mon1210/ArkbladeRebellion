@@ -1,6 +1,6 @@
 /**
 * @file		CharaBase.h
-* @brief	クラスCharaBaseの宣言ファイル
+* @brief	クラス CharaBase の宣言
 * @note		Characterの基底クラスで、PlayerとEnemyが継承している
 *			基底クラスでは、共通する関数と変数をまとめて宣言
 */
@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <functional>
 
-// 基底クラス
+//! 基底クラス
 class CharaBase 
 {
 public:
@@ -32,7 +32,8 @@ public:
 
 	/**
 	* @brief 初期化メソッド
-	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	* @note  拡張性を考慮し引数にHPを指定
+	* @param[in] hit_point  キャラのHP
 	*/
 	virtual void initialize(float hit_point) = 0;
 
@@ -71,17 +72,29 @@ protected:
 	*/
 	virtual void moveHandle() = 0;
 protected:
-	VECTOR	position = VGet(0.f, 0.f, 0.f);			// 座標
-	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);			// 移動の向きベクトル
-	int		animHandle = 0;							// モデルハンドル
-	int		animNum = 0;							// アニメーション番号
-	float   *animTimes = 0;							// アニメーションの総再生時間
-	float	animTimer = 0.f;						// アニメーションの現在の再生時間
-	float	angle = 0.f;							// 向き		アタッチ時にradに変換
-	float	hitPoint = 100.f;						// HP
-	float	currentHP = 0.f;						// HPが変化したかを判断する用の変数
-	bool	isDeath = false;						// 死亡フラグ
-	bool	isAttackHit = false;					// 自身の攻撃が当たったかのフラグ
+	//! 座標
+	VECTOR	position = VGet(0.f, 0.f, 0.f);
+	//! 移動の向きベクトル
+	VECTOR	moveVec = VGet(0.f, 0.f, 0.f);
+	//! モデルハンドル
+	int		animHandle = 0;
+	//! アニメーション番号
+	int		animNum = 0;
+	//! アニメーションの総再生時間
+	float* animTimes = 0;
+	//! アニメーションの現在の再生時間
+	float	animTimer = 0.f;
+	//! 向き		アタッチ時にradに変換
+	float	angle = 0.f;
+	//! HP
+	float	hitPoint = 100.f;
+	//! HPが変化したかを判断する用の変数
+	float	currentHP = 0.f;
+	//! 死亡フラグ
+	bool	isDeath = false;
+	//! 自身の攻撃が当たったかのフラグ
+	bool	isAttackHit = false;
 
-	typedef std::function<void()> stateFunction;	// 関数ポインタの型を定義
+	//!  関数ポインタの型を定義
+	typedef std::function<void()> stateFunction;
 };

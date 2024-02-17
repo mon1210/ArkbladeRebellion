@@ -1,4 +1,4 @@
-/*
+/**
 * @file		Radar.h
 * @brief	クラス Radar の宣言
 */
@@ -13,7 +13,9 @@ public:
 	*/
 	Radar();
 
-	// デストラクタ
+	/**
+	* @brief Radarのデストラクタ
+	*/
 	~Radar();
 
 	/**
@@ -48,13 +50,21 @@ public:
 	*/
 	void listReset();
 private:
-	float	uiPosX = 120.f;				// UIの中心座標X
-	float	uiPosY = 120.f;				// UIの中心座標Y
-	float	centerX = 0.f;				// Radarの中心座標X
-	float	centerZ = 0.f;				// Radarの中心座標Z
-	float	frontVecX = 0.f;			// 正面ベクトルX
-	float	frontVecZ = 0.f;			// 正面ベクトルZ
-	float	radius = 100.0f;			// Radarの半径 
+	//! UIの中心座標X
+	float	uiPosX = 120.f;	
+	//! UIの中心座標Y
+	float	uiPosY = 120.f;
+	//! Radarの中心座標X
+	float	centerX = 0.f;
+	//! Radarの中心座標Z
+	float	centerZ = 0.f;
+	//! 正面ベクトルX
+	float	frontVecX = 0.f;
+	//! 正面ベクトルZ
+	float	frontVecZ = 0.f;
+	//! Radarの半径
+	float	radius = 100.0f;
 
-	std::vector<RadarPoint> pointList;	// Pointリスト作成
+	//! Pointリスト作成
+	std::vector<RadarPoint> pointList;
 };

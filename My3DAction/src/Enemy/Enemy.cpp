@@ -18,13 +18,14 @@ Enemy::Enemy(Game *Game)
 // デストラクタ
 Enemy::~Enemy()
 {
-    delete[] animTimes;
+    SAFE_DELETE_ARRAY(animTimes);
 }
 
 
 /**
 * @brief 初期化メソッド
-* @param[in] hit_point　キャラのHP　拡張性向上のため
+* @note  拡張性を考慮し引数にHPを指定
+* @param[in] hit_point  キャラのHP
 */
 void Enemy::initialize(float hit_point)
 {
@@ -240,7 +241,7 @@ void Enemy::move()
     moveVec = VScale(moveVec, ENEMY_MOVE_SPEED);
 
     // プレイヤーとの当たり判定
-    pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
+    pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), ENEMY_CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
 
     // 移動後の座標を設定
     moveHandle();
@@ -303,7 +304,7 @@ void Enemy::chase()
     angle = atan2f(-moveVec.x, -moveVec.z) * 180.f / DX_PI_F;
 
     // プレイヤーとの当たり判定
-    if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER))
+    if (pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetPlayer()->GetPos(), ENEMY_CAP_HEIGHT, CAP_HEIGHT, ENEMY_CAP_RADIUS, PLAYER_CAP_RADIUS, CHARA_HIT_PUSH_POWER))
         isColHit = true;
 
     // 移動後の座標を設定

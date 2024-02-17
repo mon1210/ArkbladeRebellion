@@ -26,7 +26,8 @@ Player::~Player()
 
 /**
 * @brief 初期化メソッド
-* @param[in] hit_point　キャラのHP　拡張性向上のため
+* @note  拡張性を考慮し引数にHPを指定
+* @param[in] hit_point  キャラのHP
 */
 void Player::initialize(float hit_point)
 {
@@ -161,7 +162,7 @@ void Player::moveHandle()
         if (!isRoll)
         {            
             // エネミーとの当たり判定
-            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
+            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, ENEMY_CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, CHARA_HIT_PUSH_POWER);
             // 移動後の座標取得
             VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
             // 地面との判定があるときはRoll可能
@@ -171,7 +172,7 @@ void Player::moveHandle()
         else
         {
             // エネミーとの当たり判定
-            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, 0.f);
+            pGame->GetCollision()->charaCapCol(position, moveVec, pGame->GetEnemy()->GetPos(), CAP_HEIGHT, ENEMY_CAP_HEIGHT, PLAYER_CAP_RADIUS, ENEMY_CAP_RADIUS, 0.f);
             // 移動後の座標取得
             VECTOR NewPos = pGame->GetCamera()->moveAlongHAngle(moveVec, position);
             // 当たり判定更新

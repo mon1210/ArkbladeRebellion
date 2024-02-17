@@ -1,4 +1,4 @@
-/*
+/**
 * @file		Camera.h
 * @brief	クラス Camera の宣言
 * @note		プレイヤーを追従する
@@ -19,7 +19,9 @@ public:
 	*/
 	Camera(Game *Game);
 
-	// デストラクタ
+	/**
+	* @brief Cameraのデストラクタ
+	*/
 	~Camera();
 
 	/**
@@ -52,8 +54,11 @@ private:
 	void setPosition(VECTOR player_pos);
 private:
 	Game	*pGame = nullptr;
-	VECTOR	position = VGet(0.f, 0.f, 0.f);		// 座標
-	float	hAngle = 0.f;						// 水平方向の角度
-	float	vAngle = 40.f;						// 垂直方向の角度
+	//! 座標
+	VECTOR	position = VGet(0.f, 0.f, 0.f);
+	//! 水平方向の角度
+	float	hAngle = 0.f;
+	//! 垂直方向の角度
+	float	vAngle = 40.f;
 };
 

@@ -14,7 +14,7 @@
 #include "..\Game\Game.h"
 #include "..\OBBCollider\OBBCollider.h"
 
-// クラスの前方宣言
+//! クラスの前方宣言
 class CharaBase;
 class Game;
 class OBBCollider;
@@ -27,7 +27,9 @@ public:
 	*/
 	Enemy(Game *Game);
 
-	// デストラクタ
+	/**
+	* @brief Enemyのデストラクタ
+	*/
 	~Enemy() override;
 
 	/**
@@ -43,7 +45,8 @@ public:
 
 	/**
 	* @brief 初期化メソッド
-	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	* @note  拡張性を考慮し引数にHPを指定
+	* @param[in] hit_point  キャラのHP
 	*/
 	void initialize(float hit_point) override;
 
@@ -84,7 +87,7 @@ private:
 	* @param[in] state  変更先の状態
 	* @param[in] num    変更先のアニメーション
 	*/
-	void setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num);	// 状態とアニメーションを設定
+	void setStateAndAnim(EnemyState state, eEnemy::AnimationNum anim_num);
 
 	/**
 	* @brief 移動後の座標を設定する
@@ -92,29 +95,61 @@ private:
 	*/
 	void moveHandle() override;
 
-	// 状態ごとのメソッド
-	void wait();	// 待機
-	void move();	// 移動
-	void chase();	// 追跡
-	void attack();	// 攻撃
-	void damage();	// 被ダメージ
-	void death();	// 死亡
+	// 以下 状態ごとのメソッド ---------------------
+	/**
+	* @brief 待機状態の管理メソッド
+	*/
+	void wait();
+
+	/**
+	* @brief 移動状態の管理メソッド
+	*/
+	void move();
+
+	/**
+	* @brief 追跡状態の管理メソッド
+	*/
+	void chase();
+
+	/**
+	* @brief 攻撃状態の管理メソッド
+	*/
+	void attack();
+
+	/**
+	* @brief 被ダメージ状態の管理メソッド
+	*/
+	void damage();
+
+	/**
+	* @brief 死亡状態の管理メソッド
+	*/
+	void death();
+	// 以上 状態ごとのメソッド ---------------------
 private:
-	// OBBColliderインスタンス化   被ダメージ時使用　体
+	//! OBBColliderインスタンス化   被ダメージ時使用　体
 	OBBCollider mOBBCol = OBBCollider(ENEMY_OBB_SCALE, ENEMY_OBB_ANGLE, ENEMY_OBB_TRANS);
 
-	// OBBColliderインスタンス化   攻撃時使用　手
+	//! OBBColliderインスタンス化   攻撃時使用　手
 	OBBCollider mOBBColHand = OBBCollider(HAND_OBB_SCALE, HAND_OBB_ANGLE, HAND_OBB_TRANS);
 private:
 	Game	*pGame = nullptr;
-	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);						// エネミーからプレイヤーまでの距離
-	int		count = 0;												// フレーム計測用　行動遷移, で使用 
-	float   vecLength = 0.f;										// ベクトルの長さ保存用
-	float	animTime = 0.f;											// アニメーション時間保存用変数　Enemyは毎フレーム状態変数を通らないので必要
-	bool	isColHit = false;										// 当たり判定が接触したかどうか
-	bool	isAttack = false;										// 攻撃状態かどうか
+	//! エネミーからプレイヤーまでの距離
+	VECTOR  toPlayerVec = VGet(0.f, 0.f, 0.f);
+	//! フレーム計測用　行動遷移, で使用 
+	int		count = 0;
+	//! ベクトルの長さ保存用
+	float   vecLength = 0.f;
+	//! アニメーション時間保存用変数　Enemyは毎フレーム状態変数を通らないので必要
+	float	animTime = 0.f;
+	//! 当たり判定が接触したかどうか
+	bool	isColHit = false;
+	//! 攻撃状態かどうか
+	bool	isAttack = false;
 
-	EnemyState currentState = EnemyState::Wait;						// 状態を表す
+	//! 状態を表す
+	EnemyState currentState = EnemyState::Wait;
 
-	std::unordered_map<EnemyState, stateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
+	//! 関数の入ったunordered_mapを定義
+	std::unordered_map<EnemyState, stateFunction> stateFunctionMap;
 };

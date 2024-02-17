@@ -1,9 +1,4 @@
-/**
-* @file IGameScene.cpp
-* @brief シーンの基底クラス IGameScene の実装
-*/
-
-// Windowsアプリケーション開発用の共通ヘッダファイル
+//! Windowsアプリケーション開発用の共通ヘッダファイル
 #include "..\stdafx.h"
 #include "IGameScene.h"
 

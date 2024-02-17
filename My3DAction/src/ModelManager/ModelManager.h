@@ -1,4 +1,4 @@
-/*
+/**
 * @file		ModelManager.h
 * @brief	クラス ModelManager の宣言
 * @note		モデルに関する処理を管理する
@@ -14,9 +14,13 @@ class ModelManager
 {
 public:
 	/**
-	* @brief Modelのコンストラクタ
+	* @brief ModelManagerのコンストラクタ
 	*/
 	ModelManager();
+
+	/**
+	* @brief ModelManagerのデストラクタ
+	*/
 	~ModelManager();
 	// 以下取得用定数===================================================================== //
 	/**
@@ -31,5 +35,6 @@ private:
 	*/
 	void initializeModelList();
 private:
-	std::unordered_map<ModelType, int> modelList;	// モデルハンドルの入ったunordered_mapを定義
+	//! モデルハンドルの入ったunordered_mapを定義
+	std::unordered_map<ModelType, int> modelList;
 };

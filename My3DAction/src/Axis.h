@@ -1,6 +1,6 @@
 /**
 * @file		Axis.h
-* @brief	Axis構造体を定めたヘッダファイル
+* @brief	Axis構造体 の宣言
 * @note		OBBの軸保存用
 */
 #pragma once

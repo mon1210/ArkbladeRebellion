@@ -1,7 +1,3 @@
-/**
-* @file Title.cpp
-* @brief クラス Title の実装
-*/
 // Windowsアプリケーション開発用の共通ヘッダファイル
 #include "..\stdafx.h"
 // ゲームシーンとセレクターの管理に関連するヘッダファイル

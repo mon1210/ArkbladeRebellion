@@ -1,4 +1,4 @@
-/*
+/**
 * @file		Player.h
 * @brief	クラス Player の宣言
 */
@@ -12,7 +12,7 @@
 #include "..\GlobalFunctions\GlobalFunctions.h"
 #include "..\OBBCollider\OBBCollider.h"
 
-// クラスの前方宣言
+//! クラスの前方宣言
 class CharaBase;
 class Game;
 class OBBCollider;
@@ -25,7 +25,9 @@ public:
 	*/
 	Player(Game *Game);
 
-	// デストラクタ
+	/**
+	* @brief Playerのデストラクタ
+	*/
 	~Player() override;
 
 	/**
@@ -41,7 +43,8 @@ public:
 
 	/**
 	* @brief 初期化メソッド
-	* @param[in] hit_point　キャラのHP　拡張性向上のため
+	* @note  拡張性を考慮し引数にHPを指定
+	* @param[in] hit_point  キャラのHP
 	*/
 	void initialize(float hit_point) override;
 
@@ -109,46 +112,127 @@ private:
 	*/
 	void animateAndMove(ePlayer::AnimationNum num, float rotate_angle, float move_x, float move_z);
 private:
-	// 状態ごとのメソッド
-	void idle();	// 待機
-	void move();	// 移動
-	void roll();	// 回転
-	void attack();	// 攻撃 => 三段攻撃の予定
-	void damage();	// 被ダメージ
-	void healing();	// 回復
-	void death();	// 死亡
+	// 以下 状態ごとのメソッド ---------------------
+	/**
+	* @brief 待機状態の管理メソッド
+	*/
+	void idle();
+
+	/**
+	* @brief 移動状態の管理メソッド
+	*/
+	void move();
+
+	/**
+	* @brief 回転状態の管理メソッド
+	*/
+	void roll();
+
+	/**
+	* @brief 攻撃状態の管理メソッド
+	*/
+	void attack();
+
+	/**
+	* @brief 被ダメージ状態の管理メソッド
+	*/
+	void damage();
+
+	/**
+	* @brief 回復状態の管理メソッド
+	*/
+	void healing();
+
+	/**
+	* @brief 死亡状態の管理メソッド
+	*/
+	void death();
+	// 以上 状態ごとのメソッド ---------------------
 private:
-	// 体用 OBBColliderインスタンス化   被ダメージ時使用
+	//! 体用 OBBColliderインスタンス化   被ダメージ時使用
 	OBBCollider mOBBCol = OBBCollider(PLAYER_OBB_SCALE, PLAYER_OBB_ANGLE, PLAYER_OBB_TRANS);
 
-	// 剣用 OBBColliderインスタンス化   攻撃時使用
+	//! 剣用 OBBColliderインスタンス化   攻撃時使用
 	OBBCollider mOBBColSword = OBBCollider(SWORD_OBB_SCALE, SWORD_OBB_ANGLE, SWORD_OBB_TRANS);
 private:
 	Game	*pGame = nullptr;
-	int		healCount = 0;												// 回復可能回数
-	float	rollCoolTime = 0.f;											// 回転のクールタイム管理変数
-	float	*withSwordAnimTimes = 0;									// 武器を持ったモデルのアニメーション総再生時間
-	bool	rollAble = true;											// Roll可能フラグ
-	bool	isRoll = false;												// 回転中フラグ
-	bool	isAttackAnim = false;										// 攻撃アニメーションがセットされているかのフラグ
-	bool	isFirst = false;											// 一段目の攻撃かどうかのフラグ
-	bool	isSecond = false;											// 二段目の攻撃かどうかのフラグ
-	bool	isThird = false;											// 三段目の攻撃かどうかのフラグ
+	//! 回復可能回数
+	int		healCount = 0;
+	//! 回転のクールタイム管理変数
+	float	rollCoolTime = 0.f;
+	//! 武器を持ったモデルのアニメーション総再生時間
+	float	*withSwordAnimTimes = 0;
+	//! Roll可能フラグ
+	bool	rollAble = true;
+	//! 回転中フラグ
+	bool	isRoll = false;
+	//! 攻撃アニメーションがセットされているかのフラグ
+	bool	isAttackAnim = false;
+	//! 一段目の攻撃かどうかのフラグ
+	bool	isFirst = false;
+	//! 二段目の攻撃かどうかのフラグ
+	bool	isSecond = false;
+	//! 三段目の攻撃かどうかのフラグ
+	bool	isThird = false;
+	
+	//! 状態を表す
+	PlayerState currentState = PlayerState::Idle;
 
-	PlayerState currentState = PlayerState::Idle;						// 状態を表す
-
-	std::unordered_map<PlayerState, stateFunction> stateFunctionMap;	// 関数の入ったunordered_mapを定義
+	//! 関数の入ったunordered_mapを定義
+	std::unordered_map<PlayerState, stateFunction> stateFunctionMap;
 };
 
 
-// マクロ定義
+//	以下 マクロ定義
+/**
+* @def Key_ForwardMove
+* @brief 前進キーの入力を判定
+*/
 #define Key_ForwardMove		CheckHitKey(KEY_INPUT_UP)
+/**
+* @def Key_BackMove
+* @brief 後退キーの入力を判定
+*/
 #define Key_BackMove		CheckHitKey(KEY_INPUT_DOWN)
+/**
+* @def Key_RightMove
+* @brief 右移動キーの入力を判定
+*/
 #define Key_RightMove		CheckHitKey(KEY_INPUT_RIGHT)
+/**
+* @def Key_Left_Move
+* @brief 左移動キーの入力を判定
+*/
 #define Key_Left_Move		CheckHitKey(KEY_INPUT_LEFT)
+
+/**
+* @def Key_ForwardRoll
+* @brief 前転キーの入力を判定
+*/
 #define Key_ForwardRoll		CheckHitKey(KEY_INPUT_W)
+/**
+* @def Key_RightRoll
+* @brief 右回転キーの入力を判定
+*/
 #define Key_RightRoll		CheckHitKey(KEY_INPUT_D)
+/**
+* @def Key_LeftRoll
+* @brief 左回転キーの入力を判定
+*/
 #define Key_LeftRoll		CheckHitKey(KEY_INPUT_A)
+/**
+* @def Key_BackRoll
+* @brief 後ろ回転キーの入力を判定
+*/
 #define Key_BackRoll		CheckHitKey(KEY_INPUT_S)
+
+/**
+* @def Key_Attack
+* @brief 攻撃キーの入力を判定
+*/
 #define Key_Attack			CheckHitKey(KEY_INPUT_V)
+/**
+* @def Key_Healing
+* @brief 回復キーの入力を判定
+*/
 #define Key_Healing			CheckHitKey(KEY_INPUT_F)

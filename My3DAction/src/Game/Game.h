@@ -17,7 +17,7 @@
 #include "..\HealCounter\HealCounter.h"
 #include "..\Constants.h"
 
-// クラスの前方宣言
+//! クラスの前方宣言
 class SceneManager;
 class Player;
 class Enemy;
@@ -39,8 +39,11 @@ public:
 	*/
 	Game(SceneManager *System);
 
-	// デストラクタ
-	~Game(void);
+	/**
+	* @brief Gameのデストラクタ
+	*/
+	~Game();
+
 	/**
 	* @brief 管理メソッド
 	* @note
@@ -52,14 +55,42 @@ public:
 	* @note  毎フレーム実行される
 	*/
 	void draw() override;
+
 	// 以下取得用定数=================================================== //
-	Player			*GetPlayer();			// Playerを取得して返す
-	Enemy			*GetEnemy();			// Enemyを取得して返す
-	ModelManager	*GetModelManager();		// Modelを取得して返す
-	Camera			*GetCamera();			// Cameraを取得して返す
-	BG				*GetBG();				// BGを取得して返す
-	Collision		*GetCollision();		// Collisionを取得して返す
-	Radar			*GetRadar();			// Radarを取得して返す
+	/**
+	* @brief Playerを取得して返す
+	*/
+	Player *GetPlayer();
+
+	/**
+	* @brief Enemyを取得して返す
+	*/
+	Enemy *GetEnemy();
+
+	/**
+	* @brief Modelを取得して返す
+	*/
+	ModelManager *GetModelManager();
+
+	/**
+	* @brief Cameraを取得して返す
+	*/
+	Camera *GetCamera();
+
+	/**
+	* @brief BGを取得して返す
+	*/
+	BG *GetBG();
+
+	/**
+	* @brief Collisionを取得して返す
+	*/
+	Collision *GetCollision();
+
+	/**
+	* @brief Radarを取得して返す
+	*/
+	Radar *GetRadar();
 	// 以上取得用定数=================================================== //
 private:
 	/**
@@ -85,17 +116,33 @@ private:
 	Radar		 *pRadar = nullptr;
 	HPBar		 *pHPBar = nullptr;
 	HealCounter  *pHealCounter = nullptr;
-	StagePhase	 stagePhase = StagePhase::STAGE_INIT;	// 状態を表す
+	//! 状態を表す
+	StagePhase	 stagePhase = StagePhase::STAGE_INIT;
 	int			 timer = 0;
-	int			 startTime = 0;							// FadeOut開始時間取得用
-	bool		 bPause = false;						// ポーズボタン連打防止フラグ
-	bool		 isFadeStart = false;					// FadeOutが開始したかどうかのflag
+	//! FadeOut開始時間取得用
+	int			 startTime = 0;
+	//! ポーズボタン連打防止フラグ
+	bool		 bPause = false;
+	//! FadeOutが開始したかどうかのflag
+	bool		 isFadeStart = false;
 };
 
-//	マクロ定義
+//	以下 マクロ定義
 #undef SAFE_RELEASE
 #undef SAFE_DELETE
 #undef SAFE_DELETE_ARRAY
+/**
+* @def SAFE_RELEASE
+* @brief ポインタの解放
+*/
 #define SAFE_RELEASE(o) if(o){ (o)->Release(); o = NULL; }
+/**
+* @def SAFE_DELETE
+* @brief ポインタの削除
+*/
 #define SAFE_DELETE(o)	if(o){ delete (o); o = NULL; }
-#define SAFE_DELETE_ARRAY if(o){ delete [] (o); o = NULL; }
+/**
+* @def SAFE_DELETE_ARRAY
+* @brief ポインタ配列の削除
+*/
+#define SAFE_DELETE_ARRAY(o) if(o){ delete [] (o); o = NULL; }

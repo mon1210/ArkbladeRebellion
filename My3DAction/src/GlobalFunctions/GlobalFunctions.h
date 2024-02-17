@@ -1,6 +1,6 @@
 /**
 * @file		GlobalFunctions.h
-* @brief	グローバル関数の宣言
+* @brief	グローバル関数 の宣言
 */
 #pragma once
 #include "DxLib.h"
