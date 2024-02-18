@@ -29,7 +29,7 @@ struct RadarData
 	float frontVecZ;
 
 	//! Radar‚Ì”¼Œa
-	float raderRadius;
+	int raderRadius;
 };
 
 

@@ -200,10 +200,10 @@ const VECTOR SWORD_OBB_TRANS = VGet(58.f, 42.f, 2.f);
 
 
 // 以上RadarPoint用定数================================================================================================ //
+//! Pointの半径
+const int RADAR_POINT_RADIUS = 5;
 //! Radarの索敵範囲
 const float RADAR_DETECTION_RANGE = 3000.f;
-//! Pointの半径
-const float RADAR_POINT_RADIUS = 5.f;
 // 以上RadarPoint用定数================================================================================================ //
 
 
@@ -257,7 +257,7 @@ const int ENEMY_HP_BAR_WIDTH = 525;
 //! エネミーのHPバーの高さ
 const int ENEMY_HP_BAR_HEIGHT = 25;
 //! エネミーの名前表示Y座標
-const int ENEMY_NAME_POS_Y = 20.f;
+const int ENEMY_NAME_POS_Y = 20;
 //! HPの変化量　バーの増減速度
 const float HP_CHANGE_AMOUNT = 0.5f;
 // 以上HPBar用定数===================================================================================================== //

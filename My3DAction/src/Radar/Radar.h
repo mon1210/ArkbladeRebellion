@@ -63,7 +63,7 @@ private:
 	//! 正面ベクトルZ
 	float	frontVecZ = 0.f;
 	//! Radarの半径
-	float	radius = 100.0f;
+	int		radius = 100;
 
 	//! Pointリスト作成
 	std::vector<RadarPoint> pointList;
