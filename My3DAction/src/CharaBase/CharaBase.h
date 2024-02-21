@@ -58,7 +58,18 @@ public:
 	* @brief 攻撃ヒット判定フラグを取得して返す
 	*/
 	bool GetIsHitFlag() { return isAttackHit; }
+
+	/**
+	* @brief 一度の攻撃で二段攻撃にならないようにするフラグを取得して返す
+	*/
+	bool GetDamegeFlag() { return isDamageCooldown; }
 	// 以上取得用定数===================================================================== //
+
+	/**
+	* @brief 一度の攻撃で二段攻撃にならないようにするフラグをセットする
+	* @param[in] is_damage_flag 一度の攻撃で二段攻撃にならないようにするフラグ
+	*/
+	void SetDamegeFlag(bool is_damage_flag) { isDamageCooldown = is_damage_flag; }
 protected:
 	/**
 	* @brief unordered_map初期化メソッド
@@ -94,6 +105,8 @@ protected:
 	bool	isDeath = false;
 	//! 自身の攻撃が当たったかのフラグ
 	bool	isAttackHit = false;
+	//! 一度の攻撃で二段攻撃にならないようにするフラグ
+	bool	isDamageCooldown = false;
 
 	//!  関数ポインタの型を定義
 	typedef std::function<void()> stateFunction;
