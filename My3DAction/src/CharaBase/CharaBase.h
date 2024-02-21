@@ -94,6 +94,8 @@ protected:
 	bool	isDeath = false;
 	//! 自身の攻撃が当たったかのフラグ
 	bool	isAttackHit = false;
+	//! 一度の攻撃で二段攻撃にならないようにするフラグ
+	bool	isDamageCooldown = false;
 
 	//!  関数ポインタの型を定義
 	typedef std::function<void()> stateFunction;
