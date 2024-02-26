@@ -31,7 +31,6 @@
 #define SAFE_DELETE(o)	if(o){ delete (o); o = NULL; }
 #define SAFE_DELETE_ARRAY(o) if(o){ delete [] (o); o = NULL; }
 
-SceneManager *g_pSceneManager = nullptr;	//	ゲームシステムオブジェクト
 
 /**
 * @fn
@@ -48,6 +47,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	ChangeWindowMode(TRUE);     // ウィンドウモードに設定
 	SetGraphMode(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_COLOR);    // ウィンドウ設定
+
+	SceneManager *g_pSceneManager = nullptr;	//	ゲームシステムオブジェクト
 
 	/*********************
 		1.初期化部分
