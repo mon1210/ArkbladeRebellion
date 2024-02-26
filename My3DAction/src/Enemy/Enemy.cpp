@@ -34,7 +34,7 @@ void Enemy::initialize(float hit_point)
     toPlayerVec = VGet(0.f, 0.f, 0.f);
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, (int)eEnemy::AnimationNum::Idle);
+    MV1AttachAnim(animHandle, static_cast<int>(eEnemy::AnimationNum::Idle));
 
     // unordered_map初期化
     initializeStateFunctions();

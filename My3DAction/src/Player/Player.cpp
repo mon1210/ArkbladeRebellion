@@ -38,7 +38,7 @@ void Player::initialize(float hit_point)
     isAttackHit = false;
 
     // モデルにIdleアニメーションをセット
-    MV1AttachAnim(animHandle, (int)ePlayer::AnimationNum::Idle);
+    MV1AttachAnim(animHandle, static_cast<int>(ePlayer::AnimationNum::Idle));
 
     // unordered_map初期化
     initializeStateFunctions();
@@ -222,9 +222,9 @@ void Player::idle()
     isAttackHit = false;
 
     // アニメーションをセット
-    if (animNum != (int)ePlayer::AnimationNum::Idle)  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(ePlayer::AnimationNum::Idle))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNum = (int)ePlayer::AnimationNum::Idle;
+        animNum = static_cast<int>(ePlayer::AnimationNum::Idle);
         setAnim(animHandle, animNum, animTimer);
     }
     updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Idle)], &animTimer, PLAYER_ANIM_F_INCREMENT);
@@ -353,9 +353,9 @@ void Player::attack()
         //count += PLAYER_ANIM_F_INCREMENT;
 
         // アニメーションをセット
-        if (!isAttackAnim)       // (int)ePlayerWS::Slash1と(int)ePlayer::Idleが同じなので条件を変更
+        if (!isAttackAnim)  // static_cast<int>(ePlayerWS::Slash1)とstatic_cast<int>(ePlayer::Idle)が同じなので条件を変更
         {
-            animNum = (int)ePlayerWS::AnimationNum::Slash1;
+            animNum = static_cast<int>(ePlayerWS::AnimationNum::Slash1);
             setAnim(animHandle, animNum, animTimer);
             isAttackAnim = true;
         }
@@ -389,9 +389,9 @@ void Player::attack()
     {
         //count += PLAYER_ANIM_F_INCREMENT
 
-        if (animNum != (int)ePlayerWS::AnimationNum::Slash2)
+        if (animNum != static_cast<int>(ePlayerWS::AnimationNum::Slash2))
         {
-            animNum = (int)ePlayerWS::AnimationNum::Slash2;
+            animNum = static_cast<int>(ePlayerWS::AnimationNum::Slash2);
             setAnim(animHandle, animNum, animTimer);
             //count = 0;
         }
@@ -423,9 +423,9 @@ void Player::attack()
     // 三段目の攻撃 ===================================================================================================================
     else if (isThird)
     {
-        if (animNum != (int)ePlayerWS::AnimationNum::Slash3)
+        if (animNum != static_cast<int>(ePlayerWS::AnimationNum::Slash3))
         {
-            animNum = (int)ePlayerWS::AnimationNum::Slash3;
+            animNum = static_cast<int>(ePlayerWS::AnimationNum::Slash3);
             setAnim(animHandle, animNum, animTimer);
             //count = 0;
         }
@@ -464,9 +464,9 @@ void Player::damage()
     // 現在のHP更新
     currentHP = hitPoint;
     // アニメーションをセット
-    if (animNum != (int)ePlayer::AnimationNum::Damage)  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(ePlayer::AnimationNum::Damage))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNum = (int)ePlayer::AnimationNum::Damage;
+        animNum = static_cast<int>(ePlayer::AnimationNum::Damage);
         setAnim(animHandle, animNum, animTimer);
     }
 
@@ -481,9 +481,9 @@ void Player::damage()
 void Player::healing()
 {
     // アニメーションをセット
-    if (animNum != (int)ePlayer::AnimationNum::Drinking)  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(ePlayer::AnimationNum::Drinking))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNum = (int)ePlayer::AnimationNum::Drinking;
+        animNum = static_cast<int>(ePlayer::AnimationNum::Drinking);
         setAnim(animHandle, animNum, animTimer);
     }
 
@@ -510,9 +510,9 @@ void Player::healing()
 void Player::death()
 {
     // アニメーションをセット
-    if (animNum != (int)ePlayer::AnimationNum::Dying)  // ここがないとanimTimerがうまくリセットされない
+    if (animNum != static_cast<int>(ePlayer::AnimationNum::Dying))  // ここがないとanimTimerがうまくリセットされない
     {
-        animNum = (int)ePlayer::AnimationNum::Dying;
+        animNum = static_cast<int>(ePlayer::AnimationNum::Dying);
         setAnim(animHandle, animNum, animTimer);
     }
 
