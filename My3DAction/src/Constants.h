@@ -166,7 +166,7 @@ const float PLAYER_START_ROTATE_Y = 180.f;
 //! プレイヤーの毎フレームごとのアニメーションの増加数
 const float PLAYER_ANIM_F_INCREMENT = 0.35f;
 //! プレイヤーの移動距離
-const float PLAYER_MOVE_SPEED = 15.f;
+const float PLAYER_MOVE_SPEED = 14.f;
 //! プレイヤーの前転時の移動距離
 const float PLAYER_ROLL_SPEED = 8.f;
 //! プレイヤー前進時の回転角度
