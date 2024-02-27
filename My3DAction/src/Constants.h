@@ -82,9 +82,9 @@ const float ENEMY_START_ROTATE_Y = 0.f;
 //! エネミーの3Dモデルの拡大率
 const float ENEMY_MODEL_SCALE = 2.5f; 
 //! エネミーの毎フレームごとのアニメーションの増加数
-const float ENEMY_ANIM_F_INCREMENT = 0.25f;
+const float ENEMY_ANIM_F_INCREMENT = 0.35f;
 //! エネミーの移動距離
-const float ENEMY_MOVE_SPEED = 4.f;
+const float ENEMY_MOVE_SPEED = 5.f;
 //! エネミーの視野円の半径
 const float ENEMY_VIEW_RADIUS = 1500.f;
 //! エネミーの最大HP
