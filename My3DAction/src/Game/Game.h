@@ -78,9 +78,9 @@ public:
 	Camera *GetCamera();
 
 	/**
-	* @brief BG‚ðŽæ“¾‚µ‚Ä•Ô‚·
+	* @brief BG‚Ìƒ‚ƒfƒ‹‚ðŽæ“¾‚µ‚Ä•Ô‚·
 	*/
-	BG *GetBG();
+	int GetBGModel();
 
 	/**
 	* @brief Collision‚ðŽæ“¾‚µ‚Ä•Ô‚·

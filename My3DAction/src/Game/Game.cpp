@@ -199,10 +199,13 @@ Radar *Game::GetRadar()
 }
 
 
-// BG‚ðŽæ“¾‚µ‚Ä•Ô‚·
-BG *Game::GetBG()
+// BG‚Ìƒ‚ƒfƒ‹‚ðŽæ“¾‚µ‚Ä•Ô‚·
+int Game::GetBGModel()
 {
-	return pBG;
+	if (pBG)
+		return pBG->GetModelHandle();
+	else
+		return -1;
 }
 
 
