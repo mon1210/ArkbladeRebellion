@@ -181,11 +181,6 @@ void Game::draw()
 // ModelManager‚ðŽæ“¾‚µ‚Ä•Ô‚·
 ModelManager *Game::GetModelManager()
 {
-	if (!pModelManager)
-	{
-		return nullptr;
-	}
-
 	return pModelManager;
 }
 
@@ -193,11 +188,6 @@ ModelManager *Game::GetModelManager()
 // Collision‚ðŽæ“¾‚µ‚Ä•Ô‚·
 Collision *Game::GetCollision()
 {
-	if (!pCollision)
-	{
-		return nullptr;
-	}
-
 	return pCollision;
 }
 
@@ -205,11 +195,6 @@ Collision *Game::GetCollision()
 // Radar‚ðŽæ“¾‚µ‚Ä•Ô‚·
 Radar *Game::GetRadar()
 {
-	if (!pRadar)
-	{
-		return nullptr;
-	}
-
 	return pRadar;
 }
 
@@ -217,11 +202,6 @@ Radar *Game::GetRadar()
 // BG‚ðŽæ“¾‚µ‚Ä•Ô‚·
 BG *Game::GetBG()
 {
-	if (!pBG)
-	{
-		return nullptr;
-	}
-
 	return pBG;
 }
 
@@ -229,11 +209,6 @@ BG *Game::GetBG()
 // Player‚ðŽæ“¾‚µ‚Ä•Ô‚·
 Player *Game::GetPlayer()
 {
-	if (!pPlayer)
-	{
-		return nullptr;
-	}
-
 	return pPlayer;
 }
 
@@ -241,11 +216,6 @@ Player *Game::GetPlayer()
 // Camera‚ðŽæ“¾‚µ‚Ä•Ô‚·
 Camera *Game::GetCamera()
 {
-	if (!pCamera)
-	{
-		return nullptr;
-	}
-
 	return pCamera;
 }
 
@@ -253,10 +223,5 @@ Camera *Game::GetCamera()
 // Enemy‚ðŽæ“¾‚µ‚Ä•Ô‚·
 Enemy *Game::GetEnemy() 
 {
-	if (!pEnemy)
-	{
-		return nullptr;
-	}
-
 	return pEnemy;
 }
