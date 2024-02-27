@@ -7,7 +7,7 @@ Collision::Collision(Game *Game)
 	pGame = Game;
 
 	if (pGame)
-		tileHandle = pGame->GetBG()->GetModelHandle();
+		tileHandle = pGame->GetBGModel();
 }
 
 
