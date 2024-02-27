@@ -309,25 +309,25 @@ void Player::roll()
     // ëORoll
     if (Key_ForwardRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_MOVE_SPEED);
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_ROLL_SPEED);
         isRoll = true;
     }
     // âERoll
     else if (Key_RightRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_ROLL_SPEED, 0);
         isRoll = true;
     }
     // ç∂Roll
     else if (Key_LeftRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_MOVE_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_ROLL_SPEED, 0);
         isRoll = true;
     }
     // å„Roll
     else if (Key_BackRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, BACK_ROTATION_ANGLE, 0, -PLAYER_MOVE_SPEED);
+        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, BACK_ROTATION_ANGLE, 0, -PLAYER_ROLL_SPEED);
         isRoll = true;
     }
 

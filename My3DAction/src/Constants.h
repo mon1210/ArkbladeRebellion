@@ -164,11 +164,11 @@ const float PLAYER_START_POS_Z = 600.f;
 //! プレイヤーの初期回転Y
 const float PLAYER_START_ROTATE_Y = 180.f;
 //! プレイヤーの毎フレームごとのアニメーションの増加数
-const float PLAYER_ANIM_F_INCREMENT = 0.25f;
+const float PLAYER_ANIM_F_INCREMENT = 0.35f;
 //! プレイヤーの移動距離
-const float PLAYER_MOVE_SPEED = 10.f;
+const float PLAYER_MOVE_SPEED = 15.f;
 //! プレイヤーの前転時の移動距離
-const float PLAYER_ROLL_ANIM_F_INCREMENT = 0.3f;
+const float PLAYER_ROLL_SPEED = 8.f;
 //! プレイヤー前進時の回転角度
 const float FORWARD_ROTATION_ANGLE = 180.f;
 //! プレイヤー右移動時の回転角度
