@@ -98,6 +98,7 @@ private:
 	* @note  別クラスの初期化メソッドを管理
 	*/
 	void initialize();
+
 	/**
 	* @brief 更新メソッド
 	* @note  毎フレームの処理
