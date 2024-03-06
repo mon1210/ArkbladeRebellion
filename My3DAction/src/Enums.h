@@ -60,14 +60,12 @@ namespace ePlayer
 	enum class AnimationNum
 	{
 		Default = -1,
-		Idle = 1,
+		Idle = 0,
 		Run,
-		NoMoveRoll,
 		Roll,
-		SpeedRoll,
-		Damage = 9,
+		Damage,
 		Drinking,
-		Dying, 
+		Dying = 12, 
 	};
 }
 
@@ -90,7 +88,7 @@ namespace eEnemy
 	enum class AnimationNum
 	{
 		Default = -1,
-		Idle = 1,
+		Idle = 0,
 		Run,
 		Swiping,
 		Damage,

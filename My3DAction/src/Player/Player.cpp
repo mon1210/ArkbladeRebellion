@@ -170,7 +170,7 @@ void Player::manageRollCooldown()
     if (rollCoolTime <= 0)
     {
         // クールタイムをdefaultに
-        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
         rollAble = true;
     }
@@ -240,7 +240,7 @@ void Player::idle()
             roll_coolTime = Const.MAX_ROLLING_COOLTIME + animTime;
         */
         // animTimeをRollの数にするように、配列を作成して取得
-        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)];
+        rollCoolTime = MAX_ROLL_COOL_TIME + animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)];
 
     }
     // attackへ
@@ -309,32 +309,32 @@ void Player::roll()
     // 前Roll
     if (Key_ForwardRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, FORWARD_ROTATION_ANGLE, 0, PLAYER_ROLL_SPEED);
+        animateAndMove(ePlayer::AnimationNum::Roll, FORWARD_ROTATION_ANGLE, 0, PLAYER_ROLL_SPEED);
         isRoll = true;
     }
     // 右Roll
     else if (Key_RightRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, RIGHT_ROTATION_ANGLE, PLAYER_ROLL_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Roll, RIGHT_ROTATION_ANGLE, PLAYER_ROLL_SPEED, 0);
         isRoll = true;
     }
     // 左Roll
     else if (Key_LeftRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, LEFT_ROTATION_ANGLE, -PLAYER_ROLL_SPEED, 0);
+        animateAndMove(ePlayer::AnimationNum::Roll, LEFT_ROTATION_ANGLE, -PLAYER_ROLL_SPEED, 0);
         isRoll = true;
     }
     // 後Roll
     else if (Key_BackRoll && !isRoll)
     {
-        animateAndMove(ePlayer::AnimationNum::NoMoveRoll, BACK_ROTATION_ANGLE, 0, -PLAYER_ROLL_SPEED);
+        animateAndMove(ePlayer::AnimationNum::Roll, BACK_ROTATION_ANGLE, 0, -PLAYER_ROLL_SPEED);
         isRoll = true;
     }
 
     // アニメーション終了後
     if (rollAble)
     {
-        if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::NoMoveRoll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
+        if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Roll)], &animTimer, PLAYER_ANIM_F_INCREMENT))
         {
             currentState = PlayerState::Idle;
             rollAble = false;
