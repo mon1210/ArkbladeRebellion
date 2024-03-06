@@ -25,7 +25,7 @@ void ModelManager::initializeModelList()
 {
     modelList[ModelType::Player]          = { MV1LoadModel("res\\Player\\PlayerModel.mv1") };
     modelList[ModelType::PlayerWithSword] = { MV1LoadModel("res\\Player\\PlayerModelWithSword.mv1") };
-    modelList[ModelType::Enemy]           = { MV1LoadModel("res\\Enemy\\EnemyModel2.mv1") };
+    modelList[ModelType::Enemy]           = { MV1LoadModel("res\\Enemy\\EnemyModel.mv1") };
     modelList[ModelType::Tile]            = { MV1LoadModel("res\\test_Tile_model.mv1") };
 
     // ƒ‚ƒfƒ‹‚ÉZBuffer‚ð“K—p‚·‚é
