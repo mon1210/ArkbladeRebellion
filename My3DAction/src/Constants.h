@@ -242,7 +242,7 @@ const int STAGE_FADE_TIMER = 80;
 //! タイトルフェードアウト開始時の初期化値
 const int TITLE_DONE_TIME = 0;
 //! タイトルフェードアウトに要する時間
-const int TITLE_FADEOUT_TIME = 85;
+const int TITLE_FADEOUT_TIME = 80;
 //! TitleのX座標
 const int TITLE_POS_X = 0;
 //! TitleのY座標
