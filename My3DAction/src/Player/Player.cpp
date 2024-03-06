@@ -202,8 +202,7 @@ void Player::update()
     // UŒ‚‚ğó‚¯‚½      Roll’†‚Í–³“G
     if (pGame->GetEnemy()->GetIsHitFlag() && !isRoll)
     {
-        hitPoint = clampF(hitPoint, 0, MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
-        hitPoint -= ENEMY_ATTACK;
+        hitPoint = clampF(hitPoint -= ENEMY_ATTACK, 0, MAX_HP); // Å‘åÅ¬‚ğŒˆ’è
     }
 
     // hitPoint0ˆÈ‰º‚Ådeath‚Ö

@@ -182,13 +182,13 @@ const float BACKWARD_ROTATION_ANGLE = 0.f;
 //! 3Dモデルの拡大率
 const float MODEL_SCALE = 1.5f;
 //! 最大HP
-const float MAX_HP = 100.f;
+const float MAX_HP = 200.f;
 //! 一度の回復量
 const float HEALING_VALUE = 20.f;
 //! プレイヤーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float PLAYER_OBB_TRANS_Y = 130.f;
 //! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
-const float ENEMY_ATTACK = 0.05f;
+const float ENEMY_ATTACK = 0.5f;
 //! 体の当たり判定OBBの拡縮値
 const VECTOR PLAYER_OBB_SCALE = VGet(100.f, 250.f, 100.f);
 //! 体の当たり判定OBBの回転値
@@ -258,7 +258,7 @@ const int TITLE_PS_POS_Y = 240;
 // 以下HPBar用定数===================================================================================================== //
 
 //! この数値以下でゲージの色変更
-const int LOW_HP = 30;
+const int LOW_HP = 80;
 //! HPバーのX座標
 const int HP_BAR_POS_X = 250;
 //! HPバーのY座標
