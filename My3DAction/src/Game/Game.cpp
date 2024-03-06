@@ -148,12 +148,10 @@ void Game::draw()
 {
 	if (pBG)
 		pBG->draw();
-#ifdef DEBUG
+#ifdef _DEBUG
 	if (pGrid)
 		pGrid->draw();
 #endif // DEBUG
-	if (pGrid)
-		pGrid->draw();
 	if (pPlayer)
 		pPlayer->draw();
 	if (pEnemy)
