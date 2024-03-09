@@ -12,6 +12,7 @@ Game::Game(SceneManager *System)
 	pModelManager = new ModelManager();
 	pCamera = new Camera(this);
 	pBG = new BG(this);
+	pDrawDebugKey = new DrawDebugKey();
 	pCollision = new Collision(this);	// •K‚¸Player‚æ‚èã‚É‘‚­
 	pRadar = new Radar();				// •K‚¸Player‚æ‚èã‚É‘‚­
 	pPlayer = new Player(this);
@@ -55,6 +56,7 @@ Game::~Game()
 {
 	SAFE_DELETE(pCollision);
 	SAFE_DELETE(pBG);
+	SAFE_DELETE(pDrawDebugKey);
 	SAFE_DELETE(pEnemy);
 	SAFE_DELETE(pPlayer);
 	SAFE_DELETE(pCamera);
@@ -146,6 +148,8 @@ void Game::draw()
 {
 	if (pBG)
 		pBG->draw();
+	if (pDrawDebugKey)
+		pDrawDebugKey->draw();
 	if (pPlayer)
 		pPlayer->draw();
 	if (pEnemy)

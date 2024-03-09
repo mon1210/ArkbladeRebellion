@@ -9,6 +9,7 @@
 #include "..\Enemy\Enemy.h"
 #include "..\Enums.h"
 #include "..\Camera\Camera.h"
+#include "..\DrawDebugKey\DrawDebugKey.h"
 #include "..\ModelManager\ModelManager.h"
 #include "..\Collision\Collision.h"
 #include "..\Radar\Radar.h"
@@ -22,6 +23,7 @@ class Player;
 class Enemy;
 class ModelManager;
 class Camera;
+class DrawDebugKey;
 class BG;
 class Collision;
 class Radar;
@@ -109,6 +111,7 @@ private:
 	Enemy		 *pEnemy = nullptr;
 	ModelManager *pModelManager = nullptr;
 	Camera		 *pCamera = nullptr;
+	DrawDebugKey *pDrawDebugKey = nullptr;
 	BG			 *pBG = nullptr;
 	Collision	 *pCollision = nullptr;
 	Radar		 *pRadar = nullptr;
