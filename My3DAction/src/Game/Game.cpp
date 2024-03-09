@@ -16,7 +16,6 @@ Game::Game(SceneManager *System)
 	pRadar = new Radar();				// •K‚¸Player‚æ‚èã‚É‘‚­
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
-	pGrid = new Grid();
 	pHPBar = new HPBar(this);
 	pHealCounter = new HealCounter(this);
 }
@@ -55,7 +54,6 @@ void Game::update()
 Game::~Game()
 {
 	SAFE_DELETE(pCollision);
-	SAFE_DELETE(pGrid);
 	SAFE_DELETE(pBG);
 	SAFE_DELETE(pEnemy);
 	SAFE_DELETE(pPlayer);
@@ -148,10 +146,6 @@ void Game::draw()
 {
 	if (pBG)
 		pBG->draw();
-#ifdef _DEBUG
-	if (pGrid)
-		pGrid->draw();
-#endif // DEBUG
 	if (pPlayer)
 		pPlayer->draw();
 	if (pEnemy)
