@@ -10,7 +10,6 @@
 #include "..\Enums.h"
 #include "..\Camera\Camera.h"
 #include "..\ModelManager\ModelManager.h"
-#include "..\Grid\Grid.h"
 #include "..\Collision\Collision.h"
 #include "..\Radar\Radar.h"
 #include "..\HPBar\HPBar.h"
@@ -24,7 +23,6 @@ class Enemy;
 class ModelManager;
 class Camera;
 class BG;
-class Grid;
 class Collision;
 class Radar;
 class HPBar;
@@ -112,7 +110,6 @@ private:
 	ModelManager *pModelManager = nullptr;
 	Camera		 *pCamera = nullptr;
 	BG			 *pBG = nullptr;
-	Grid		 *pGrid = nullptr;
 	Collision	 *pCollision = nullptr;
 	Radar		 *pRadar = nullptr;
 	HPBar		 *pHPBar = nullptr;
