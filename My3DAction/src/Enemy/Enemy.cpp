@@ -435,6 +435,7 @@ void Enemy::draw()
     // OBB•`‰æ
     if (CheckHitKey(KEY_INPUT_E))
     {
+        // “–‚½‚Á‚Ä‚¢‚é‚Æ‚«‚ÍÔF‚É
         if (pGame->GetPlayer()->GetIsHitFlag())
             mOBBCol.draw(RED);
         else
