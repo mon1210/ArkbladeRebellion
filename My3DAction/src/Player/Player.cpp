@@ -447,7 +447,7 @@ void Player::attack()
 
     // Œ•OBB•`‰æ
     if (CheckHitKey(KEY_INPUT_E))
-        mOBBColSword.draw();
+        mOBBColSword.draw(WHITE);
 
     // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
     if (pGame->GetCollision()->checkOBBCol(mOBBColSword, pGame->GetEnemy()->GetOBBCol()))
@@ -568,7 +568,12 @@ void Player::draw()
 
     // OBB•`‰æ
     if (CheckHitKey(KEY_INPUT_E))
-        mOBBCol.draw();
+    {
+        if (pGame->GetEnemy()->GetIsHitFlag())
+            mOBBCol.draw(RED);
+        else
+            mOBBCol.draw(WHITE);
+    }
 
 }
 

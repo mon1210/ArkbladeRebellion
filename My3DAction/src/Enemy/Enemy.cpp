@@ -323,7 +323,7 @@ void Enemy::attack()
 
     // ŽèOBB•`‰æ
     if (CheckHitKey(KEY_INPUT_E))
-        mOBBColHand.draw();
+        mOBBColHand.draw(WHITE);
 
     // ŽèOBB,ƒvƒŒƒCƒ„[OBB‚Å‚Ì“–‚½‚è”»’è
     if (pGame->GetCollision()->checkOBBCol(mOBBColHand, pGame->GetPlayer()->GetOBBCol()))
@@ -434,7 +434,12 @@ void Enemy::draw()
    
     // OBB•`‰æ
     if (CheckHitKey(KEY_INPUT_E))
-        mOBBCol.draw();
+    {
+        if (pGame->GetPlayer()->GetIsHitFlag())
+            mOBBCol.draw(RED);
+        else
+            mOBBCol.draw(WHITE);
+    }
 }
 
 

@@ -140,7 +140,7 @@ void OBBCollider::update()
 
 
 // 描画メソッド
-void OBBCollider::draw()
+void OBBCollider::draw(unsigned int color)
 {
 	// currentVerticesを使って立方体を書く
 	std::vector<std::pair<VECTOR, VECTOR>> vertice_list =
@@ -168,7 +168,7 @@ void OBBCollider::draw()
 	for (const auto& pair : vertice_list)
 	{
 		// キーワード二つを取り出し、ラインを表示
-		DrawLine3D(pair.first, pair.second, WHITE);
+		DrawLine3D(pair.first, pair.second, color);
 	}
 
 }
