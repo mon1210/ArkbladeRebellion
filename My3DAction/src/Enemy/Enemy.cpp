@@ -428,13 +428,13 @@ void Enemy::draw()
     // ３Ｄモデルの描画
     MV1DrawModel(animHandle);
 
-#ifdef _DEBUG
+    // デバッグ処理
     // 当たり判定カプセル描画
-    //DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
-
+    if (CheckHitKey(KEY_INPUT_Q))
+        DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
     // 描画
-    mOBBCol.draw();
-#endif
+    if (CheckHitKey(KEY_INPUT_E))
+        mOBBCol.draw();
 }
 
 
