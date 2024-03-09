@@ -53,6 +53,11 @@ public:
 	*/
 	void setParentMatrix(MATRIX parent);
 
+	/**
+	* @brief 描画メソッド
+	*/
+	void draw();
+
 	// 以下取得用定数===================================================================== //
 	/**
 	* @brief OBBからローカル軸を取得
@@ -73,14 +78,6 @@ private:
 	* @brief 更新メソッド
 	*/
 	void update();
-
-#ifdef _DEBUG
-public:
-	/**
-	* @brief 描画メソッド
-	*/
-	void draw();
-#endif // _DEBUG
 
 public:
 	//! 現在の頂点座標

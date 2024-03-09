@@ -139,7 +139,6 @@ void OBBCollider::update()
 }
 
 
-#ifdef _DEBUG
 // •`‰æƒƒ\ƒbƒh
 void OBBCollider::draw()
 {
@@ -173,5 +172,3 @@ void OBBCollider::draw()
 	}
 
 }
-
-#endif // _DEBUG
