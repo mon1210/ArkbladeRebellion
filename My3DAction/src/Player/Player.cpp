@@ -444,10 +444,10 @@ void Player::attack()
     MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, PLAYER_RIGHT_HAND_FRAME);
     // e‚Ìs—ñ‚É‡‚í‚¹‚é
     mOBBColSword.setParentMatrix(frame_matrix);
-#ifdef _DEBUG
-    // •`‰æ
-    mOBBColSword.draw();
-#endif
+
+    // Œ•OBB•`‰æ
+    if (CheckHitKey(KEY_INPUT_E))
+        mOBBColSword.draw();
 
     // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
     if (pGame->GetCollision()->checkOBBCol(mOBBColSword, pGame->GetEnemy()->GetOBBCol()))
@@ -562,21 +562,13 @@ void Player::draw()
     // 3Dƒ‚ƒfƒ‹‚Ì•`‰æ
     MV1DrawModel(animHandle);
 
-    // 
-    MV1SetAttachAnimTime(animHandle, static_cast<int>(ePlayerWS::AnimationNum::Slash1), animTimer);
-    // 55‚ª‰EŽè‚ÌBone
-    MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(animHandle, 55);
-#ifdef _DEBUG    
-    VECTOR pos = VGet(0.f, 0.f, 0.f);
-    pos = VTransform(pos, FrameMatrix);
-    DrawSphere3D(pos, 10.f, 10, BLUE, BLUE, TRUE);
-
     // “–‚½‚è”»’èƒJƒvƒZƒ‹•`‰æ
-    //DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
+    if (CheckHitKey(KEY_INPUT_Q))
+        DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 
-    // •`‰æ
-    mOBBCol.draw();
-#endif
+    // OBB•`‰æ
+    if (CheckHitKey(KEY_INPUT_E))
+        mOBBCol.draw();
 
 }
 
