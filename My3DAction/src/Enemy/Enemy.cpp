@@ -320,10 +320,10 @@ void Enemy::attack()
     MATRIX frame_matrix = MV1GetFrameLocalWorldMatrix(animHandle, ENEMY_LEFT_HAND_FRAME);
     // 親の行列に合わせる
     mOBBColHand.setParentMatrix(frame_matrix);
-#ifdef _DEBUG
-    // 描画
-    mOBBColHand.draw();
-#endif
+
+    // 手OBB描画
+    if (CheckHitKey(KEY_INPUT_E))
+        mOBBColHand.draw();
 
     // 手OBB,プレイヤーOBBでの当たり判定
     if (pGame->GetCollision()->checkOBBCol(mOBBColHand, pGame->GetPlayer()->GetOBBCol()))
@@ -428,11 +428,11 @@ void Enemy::draw()
     // ３Ｄモデルの描画
     MV1DrawModel(animHandle);
 
-    // デバッグ処理
     // 当たり判定カプセル描画
     if (CheckHitKey(KEY_INPUT_Q))
         DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
-    // 描画
+   
+    // OBB描画
     if (CheckHitKey(KEY_INPUT_E))
         mOBBCol.draw();
 }
