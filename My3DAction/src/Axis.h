@@ -1,0 +1,14 @@
+/**
+* @file		Axis.h
+* @brief	Axisç\ë¢ëÃ ÇÃêÈåæ
+* @note		OBBÇÃé≤ï€ë∂óp
+*/
+#pragma once
+#include "DxLib.h"
+
+struct Axis
+{
+	VECTOR x = VGet(0.f, 0.f, 0.f);
+	VECTOR y = VGet(0.f, 0.f, 0.f);
+	VECTOR z = VGet(0.f, 0.f, 0.f);
+};

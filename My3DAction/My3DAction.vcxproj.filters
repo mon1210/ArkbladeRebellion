@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{46f2f1d9-5a82-40fb-b8a6-195e21341341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Animation">
+      <UniqueIdentifier>{cb02479c-03cc-4f67-bc6c-080c5d0f15a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BG">
+      <UniqueIdentifier>{23d2bf72-d38a-42b7-86a0-d82af8f21585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Camera">
+      <UniqueIdentifier>{424286bb-b6d5-4e23-bf5d-8ef23fe370c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CharaBase">
+      <UniqueIdentifier>{f17486b2-2561-4862-b125-a0577f2d721f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Collision">
+      <UniqueIdentifier>{549fd931-1206-4e86-9193-0879664f1b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Enemy">
+      <UniqueIdentifier>{6b19b28b-dee1-4c4d-a3c6-e5cdba608d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{cb73c790-84e5-4fae-927b-e549476ad669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GlobalFunctions">
+      <UniqueIdentifier>{a9c31401-8c2b-4955-bc0c-2d25f40bb024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\HealCount">
+      <UniqueIdentifier>{da6fd313-4d83-4113-95ac-d1b06660a63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\HPBar">
+      <UniqueIdentifier>{4f363f42-204d-44ee-a002-428ffe5e0842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IGameScene">
+      <UniqueIdentifier>{ea69eaa7-8c50-4745-b3a0-7a4d2052003b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Main">
+      <UniqueIdentifier>{105b27fb-357d-4f0c-9c4a-267702253df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ModelManager">
+      <UniqueIdentifier>{22cda212-f00b-4491-abd1-7e18e95cb532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\OBBCollider">
+      <UniqueIdentifier>{eafe6b4f-f95e-438a-9c1e-01cb5d2e2e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Player">
+      <UniqueIdentifier>{c45609ef-3c31-4297-b3a9-4a251dbbfa47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SceneManager">
+      <UniqueIdentifier>{c616e22f-6406-4040-bf74-bb6e8d0639e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Title">
+      <UniqueIdentifier>{cc551e79-cb2d-4bae-9d1d-100d2483e5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Radar">
+      <UniqueIdentifier>{c6e4da76-3c74-4fec-9142-1471c0746dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\RadarPoint">
+      <UniqueIdentifier>{54ecda4a-6bdc-48c6-b95e-fc0a15830c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DrawDebguKey">
+      <UniqueIdentifier>{539104af-2f14-42b5-8d00-5250aaaff5b9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp">
+      <Filter>src\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BG\BG.cpp">
+      <Filter>src\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\Camera.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharaBase\CharaBase.cpp">
+      <Filter>src\CharaBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collision\Collision.cpp">
+      <Filter>src\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemy\Enemy.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Game.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GlobalFunctions\GlobalFunctions.cpp">
+      <Filter>src\GlobalFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HealCounter\HealCounter.cpp">
+      <Filter>src\HealCount</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HPBar\HPBar.cpp">
+      <Filter>src\HPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IGameScene\IGameScene.cpp">
+      <Filter>src\IGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main\Main.cpp">
+      <Filter>src\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ModelManager\ModelManager.cpp">
+      <Filter>src\ModelManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBBCollider\OBBCollider.cpp">
+      <Filter>src\OBBCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player\Player.cpp">
+      <Filter>src\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Radar\Radar.cpp">
+      <Filter>src\Radar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RadarPoint\RadarPoint.cpp">
+      <Filter>src\RadarPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneManager\SceneManager.cpp">
+      <Filter>src\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Title\Title.cpp">
+      <Filter>src\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DrawDebugKey\DrawDebugKey.cpp">
+      <Filter>src\DrawDebguKey</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h">
+      <Filter>src\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BG\BG.h">
+      <Filter>src\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera\Camera.h">
+      <Filter>src\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharaBase\CharaBase.h">
+      <Filter>src\CharaBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Collision\Collision.h">
+      <Filter>src\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Constants.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Enemy\Enemy.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Game.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GlobalFunctions\GlobalFunctions.h">
+      <Filter>src\GlobalFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Enums.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HealCounter\HealCounter.h">
+      <Filter>src\HealCount</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HPBar\HPBar.h">
+      <Filter>src\HPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IGameScene\IGameScene.h">
+      <Filter>src\IGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main\Main.h">
+      <Filter>src\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelManager\ModelManager.h">
+      <Filter>src\ModelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OBBCollider\OBBCollider.h">
+      <Filter>src\OBBCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player\Player.h">
+      <Filter>src\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Radar\Radar.h">
+      <Filter>src\Radar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RadarPoint\RadarPoint.h">
+      <Filter>src\RadarPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneManager\SceneManager.h">
+      <Filter>src\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Title\Title.h">
+      <Filter>src\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Resource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stdafx.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Axis.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DrawDebugKey\DrawDebugKey.h">
+      <Filter>src\DrawDebguKey</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
