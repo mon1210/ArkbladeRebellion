@@ -5,6 +5,7 @@
 * @brief	シーン管理クラス		: SceneManager	(SceneManager.h)
 *			ゲームシーンクラス		: Game			(Game.h)
 *			プレイヤークラス		: Player		(Player.h)
+*			当たり判定クラス		: Collision		(Collision.h)
 * @note		エラーが出た際は、プロジェクトのプロパティを開き、
 *			C/C++	 => 全般 => 追加のインクルードディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
 *			リンカー => 全般 => 追加のライブラリディレクトリで'Lib;%(AdditionalIncludeDirectories)'を追加する 又は
