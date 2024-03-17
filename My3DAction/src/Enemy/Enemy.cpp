@@ -22,7 +22,7 @@ Enemy::~Enemy()
 
 
 // ‰Šú‰»ƒƒ\ƒbƒh
-void Enemy::initialize(float hit_point)
+void Enemy::initialize(int hit_point)
 {
     // •Ï”‰Šú‰»
     hitPoint = hit_point;
