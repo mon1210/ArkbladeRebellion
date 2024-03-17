@@ -397,14 +397,6 @@ bool Enemy::isAlive()
     if (hitPoint <= 0 && isDeath)
         return false;
 
-#ifdef _DEBUG
-    // L‚ÅHPŒ¸­
-    if (CheckHitKey(KEY_INPUT_U)) {
-        hitPoint = clampF(hitPoint, 0, ENEMY_MAX_HP); // Å‘åÅ¬‚ðŒˆ’è
-        hitPoint -= HP_CHANGE_AMOUNT;
-    }
-#endif
-
     return true;
 }
 
