@@ -206,7 +206,7 @@ void Player::update()
     }
 
     // hitPoint0以下でdeathへ
-    if (hitPoint <= 0.f && !isDeath)
+    if (hitPoint <= 0 && !isDeath)
         currentState = PlayerState::Death;
 }
 
@@ -489,10 +489,8 @@ void Player::healing()
     // アニメーション終了後
     if (updateAnimation(animTimes[static_cast<int>(ePlayer::AnimationNum::Drinking)], &animTimer, PLAYER_ANIM_F_INCREMENT))
     {
-        // ここでHP回復
-        hitPoint += HEALING_VALUE;
-        // 最大最小を決定
-        hitPoint = clampF(hitPoint, 0, MAX_HP);
+        // HP回復 最大最小を決定
+        hitPoint = clamp(hitPoint += HEALING_VALUE, 0, MAX_HP);
         // 回復可能回数を減らす
         healCount--;
         // Idleへ
@@ -528,7 +526,7 @@ void Player::death()
 bool Player::isAlive()
 {
     // hitPointが0以下
-    if (hitPoint <= 0.f && isDeath)
+    if (hitPoint <= 0 && isDeath)
         return false;
 
 #ifdef _DEBUG
