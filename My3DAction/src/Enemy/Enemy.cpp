@@ -95,7 +95,7 @@ void Enemy::update()
     // UŒ‚‚ðŽó‚¯‚½Žž
     if (pGame->GetPlayer()->GetIsHitFlag())
     {
-        hitPoint = clampF(hitPoint -= PLAYER_ATTACK, 0, ENEMY_MAX_HP); // Å‘åÅ¬‚ðŒˆ’è
+        hitPoint = clamp(hitPoint -= PLAYER_ATTACK, 0, ENEMY_MAX_HP); // Å‘åÅ¬‚ðŒˆ’è
     }
 }
 
