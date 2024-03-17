@@ -169,6 +169,8 @@ const int HEAL_COUNT_POS_Y = 40;
 const int PLAYER_RIGHT_HAND_FRAME = 41;
 //! 最大HP
 const int MAX_HP = 200;
+//! 一度の回復量
+const int HEALING_VALUE = 20;
 //! プレイヤーの初期X座標
 const float PLAYER_START_POS_X = 0.f;
 //! プレイヤーの初期Y座標
@@ -195,8 +197,6 @@ const float BACK_ROTATION_ANGLE = 0.f;
 const float BACKWARD_ROTATION_ANGLE = 0.f;
 //! 3Dモデルの拡大率
 const float MODEL_SCALE = 1.5f;
-//! 一度の回復量
-const float HEALING_VALUE = 20.f;
 //! プレイヤーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float PLAYER_OBB_TRANS_Y = 130.f;
 //! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
