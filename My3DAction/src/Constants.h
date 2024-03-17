@@ -84,7 +84,7 @@ const int FULL_CIRCLE_DEGREES = 360;
 //! 左手のフレーム番号
 const int ENEMY_LEFT_HAND_FRAME = 18;
 //! エネミーの最大HP
-const int ENEMY_MAX_HP = 250;
+const int ENEMY_MAX_HP = 650;
 //! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
 const int PLAYER_ATTACK = 1;
 //! エネミーの初期X座標
