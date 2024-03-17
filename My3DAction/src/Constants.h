@@ -168,9 +168,9 @@ const int HEAL_COUNT_POS_Y = 40;
 //! 右手のフレーム番号
 const int PLAYER_RIGHT_HAND_FRAME = 41;
 //! 最大HP
-const int MAX_HP = 200;
+const int MAX_HP = 500;
 //! 一度の回復量
-const int HEALING_VALUE = 20;
+const int HEALING_VALUE = 80;
 //! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
 const int ENEMY_ATTACK = 1;
 //! プレイヤーの初期X座標
