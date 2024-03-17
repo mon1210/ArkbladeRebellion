@@ -85,6 +85,8 @@ const int FULL_CIRCLE_DEGREES = 360;
 const int ENEMY_LEFT_HAND_FRAME = 18;
 //! エネミーの最大HP
 const int ENEMY_MAX_HP = 250;
+//! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
+const int PLAYER_ATTACK = 1;
 //! エネミーの初期X座標
 const float ENEMY_START_POS_X = 300.f;
 //! エネミーの初期Y座標
@@ -103,8 +105,6 @@ const float ENEMY_MOVE_SPEED = 5.f;
 const float ENEMY_VIEW_RADIUS = 1500.f;
 //! エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float ENEMY_OBB_TRANS_Y = 250.f;
-//! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
-const float PLAYER_ATTACK = 0.5f;
 //! 体の当たり判定OBBの拡縮値
 const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
 //! 体の当たり判定OBBの回転値
