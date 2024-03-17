@@ -289,8 +289,6 @@ const int ENEMY_HP_BAR_WIDTH = 525;
 const int ENEMY_HP_BAR_HEIGHT = 25;
 //! エネミーの名前表示Y座標
 const int ENEMY_NAME_POS_Y = 20;
-//! HPの変化量　バーの増減速度
-const float HP_CHANGE_AMOUNT = 3.f;
 
 // 以上HPBar用定数===================================================================================================== //
 
