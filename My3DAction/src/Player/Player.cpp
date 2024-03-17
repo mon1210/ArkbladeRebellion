@@ -24,7 +24,7 @@ Player::~Player()
 
 
 // ‰Šú‰»ƒƒ\ƒbƒh
-void Player::initialize(float hit_point)
+void Player::initialize(int hit_point)
 {
     // •Ï”‰Šú‰»
     hitPoint = hit_point;

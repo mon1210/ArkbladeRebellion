@@ -46,7 +46,7 @@ public:
 	* @note  拡張性を考慮し引数にHPを指定
 	* @param[in] hit_point  キャラのHP
 	*/
-	void initialize(float hit_point) override;
+	void initialize(int hit_point) override;
 
 	/**
 	* @brief 行動状態の管理メソッド
