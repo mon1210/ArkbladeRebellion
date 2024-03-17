@@ -93,14 +93,14 @@ protected:
 	int		animNum = 0;
 	//! HP
 	int		hitPoint = 100;
+	//! HPが変化したかを判断する用の変数
+	int		currentHP = 0;
 	//! アニメーションの総再生時間
 	float  *animTimes = 0;
 	//! アニメーションの現在の再生時間
 	float	animTimer = 0.f;
 	//! 向き		アタッチ時にradに変換
 	float	angle = 0.f;
-	//! HPが変化したかを判断する用の変数
-	float	currentHP = 0.f;
 	//! 死亡フラグ
 	bool	isDeath = false;
 	//! 自身の攻撃が当たったかのフラグ
