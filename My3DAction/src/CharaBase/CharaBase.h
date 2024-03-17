@@ -52,7 +52,7 @@ public:
 	/**
 	* @brief Hpを取得して返す
 	*/
-	float	GetHp() { return hitPoint; }
+	int	GetHp() { return hitPoint; }
 
 	/**
 	* @brief 攻撃ヒット判定フラグを取得して返す
@@ -91,14 +91,14 @@ protected:
 	int		animHandle = 0;
 	//! アニメーション番号
 	int		animNum = 0;
+	//! HP
+	int		hitPoint = 100;
 	//! アニメーションの総再生時間
-	float* animTimes = 0;
+	float  *animTimes = 0;
 	//! アニメーションの現在の再生時間
 	float	animTimer = 0.f;
 	//! 向き		アタッチ時にradに変換
 	float	angle = 0.f;
-	//! HP
-	float	hitPoint = 100.f;
 	//! HPが変化したかを判断する用の変数
 	float	currentHP = 0.f;
 	//! 死亡フラグ
