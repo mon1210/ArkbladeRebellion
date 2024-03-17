@@ -83,7 +83,7 @@ void Enemy::update()
     stateFunctionMap[currentState]();
 
     // hitPoint0以下でdeathへ
-    if (hitPoint <= 0.f && !isDeath)
+    if (hitPoint <= 0 && !isDeath)
         currentState = EnemyState::Death;
 
     // enemyとplayerの距離ベクトルの更新
@@ -394,7 +394,7 @@ bool Enemy::isTargetVisible()
 bool Enemy::isAlive()
 {
     // hitPointが0以下
-    if (hitPoint <= 0.f && isDeath)
+    if (hitPoint <= 0 && isDeath)
         return false;
 
 #ifdef _DEBUG
