@@ -20,19 +20,19 @@ void HPBar::update()
 	// Player -------------
 	// HPバーの表示比率がHP以上の時
 	if (currnetPlayerHp > pGame->GetPlayer()->GetHp()) {
-		currnetPlayerHp -= HP_CHANGE_AMOUNT;
+		currnetPlayerHp--;
 	}
 	// HPバーの表示比率がHP以下の時
 	else if (currnetPlayerHp < pGame->GetPlayer()->GetHp()) {
-		currnetPlayerHp += HP_CHANGE_AMOUNT;
+		currnetPlayerHp++;
 	}
 
 	// Enemy --------------
 	if (currnetEnemyHp > pGame->GetEnemy()->GetHp()) {
-		currnetEnemyHp -= HP_CHANGE_AMOUNT;
+		currnetEnemyHp--;
 	}
 	else if (currnetEnemyHp < pGame->GetEnemy()->GetHp()) {
-		currnetEnemyHp += HP_CHANGE_AMOUNT;
+		currnetEnemyHp++;
 	}
 }
 
