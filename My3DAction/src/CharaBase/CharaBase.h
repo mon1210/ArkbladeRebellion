@@ -35,7 +35,7 @@ public:
 	* @note  拡張性を考慮し引数にHPを指定
 	* @param[in] hit_point  キャラのHP
 	*/
-	virtual void initialize(float hit_point) = 0;
+	virtual void initialize(int hit_point) = 0;
 
 	/**
 	* @brief 行動状態の管理メソッド
