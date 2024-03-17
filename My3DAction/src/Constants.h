@@ -84,9 +84,9 @@ const int FULL_CIRCLE_DEGREES = 360;
 //! 左手のフレーム番号
 const int ENEMY_LEFT_HAND_FRAME = 18;
 //! エネミーの最大HP
-const int ENEMY_MAX_HP = 650;
+const int ENEMY_MAX_HP = 300;
 //! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
-const int PLAYER_ATTACK = 1;
+const float PLAYER_ATTACK = 0.5f;
 //! エネミーの初期X座標
 const float ENEMY_START_POS_X = 300.f;
 //! エネミーの初期Y座標
@@ -168,11 +168,11 @@ const int HEAL_COUNT_POS_Y = 40;
 //! 右手のフレーム番号
 const int PLAYER_RIGHT_HAND_FRAME = 41;
 //! 最大HP
-const int MAX_HP = 500;
+const int MAX_HP = 300;
 //! 一度の回復量
 const int HEALING_VALUE = 80;
 //! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
-const int ENEMY_ATTACK = 1;
+const float ENEMY_ATTACK = 0.3f;
 //! プレイヤーの初期X座標
 const float PLAYER_START_POS_X = 0.f;
 //! プレイヤーの初期Y座標
