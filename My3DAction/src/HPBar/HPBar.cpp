@@ -41,7 +41,7 @@ void HPBar::update()
 void HPBar::draw()
 {
 	// HPの割合を求める
-	int Ratio = currnetPlayerHp / MAX_HP;
+	float Ratio = currnetPlayerHp / MAX_HP;
 
 	// バーの色指定
 	int BarColor = GREEN;
@@ -58,7 +58,7 @@ void HPBar::draw()
 			WHITE, FALSE);
 
 	// Enemy ----------------------------------
-	int EnemyHPRatio = currnetEnemyHp / ENEMY_MAX_HP;
+	float EnemyHPRatio = currnetEnemyHp / ENEMY_MAX_HP;
 	// HPバー描画	横幅に割合をかけて増減を表現
 	DrawBox(ENEMY_HP_BAR_POS_X, ENEMY_HP_BAR_POS_Y,
 		ENEMY_HP_BAR_POS_X + ENEMY_HP_BAR_WIDTH * EnemyHPRatio, ENEMY_HP_BAR_POS_Y + ENEMY_HP_BAR_HEIGHT,
