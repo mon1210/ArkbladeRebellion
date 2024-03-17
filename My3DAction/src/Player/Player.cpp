@@ -529,14 +529,6 @@ bool Player::isAlive()
     if (hitPoint <= 0 && isDeath)
         return false;
 
-#ifdef _DEBUG
-    // L‚ÅHPŒ¸­
-    if (CheckHitKey(KEY_INPUT_H)) {
-        hitPoint = clampF(hitPoint, 0, MAX_HP); // Å‘åÅ¬‚ðŒˆ’è
-        hitPoint -= HP_CHANGE_AMOUNT;
-    }
-#endif
-
     return true;
 }
 
