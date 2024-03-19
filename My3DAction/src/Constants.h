@@ -14,7 +14,7 @@
 // 以下Camera用定数==================================================================================================== //
 
 //! カメラのアングル変更速度
-const float CAMERA_ANGLE_SPEED = 1.f;
+const float CAMERA_ANGLE_SPEED = 1.5f;
 //! カメラが注視する点からプレイヤーまでの高さ
 const float CAMERA_LOOK_AT_HEIGHT = 100.f;
 //! カメラと注視点の距離
@@ -98,7 +98,7 @@ const float ENEMY_START_ROTATE_Y = 0.f;
 //! エネミーの3Dモデルの拡大率
 const float ENEMY_MODEL_SCALE = 2.5f; 
 //! エネミーの毎フレームごとのアニメーションの増加数
-const float ENEMY_ANIM_F_INCREMENT = 0.35f;
+const float ENEMY_ANIM_F_INCREMENT = 0.6f;
 //! エネミーの移動距離
 const float ENEMY_MOVE_SPEED = 5.f;
 //! エネミーの視野円の半径
@@ -182,7 +182,7 @@ const float PLAYER_START_POS_Z = 600.f;
 //! プレイヤーの初期回転Y
 const float PLAYER_START_ROTATE_Y = 180.f;
 //! プレイヤーの毎フレームごとのアニメーションの増加数
-const float PLAYER_ANIM_F_INCREMENT = 0.35f;
+const float PLAYER_ANIM_F_INCREMENT = 0.6f;
 //! プレイヤーの移動距離
 const float PLAYER_MOVE_SPEED = 14.f;
 //! プレイヤーの前転時の移動距離
@@ -254,7 +254,7 @@ const int STAGE_FADE_TIMER = 80;
 //! タイトルフェードアウト開始時の初期化値
 const int TITLE_DONE_TIME = 0;
 //! タイトルフェードアウトに要する時間
-const int TITLE_FADEOUT_TIME = 75;
+const int TITLE_FADEOUT_TIME = 60;
 //! TitleのX座標
 const int TITLE_POS_X = 0;
 //! TitleのY座標
