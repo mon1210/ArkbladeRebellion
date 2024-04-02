@@ -98,7 +98,7 @@ const float ENEMY_START_ROTATE_Y = 0.f;
 //! エネミーの3Dモデルの拡大率
 const float ENEMY_MODEL_SCALE = 2.5f; 
 //! エネミーの毎フレームごとのアニメーションの増加数
-const float ENEMY_ANIM_F_INCREMENT = 0.45f;
+const float ENEMY_ANIM_F_INCREMENT = 0.3f;
 //! エネミーの移動距離
 const float ENEMY_MOVE_SPEED = 5.f;
 //! エネミーの視野円の半径
@@ -182,7 +182,7 @@ const float PLAYER_START_POS_Z = 600.f;
 //! プレイヤーの初期回転Y
 const float PLAYER_START_ROTATE_Y = 180.f;
 //! プレイヤーの毎フレームごとのアニメーションの増加数
-const float PLAYER_ANIM_F_INCREMENT = 0.45f;
+const float PLAYER_ANIM_F_INCREMENT = 0.3f;
 //! プレイヤーの移動距離
 const float PLAYER_MOVE_SPEED = 14.f;
 //! プレイヤーの前転時の移動距離
