@@ -35,8 +35,8 @@ public:
 private:
 	Game	*pGame = nullptr;
 	//! åªç›ÇÃPlayerÇÃHP
-	float	currnetPlayerHp = 0.f;
+	float currnetPlayerHp = 0;
 	//! åªç›ÇÃEnemyÇÃHP
-	float	currnetEnemyHp = 0.f;
+	float currnetEnemyHp = 0;
 
 };

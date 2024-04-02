@@ -14,7 +14,7 @@
 // 以下Camera用定数==================================================================================================== //
 
 //! カメラのアングル変更速度
-const float CAMERA_ANGLE_SPEED = 1.f;
+const float CAMERA_ANGLE_SPEED = 1.5f;
 //! カメラが注視する点からプレイヤーまでの高さ
 const float CAMERA_LOOK_AT_HEIGHT = 100.f;
 //! カメラと注視点の距離
@@ -83,6 +83,10 @@ const int TIME_TO_TRANSITION = 240;
 const int FULL_CIRCLE_DEGREES = 360;
 //! 左手のフレーム番号
 const int ENEMY_LEFT_HAND_FRAME = 18;
+//! エネミーの最大HP
+const int ENEMY_MAX_HP = 300;
+//! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
+const float PLAYER_ATTACK = 0.5f;
 //! エネミーの初期X座標
 const float ENEMY_START_POS_X = 300.f;
 //! エネミーの初期Y座標
@@ -94,17 +98,13 @@ const float ENEMY_START_ROTATE_Y = 0.f;
 //! エネミーの3Dモデルの拡大率
 const float ENEMY_MODEL_SCALE = 2.5f; 
 //! エネミーの毎フレームごとのアニメーションの増加数
-const float ENEMY_ANIM_F_INCREMENT = 0.35f;
+const float ENEMY_ANIM_F_INCREMENT = 0.45f;
 //! エネミーの移動距離
 const float ENEMY_MOVE_SPEED = 5.f;
 //! エネミーの視野円の半径
 const float ENEMY_VIEW_RADIUS = 1500.f;
-//! エネミーの最大HP
-const float ENEMY_MAX_HP = 250.f;
 //! エネミーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float ENEMY_OBB_TRANS_Y = 250.f;
-//! プレイヤーの攻撃力　エネミークラスで使用するのでここで定義
-const float PLAYER_ATTACK = 0.5f;
 //! 体の当たり判定OBBの拡縮値
 const VECTOR ENEMY_OBB_SCALE = VGet(200.f, 450.f, 200.f);
 //! 体の当たり判定OBBの回転値
@@ -167,6 +167,12 @@ const int HEAL_COUNT_POS_X = 530;
 const int HEAL_COUNT_POS_Y = 40;
 //! 右手のフレーム番号
 const int PLAYER_RIGHT_HAND_FRAME = 41;
+//! 最大HP
+const int MAX_HP = 300;
+//! 一度の回復量
+const int HEALING_VALUE = 80;
+//! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
+const float ENEMY_ATTACK = 0.3f;
 //! プレイヤーの初期X座標
 const float PLAYER_START_POS_X = 0.f;
 //! プレイヤーの初期Y座標
@@ -176,7 +182,7 @@ const float PLAYER_START_POS_Z = 600.f;
 //! プレイヤーの初期回転Y
 const float PLAYER_START_ROTATE_Y = 180.f;
 //! プレイヤーの毎フレームごとのアニメーションの増加数
-const float PLAYER_ANIM_F_INCREMENT = 0.35f;
+const float PLAYER_ANIM_F_INCREMENT = 0.45f;
 //! プレイヤーの移動距離
 const float PLAYER_MOVE_SPEED = 14.f;
 //! プレイヤーの前転時の移動距離
@@ -193,14 +199,8 @@ const float BACK_ROTATION_ANGLE = 0.f;
 const float BACKWARD_ROTATION_ANGLE = 0.f;
 //! 3Dモデルの拡大率
 const float MODEL_SCALE = 1.5f;
-//! 最大HP
-const float MAX_HP = 200.f;
-//! 一度の回復量
-const float HEALING_VALUE = 20.f;
 //! プレイヤーの体の当たり判定OBBの移動値Y　座標Yに加算する
 const float PLAYER_OBB_TRANS_Y = 130.f;
-//! エネミーの攻撃力　プレイヤークラスで使用するのでここで定義
-const float ENEMY_ATTACK = 0.5f;
 //! 体の当たり判定OBBの拡縮値
 const VECTOR PLAYER_OBB_SCALE = VGet(100.f, 250.f, 100.f);
 //! 体の当たり判定OBBの回転値
@@ -254,7 +254,7 @@ const int STAGE_FADE_TIMER = 80;
 //! タイトルフェードアウト開始時の初期化値
 const int TITLE_DONE_TIME = 0;
 //! タイトルフェードアウトに要する時間
-const int TITLE_FADEOUT_TIME = 75;
+const int TITLE_FADEOUT_TIME = 60;
 //! TitleのX座標
 const int TITLE_POS_X = 0;
 //! TitleのY座標
@@ -270,7 +270,7 @@ const int TITLE_PS_POS_Y = 240;
 // 以下HPBar用定数===================================================================================================== //
 
 //! この数値以下でゲージの色変更
-const int LOW_HP = 80;
+const int LOW_HP = MAX_HP / 3;
 //! HPバーのX座標
 const int HP_BAR_POS_X = 250;
 //! HPバーのY座標
@@ -289,8 +289,6 @@ const int ENEMY_HP_BAR_WIDTH = 525;
 const int ENEMY_HP_BAR_HEIGHT = 25;
 //! エネミーの名前表示Y座標
 const int ENEMY_NAME_POS_Y = 20;
-//! HPの変化量　バーの増減速度
-const float HP_CHANGE_AMOUNT = 1.f;
 
 // 以上HPBar用定数===================================================================================================== //
 

@@ -22,7 +22,7 @@ Enemy::~Enemy()
 
 
 // 初期化メソッド
-void Enemy::initialize(float hit_point)
+void Enemy::initialize(int hit_point)
 {
     // 変数初期化
     hitPoint = hit_point;
@@ -83,7 +83,7 @@ void Enemy::update()
     stateFunctionMap[currentState]();
 
     // hitPoint0以下でdeathへ
-    if (hitPoint <= 0.f && !isDeath)
+    if (hitPoint <= 0 && !isDeath)
         currentState = EnemyState::Death;
 
     // enemyとplayerの距離ベクトルの更新
@@ -95,7 +95,7 @@ void Enemy::update()
     // 攻撃を受けた時
     if (pGame->GetPlayer()->GetIsHitFlag())
     {
-        hitPoint = clampF(hitPoint -= PLAYER_ATTACK, 0, ENEMY_MAX_HP); // 最大最小を決定
+        hitPoint = clamp(hitPoint -= PLAYER_ATTACK, 0, ENEMY_MAX_HP); // 最大最小を決定
     }
 }
 
@@ -394,16 +394,8 @@ bool Enemy::isTargetVisible()
 bool Enemy::isAlive()
 {
     // hitPointが0以下
-    if (hitPoint <= 0.f && isDeath)
+    if (hitPoint <= 0 && isDeath)
         return false;
-
-#ifdef _DEBUG
-    // LでHP減少
-    if (CheckHitKey(KEY_INPUT_U)) {
-        hitPoint = clampF(hitPoint, 0, ENEMY_MAX_HP); // 最大最小を決定
-        hitPoint -= HP_CHANGE_AMOUNT;
-    }
-#endif
 
     return true;
 }
