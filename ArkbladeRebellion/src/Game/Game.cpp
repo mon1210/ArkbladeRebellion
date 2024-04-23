@@ -79,21 +79,6 @@ GameSceneResultCode Game::move()
 
 	case StagePhase::STAGE_RUN:
 		// --------------------- STAGE_RUN START ------------------- //
-
-		//	ポーズ画面呼び出し
-		if (CheckHitKey(KEY_INPUT_P))		// P 
-		{
-			if (!bPause) 
-			{
-				stagePhase = StagePhase::STAGE_PAUSE;
-				bPause = true;
-			}
-		}
-		else 
-		{
-			bPause = false;
-		}
-
 		if (pPlayer && pEnemy)
 		{
 			if (!pPlayer->isAlive() || !pEnemy->isAlive())
@@ -111,20 +96,19 @@ GameSceneResultCode Game::move()
 		// --------------------- STAGE_RUN END --------------------- //
 
 	case StagePhase::STAGE_PAUSE:
-		//	ポーズ画面呼び出し
-		if (GetAsyncKeyState(KEY_INPUT_P))	
-		{
-			if (!bPause) 
-			{
-				stagePhase = StagePhase::STAGE_RUN;
-				bPause = true;
-			}
-		}
-		else 
-		{
-			bPause = false;
-		}
-
+		////	ポーズ画面呼び出し
+		//if (CheckHitKey(KEY_INPUT_P))	
+		//{
+		//	if (!bPause) 
+		//	{
+		//		stagePhase = StagePhase::STAGE_RUN;
+		//		bPause = true;
+		//	}
+		//}
+		//else 
+		//{
+		//	bPause = false;
+		//}
 		break;
 
 	case StagePhase::STAGE_FADE:

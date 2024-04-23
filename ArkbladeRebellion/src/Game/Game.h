@@ -122,8 +122,6 @@ private:
 	int			 timer = 0;
 	//! FadeOut開始時間取得用
 	int			 startTime = 0;
-	//! ポーズボタン連打防止フラグ
-	bool		 bPause = false;
 	//! FadeOutが開始したかどうかのflag
 	bool		 isFadeStart = false;
 };
