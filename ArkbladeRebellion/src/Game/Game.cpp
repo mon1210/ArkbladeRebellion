@@ -13,8 +13,8 @@ Game::Game(SceneManager *System)
 	pCamera = new Camera(this);
 	pBG = new BG(this);
 	pDrawDebugKey = new DrawDebugKey();
-	pCollision = new Collision(this);	// •K‚¸Player‚æ‚èã‚É‘‚­
-	pRadar = new Radar();				// •K‚¸Player‚æ‚èã‚É‘‚­
+	pCollision = new Collision(this);
+	pRadar = new Radar();
 	pPlayer = new Player(this);
 	pEnemy = new Enemy(this);
 	pHPBar = new HPBar(this);
