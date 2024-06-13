@@ -188,43 +188,43 @@ private:
 * @def Key_ForwardMove
 * @brief 前進キーの入力を判定
 */
-#define Key_ForwardMove		CheckHitKey(KEY_INPUT_UP)
+#define Key_ForwardMove		CheckHitKey(KEY_INPUT_W)
 /**
 * @def Key_BackMove
 * @brief 後退キーの入力を判定
 */
-#define Key_BackMove		CheckHitKey(KEY_INPUT_DOWN)
+#define Key_BackMove		CheckHitKey(KEY_INPUT_S)
 /**
 * @def Key_RightMove
 * @brief 右移動キーの入力を判定
 */
-#define Key_RightMove		CheckHitKey(KEY_INPUT_RIGHT)
+#define Key_RightMove		CheckHitKey(KEY_INPUT_D)
 /**
 * @def Key_Left_Move
 * @brief 左移動キーの入力を判定
 */
-#define Key_Left_Move		CheckHitKey(KEY_INPUT_LEFT)
+#define Key_Left_Move		CheckHitKey(KEY_INPUT_A)
 
 /**
 * @def Key_ForwardRoll
 * @brief 前転キーの入力を判定
 */
-#define Key_ForwardRoll		CheckHitKey(KEY_INPUT_W)
+#define Key_ForwardRoll		CheckHitKey(KEY_INPUT_UP)
 /**
 * @def Key_RightRoll
 * @brief 右回転キーの入力を判定
 */
-#define Key_RightRoll		CheckHitKey(KEY_INPUT_D)
+#define Key_RightRoll		CheckHitKey(KEY_INPUT_RIGHT)
 /**
 * @def Key_LeftRoll
 * @brief 左回転キーの入力を判定
 */
-#define Key_LeftRoll		CheckHitKey(KEY_INPUT_A)
+#define Key_LeftRoll		CheckHitKey(KEY_INPUT_LEFT)
 /**
 * @def Key_BackRoll
 * @brief 後ろ回転キーの入力を判定
 */
-#define Key_BackRoll		CheckHitKey(KEY_INPUT_S)
+#define Key_BackRoll		CheckHitKey(KEY_INPUT_DOWN)
 
 /**
 * @def Key_Attack
@@ -235,4 +235,4 @@ private:
 * @def Key_Healing
 * @brief 回復キーの入力を判定
 */
-#define Key_Healing			CheckHitKey(KEY_INPUT_F)
+#define Key_Healing			CheckHitKey(KEY_INPUT_C)

@@ -322,7 +322,7 @@ void Enemy::attack()
     mOBBColHand.setParentMatrix(frame_matrix);
 
     // ŽèOBB•`‰æ
-    if (CheckHitKey(KEY_INPUT_E))
+    if (CheckHitKey(KEY_INPUT_LSHIFT))
         mOBBColHand.draw(WHITE);
 
     // ŽèOBB,ƒvƒŒƒCƒ„[OBB‚Å‚Ì“–‚½‚è”»’è
@@ -425,7 +425,7 @@ void Enemy::draw()
         DrawCapsule3D(position, VGet(position.x, position.y + ENEMY_CAP_HEIGHT, position.z), ENEMY_CAP_RADIUS, 10, RED, RED, FALSE);
    
     // OBB•`‰æ
-    if (CheckHitKey(KEY_INPUT_E))
+    if (CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // “–‚½‚Á‚Ä‚¢‚é‚Æ‚«‚ÍÔF‚É
         if (pGame->GetPlayer()->GetIsHitFlag())

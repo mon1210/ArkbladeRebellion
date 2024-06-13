@@ -446,7 +446,7 @@ void Player::attack()
     mOBBColSword.setParentMatrix(frame_matrix);
 
     // Œ•OBB•`‰æ
-    if (CheckHitKey(KEY_INPUT_E))
+    if (CheckHitKey(KEY_INPUT_LSHIFT))
         mOBBColSword.draw(WHITE);
 
     // •ŠíOBB,“GOBB‚Å‚Ì“–‚½‚è”»’è
@@ -557,7 +557,7 @@ void Player::draw()
         DrawCapsule3D(position, VGet(position.x, position.y + CAP_HEIGHT, position.z), PLAYER_CAP_RADIUS, 10, RED, RED, FALSE);
 
     // OBB•`‰æ
-    if (CheckHitKey(KEY_INPUT_E))
+    if (CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // “–‚½‚Á‚Ä‚¢‚é‚Æ‚«‚ÍÔF‚É
         if (pGame->GetEnemy()->GetIsHitFlag())
